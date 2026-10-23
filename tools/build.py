@@ -19,10 +19,22 @@ To add a new app: add an entry to APPS below and a page function, then re-run.
 
 import os
 import json
+import hashlib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 SITE_URL = "https://qeuapps.com"
+
+
+def asset_ver(rel):
+    """Short content hash for cache-busting (?v=) so browsers never pair new
+    HTML with a stale cached CSS/JS after a deploy."""
+    with open(os.path.join(ROOT, rel), "rb") as f:
+        return hashlib.sha1(f.read()).hexdigest()[:10]
+
+
+CSS_HREF = f"/assets/css/styles.css?v={asset_ver('assets/css/styles.css')}"
+JS_SRC = f"/assets/js/site.js?v={asset_ver('assets/js/site.js')}"
 SUPPORT_EMAIL = "thibantechsolutions@gmail.com"
 WHATSAPP_DISPLAY = "+966 55 426 0804"          # shown to visitors
 WHATSAPP_NUMBER = "966554260804"               # E.164 digits for wa.me
@@ -412,7 +424,7 @@ def render(path, title_en, title_ar, desc_en, desc_ar, body,
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 {FONTS}
-<link rel="stylesheet" href="/assets/css/styles.css">
+<link rel="stylesheet" href="{CSS_HREF}">
 </head>
 <body>
 {header(active)}
@@ -420,7 +432,7 @@ def render(path, title_en, title_ar, desc_en, desc_ar, body,
 {body}
 </main>
 {footer()}
-<script src="/assets/js/site.js" defer></script>
+<script src="{JS_SRC}" defer></script>
 {TITLE_SYNC}
 </body>
 </html>'''
@@ -1016,7 +1028,7 @@ def privacy_doc(app, lang, data, canonical):
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 {FONTS}
-<link rel="stylesheet" href="/assets/css/styles.css">
+<link rel="stylesheet" href="{CSS_HREF}">
 </head>
 <body class="doc">
 <main class="doc-wrap">
