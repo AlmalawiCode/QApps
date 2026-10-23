@@ -3,8 +3,8 @@
   "short_name": "Q Apps",
   "start_url": "/",
   "display": "browser",
-  "background_color": "#ffffff",
-  "theme_color": "#165dff",
+  "background_color": "#F3F5F7",
+  "theme_color": "#0F1B2D",
   "icons": [
     {
       "src": "/assets/img/brand/icon-192.png",

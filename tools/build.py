@@ -79,6 +79,34 @@ def whatsapp_button():
 
 YEAR = "2026"
 
+# Brand mark: a Q ring whose tail is an app tile. Colours come from CSS
+# (.qmark .qm-ring / .qm-tile / .qm-dot) so it works on light and dark.
+def qmark(cls="qmark", size=38):
+    return (f'<svg class="{cls}" viewBox="0 0 120 120" width="{size}" height="{size}" aria-hidden="true">'
+            '<circle class="qm-ring" cx="56" cy="56" r="37" fill="none" stroke-width="19"/>'
+            '<rect class="qm-tile" x="72" y="72" width="40" height="40" rx="12" stroke-width="7" paint-order="stroke"/>'
+            '<circle class="qm-dot" cx="92" cy="92" r="5"/></svg>')
+
+ARROW_SVG = ('<svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" '
+             'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>')
+ICON_CODE = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
+             'stroke-linejoin="round" aria-hidden="true"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></svg>')
+ICON_PHONE = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
+              'stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 18.5h3"/></svg>')
+ICON_TARGET = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
+               '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>')
+ICON_CHECK = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" '
+              'stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 4.5 3.4 8.2 8 9 4.6-.8 8-4.5 8-9V6Z"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>')
+ICON_USER = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" '
+             'stroke-linejoin="round" aria-hidden="true"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 0 0-7.1 7.1L12 21.5l8.8-8.8a5 5 0 0 0 0-7.1Z"/></svg>')
+
+FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
+         '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
+         '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500..700'
+         '&family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700'
+         '&family=JetBrains+Mono:wght@500&family=Manrope:wght@400..800&display=swap">')
+THEME_COLOR = "#0F1B2D"
+
 # ---------------------------------------------------------------------------
 # small bilingual helpers — each text node is emitted twice (data-en/data-ar);
 # CSS shows only the active language. Both languages ship in the HTML so the
@@ -267,8 +295,7 @@ def header(active):
     links_html = "".join(links)
     return f'''<a class="skip" href="#main"><span data-en>Skip to content</span><span data-ar>تخطَّ إلى المحتوى</span></a>
 <header class="site-header"><div class="container"><nav class="nav" aria-label="Main">
-  <a class="brand" href="/"><img src="/assets/img/brand/icon-192.png" alt="" width="34" height="34">
-    <span data-en>Q Apps</span><span data-ar>Q Apps</span></a>
+  <a class="brand" href="/" aria-label="Q Apps">{qmark()}<span><b>Q</b> Apps</span></a>
   <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
   <div class="nav-links" id="nav-links">{links_html}
     <button class="lang-btn" data-lang-toggle type="button" aria-label="التبديل إلى العربية">العربية</button>
@@ -301,12 +328,11 @@ def footer():
     return f'''<footer class="site-footer"><div class="container">
   <div class="footer-grid">
     <div>
-      <div class="footer-brand"><img src="/assets/img/brand/icon-192.png" alt="" width="32" height="32">
-        <span data-en>Q Apps</span><span data-ar>Q Apps</span></div>
-      <p style="color:rgba(255,255,255,.7);max-width:34ch" data-en>Web &amp; mobile application development — plus our own privacy-first apps.</p>
-      <p style="color:rgba(255,255,255,.7);max-width:34ch" data-ar>تطوير تطبيقات الويب والجوال — إضافةً إلى تطبيقاتنا الخاصة التي تحترم الخصوصية.</p>
-      <p style="color:#94a3b8;margin-top:8px"><a href="mailto:{SUPPORT_EMAIL}"><bdi dir="ltr">{SUPPORT_EMAIL}</bdi></a></p>
-      <p style="color:#94a3b8;margin-top:4px"><a href="{WHATSAPP_LINK}" target="_blank" rel="noopener"><span data-en>WhatsApp</span><span data-ar>واتساب</span>: <bdi dir="ltr">{WHATSAPP_DISPLAY}</bdi></a></p>
+      <div class="footer-brand">{qmark(size=40)}<span><b>Q</b> Apps</span></div>
+      <p style="max-width:34ch" data-en>Web &amp; mobile application development — plus our own privacy-first apps.</p>
+      <p style="max-width:34ch" data-ar>تطوير تطبيقات الويب والجوال — إضافةً إلى تطبيقاتنا الخاصة التي تحترم الخصوصية.</p>
+      <p style="margin-top:14px"><a href="mailto:{SUPPORT_EMAIL}"><bdi dir="ltr">{SUPPORT_EMAIL}</bdi></a></p>
+      <p style="margin-top:4px"><a href="{WHATSAPP_LINK}" target="_blank" rel="noopener"><span data-en>WhatsApp</span><span data-ar>واتساب</span>: <bdi dir="ltr">{WHATSAPP_DISPLAY}</bdi></a></p>
     </div>
     {apps_col}{help_col}{legal_col}
   </div>
@@ -365,8 +391,8 @@ def render(path, title_en, title_ar, desc_en, desc_ar, body,
 <title>{esc(title_en)}</title>
 <meta name="description" content="{esc(desc_en)}">
 {canonical_tag}
-<meta name="theme-color" content="#165dff">
-<meta name="color-scheme" content="light">
+<meta name="theme-color" content="{THEME_COLOR}">
+<meta name="color-scheme" content="light dark">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Q Apps">
 <meta property="og:title" content="{esc(title_en)}">
@@ -385,6 +411,7 @@ def render(path, title_en, title_ar, desc_en, desc_ar, body,
 <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
+{FONTS}
 <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 <body>
@@ -491,46 +518,51 @@ def featured_app_card(app, shot, desc_en, desc_ar):
 
 def page_home():
     hero = f'''<section class="hero" id="home"><div class="container hero-grid">
-  <div>
+  <div class="hero-copy">
     <span class="eyebrow" data-en>Web &amp; Mobile Application Development</span><span class="eyebrow" data-ar>تطوير تطبيقات الويب والجوال</span>
-    {h(1, "Modern web and mobile applications, built with purpose.", "تطبيقات ويب وجوال حديثة، تُبنى لهدف واضح.")}
+    <h1 data-en>Modern web and mobile applications, built with <em>purpose.</em></h1>
+    <h1 data-ar>تطبيقات ويب وجوال حديثة، تُبنى <em>لهدف واضح.</em></h1>
     {p("Q Apps designs and develops reliable web and mobile applications — and publishes its own privacy-first apps for everyday life.",
        "تصمّم Q Apps وتطوّر تطبيقات ويب وجوال موثوقة — وتنشر تطبيقاتها الخاصة التي تضع الخصوصية أولًا لحياتك اليومية.", "lead")}
     <div class="btn-row">
-      <a class="btn btn-primary" href="/#services"><span data-en>Our Services</span><span data-ar>خدماتنا</span></a>
+      <a class="btn btn-primary" href="/#services"><span data-en>Our Services</span><span data-ar>خدماتنا</span>{ARROW_SVG}</a>
       <a class="btn btn-secondary" href="/apps/"><span data-en>View Apps</span><span data-ar>عرض التطبيقات</span></a>
     </div>
+    <div class="hero-meta">
+      <span>{APPLE_SVG.replace('<svg ', '<svg fill="currentColor" ')}iOS</span>
+      <span>{PLAY_SVG.replace('<svg ', '<svg fill="currentColor" ')}Android</span>
+      <span>{ICON_CODE}<span data-en>Web</span><span data-ar>الويب</span></span>
+    </div>
   </div>
-  <div class="device-stage" aria-hidden="true">
-    <div class="glow"></div>
+  <div class="stage" aria-hidden="true">
+    <div class="halo"></div>
+    <svg class="big-q qmark" viewBox="0 0 120 120">
+      <circle class="qm-ring" cx="56" cy="56" r="37" fill="none" stroke-width="15" stroke-linecap="round" transform="rotate(45 56 56)"/>
+      <g class="qm-tile-g"><rect class="qm-tile" x="74" y="74" width="38" height="38" rx="11" stroke-width="6" paint-order="stroke"/></g>
+    </svg>
+    <div class="phone-frame pf-1"><img src="/assets/img/apps/countdown/Countdown_Home.jpg" alt="" loading="eager"></div>
+    <div class="phone-frame pf-2"><img src="/assets/img/apps/vault/dashboard.jpg" alt="" loading="eager"></div>
     <div class="fbadge web"><span>&lt;/&gt;</span><b data-en>Web Apps</b><b data-ar>تطبيقات الويب</b></div>
-    <div class="fbadge mobile"><span>▣</span><b data-en>Mobile Apps</b><b data-ar>تطبيقات الجوال</b></div>
-    <div class="laptop"><div class="screen">
-      <div class="screen-top"><div class="mini-logo"></div><div class="dots"><i></i><i></i><i></i></div></div>
-      <div class="dash">
-        <div class="panel"><div class="bars"><span></span><span></span><span></span><span></span></div></div>
-        <div class="panel"><div class="rowline"></div><div class="rowline"></div><div class="rowline"></div><div class="rowline"></div></div>
-      </div>
-    </div></div>
-    <div class="phone"><img src="/assets/img/apps/countdown/Countdown_Home.jpg" alt="" loading="lazy"></div>
+    <div class="fbadge mobile"><span>{ICON_PHONE}</span><b data-en>Mobile Apps</b><b data-ar>تطبيقات الجوال</b></div>
   </div>
 </div></section>'''
 
-    services = f'''<section id="services"><div class="container">
+    services = f'''<section id="services" style="padding-top:24px"><div class="container">
   <div class="section-head">
+    <span class="kicker" data-en>Services</span><span class="kicker" data-ar>الخدمات</span>
     {h(2, "What we build", "ما الذي نطوره")}
     {p("A focused software studio specializing in two core areas: modern web applications and mobile applications.",
        "استوديو برمجيّ متخصّص في مجالين أساسيين: تطبيقات الويب الحديثة وتطبيقات الجوال.")}
   </div>
   <div class="services">
     <article class="service-card">
-      <div class="service-icon" aria-hidden="true">&lt;/&gt;</div>
+      <div class="service-icon">{ICON_CODE}</div>
       {h(3, "Web Application Development", "تطوير تطبيقات الويب")}
       {p("Responsive, secure, and maintainable web applications designed around real business and user requirements.",
          "تطبيقات ويب متجاوبة وآمنة وقابلة للصيانة، مصمّمة وفق احتياجات العمل والمستخدم الفعلية.")}
     </article>
     <article class="service-card">
-      <div class="service-icon" aria-hidden="true">▣</div>
+      <div class="service-icon">{ICON_PHONE}</div>
       {h(3, "Mobile Application Development", "تطوير تطبيقات الجوال")}
       {p("Polished cross-platform mobile applications for Android and iOS, with a strong focus on usability, reliability, performance, and a consistent experience.",
          "تطبيقات جوال متقنة تعمل على أندرويد و iOS، مع تركيز قوي على سهولة الاستخدام والموثوقية والأداء وتجربة متناسقة.")}
@@ -538,34 +570,38 @@ def page_home():
   </div>
 </div></section>'''
 
-    apps_section = f'''<section class="apps-section" id="apps"><div class="container">
+    apps_section = f'''<section class="apps-section" id="apps" style="padding-top:24px"><div class="container">
   <div class="section-head">
+    <span class="kicker" data-en>Our apps</span><span class="kicker" data-ar>تطبيقاتنا</span>
     {h(2, "Featured applications", "التطبيقات المميّزة")}
     {p("Our own published apps — private by design, and available in Arabic and English.",
        "تطبيقاتنا المنشورة — خاصّة بطبيعتها، ومتوفّرة بالعربية والإنجليزية.")}
   </div>
   <div class="app-grid">
-    {featured_app_card(APPS['countdown-keeper'], "/assets/img/apps/countdown/event.jpg",
-        "A clean way to track important dates — countdowns, elapsed time, recurring Hijri/Gregorian events, reminders, and handy date tools.",
-        "طريقة أنيقة لمتابعة التواريخ المهمة — عدّ تنازلي، ووقت منقضٍ، وأحداث متكرّرة هجرية/ميلادية، وتذكيرات، وأدوات تاريخ عملية.")}
     {featured_app_card(APPS['vault'], "/assets/img/apps/vault/dashboard.jpg",
         "Organize invoices and warranty records, scan receipts and ZATCA QR codes, and get reminded before a warranty expires.",
         "نظّم الفواتير وسجلّات الضمان، وامسح الإيصالات ورموز QR الضريبية، واحصل على تذكير قبل انتهاء الضمان.")}
+    {featured_app_card(APPS['countdown-keeper'], "/assets/img/apps/countdown/event.jpg",
+        "A clean way to track important dates — countdowns, elapsed time, recurring Hijri/Gregorian events, reminders, and handy date tools.",
+        "طريقة أنيقة لمتابعة التواريخ المهمة — عدّ تنازلي، ووقت منقضٍ، وأحداث متكرّرة هجرية/ميلادية، وتذكيرات، وأدوات تاريخ عملية.")}
   </div>
 </div></section>'''
 
-    why = f'''<section id="about"><div class="container">
-  <div class="section-head center">{h(2, "Why Q Apps?", "لماذا Q Apps؟")}</div>
+    why = f'''<section id="about" style="padding-top:24px"><div class="container">
+  <div class="section-head">
+    <span class="kicker" data-en>Why us</span><span class="kicker" data-ar>لماذا نحن</span>
+    {h(2, "Why Q Apps?", "لماذا Q Apps؟")}
+  </div>
   <div class="why-grid">
-    <article class="why-card"><div class="service-icon" aria-hidden="true">◎</div>
+    <article class="why-card"><div class="service-icon">{ICON_TARGET}</div>
       <strong data-en>Focused</strong><strong data-ar>تركيز واضح</strong>
       {p("We concentrate on web and mobile application development — not services we don't provide.",
          "نركّز على تطوير تطبيقات الويب والجوال — لا على خدمات لا نقدّمها.")}</article>
-    <article class="why-card"><div class="service-icon" aria-hidden="true">✓</div>
+    <article class="why-card"><div class="service-icon">{ICON_CHECK}</div>
       <strong data-en>Reliable</strong><strong data-ar>موثوقية</strong>
       {p("Every application is understandable, maintainable, tested, and practical for real users.",
          "كل تطبيق واضح وقابل للصيانة ومختبَر وعمليّ للمستخدم الحقيقي.")}</article>
-    <article class="why-card"><div class="service-icon" aria-hidden="true">♥</div>
+    <article class="why-card"><div class="service-icon">{ICON_USER}</div>
       <strong data-en>User-centered</strong><strong data-ar>يركّز على المستخدم</strong>
       {p("Simple, professional, and consistent across desktop and mobile — in Arabic and English.",
          "بسيط واحترافيّ ومتناسق على الحاسب والجوال — بالعربية والإنجليزية.")}</article>
@@ -577,7 +613,7 @@ def page_home():
     {h(2, "Have an application idea?", "لديك فكرة لتطبيق؟")}
     {p("Let's turn it into a clear, useful web or mobile application.", "لنحوّلها إلى تطبيق ويب أو جوال واضح ومفيد.")}
   </div>
-  <a class="btn btn-secondary" href="/contact/"><span data-en>Contact us</span><span data-ar>تواصل معنا</span></a>
+  <a class="btn btn-secondary" href="/contact/"><span data-en>Contact us</span><span data-ar>تواصل معنا</span>{ARROW_SVG}</a>
 </div></div></section>'''
 
     return hero + services + apps_section + why + cta
@@ -973,12 +1009,13 @@ def privacy_doc(app, lang, data, canonical):
 <meta name="description" content="{esc(data['title'])}">
 <link rel="canonical" href="{canonical}">
 {hreflang}
-<meta name="theme-color" content="#165dff">
-<meta name="color-scheme" content="light">
+<meta name="theme-color" content="{THEME_COLOR}">
+<meta name="color-scheme" content="light dark">
 <meta name="robots" content="index,follow">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+{FONTS}
 <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 <body class="doc">
@@ -1224,7 +1261,7 @@ def page_about():
 def page_404():
     body = f'''<div class="center-screen">
   <div>
-    <img src="/assets/img/brand/icon-192.png" alt="" width="72" height="72" style="margin:0 auto 20px;border-radius:16px">
+    {qmark(size=96)}
     {h(1, "Page not found", "الصفحة غير موجودة")}
     {p("The page you were looking for doesn't exist or has moved.", "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.", "lead")}
     <div class="btn-row" style="justify-content:center;margin-top:20px">
@@ -1268,8 +1305,8 @@ def write_manifest():
         "short_name": "Q Apps",
         "start_url": "/",
         "display": "browser",
-        "background_color": "#ffffff",
-        "theme_color": "#165dff",
+        "background_color": "#F3F5F7",
+        "theme_color": THEME_COLOR,
         "icons": [
             {"src": "/assets/img/brand/icon-192.png", "sizes": "192x192", "type": "image/png"},
             {"src": "/assets/img/brand/icon-512.png", "sizes": "512x512", "type": "image/png"},
