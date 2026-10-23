@@ -1,11 +1,11 @@
-/* Thiban Tech Solutions — minimal vanilla JS.
+/* Q Apps — minimal vanilla JS.
    Handles the Arabic/English switch (persisted) and the mobile nav.
    The initial language is applied by a tiny inline script in <head>
    (see the generated pages) so there is no flash of the wrong language. */
 (function () {
   "use strict";
 
-  var STORAGE_KEY = "thiban-lang";
+  var STORAGE_KEY = "qapps-lang";
 
   function apply(lang) {
     var html = document.documentElement;

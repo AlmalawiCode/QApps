@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://thiban1.com/sitemap.xml
+Sitemap: https://qeuapps.com/sitemap.xml

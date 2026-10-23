@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Static site generator for thiban1.com (Thiban Tech Solutions).
+Static site generator for qeuapps.com (Q Apps).
 
 Why a generator: the site is bilingual (English + Modern Standard Arabic,
 with real RTL) across ~15 routes, and every page shares the same header,
@@ -22,7 +22,7 @@ import json
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-SITE_URL = "https://thiban1.com"
+SITE_URL = "https://qeuapps.com"
 SUPPORT_EMAIL = "thibantechsolutions@gmail.com"
 WHATSAPP_DISPLAY = "+966 55 426 0804"          # shown to visitors
 WHATSAPP_NUMBER = "966554260804"               # E.164 digits for wa.me
@@ -30,22 +30,23 @@ WHATSAPP_LINK = f"https://wa.me/{WHATSAPP_NUMBER}"
 
 # Public branded campaign URL /vault -> existing Google Apps Script web app.
 # To change the destination later, edit ONLY this constant and rebuild;
-# the public URL (https://thiban1.com/vault) never changes.
+# the public URL (https://qeuapps.com/vault) never changes.
 VAULT_TARGET = ("https://script.google.com/macros/s/"
                 "AKfycbwnPfxZyhVzHT7LeKh_t9bJ6PtqDBxNoT1-1OBdc8belWGpx3gQmF7jtBUZ1f-DXbaK/exec")
 
 # NEW (v2) architecture: /vault-new hosts the FULL campaign UI on our own domain
 # and calls the Apps Script v2 deployment as a JSON/JSONP backend API. This keeps
-# the visitor on thiban1.com (no "created by a Google Apps Script user" banner).
+# the visitor on our own domain (no "created by a Google Apps Script user" banner).
 # Edit ONLY this constant to re-point the backend; the public URL never changes.
 VAULTNEW_EXEC_URL = ("https://script.google.com/macros/s/"
                      "AKfycbxPmeFcL5oLIY-5UEoo7R_NyJS2J4xALkBgoKuswFQU4z9sEwNO1EC_KFraQ1-opBf2NQ/exec")
 
 # First-party proxy for /vault-new: a Cloudflare Worker on api.thiban1.com
-# forwards to VAULTNEW_EXEC_URL. Because api.thiban1.com shares the root domain,
-# the browser treats it as same-site, so iOS tracking-protection / content
-# blockers don't drop the analytics call (the direct script.google.com call was
-# being blocked). The page calls this base with a normal fetch().
+# forwards to VAULTNEW_EXEC_URL. The page calls this base with a normal fetch().
+# Kept unchanged after the move to qeuapps.com: the Worker answers CORS with
+# "Access-Control-Allow-Origin: *". (On thiban1.com it was also same-site, which
+# kept iOS tracking-protection / content blockers from dropping the call; a
+# future api.qeuapps.com route on the same Worker would restore that.)
 VAULTNEW_API_BASE = "https://api.thiban1.com/"
 
 # Full campaign page for /vault and /vault-new. Lives in its own file (the live,
@@ -240,7 +241,7 @@ NAV = [
 
 # pre-paint language script (kept as a plain string to avoid f-string braces)
 PREPAINT = (
-    "<script>(function(){try{var l=localStorage.getItem('thiban-lang');"
+    "<script>(function(){try{var l=localStorage.getItem('qapps-lang');"
     "if(!l){l=((navigator.language||navigator.userLanguage||'en')"
     ".slice(0,2)==='ar')?'ar':'en';}var d=document.documentElement;"
     "d.setAttribute('data-lang',l);d.setAttribute('lang',l);"
@@ -267,7 +268,7 @@ def header(active):
     return f'''<a class="skip" href="#main"><span data-en>Skip to content</span><span data-ar>تخطَّ إلى المحتوى</span></a>
 <header class="site-header"><div class="container"><nav class="nav" aria-label="Main">
   <a class="brand" href="/"><img src="/assets/img/brand/icon-192.png" alt="" width="34" height="34">
-    <span data-en>Thiban Tech Solutions</span><span data-ar>ذيبان للحلول التقنية</span></a>
+    <span data-en>Q Apps</span><span data-ar>Q Apps</span></a>
   <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
   <div class="nav-links" id="nav-links">{links_html}
     <button class="lang-btn" data-lang-toggle type="button" aria-label="التبديل إلى العربية">العربية</button>
@@ -301,7 +302,7 @@ def footer():
   <div class="footer-grid">
     <div>
       <div class="footer-brand"><img src="/assets/img/brand/icon-192.png" alt="" width="32" height="32">
-        <span data-en>Thiban Tech Solutions</span><span data-ar>ذيبان للحلول التقنية</span></div>
+        <span data-en>Q Apps</span><span data-ar>Q Apps</span></div>
       <p style="color:rgba(255,255,255,.7);max-width:34ch" data-en>Web &amp; mobile application development — plus our own privacy-first apps.</p>
       <p style="color:rgba(255,255,255,.7);max-width:34ch" data-ar>تطوير تطبيقات الويب والجوال — إضافةً إلى تطبيقاتنا الخاصة التي تحترم الخصوصية.</p>
       <p style="color:#94a3b8;margin-top:8px"><a href="mailto:{SUPPORT_EMAIL}"><bdi dir="ltr">{SUPPORT_EMAIL}</bdi></a></p>
@@ -310,7 +311,7 @@ def footer():
     {apps_col}{help_col}{legal_col}
   </div>
   <div class="footer-bottom">
-    <span>&copy; {YEAR} Thiban Tech Solutions.
+    <span>&copy; {YEAR} Q Apps.
       <span data-en>All rights reserved.</span><span data-ar>جميع الحقوق محفوظة.</span></span>
     <span><a href="/privacy/"><span data-en>Privacy</span><span data-ar>الخصوصية</span></a>
       &nbsp;·&nbsp;
@@ -367,7 +368,7 @@ def render(path, title_en, title_ar, desc_en, desc_ar, body,
 <meta name="theme-color" content="#165dff">
 <meta name="color-scheme" content="light">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Thiban Tech Solutions">
+<meta property="og:site_name" content="Q Apps">
 <meta property="og:title" content="{esc(title_en)}">
 <meta property="og:description" content="{esc(desc_en)}">
 {og_url}
@@ -493,8 +494,8 @@ def page_home():
   <div>
     <span class="eyebrow" data-en>Web &amp; Mobile Application Development</span><span class="eyebrow" data-ar>تطوير تطبيقات الويب والجوال</span>
     {h(1, "Modern web and mobile applications, built with purpose.", "تطبيقات ويب وجوال حديثة، تُبنى لهدف واضح.")}
-    {p("Thiban Tech Solutions designs and develops reliable web and mobile applications — and publishes its own privacy-first apps for everyday life.",
-       "تصمّم ذيبان للحلول التقنية وتطوّر تطبيقات ويب وجوال موثوقة — وتنشر تطبيقاتها الخاصة التي تضع الخصوصية أولًا لحياتك اليومية.", "lead")}
+    {p("Q Apps designs and develops reliable web and mobile applications — and publishes its own privacy-first apps for everyday life.",
+       "تصمّم Q Apps وتطوّر تطبيقات ويب وجوال موثوقة — وتنشر تطبيقاتها الخاصة التي تضع الخصوصية أولًا لحياتك اليومية.", "lead")}
     <div class="btn-row">
       <a class="btn btn-primary" href="/#services"><span data-en>Our Services</span><span data-ar>خدماتنا</span></a>
       <a class="btn btn-secondary" href="/apps/"><span data-en>View Apps</span><span data-ar>عرض التطبيقات</span></a>
@@ -554,7 +555,7 @@ def page_home():
 </div></section>'''
 
     why = f'''<section id="about"><div class="container">
-  <div class="section-head center">{h(2, "Why Thiban Tech Solutions?", "لماذا ذيبان للحلول التقنية؟")}</div>
+  <div class="section-head center">{h(2, "Why Q Apps?", "لماذا Q Apps؟")}</div>
   <div class="why-grid">
     <article class="why-card"><div class="service-icon" aria-hidden="true">◎</div>
       <strong data-en>Focused</strong><strong data-ar>تركيز واضح</strong>
@@ -586,18 +587,18 @@ def page_apps():
     body = f'''{crumbs([("Home","الرئيسية","/"),("Apps","التطبيقات",None)])}
 <section class="section"><div class="container">
   {h(1, "Our Apps", "تطبيقاتنا")}
-  {p("Every Thiban app is private by design and available in Arabic and English. Choose an app to learn more, read a tutorial, or view its privacy policy.",
-     "كل تطبيق من ذيبان خاصٌّ بطبيعته ومتوفّر بالعربية والإنجليزية. اختر تطبيقًا لتعرف المزيد، أو لقراءة شرحه، أو لمطالعة سياسة خصوصيته.", "lead")}
+  {p("Every Q Apps app is private by design and available in Arabic and English. Choose an app to learn more, read a tutorial, or view its privacy policy.",
+     "كل تطبيق من Q Apps خاصٌّ بطبيعته ومتوفّر بالعربية والإنجليزية. اختر تطبيقًا لتعرف المزيد، أو لقراءة شرحه، أو لمطالعة سياسة خصوصيته.", "lead")}
   <div class="grid grid-2" style="margin-top:36px">
     {app_card(APPS['countdown-keeper'])}
     {app_card(APPS['vault'])}
   </div>
 </div></section>'''
     return render("/apps/",
-                  "Our Apps — Thiban Tech Solutions",
-                  "تطبيقاتنا — ذيبان للحلول التقنية",
-                  "Explore mobile apps by Thiban Tech Solutions: Countdown Keeper and Vault — Warranty Manager. Private, offline-first, in Arabic and English.",
-                  "استعرض تطبيقات ذيبان للحلول التقنية: العدّاد وخزنة الضمانات. تطبيقات خاصة تعمل دون اتصال، بالعربية والإنجليزية.",
+                  "Our Apps — Q Apps",
+                  "تطبيقاتنا — Q Apps",
+                  "Explore mobile apps by Q Apps: Countdown Keeper and Vault — Warranty Manager. Private, offline-first, in Arabic and English.",
+                  "استعرض تطبيقات Q Apps: العدّاد وخزنة الضمانات. تطبيقات خاصة تعمل دون اتصال، بالعربية والإنجليزية.",
                   body, active="apps")
 
 
@@ -692,8 +693,8 @@ def page_app_countdown():
     </div>'''
     body = app_overview_body(app, features_list, intro_en, intro_ar, extra)
     return render("/apps/countdown-keeper/",
-                  "Countdown Keeper — Event & Date Countdown App | Thiban Tech Solutions",
-                  "العدّاد — تطبيق العدّ التنازلي للمناسبات والتواريخ | ذيبان",
+                  "Countdown Keeper — Event & Date Countdown App | Q Apps",
+                  "العدّاد — تطبيق العدّ التنازلي للمناسبات والتواريخ | Q Apps",
                   "Countdown Keeper counts down to future events and up from past ones, with recurring Hijri/Gregorian dates, reminders, and date tools. Private and offline.",
                   "تطبيق العدّاد يعدّ تنازليًا للمناسبات القادمة وتصاعديًا للماضية، مع تواريخ متكرّرة هجرية/ميلادية وتذكيرات وأدوات للتاريخ. خاصّ ويعمل دون اتصال.",
                   body, active="apps")
@@ -729,8 +730,8 @@ def page_app_vault():
     </div>'''
     body = app_overview_body(app, features_list, intro_en, intro_ar, extra)
     return render("/apps/vault/",
-                  "Vault — Warranty Manager | Thiban Tech Solutions",
-                  "خزنة الضمانات — إدارة الفواتير والضمانات | ذيبان",
+                  "Vault — Warranty Manager | Q Apps",
+                  "خزنة الضمانات — إدارة الفواتير والضمانات | Q Apps",
                   "Vault — Warranty Manager stores invoices, organizes products, scans receipts and ZATCA QR codes, and reminds you before warranties expire. Private and local-first.",
                   "خزنة الضمانات تحفظ الفواتير وتنظّم المنتجات وتمسح الإيصالات ورموز QR الضريبية وتذكّرك قبل انتهاء الضمان. خاصّة وتعمل محليًا.",
                   body, active="apps")
@@ -752,15 +753,15 @@ def page_tutorials():
     body = f'''{crumbs([("Home","الرئيسية","/"),("Tutorials","الشروحات",None)])}
 <section class="section"><div class="container">
   {h(1, "Tutorials", "الشروحات")}
-  {p("Learn how to get the most out of each Thiban app. Guides grow over time — pick an app to begin.",
-     "تعلّم كيف تستفيد من كل تطبيق من ذيبان استفادةً كاملة. تنمو الأدلة مع الوقت — اختر تطبيقًا لتبدأ.", "lead")}
+  {p("Learn how to get the most out of each of our apps. Guides grow over time — pick an app to begin.",
+     "تعلّم كيف تستفيد من كل تطبيق من Q Apps استفادةً كاملة. تنمو الأدلة مع الوقت — اختر تطبيقًا لتبدأ.", "lead")}
   <div class="grid grid-2" style="margin-top:32px">{"".join(cards)}</div>
 </div></section>'''
     return render("/tutorials/",
-                  "Tutorials — Thiban Tech Solutions",
-                  "الشروحات — ذيبان للحلول التقنية",
-                  "Step-by-step tutorials and guides for Thiban apps: Countdown Keeper and Vault — Warranty Manager.",
-                  "شروحات وأدلة خطوة بخطوة لتطبيقات ذيبان: العدّاد وخزنة الضمانات.",
+                  "Tutorials — Q Apps",
+                  "الشروحات — Q Apps",
+                  "Step-by-step tutorials and guides for Q Apps: Countdown Keeper and Vault — Warranty Manager.",
+                  "شروحات وأدلة خطوة بخطوة لتطبيقات Q Apps: العدّاد وخزنة الضمانات.",
                   body, active="tutorials")
 
 
@@ -893,10 +894,10 @@ def page_privacy_index():
 <div class="container"><div class="grid grid-2" style="margin-top:20px">{"".join(cards)}</div></div>
 </section>'''
     return render("/privacy/",
-                  "Privacy — Thiban Tech Solutions",
-                  "الخصوصية — ذيبان للحلول التقنية",
-                  "Privacy at Thiban Tech Solutions: local-first apps with no ads, analytics, or third-party tracking. Read each app's privacy policy.",
-                  "الخصوصية في ذيبان للحلول التقنية: تطبيقات تعمل محليًا بلا إعلانات أو تحليلات أو تتبّع من طرف ثالث. اقرأ سياسة خصوصية كل تطبيق.",
+                  "Privacy — Q Apps",
+                  "الخصوصية — Q Apps",
+                  "Privacy at Q Apps: local-first apps with no ads, analytics, or third-party tracking. Read each app's privacy policy.",
+                  "الخصوصية في Q Apps: تطبيقات تعمل محليًا بلا إعلانات أو تحليلات أو تتبّع من طرف ثالث. اقرأ سياسة خصوصية كل تطبيق.",
                   body, active="privacy")
 
 
@@ -959,9 +960,9 @@ def privacy_doc(app, lang, data, canonical):
             parts.append(b["html"])
     hreflang = privacy_hreflang(slug, app["privacy_langs"])
     if lang == "ar":
-        foot = f'© {YEAR} ذيبان للحلول التقنية · <a href="mailto:{SUPPORT_EMAIL}">{SUPPORT_EMAIL}</a>'
+        foot = f'© {YEAR} Q Apps · <a href="mailto:{SUPPORT_EMAIL}">{SUPPORT_EMAIL}</a>'
     else:
-        foot = f'© {YEAR} Thiban Tech Solutions · <a href="mailto:{SUPPORT_EMAIL}">{SUPPORT_EMAIL}</a>'
+        foot = f'© {YEAR} Q Apps · <a href="mailto:{SUPPORT_EMAIL}">{SUPPORT_EMAIL}</a>'
     title = f"{data['title']} — {app['name_en']}"
     return f'''<!DOCTYPE html>
 <html lang="{lang}" dir="{d}">
@@ -1050,10 +1051,10 @@ def page_support_index():
 <div class="container"><div class="grid grid-2" style="margin-top:8px">{"".join(cards)}</div></div>
 </section>'''
     return render("/support/",
-                  "Support — Thiban Tech Solutions",
-                  "الدعم — ذيبان للحلول التقنية",
-                  "Get help with Thiban apps. Common questions, troubleshooting, and how to contact support for Countdown Keeper and Vault.",
-                  "احصل على المساعدة لتطبيقات ذيبان. أسئلة شائعة وحلول للمشكلات وطريقة التواصل مع الدعم لتطبيقَي العدّاد وخزنة الضمانات.",
+                  "Support — Q Apps",
+                  "الدعم — Q Apps",
+                  "Get help with Q Apps. Common questions, troubleshooting, and how to contact support for Countdown Keeper and Vault.",
+                  "احصل على المساعدة لتطبيقات Q Apps. أسئلة شائعة وحلول للمشكلات وطريقة التواصل مع الدعم لتطبيقَي العدّاد وخزنة الضمانات.",
                   body, active="support")
 
 
@@ -1102,8 +1103,8 @@ def page_support_countdown():
          "تستعيد المناسبات على هاتف جديد؟ استخدم «استيراد» واختر ملف JSON الذي صدّرته."),
     ]
     return support_page("countdown-keeper",
-                        "Countdown Keeper Support — Thiban Tech Solutions",
-                        "دعم تطبيق العدّاد — ذيبان",
+                        "Countdown Keeper Support — Q Apps",
+                        "دعم تطبيق العدّاد — Q Apps",
                         "Support for Countdown Keeper: common questions, troubleshooting reminders and calendars, and how to contact us.",
                         "دعم تطبيق العدّاد: أسئلة شائعة، وحلول لمشكلات التذكيرات والتقويم، وطريقة التواصل معنا.",
                         faqs, trouble)
@@ -1135,8 +1136,8 @@ def page_support_vault():
          "لم يُتعرَّف على عملية الشراء؟ استخدم خيار «استعادة المشتريات» في شاشة المتجر أو الاشتراك."),
     ]
     return support_page("vault",
-                        "Vault — Warranty Manager Support — Thiban Tech Solutions",
-                        "دعم خزنة الضمانات — ذيبان",
+                        "Vault — Warranty Manager Support — Q Apps",
+                        "دعم خزنة الضمانات — Q Apps",
                         "Support for Vault — Warranty Manager: backups, purchases, scanning, notifications and location troubleshooting, and how to contact us.",
                         "دعم خزنة الضمانات: النسخ الاحتياطي والمشتريات والمسح والإشعارات وحلّ مشكلات الموقع، وطريقة التواصل معنا.",
                         faqs, trouble)
@@ -1173,19 +1174,19 @@ def page_contact():
   </div>
 </div></section>'''
     return render("/contact/",
-                  "Contact — Thiban Tech Solutions",
-                  "تواصل معنا — ذيبان للحلول التقنية",
-                  f"Contact Thiban Tech Solutions by email at {SUPPORT_EMAIL} for questions, feedback, or app support.",
-                  f"تواصل مع ذيبان للحلول التقنية عبر البريد {SUPPORT_EMAIL} للأسئلة أو الملاحظات أو دعم التطبيقات.",
+                  "Contact — Q Apps",
+                  "تواصل معنا — Q Apps",
+                  f"Contact Q Apps by email at {SUPPORT_EMAIL} for questions, feedback, or app support.",
+                  f"تواصل مع Q Apps عبر البريد {SUPPORT_EMAIL} للأسئلة أو الملاحظات أو دعم التطبيقات.",
                   body, active="")
 
 
 def page_about():
     body = f'''{crumbs([("Home","الرئيسية","/"),("About","من نحن",None)])}
 <section class="section"><div class="container prose">
-  {h(1, "About Thiban Tech Solutions", "عن ذيبان للحلول التقنية")}
-  {p("Thiban Tech Solutions is a focused software studio specializing in web and mobile application development. We also design and publish our own privacy-first apps for everyday life.",
-     "ذيبان للحلول التقنية استوديو برمجيّ متخصّص في تطوير تطبيقات الويب والجوال. كما نصمّم وننشر تطبيقاتنا الخاصة التي تضع الخصوصية أولًا لحياتك اليومية.", "lead")}
+  {h(1, "About Q Apps", "عن Q Apps")}
+  {p("Q Apps is a focused software studio specializing in web and mobile application development. We also design and publish our own privacy-first apps for everyday life.",
+     "Q Apps استوديو برمجيّ متخصّص في تطوير تطبيقات الويب والجوال. كما نصمّم وننشر تطبيقاتنا الخاصة التي تضع الخصوصية أولًا لحياتك اليومية.", "lead")}
   {h(2, "What we build", "ما الذي نطوره")}
   <div class="services" style="margin-top:20px">
     <article class="service-card"><div class="service-icon" aria-hidden="true">&lt;/&gt;</div>
@@ -1213,10 +1214,10 @@ def page_about():
      f'لأي أمر، راسلنا على <a href="mailto:{SUPPORT_EMAIL}">{SUPPORT_EMAIL}</a>.')}
 </div></section>'''
     return render("/about/",
-                  "About — Thiban Tech Solutions",
-                  "من نحن — ذيبان للحلول التقنية",
-                  "Thiban Tech Solutions is an independent studio building simple, private, useful mobile apps in Arabic and English.",
-                  "ذيبان للحلول التقنية استوديو مستقلّ يبني تطبيقات جوّال بسيطة وخاصة ومفيدة بالعربية والإنجليزية.",
+                  "About — Q Apps",
+                  "من نحن — Q Apps",
+                  "Q Apps is an independent studio building simple, private, useful mobile apps in Arabic and English.",
+                  "Q Apps استوديو مستقلّ يبني تطبيقات جوّال بسيطة وخاصة ومفيدة بالعربية والإنجليزية.",
                   body, active="about")
 
 
@@ -1232,8 +1233,8 @@ def page_404():
     </div>
   </div>
 </div>'''
-    return render("/404", "Page not found — Thiban Tech Solutions",
-                  "الصفحة غير موجودة — ذيبان للحلول التقنية",
+    return render("/404", "Page not found — Q Apps",
+                  "الصفحة غير موجودة — Q Apps",
                   "The page you were looking for doesn't exist or has moved.",
                   "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
                   body, is404=True)
@@ -1263,8 +1264,8 @@ def write_robots():
 def write_manifest():
     import json
     manifest = {
-        "name": "Thiban Tech Solutions",
-        "short_name": "Thiban",
+        "name": "Q Apps",
+        "short_name": "Q Apps",
         "start_url": "/",
         "display": "browser",
         "background_color": "#ffffff",
@@ -1283,7 +1284,7 @@ def page_vault_redirect():
 
     Was a client-side redirect to the Apps Script web app (VAULT_TARGET, kept
     above for reference/rollback); cut over on 2026-09-11 so visitors stay on
-    thiban1.com — no Google "created by an Apps Script user" banner. All
+    our own domain — no Google "created by an Apps Script user" banner. All
     previously distributed /vault?utm_source=... links keep working unchanged.
     Rollback = git revert of this cutover commit + rebuild."""
     html = _VAULTNEW_HTML.replace("__API_BASE__", VAULTNEW_API_BASE)
@@ -1336,10 +1337,10 @@ def main():
 def render_home_and_collect():
     body = page_home()
     return render("/",
-                  "Thiban Tech Solutions — Simple, useful mobile apps",
-                  "ذيبان للحلول التقنية — تطبيقات جوّال بسيطة ومفيدة",
-                  "Thiban Tech Solutions builds simple, private, useful mobile apps in Arabic and English — including Countdown Keeper and Vault, the Warranty Manager.",
-                  "ذيبان للحلول التقنية تبني تطبيقات جوّال بسيطة وخاصة ومفيدة بالعربية والإنجليزية — منها تطبيق العدّاد وخزنة الضمانات.",
+                  "Q Apps — Simple, useful mobile apps",
+                  "Q Apps — تطبيقات جوّال بسيطة ومفيدة",
+                  "Q Apps builds simple, private, useful mobile apps in Arabic and English — including Countdown Keeper and Vault, the Warranty Manager.",
+                  "Q Apps تبني تطبيقات جوّال بسيطة وخاصة ومفيدة بالعربية والإنجليزية — منها تطبيق العدّاد وخزنة الضمانات.",
                   body, active="home")
 
 
