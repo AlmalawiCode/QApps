@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<!-- ==========================================================================
+     /vault-new — Vault campaign landing page (Arabic RTL), hosted on
+     thiban1.com. Download-first design: both platforms lead with a download
+     CTA, with offer activation as an explicit step 2 AFTER install. On Apple
+     the two steps are split — normal store page first, offer-code redeem
+     second — because the redeem sheet shows "Free / Standard Price SAR 9.99"
+     and users who don't yet have the app read it as a charge and bail. On
+     Android the promo code is step 2 (a code-first card read as "Android not
+     supported").
+     The code is fetched ONLY on button click via the Apps Script v2 backend
+     behind api.thiban1.com; no code list ever reaches the browser — only the
+     single code assigned to this request.
+     ======================================================================= -->
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>خزنة الضمانات | النسخة الكاملة مجانًا مدى الحياة</title>
+  <meta name="description" content="احصل على النسخة الكاملة من تطبيق خزنة الضمانات مجانًا مدى الحياة — لمستخدمي أبل وسامسونج وأندرويد. العرض لفترة محدودة والعدد محدود.">
+  <meta name="theme-color" content="#067a57">
+  <meta name="robots" content="noindex, follow">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:title" content="خزنة الضمانات | النسخة الكاملة مجانًا مدى الحياة">
+  <meta property="og:description" content="احصل على النسخة الكاملة من تطبيق خزنة الضمانات مجانًا مدى الحياة — لمستخدمي أبل وسامسونج وأندرويد. العرض لفترة محدودة والعدد محدود.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <style>
+    :root {
+      --green: #067a57;
+      --green-dark: #045a40;
+      --green-soft: #eaf7f1;
+      --green-soft-2: #dff2e8;
+      --text: #12332a;
+      --muted: #5b6b66;
+      --white: #ffffff;
+      --bg: #f3f6f5;
+      --black-btn: #0b1220;
+      --border: #d9e4df;
+      --shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      --radius: 28px;
+      --radius-sm: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Tahoma", "Arial", sans-serif;
+      background: linear-gradient(180deg, #0b8a63 0%, #067a57 100%);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 28px 16px calc(36px + env(safe-area-inset-bottom));
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .hero-icon {
+      flex: 0 0 90px;
+      width: 90px;
+      height: 90px;
+      display: grid;
+      place-items: center;
+      font-size: 56px;
+    }
+
+    .hero-content h1 {
+      margin: 0 0 10px;
+      font-size: 2.15rem;
+      line-height: 1.2;
+      color: var(--green-dark);
+      font-weight: 800;
+    }
+
+    .hero-content p {
+      margin: 0;
+      font-size: 1.15rem;
+      color: #465752;
+      line-height: 1.8;
+    }
+
+    /* Availability badges — signal BOTH stores up front. Some visitors saw the
+       Apple card first (it leads on iPhone) and assumed the app was Apple-only.
+       Informational only; the real download actions live in the cards below. */
+    .hero-stores {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .store-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green-soft);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--green-dark);
+    }
+
+    .store-chip .chip-apple { width: 18px; height: 22px; color: #0b1220; }
+    .store-chip .chip-play  { width: 20px; height: 20px; }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 1.85rem;
+      line-height: 1.3;
+      color: var(--green-dark);
+      font-weight: 800;
+    }
+
+    /* Compact card header — small title + inline brand glyph / emoji, replacing
+       the old icon-box + heading + "two steps" pill (all repeated the buttons). */
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .card-title h2 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    .title-emoji { font-size: 1.5rem; line-height: 1; }
+
+    .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-decoration: none;
+      font-size: 1.5rem;
+      font-weight: 800;
+      border-radius: 22px;
+      padding: 20px 18px;
+      margin-top: 24px;
+      transition: 0.2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      opacity: 0.96;
+    }
+
+    /* Real <button> elements carry the mockup's .button look. */
+    button.button {
+      width: 100%;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    button.button:disabled {
+      opacity: 0.65;
+      cursor: default;
+      transform: none;
+    }
+
+    .button-dark {
+      background: var(--black-btn);
+      color: var(--white);
+    }
+
+    .button-green {
+      background: var(--green);
+      color: var(--white);
+    }
+
+    .button-outline {
+      background: transparent;
+      color: var(--green-dark);
+      border: 2px solid #a8cabd;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 16px;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .step {
+      background: linear-gradient(180deg, #f3faf6 0%, #edf7f2 100%);
+      border-radius: 24px;
+      padding: 22px 18px 18px;
+      text-align: center;
+      position: relative;
+      min-height: 285px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* Step number, carried INSIDE the button as a leading circle. White disc so
+       it reads on both the black store badge and the green action button. */
+    .btn-num-inline {
+      flex: 0 0 auto;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--white);
+      color: var(--green-dark);
+      display: grid;
+      place-items: center;
+      font-size: 1.05rem;
+      font-weight: 800;
+    }
+
+    /* Official-style store badge for the step-1 download buttons. Content is
+       LTR (logo left, two-line label right) like the real App Store / Play
+       badges; the leading number circle stays first in the RTL flow. */
+    .button-badge {
+      background: #000;
+      color: var(--white);
+      gap: 12px;
+    }
+
+    .button-badge .badge-label {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .badge-apple { width: 26px; height: 32px; color: var(--white); }
+    .badge-play  { width: 30px; height: 30px; }
+
+    .arrow {
+      font-size: 3rem;
+      color: var(--green);
+      font-weight: bold;
+      padding: 0 6px;
+    }
+
+    /* Compact steps: number badge + button only (no repeated heading/icon),
+       so each platform card scans in ~2s and takes far less vertical space. */
+    .steps-compact .step {
+      min-height: auto;
+      padding: 18px 16px 16px;
+      justify-content: flex-start;
+    }
+
+    .steps-compact .button {
+      margin-top: 0;
+    }
+
+    .step-note {
+      margin: 12px 0 0;
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* Responsive 16:9 YouTube embed — plays inline, or tap through to YouTube. */
+    .video-embed {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: #000;
+    }
+
+    .video-embed iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--white);
+      padding: 14px 8px 6px;
+    }
+
+    .footer .title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .footer .sub {
+      font-size: 1.05rem;
+      opacity: 0.95;
+    }
+
+    .small {
+      font-size: 0.96rem;
+    }
+
+    /* ---- Functional states the static mockup doesn't show ---- */
+    .hidden { display: none !important; }
+
+    .code-label {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin: 14px 0 8px;
+      text-align: center;
+    }
+
+    .code-box {
+      background: #0f221b;
+      color: #fff;
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      padding: 18px;
+      border-radius: 14px;
+      direction: ltr;
+      word-break: break-all;
+      text-align: center;
+      font-family: "Menlo", "Consolas", "SF Mono", monospace;
+    }
+
+    .msg {
+      font-size: 1.1rem;
+      line-height: 1.9;
+      color: var(--text);
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    .msg .big { font-size: 30px; display: block; margin-bottom: 6px; }
+
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.45);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .toast {
+      position: fixed;
+      bottom: calc(24px + env(safe-area-inset-bottom));
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0f221b;
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-size: 14.5px;
+      font-weight: 700;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+      z-index: 50;
+      box-shadow: var(--shadow);
+    }
+
+    .toast.show { opacity: 1; }
+
+    /* ---- Brand icons ---- */
+    .ic { flex: 0 0 auto; fill: currentColor; }
+    .btn-logo { width: 24px; height: 24px; }
+    .title-mark-apple { width: 20px; height: 25px; color: #0b1220; }
+    .title-mark-android { width: 30px; height: 19px; }
+
+    @media (max-width: 680px) {
+      .hero {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .hero-content h1 {
+        font-size: 1.8rem;
+      }
+
+      .hero-stores {
+        justify-content: center;
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .arrow {
+        /* Stacked layout: the RTL "←" must rotate counter-clockwise to
+           point DOWN (clockwise was right for the LTR mockup's "→"). */
+        transform: rotate(-90deg);
+        text-align: center;
+        font-size: 1.6rem;
+        padding: 0;
+        line-height: 1;
+      }
+
+      .step {
+        min-height: auto;
+      }
+
+      .button {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Inline brand icons (SVG symbols) — no external requests, crisp at any
+       size. Referenced below via <use>. The monochrome Play glyph inherits
+       currentColor; the colored one carries the official palette. -->
+  <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+    <symbol id="ic-apple" viewBox="0 0 384 512">
+      <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.7-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/>
+    </symbol>
+    <symbol id="ic-play" viewBox="0 0 24 24">
+      <path d="M3.4 1.5v21L14.7 12z"/>
+      <path d="M3.4 1.5l14.6 7.6-3.3 2.9z"/>
+      <path d="M3.4 22.5l14.6-7.6-3.3-2.9z"/>
+      <path d="M18 9.1l3 1.7c.9.5.9 1.9 0 2.4l-3 1.7L14.7 12z"/>
+    </symbol>
+    <symbol id="ic-play-color" viewBox="0 0 24 24">
+      <path fill="#00A0FF" d="M3.4 1.5v21L14.7 12z"/>
+      <path fill="#00F076" d="M3.4 1.5l14.6 7.6-3.3 2.9z"/>
+      <path fill="#FF3A44" d="M3.4 22.5l14.6-7.6-3.3-2.9z"/>
+      <path fill="#FFBC00" d="M18 9.1l3 1.7c.9.5.9 1.9 0 2.4l-3 1.7L14.7 12z"/>
+    </symbol>
+    <symbol id="ic-android" viewBox="0 0 24 15">
+      <path fill="#3DDC84" d="M3.2 13.8C3.5 8.9 7.3 5.1 12 5.1s8.5 3.8 8.8 8.7H3.2z"/>
+      <path stroke="#3DDC84" stroke-width="1.5" stroke-linecap="round" fill="none" d="M8.4 5.9 6.7 3M15.6 5.9 17.3 3"/>
+      <circle cx="8.8" cy="10.4" r="1.2" fill="#fff"/>
+      <circle cx="15.2" cy="10.4" r="1.2" fill="#fff"/>
+    </symbol>
+  </svg>
+
+  <main class="page">
+
+    <!-- Hero -->
+    <section class="card hero">
+      <div class="hero-icon">🎁</div>
+      <div class="hero-content">
+        <h1>النسخة الكاملة مجاناً مدى الحياة — العدد محدود</h1>
+        <p>روابط التحميل أدناه.</p>
+        <div class="hero-stores" aria-label="متوفر على App Store و Google Play">
+          <span class="store-chip">
+            <svg class="ic chip-play"><use href="#ic-play-color"/></svg>
+            <span>Google Play</span>
+          </span>
+          <span class="store-chip">
+            <svg class="ic chip-apple"><use href="#ic-apple"/></svg>
+            <span>App Store</span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Apple -->
+    <section class="card" id="appleCard">
+      <div class="card-title">
+        <svg class="ic title-mark-apple"><use href="#ic-apple"/></svg>
+        <h2>أبل — آيفون وآيباد</h2>
+      </div>
+      <div class="steps steps-compact">
+        <div class="step">
+          <button class="button button-badge" onclick="openAppleStore()">
+            <span class="btn-num-inline">1</span>
+            <span class="badge-label">نزّل من App Store</span>
+            <svg class="ic badge-apple"><use href="#ic-apple"/></svg>
+          </button>
+        </div>
+
+        <div class="arrow">←</div>
+
+        <div class="step">
+          <button class="button button-green" onclick="openAppleRedeem()">
+            <span class="btn-num-inline">2</span>
+            <span>فعّل العرض المجاني</span>
+            <span>›</span>
+          </button>
+          <p class="step-note">
+            العرض محدود بالعدد والمدة، وبعد انتهائه يمكنك استخدام التطبيق
+            مجانًا حتى 3 فواتير.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Android -->
+    <section class="card" id="androidCard">
+      <div class="card-title">
+        <svg class="ic title-mark-android"><use href="#ic-android"/></svg>
+        <h2>أندرويد</h2>
+      </div>
+
+      <!-- state: intro — the two-step flow -->
+      <div id="androidIntro">
+        <div class="steps steps-compact">
+          <div class="step">
+            <button class="button button-badge" onclick="openPlayStore()">
+              <span class="btn-num-inline">1</span>
+              <span class="badge-label">نزّل من Google Play</span>
+              <svg class="ic badge-play"><use href="#ic-play-color"/></svg>
+            </button>
+          </div>
+
+          <div class="arrow">←</div>
+
+          <div class="step">
+            <button class="button button-green" id="getBtn" onclick="requestCode()">
+              <span class="btn-num-inline">2</span>
+              <span>احصل على كود العرض</span>
+              <span>›</span>
+            </button>
+            <p class="step-note">
+              العرض محدود بالعدد والمدة، وبعد انتهائه يمكنك استخدام التطبيق
+              مجانًا حتى 3 فواتير.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- state: success (one code) -->
+      <div id="androidResult" class="hidden">
+        <p class="code-label">كود العرض الخاص بك:</p>
+        <div id="codeBox" class="code-box"></div>
+        <button class="button button-green" onclick="redeemOnPlay()">
+          <svg class="ic btn-logo"><use href="#ic-play"/></svg>
+          <span>فعِّل الكود في Google Play</span>
+          <span>›</span>
+        </button>
+        <button class="button button-outline" onclick="copyCode()">
+          <span>نسخ الكود</span>
+        </button>
+      </div>
+
+      <!-- state: codes exhausted — the download itself is never blocked -->
+      <div id="androidEmpty" class="hidden">
+        <p class="msg"><span class="big">💛</span>
+          عذرًا، نفدت الأكواد المجانية حاليًا لاكتمال العدد.</p>
+        <p class="msg">ما زال بإمكانك تحميل التطبيق والاستفادة من النسخة المجانية.</p>
+        <button class="button button-green" onclick="openPlayStore()">
+          <svg class="ic btn-logo"><use href="#ic-play"/></svg>
+          <span>حمّل من Google Play</span>
+          <span>›</span>
+        </button>
+      </div>
+
+      <!-- state: transient error -->
+      <div id="androidError" class="hidden">
+        <p class="msg">تعذّر الحصول على الكود. حاول مرة أخرى.</p>
+        <button class="button button-green" onclick="retry()">
+          <span>إعادة المحاولة</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Video -->
+    <section class="card">
+      <div class="card-title">
+        <span class="title-emoji">🎥</span>
+        <h2>شاهد الشرح</h2>
+      </div>
+      <div class="video-embed">
+        <iframe src="https://www.youtube.com/embed/SjafmkwycsA" title="شاهد الشرح"
+          loading="lazy" allowfullscreen
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"></iframe>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="title">🛡️ خزنة الضمانات — احفظ فواتيرك ولا تفقد حقك في الضمان</div>
+      <div class="sub">العرض لفترة محدودة، وعدد الأكواد محدود.</div>
+    </footer>
+
+  </main>
+
+  <div id="toast" class="toast">تم نسخ الكود ✓</div>
+
+  <script>
+    // ---- URLs (single source of truth) ------------------------------------
+    // Apple is a two-step flow: install from the normal product page first,
+    // then redeem the offer code. Sending users straight to the redeem sheet
+    // showed "Free / Standard Price SAR 9.99" and read as a charge to anyone
+    // who didn't have the app installed yet.
+    var APPLE_STORE_URL  = 'https://apps.apple.com/app/id6773164894';
+    var APPLE_REDEEM_URL = 'https://apps.apple.com/redeem?ctx=offercodes&id=6773164894&code=FREE500';
+    var PLAY_URL    = 'https://play.google.com/store/apps/details?id=com.vault.warranty';
+    // Play redeem deep link — opens the store's redeem sheet with the code
+    // already filled in, mirroring the Apple offer-code link above. The
+    // app-details listing (step 1) has no code-entry field, so redeeming
+    // goes through this link or the manual path in the instructions.
+    var PLAY_REDEEM_BASE = 'https://play.google.com/redeem?code=';
+
+    // ---- Backend API via first-party proxy (api.thiban1.com -> Apps Script) -
+    // Same-site request, so iOS tracking protection / content blockers don't
+    // drop it. (The direct cross-site call to script.google.com was blocked.)
+    var API = '__API_BASE__';
+
+    function apiUrl(params) {
+      return API + '?' + Object.keys(params).map(function (k) {
+        return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+      }).join('&');
+    }
+
+    // ---- Stable per-page requestId for idempotent code allocation ----------
+    var REQUEST_ID = getRequestId();
+    var currentCode = '';
+    var inFlight = false;
+
+    function getRequestId() {
+      try {
+        var k = 'vault_promo_req';
+        var existing = sessionStorage.getItem(k);
+        if (existing) return existing;
+        var id = (self.crypto && crypto.randomUUID)
+          ? crypto.randomUUID()
+          : 'r-' + Date.now() + '-' + Math.random().toString(36).slice(2);
+        sessionStorage.setItem(k, id);
+        return id;
+      } catch (e) {
+        return 'r-' + Date.now() + '-' + Math.random().toString(36).slice(2);
+      }
+    }
+
+    // ---- Campaign source (utm_source) — parsed CLIENT-SIDE from the URL ----
+    // Mirrors the backend normalizeSource_ exactly, then persists in
+    // sessionStorage so EVERY click this visit keeps the same source.
+    function normalizeSource(raw) {
+      var s = (raw == null ? '' : String(raw)).trim().toLowerCase();
+      s = s.replace(/[^a-z0-9_-]/g, '').slice(0, 24);
+      if (!s) return 'direct';
+      if (s === 'twitter') return 'x';
+      return s;
+    }
+    function readSourceFromUrl() {
+      try {
+        var m = (location.search || '').match(/[?&]utm_source=([^&#]*)/);
+        var raw = m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : '';
+        return normalizeSource(raw);
+      } catch (e) { return 'direct'; }
+    }
+    var SERVER_SOURCE = readSourceFromUrl();
+    var SOURCE = resolveSource();
+
+    function resolveSource() {
+      try {
+        var k = 'vault_src';
+        var srv = (SERVER_SOURCE || '').toString();
+        if (srv && srv !== 'direct') { sessionStorage.setItem(k, srv); return srv; }
+        var saved = sessionStorage.getItem(k);   // keep source across a reload
+        if (saved) return saved;
+        return srv || 'direct';
+      } catch (e) { return SERVER_SOURCE || 'direct'; }
+    }
+
+    // ---- Anonymous, privacy-friendly meta (no IP / name / email / phone) ---
+    var META = buildMeta();
+
+    function buildMeta() {
+      var ua = navigator.userAgent || '';
+      return { d: detectDevice(ua), b: detectBrowser(ua), c: guessCountry(), s: SOURCE };
+    }
+
+    // Device/browser as short ASCII slugs; country as the raw IANA timezone.
+    // The BACKEND translates these to Arabic before writing the sheet, so NO
+    // Arabic ever travels in the analytics URL (Arabic in the URL was breaking
+    // the beacon while the short ASCII code-request kept working).
+    function detectDevice(ua) {
+      if (/iPad/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) return 'ipad';
+      if (/iPhone|iPod/.test(ua)) return 'iphone';
+      if (/Android/.test(ua)) return /Mobile/.test(ua) ? 'android_phone' : 'android_tablet';
+      if (/Windows/.test(ua)) return 'windows';
+      if (/Macintosh|Mac OS/.test(ua)) return 'mac';
+      if (/Linux/.test(ua)) return 'linux';
+      return 'unknown';
+    }
+
+    function detectBrowser(ua) {
+      if (/SamsungBrowser/.test(ua)) return 'Samsung Internet';
+      if (/Edg\//.test(ua)) return 'Edge';
+      if (/OPR\/|Opera/.test(ua)) return 'Opera';
+      if (/Firefox\//.test(ua)) return 'Firefox';
+      if (/Chrome\//.test(ua) && !/Chromium/.test(ua)) return 'Chrome';
+      if (/CriOS/.test(ua)) return 'Chrome (iOS)';
+      if (/Safari\//.test(ua)) return 'Safari';
+      return 'unknown';
+    }
+
+    function guessCountry() {
+      try { return Intl.DateTimeFormat().resolvedOptions().timeZone || 'unknown'; }
+      catch (e) { return 'unknown'; }
+    }
+
+    // ---- Analytics: disguised so tracking-blockers don't drop it -----------
+    // A content blocker on the device was silently dropping the old
+    // "api=log&event=visit" URL (it looks like a tracking beacon) while the
+    // code request "api=claim&rid=..." passed. So we send an opaque endpoint
+    // (api=r) + short event CODES (k=v/ap/rq/...) via the SAME JSONP path the
+    // code request uses. The backend maps the codes back to the real events.
+    var EVENT_CODES = {
+      visit: 'v', apple_click: 'ap', apple_redeem: 'ar',
+      android_request: 'rq', android_issued: 'is',
+      copy_click: 'cp', play_click: 'pl', youtube_click: 'yt', empty: 'em'
+    };
+    // NOTE: we deliberately do NOT send a "c" param — Google's web-app
+    // infrastructure reserves a query param literally named "c" and rejects the
+    // request ("cannot open the file"), which silently broke ALL analytics.
+    // Country isn't needed, so we omit it entirely. (device/browser/source only)
+    function track(event) {
+      try {
+        fetch(apiUrl({ api: 'r', k: (EVENT_CODES[event] || event),
+                       d: META.d, b: META.b, s: META.s }),
+              { keepalive: true, cache: 'no-store' });
+      } catch (e) { /* ignore */ }
+    }
+
+    // ---- Platform-aware card order: reorder, never hide/redirect ----------
+    // On Android the Android card moves ABOVE the Apple card: with Apple
+    // always on top, Android visitors were tapping the first big button,
+    // landing on apps.apple.com, and concluding the app "isn't supported"
+    // on their phone. Both cards stay visible on every device.
+    (function orderCardsForPlatform() {
+      var ua = navigator.userAgent || '';
+      if (/Android/.test(ua)) {
+        var androidCard = document.getElementById('androidCard');
+        var appleCard = document.getElementById('appleCard');
+        appleCard.parentNode.insertBefore(androidCard, appleCard);
+      }
+    })();
+
+    // ---- Visit counting: fresh arrivals only, once per tab session --------
+    // iOS evicts backgrounded tabs; when the browser is foregrounded it fully
+    // RELOADS the restored tab, so this script runs again and re-fired the
+    // visit beacon (observed: opening link N logged a phantom visit for the
+    // still-open link N-1 tab one second earlier). Two independent checks,
+    // each covering the other's blind spot: the navigation type catches
+    // restores/reloads even if sessionStorage was wiped during eviction; the
+    // session flag catches browsers that mislabel a restore as 'navigate'.
+    // Click events are unaffected. ANY uncertainty fails open to counting —
+    // the worst outcome of an edge case is one extra visit, never a lost one.
+    function shouldCountVisit() {
+      var freshNavigation = true;
+      try {
+        var nav = performance.getEntriesByType &&
+                  performance.getEntriesByType('navigation');
+        if (nav && nav.length &&
+            (nav[0].type === 'reload' || nav[0].type === 'back_forward')) {
+          freshNavigation = false;
+        }
+      } catch (e) { /* timing API unavailable -> treat as fresh */ }
+      var alreadyCounted = false;
+      try {
+        var k = 'vault_visited';
+        alreadyCounted = !!sessionStorage.getItem(k);
+        if (!alreadyCounted) sessionStorage.setItem(k, '1');
+      } catch (e) { /* storage unavailable -> count every load */ }
+      return freshNavigation && !alreadyCounted;
+    }
+
+    if (shouldCountVisit()) track('visit');   // count the landing-page view
+
+    // ---- Apple ------------------------------------------------------------
+    // Step 1: normal store page (download). Step 2: offer-code redeem sheet.
+    function openAppleStore() {
+      track('apple_click');
+      window.open(APPLE_STORE_URL, '_blank');
+    }
+
+    function openAppleRedeem() {
+      track('apple_redeem');
+      window.open(APPLE_REDEEM_URL, '_blank');
+    }
+
+    // ---- Android step 1: plain Play listing — download first --------------
+    function openPlayStore() {
+      track('play_click');
+      window.open(PLAY_URL, '_blank');
+    }
+
+    // ---- Android step 2: request one code ----------------------------------
+    function requestCode() {
+      if (inFlight) return;            // guard against rapid double-clicks
+      inFlight = true;
+      track('android_request');
+      var btn = document.getElementById('getBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner"></span> جارٍ الحصول على الكود...';
+
+      fetch(apiUrl({ api: 'claim', rid: REQUEST_ID }), { cache: 'no-store' })
+        .then(function (r) { return r.json(); })
+        .then(onResult)
+        .catch(onFailure);
+    }
+
+    function onResult(res) {
+      inFlight = false;
+      if (!res || res.status === 'busy') { return onFailure(); }
+
+      if (res.status === 'ok') {
+        currentCode = res.code;
+        document.getElementById('codeBox').textContent = res.code;
+        track('android_issued');
+        showAndroid('androidResult');
+      } else if (res.status === 'empty') {
+        track('empty');
+        showAndroid('androidEmpty');
+      } else {
+        onFailure();
+      }
+    }
+
+    function onFailure() {
+      inFlight = false;
+      resetGetBtn();
+      showAndroid('androidError');
+    }
+
+    function retry() {
+      resetGetBtn();
+      showAndroid('androidIntro');
+    }
+
+    function resetGetBtn() {
+      var btn = document.getElementById('getBtn');
+      btn.disabled = false;
+      btn.innerHTML = '<span class="btn-num-inline">2</span><span>احصل على كود العرض</span><span>›</span>';
+    }
+
+    function showAndroid(id) {
+      ['androidIntro', 'androidResult', 'androidEmpty', 'androidError']
+        .forEach(function (s) {
+          document.getElementById(s).classList.toggle('hidden', s !== id);
+        });
+    }
+
+    // ---- Redeem / Copy / Video ---------------------------------------------
+    function redeemOnPlay() {
+      if (!currentCode) return;
+      track('play_click');
+      window.open(PLAY_REDEEM_BASE + encodeURIComponent(currentCode), '_blank');
+    }
+
+    function copyCode() {
+      if (!currentCode) return;
+      track('copy_click');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(currentCode).then(showToast, fallbackCopy);
+      } else {
+        fallbackCopy();
+      }
+    }
+
+    function fallbackCopy() {
+      var t = document.createElement('textarea');
+      t.value = currentCode;
+      t.style.position = 'fixed'; t.style.opacity = '0';
+      document.body.appendChild(t);
+      t.focus(); t.select();
+      try { document.execCommand('copy'); showToast(); } catch (e) {}
+      document.body.removeChild(t);
+    }
+
+    function showToast() {
+      var el = document.getElementById('toast');
+      el.classList.add('show');
+      setTimeout(function () { el.classList.remove('show'); }, 1700);
+    }
+  </script>
+</body>
+</html>
