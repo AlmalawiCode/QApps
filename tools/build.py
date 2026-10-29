@@ -219,6 +219,22 @@ APPS = {
             ("/assets/img/apps/countdown/Countdown_Settings.jpg", "Countdown Keeper settings screen", "شاشة الإعدادات في تطبيق العدّاد"),
         ],
     },
+    "docmatic": {
+        "slug": "docmatic",
+        "name_en": "DocMatic",
+        "name_ar": "DocMatic",
+        "privacy_name_ar": "DocMatic: ماسح وأدوات PDF",
+        "icon": "/assets/img/apps/docmatic/icon.png",
+        "tagline_en": "Scan, sign and send clean PDFs — all on your phone.",
+        "tagline_ar": "امسح ووقّع وأرسل ملفات PDF نظيفة — على جوالك.",
+        "status": "soon",   # internal testing on Google Play
+        # Privacy policy only for now (store requirement); no app page yet.
+        "overview_langs": ["en", "ar"],
+        "privacy_langs": ["en", "ar"],
+        "tutorial_langs": ["en", "ar"],
+        "support_langs": ["en", "ar"],
+        "screens": [],
+    },
     "vault": {
         "slug": "vault",
         "name_en": "Vault — Warranty Manager",
