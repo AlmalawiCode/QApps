@@ -223,7 +223,7 @@ APPS = {
         "slug": "docmatic",
         "name_en": "DocMatic",
         "name_ar": "DocMatic",
-        "privacy_name_ar": "DocMatic: ماسح وأدوات PDF",
+        "privacy_name_ar": "DocMatic: أدوات المستندات",
         "icon": "/assets/img/apps/docmatic/icon.png",
         "tagline_en": "Scan, sign and send clean PDFs — all on your phone.",
         "tagline_ar": "امسح ووقّع وأرسل ملفات PDF نظيفة — على جوالك.",
