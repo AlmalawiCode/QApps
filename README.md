@@ -137,6 +137,67 @@ The Vault campaign page calls the existing Cloudflare Worker at
 `VAULTNEW_API_BASE` in `tools/build.py`. The Worker answers CORS with
 `Access-Control-Allow-Origin: *`, so it works unchanged from qeuapps.com.
 
+## Contact & suggest (messages from visitors)
+
+Approved proposal: `proposals/qapps_feedback_proposal_ar.html` (website only; the
+apps are unchanged). Visitors write on **`/suggest/`** (each app page links to it
+with `?app=<slug>`); messages are saved in a **Cloudflare D1** database and read
+by the owner on **`/admin/`**.
+
+| Path | What |
+|---|---|
+| `functions/api/feedback.js` | `POST /api/feedback` — checks, Turnstile, rate limits, saves |
+| `functions/api/admin/messages.js` | `GET`/`POST /api/admin/messages` — the dashboard's data (Access only) |
+| `lib/feedback/` | shared rules + the Cloudflare Access token check |
+| `migrations/0001_feedback.sql` | the tables (the API also creates them on first use) |
+| `assets/js/suggest.js` | the form; falls back to WhatsApp/email if the system is not ready |
+| `admin/index.html` | the owner's dashboard (hand-written, not generated) |
+
+Protection: site-only origin, hidden honeypot field, minimum 2 s on the page,
+field checks, **Turnstile**, 5 messages/hour and 10/day per visitor (salted
+daily fingerprint of the address, deleted after 24 h), 300/day for the whole
+site, and messages with more than 2 links are flagged. The admin API verifies
+the **Cloudflare Access** token itself (signature, audience, issuer, expiry) and
+fails closed. Until everything below is set, the form offers WhatsApp/email
+instead, so nothing breaks.
+
+### One-time setup (Cloudflare dashboard)
+
+1. **Database** — Workers & Pages → D1 → *Create* → name `qapps-feedback`.
+   Then the Pages project → Settings → Bindings → *Add* → D1 database,
+   variable name **`DB`** → `qapps-feedback` (Production and Preview).
+2. **Turnstile** — Turnstile → *Add widget* → hostnames `qeuapps.com`,
+   `www.qeuapps.com`, mode *Managed*. Copy both keys.
+3. **Variables** — Pages project → Settings → Variables and Secrets:
+   - `TURNSTILE_SITE_KEY` = the site key (plain text; read by `tools/build.py` at build time)
+   - `TURNSTILE_SECRET` = the secret key (*Encrypt*)
+   - `IP_SALT` = any long random text (*Encrypt*), e.g. from `openssl rand -hex 32`
+   - optional `DAILY_CAP` (default 300), `ALLOWED_ORIGINS` (default `https://qeuapps.com,https://www.qeuapps.com`)
+4. **Protect the dashboard** — Zero Trust → Access → Applications → *Add* →
+   Self-hosted: domain `qeuapps.com`, paths **`/admin`** and **`/api/admin`**;
+   policy *Allow* → *Emails* → your email (login method: one-time PIN).
+   Copy the application's **AUD tag**, and note your team domain
+   (`<team>.cloudflareaccess.com`). Add Pages variables:
+   `ACCESS_AUD` = the AUD tag, `ACCESS_TEAM_DOMAIN` = `<team>.cloudflareaccess.com`,
+   optional `ADMIN_EMAILS` = your email.
+5. **Redeploy** (push, or *Retry deployment*) so the build picks up the site key.
+   Then open `qeuapps.com/suggest/`, send a test, and see it on `qeuapps.com/admin/`.
+
+### Local test
+
+```bash
+npm i wrangler   # in any folder outside the site
+TURNSTILE_SITE_KEY=1x00000000000000000000AA python3 tools/build.py
+npx wrangler pages dev . --d1 DB=local --binding TURNSTILE_SECRET=1x0000000000000000000000000000000AA \
+  --binding IP_SALT=test --binding ALLOWED_ORIGINS=http://127.0.0.1:8788 --binding ADMIN_DEV_BYPASS=1
+python3 tools/build.py   # rebuild without the test key before committing
+```
+(`1x…AA` are Cloudflare's always-pass test keys. `ADMIN_DEV_BYPASS` works only on localhost.)
+
+Not built yet: the daily email summary (Pages Functions have no scheduled
+jobs; it needs a small separate Worker with a Cron Trigger) and the public
+«ideas we built» page (proposal phase 2).
+
 ## License / assets
 
 App icons and screenshots belong to the respective apps. Site code © Q Apps.

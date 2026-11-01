@@ -36,6 +36,10 @@ def asset_ver(rel):
 CSS_HREF = f"/assets/css/styles.css?v={asset_ver('assets/css/styles.css')}"
 JS_SRC = f"/assets/js/site.js?v={asset_ver('assets/js/site.js')}"
 SUPPORT_EMAIL = "thibantechsolutions@gmail.com"
+# Cloudflare Turnstile site key for the "Contact & suggest" form (public; the
+# secret lives only in the Pages environment). Set it as a build environment
+# variable in Cloudflare Pages. Empty = the form offers WhatsApp/email only.
+TURNSTILE_SITE_KEY = os.environ.get("TURNSTILE_SITE_KEY", "")
 WHATSAPP_DISPLAY = "+966 55 426 0804"          # shown to visitors
 WHATSAPP_NUMBER = "966554260804"               # E.164 digits for wa.me
 WHATSAPP_LINK = f"https://wa.me/{WHATSAPP_NUMBER}"
@@ -960,6 +964,15 @@ def page_privacy_index():
   {p("Each app has its own policy describing exactly what it handles:", "لكل تطبيق سياسته الخاصة التي تصف بدقّة ما يتعامل معه:")}
 </div>
 <div class="container"><div class="grid grid-2" style="margin-top:20px">{"".join(cards)}</div></div>
+<div class="container prose" id="messages" style="margin-top:44px">
+  {h(2, "Messages you send from this website", "الرسائل التي ترسلها من هذا الموقع")}
+  {p("When you send a message, suggestion, idea or problem from the «Contact &amp; suggest» page, we keep what you wrote: the app you chose, the type of message, your text, the page language, and your name and a way to reply only if you write them. We use it only to read and answer your message and to improve our apps. We never sell it, share it, or use it for advertising.",
+     "حين ترسل رسالة أو اقتراحًا أو فكرة أو مشكلة من صفحة «تواصل واقترح»، نحفظ ما كتبته: التطبيق الذي اخترته، ونوع الرسالة، ونصّها، ولغة الصفحة، واسمك وطريقة الرد فقط إن كتبتهما. نستخدمها فقط لنقرأ رسالتك ونرد عليها ولنحسّن تطبيقاتنا، ولا نبيعها ولا نشاركها مع أحد ولا نستخدمها للإعلان.")}
+  {p("To stop robots and floods of messages, the page uses Cloudflare Turnstile (from Cloudflare, which hosts this website), and we keep a fingerprint of your connection's address — salted and one-way, so it cannot be turned back into the address — for no more than 24 hours. Messages are stored in our database on Cloudflare and only we can read them. To have a message deleted, write to us from the same page or by email.",
+     "ولمنع الروبوتات وسيل الرسائل، تستخدم الصفحة Cloudflare Turnstile (من Cloudflare التي تستضيف هذا الموقع)، ونحفظ بصمة مشفّرة لعنوان اتصالك — باتجاه واحد لا يمكن إعادتها إلى العنوان — مدة لا تزيد على 24 ساعة. وتُحفظ الرسائل في قاعدة بياناتنا على Cloudflare، ولا يقرؤها أحد غيرنا. ولحذف رسالة أرسلتها، راسلنا من الصفحة نفسها أو بالبريد.")}
+  {p("Our apps do not send anything themselves; this applies only to what you send from this website.",
+     "تطبيقاتنا لا ترسل شيئًا بنفسها؛ هذا يخص فقط ما ترسله من هذا الموقع.", "fineprint")}
+</div>
 </section>'''
     return render("/privacy/",
                   "Privacy — Q Apps",
@@ -1295,46 +1308,119 @@ def page_about():
 
 
 def page_suggest():
+    """/suggest/ — «Contact & suggest» (proposal proposals/qapps_feedback_proposal_ar.html,
+    approved 2026-11-01): which app, four message types, and «Send» to the
+    site's own database (functions/api/feedback.js) behind Turnstile and rate
+    limits. WhatsApp/email remain as a fallback if the system is unavailable.
+    ?app=<slug> pre-selects the app (links from each app page)."""
+    apps = [("docmatic", "DocMatic", "DocMatic"),
+            ("vault", "Vault — Warranty Manager", "خزنة الضمانات"),
+            ("countdown-keeper", "Countdown Keeper", "كم مضى وكم بقي"),
+            ("new-app", "An idea for a new app", "فكرة لتطبيق جديد"),
+            ("general", "The website / in general", "الموقع / رأي عام")]
     options = "".join(
-        f'<option value="{esc(en)}">{esc(en)} — {esc(ar)}</option>'
-        for en, ar in [("Vault — Warranty Manager", "خزنة الضمانات"),
-                       ("Countdown Keeper", "العدّاد"),
-                       ("DocMatic", "DocMatic"),
-                       ("An idea for a new app", "فكرة لتطبيق جديد"),
-                       ("General feedback", "رأي عام")])
-    body = f'''{crumbs([("Home","الرئيسية","/"),("Suggest a feature","اقترح ميزة",None)])}
+        f'<option value="{k}" data-en="{esc(en)}" data-ar="{esc(ar)}">{esc(en)} — {esc(ar)}</option>'
+        for k, en, ar in apps)
+    types = [
+        ("message", "💬", "Message or question", "رسالة أو سؤال",
+         "Write your message", "اكتب رسالتك",
+         "Hello, is it possible to…", "السلام عليكم، هل يمكن…"),
+        ("improve", "💡", "Improvement", "اقتراح تحسين",
+         "What could be better? And how?", "ما الذي تراه يكون أفضل؟ وكيف؟",
+         "It would be better if…", "سيكون أفضل لو…"),
+        ("feature", "🚀", "New feature idea", "فكرة ميزة جديدة",
+         "Which feature do you wish for? And why do you need it?", "ما الميزة التي تتمنّاها؟ ولماذا تحتاجها؟",
+         "I wish I could… because…", "أتمنى أن أستطيع… لأن…"),
+        ("problem", "🐞", "A problem I had", "مشكلة واجهتني",
+         "What did you do? What happened? What did you expect?", "ماذا فعلت؟ وماذا حدث؟ وماذا كنت تتوقع؟",
+         "I tapped… then… and I expected…", "ضغطت… ثم حدث… وكنت أتوقع…"),
+    ]
+    type_html = "".join(
+        f'<label class="fb-type"><input type="radio" name="type" value="{k}"{" checked" if k == "feature" else ""} '
+        f'data-label-en="{esc(en)}" data-label-ar="{esc(ar)}" data-q-en="{esc(qen)}" data-q-ar="{esc(qar)}" '
+        f'data-ph-en="{esc(phen)}" data-ph-ar="{esc(phar)}">'
+        f'<span><i aria-hidden="true">{ic}</i><span data-en>{en}</span><span data-ar>{ar}</span></span></label>'
+        for k, ic, en, ar, qen, qar, phen, phar in types)
+    turnstile = (f'<div class="cf-turnstile" data-sitekey="{TURNSTILE_SITE_KEY}" data-theme="auto" '
+                 f'data-language="auto" data-size="flexible"></div>') if TURNSTILE_SITE_KEY else ""
+    body = f'''{crumbs([("Home","الرئيسية","/"),("Contact & suggest","تواصل واقترح",None)])}
 <section class="section"><div class="container prose">
-  {h(1, "Suggest a feature", "اقترح ميزة")}
-  {p("Tell us what you think, what you would improve, or a feature you wish one of our apps had. We read every suggestion. When we find a good opportunity to build it, we add it for everyone — at no extra cost to you.",
-     "أخبرنا برأيك، أو بما تودّ تحسينه، أو بميزة تتمنّاها في أحد تطبيقاتنا. نقرأ كل اقتراح، وإذا وجدنا فرصة مناسبة لتنفيذه أضفناه للجميع — دون أي تكلفة إضافية عليك.", "lead")}
-  <form class="card suggest-form" data-suggest data-email="{SUPPORT_EMAIL}" data-wa="{WHATSAPP_NUMBER}">
-    <label><span class="lbl"><span data-en>Which app?</span><span data-ar>أيّ تطبيق؟</span></span>
+  {h(1, "Contact &amp; suggest", "تواصل واقترح")}
+  {p("Send us a message, an improvement, an idea for a new feature, or a problem you ran into. We read every message ourselves. When we find a good opportunity to build your idea, we add it for everyone — at no extra cost to you.",
+     "أرسل لنا رسالة، أو اقتراح تحسين، أو فكرة ميزة جديدة، أو مشكلة واجهتك. نقرأ كل رسالة بأنفسنا، وإذا وجدنا فرصة مناسبة لتنفيذ فكرتك أضفناها للجميع — دون أي تكلفة إضافية عليك.", "lead")}
+  <form class="card suggest-form fb-form" data-fb-form data-sitekey="{TURNSTILE_SITE_KEY}" data-email="{SUPPORT_EMAIL}" data-wa="{WHATSAPP_NUMBER}" novalidate>
+    <label><span class="lbl"><span data-en>Which app?</span><span data-ar>عن أي تطبيق؟</span></span>
       <select name="app">{options}</select></label>
-    <label><span class="lbl"><span data-en>Your suggestion</span><span data-ar>اقتراحك</span></span>
-      <textarea name="idea" rows="6"></textarea></label>
-    <label><span class="lbl"><span data-en>Your name (optional)</span><span data-ar>اسمك (اختياري)</span></span>
-      <input name="name" type="text" autocomplete="name"></label>
-    <p class="form-error" data-suggest-error hidden><span data-en>Please write your suggestion first.</span><span data-ar>فضلًا اكتب اقتراحك أولًا.</span></p>
-    <div class="btn-row">
-      <button class="btn btn-accent" type="button" data-suggest-send="wa"><span data-en>Send on WhatsApp</span><span data-ar>أرسل عبر واتساب</span></button>
-      <button class="btn btn-secondary" type="button" data-suggest-send="email"><span data-en>Send by email</span><span data-ar>أرسل بالبريد</span></button>
+    <fieldset class="fb-types"><legend class="lbl"><span data-en>What would you like to send?</span><span data-ar>ماذا تريد أن ترسل؟</span></legend>{type_html}</fieldset>
+    <label><span class="lbl" data-fb-question></span>
+      <textarea name="message" rows="6" maxlength="2000" required></textarea></label>
+    <div class="fb-two">
+      <label><span class="lbl"><span data-en>Your name (optional)</span><span data-ar>اسمك (اختياري)</span></span>
+        <input name="name" type="text" maxlength="80" autocomplete="name"></label>
+      <label><span class="lbl"><span data-en>How can we reply? (optional: email or number)</span><span data-ar>كيف نرد عليك؟ (اختياري: بريد أو رقم)</span></span>
+        <input name="contact" type="text" maxlength="120" autocomplete="email"></label>
     </div>
-    <p class="fineprint" data-en>Nothing is stored on this website: the buttons open WhatsApp or your email app with your message ready to send.</p>
-    <p class="fineprint" data-ar>لا يُحفَظ شيء في هذا الموقع: الزرّان يفتحان واتساب أو تطبيق البريد ورسالتك جاهزة للإرسال.</p>
+    <label class="fb-hp" aria-hidden="true">Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+    {turnstile}
+    <p class="fb-status" data-fb-status role="status" hidden></p>
+    <div class="btn-row"><button class="btn btn-accent" type="submit" data-fb-submit><span data-en>Send</span><span data-ar>أرسل</span></button></div>
+    <div class="fb-fallback" data-fb-fallback hidden>
+      <button class="btn btn-secondary" type="button" data-fb-wa><span data-en>Send on WhatsApp</span><span data-ar>أرسل عبر واتساب</span></button>
+      <button class="btn btn-secondary" type="button" data-fb-mail><span data-en>Send by email</span><span data-ar>أرسل بالبريد</span></button>
+    </div>
+    <p class="fineprint" data-en>No files or pictures. We keep your message, and your name and contact only if you write them, to read and answer it — nothing else. See <a href="/privacy/#messages">Privacy</a>.</p>
+    <p class="fineprint" data-ar>لا ملفات ولا صور. نحفظ رسالتك، واسمك وطريقة التواصل إن كتبتهما، لنقرأها ونرد عليها فقط. انظر <a href="/privacy/#messages">الخصوصية</a>.</p>
   </form>
-  {h(2, "How we handle suggestions", "كيف نتعامل مع الاقتراحات")}
+  <div class="card fb-sent" data-fb-sent hidden>
+    <div class="fb-sent-icon" aria-hidden="true">🙏</div>
+    {h(2, "Thank you — we got your message", "شكرًا لك، وصلتنا رسالتك")}
+    {p("We read every message ourselves. If we find a good opportunity to build your idea, we add it for everyone in an update — at no extra cost.",
+       "نقرأ كل رسالة بأنفسنا. وإذا وجدنا فرصة مناسبة لتنفيذ فكرتك أضفناها للجميع في تحديث — دون أي رسوم إضافية.")}
+    {p("If you left a way to reach you, we will let you know when your idea is in the app.",
+       "إن تركت طريقة للتواصل، نخبرك حين تصبح فكرتك في التطبيق.", "fineprint")}
+    <div class="btn-row" style="justify-content:center"><a class="btn btn-primary" href="/" data-fb-back><span data-en>Back to the home page</span><span data-ar>عُد إلى الصفحة الرئيسية</span></a></div>
+  </div>
+  {h(2, "How we handle your messages", "كيف نتعامل مع رسائلك")}
   {ul([("We read every message.", "نقرأ كل رسالة."),
        ("We pick the ideas that help the most people and fit the app.", "نختار الأفكار التي تفيد أكبر عدد من المستخدمين وتناسب التطبيق."),
        ("If we build your suggestion, it reaches everyone in an update — no extra charge.", "إذا نفّذنا اقتراحك، يصل للجميع في تحديث — دون أي رسوم إضافية.")])}
   <p class="fineprint" data-en>We welcome every suggestion, but we cannot promise to build each one or to build it by a certain date.</p>
   <p class="fineprint" data-ar>نرحّب بكل اقتراح، لكننا لا نتعهّد بتنفيذ كل اقتراح ولا بموعد محدّد لتنفيذه.</p>
 </div></section>'''
+    head = (f"<style>{FB_CSS}</style>\n"
+            + ('<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>\n' if TURNSTILE_SITE_KEY else "")
+            + f'<script src="/assets/js/suggest.js?v={asset_ver("assets/js/suggest.js")}" defer></script>')
     return render("/suggest/",
-                  "Suggest a feature — Q Apps",
-                  "اقترح ميزة — كيو آبز",
-                  "Send Q Apps your feedback, suggestions and the features you want. When we find a good opportunity, we add them at no extra cost.",
-                  "أرسل إلى كيو آبز رأيك واقتراحاتك والميزات التي تريدها. وإذا وجدنا فرصة مناسبة أضفناها دون أي تكلفة إضافية.",
-                  body, active="suggest")
+                  "Contact & suggest — Q Apps",
+                  "تواصل واقترح — كيو آبز",
+                  "Send Q Apps a message, an improvement, a new feature idea or a problem you ran into. We read every message, and add good ideas for everyone at no extra cost.",
+                  "أرسل إلى كيو آبز رسالة أو اقتراح تحسين أو فكرة ميزة أو مشكلة واجهتك. نقرأ كل رسالة، ونضيف الأفكار المناسبة للجميع دون أي تكلفة إضافية.",
+                  body, active="suggest", head_extra=head)
+
+
+# Page-only styles for /suggest/ (kept out of the shared stylesheet).
+FB_CSS = """
+.fb-form{display:grid;gap:18px}
+.fb-form[hidden],.fb-sent[hidden],.fb-fallback[hidden],.fb-status[hidden]{display:none!important}
+.fb-types{border:0;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:10px}
+.fb-types legend{width:100%;margin-bottom:8px}
+.fb-type{cursor:pointer;position:relative;display:inline-block}
+.fb-type input{position:absolute;top:0;inset-inline-start:0;width:1px!important;height:1px!important;margin:0;padding:0;opacity:0;pointer-events:none}
+.fb-type>span{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 16px;font-weight:650;color:var(--ink);transition:background .15s,border-color .15s}
+.fb-type i{font-style:normal}
+.fb-type input:checked+span{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.fb-type input:focus-visible+span{outline:2.5px solid var(--accent);outline-offset:3px}
+.fb-two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.fb-two{grid-template-columns:1fr}}
+.fb-hp{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+.fb-form{position:relative}
+.fb-status{margin:0;padding:10px 14px;border-radius:12px;background:var(--soft);color:var(--ink);font-weight:600}
+.fb-status.err{background:#FDECEA;color:#8A1C14}
+.fb-status.warn{background:#FFF4DC;color:#6B4A00}
+.fb-fallback{display:flex;flex-wrap:wrap;gap:10px}
+.fb-sent{text-align:center;display:grid;gap:12px;justify-items:center;padding:36px 24px}
+.fb-sent-icon{width:84px;height:84px;border-radius:50%;background:var(--mint-soft);display:grid;place-items:center;font-size:40px}
+"""
 
 
 def page_404():
@@ -1371,7 +1457,9 @@ def write_sitemap(urls):
 
 def write_robots():
     txt = ("User-agent: *\n"
-           "Allow: /\n\n"
+           "Allow: /\n"
+           "Disallow: /admin/\n"
+           "Disallow: /api/\n\n"
            f"Sitemap: {SITE_URL}/sitemap.xml\n")
     with open(os.path.join(ROOT, "robots.txt"), "w", encoding="utf-8") as f:
         f.write(txt)

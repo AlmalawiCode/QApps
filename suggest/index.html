@@ -1,27 +1,49 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" data-lang="en" data-title-en="Suggest a feature — Q Apps" data-title-ar="اقترح ميزة — كيو آبز">
+<html lang="en" dir="ltr" data-lang="en" data-title-en="Contact &amp; suggest — Q Apps" data-title-ar="تواصل واقترح — كيو آبز">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){try{var l=localStorage.getItem('qapps-lang');if(!l){l=((navigator.language||navigator.userLanguage||'en').slice(0,2)==='ar')?'ar':'en';}var d=document.documentElement;d.setAttribute('data-lang',l);d.setAttribute('lang',l);d.setAttribute('dir',l==='ar'?'rtl':'ltr');var m={en:d.getAttribute('data-title-en'),ar:d.getAttribute('data-title-ar')};if(m[l]){document.title=m[l];}}catch(e){}})();</script>
-<title>Suggest a feature — Q Apps</title>
-<meta name="description" content="Send Q Apps your feedback, suggestions and the features you want. When we find a good opportunity, we add them at no extra cost.">
+<title>Contact &amp; suggest — Q Apps</title>
+<meta name="description" content="Send Q Apps a message, an improvement, a new feature idea or a problem you ran into. We read every message, and add good ideas for everyone at no extra cost.">
 <link rel="canonical" href="https://qeuapps.com/suggest/">
 <meta name="theme-color" content="#0F1B2D">
 <meta name="color-scheme" content="light dark">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Q Apps">
-<meta property="og:title" content="Suggest a feature — Q Apps">
-<meta property="og:description" content="Send Q Apps your feedback, suggestions and the features you want. When we find a good opportunity, we add them at no extra cost.">
+<meta property="og:title" content="Contact &amp; suggest — Q Apps">
+<meta property="og:description" content="Send Q Apps a message, an improvement, a new feature idea or a problem you ran into. We read every message, and add good ideas for everyone at no extra cost.">
 <meta property="og:url" content="https://qeuapps.com/suggest/">
 <meta property="og:image" content="https://qeuapps.com/assets/img/brand/og-default.png">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="ar_SA">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Suggest a feature — Q Apps">
-<meta name="twitter:description" content="Send Q Apps your feedback, suggestions and the features you want. When we find a good opportunity, we add them at no extra cost.">
+<meta name="twitter:title" content="Contact &amp; suggest — Q Apps">
+<meta name="twitter:description" content="Send Q Apps a message, an improvement, a new feature idea or a problem you ran into. We read every message, and add good ideas for everyone at no extra cost.">
 <meta name="twitter:image" content="https://qeuapps.com/assets/img/brand/og-default.png">
-
+<style>
+.fb-form{display:grid;gap:18px}
+.fb-form[hidden],.fb-sent[hidden],.fb-fallback[hidden],.fb-status[hidden]{display:none!important}
+.fb-types{border:0;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:10px}
+.fb-types legend{width:100%;margin-bottom:8px}
+.fb-type{cursor:pointer;position:relative;display:inline-block}
+.fb-type input{position:absolute;top:0;inset-inline-start:0;width:1px!important;height:1px!important;margin:0;padding:0;opacity:0;pointer-events:none}
+.fb-type>span{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 16px;font-weight:650;color:var(--ink);transition:background .15s,border-color .15s}
+.fb-type i{font-style:normal}
+.fb-type input:checked+span{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.fb-type input:focus-visible+span{outline:2.5px solid var(--accent);outline-offset:3px}
+.fb-two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.fb-two{grid-template-columns:1fr}}
+.fb-hp{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+.fb-form{position:relative}
+.fb-status{margin:0;padding:10px 14px;border-radius:12px;background:var(--soft);color:var(--ink);font-weight:600}
+.fb-status.err{background:#FDECEA;color:#8A1C14}
+.fb-status.warn{background:#FFF4DC;color:#6B4A00}
+.fb-fallback{display:flex;flex-wrap:wrap;gap:10px}
+.fb-sent{text-align:center;display:grid;gap:12px;justify-items:center;padding:36px 24px}
+.fb-sent-icon{width:84px;height:84px;border-radius:50%;background:var(--mint-soft);display:grid;place-items:center;font-size:40px}
+</style>
+<script src="/assets/js/suggest.js?v=5fa890df69" defer></script>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
@@ -42,26 +64,41 @@
   </div>
 </nav></div></header>
 <main id="main">
-<div class="container"><nav class="crumbs" aria-label="Breadcrumb"><a href="/"><span data-en>Home</span><span data-ar>الرئيسية</span></a><span aria-hidden="true">/</span><span data-en>Suggest a feature</span><span data-ar>اقترح ميزة</span></nav></div>
+<div class="container"><nav class="crumbs" aria-label="Breadcrumb"><a href="/"><span data-en>Home</span><span data-ar>الرئيسية</span></a><span aria-hidden="true">/</span><span data-en>Contact & suggest</span><span data-ar>تواصل واقترح</span></nav></div>
 <section class="section"><div class="container prose">
-  <h1 data-en>Suggest a feature</h1><h1 data-ar>اقترح ميزة</h1>
-  <p class="lead" data-en>Tell us what you think, what you would improve, or a feature you wish one of our apps had. We read every suggestion. When we find a good opportunity to build it, we add it for everyone — at no extra cost to you.</p><p class="lead" data-ar>أخبرنا برأيك، أو بما تودّ تحسينه، أو بميزة تتمنّاها في أحد تطبيقاتنا. نقرأ كل اقتراح، وإذا وجدنا فرصة مناسبة لتنفيذه أضفناه للجميع — دون أي تكلفة إضافية عليك.</p>
-  <form class="card suggest-form" data-suggest data-email="thibantechsolutions@gmail.com" data-wa="966554260804">
-    <label><span class="lbl"><span data-en>Which app?</span><span data-ar>أيّ تطبيق؟</span></span>
-      <select name="app"><option value="Vault — Warranty Manager">Vault — Warranty Manager — خزنة الضمانات</option><option value="Countdown Keeper">Countdown Keeper — العدّاد</option><option value="DocMatic">DocMatic — DocMatic</option><option value="An idea for a new app">An idea for a new app — فكرة لتطبيق جديد</option><option value="General feedback">General feedback — رأي عام</option></select></label>
-    <label><span class="lbl"><span data-en>Your suggestion</span><span data-ar>اقتراحك</span></span>
-      <textarea name="idea" rows="6"></textarea></label>
-    <label><span class="lbl"><span data-en>Your name (optional)</span><span data-ar>اسمك (اختياري)</span></span>
-      <input name="name" type="text" autocomplete="name"></label>
-    <p class="form-error" data-suggest-error hidden><span data-en>Please write your suggestion first.</span><span data-ar>فضلًا اكتب اقتراحك أولًا.</span></p>
-    <div class="btn-row">
-      <button class="btn btn-accent" type="button" data-suggest-send="wa"><span data-en>Send on WhatsApp</span><span data-ar>أرسل عبر واتساب</span></button>
-      <button class="btn btn-secondary" type="button" data-suggest-send="email"><span data-en>Send by email</span><span data-ar>أرسل بالبريد</span></button>
+  <h1 data-en>Contact &amp; suggest</h1><h1 data-ar>تواصل واقترح</h1>
+  <p class="lead" data-en>Send us a message, an improvement, an idea for a new feature, or a problem you ran into. We read every message ourselves. When we find a good opportunity to build your idea, we add it for everyone — at no extra cost to you.</p><p class="lead" data-ar>أرسل لنا رسالة، أو اقتراح تحسين، أو فكرة ميزة جديدة، أو مشكلة واجهتك. نقرأ كل رسالة بأنفسنا، وإذا وجدنا فرصة مناسبة لتنفيذ فكرتك أضفناها للجميع — دون أي تكلفة إضافية عليك.</p>
+  <form class="card suggest-form fb-form" data-fb-form data-sitekey="" data-email="thibantechsolutions@gmail.com" data-wa="966554260804" novalidate>
+    <label><span class="lbl"><span data-en>Which app?</span><span data-ar>عن أي تطبيق؟</span></span>
+      <select name="app"><option value="docmatic" data-en="DocMatic" data-ar="DocMatic">DocMatic — DocMatic</option><option value="vault" data-en="Vault — Warranty Manager" data-ar="خزنة الضمانات">Vault — Warranty Manager — خزنة الضمانات</option><option value="countdown-keeper" data-en="Countdown Keeper" data-ar="كم مضى وكم بقي">Countdown Keeper — كم مضى وكم بقي</option><option value="new-app" data-en="An idea for a new app" data-ar="فكرة لتطبيق جديد">An idea for a new app — فكرة لتطبيق جديد</option><option value="general" data-en="The website / in general" data-ar="الموقع / رأي عام">The website / in general — الموقع / رأي عام</option></select></label>
+    <fieldset class="fb-types"><legend class="lbl"><span data-en>What would you like to send?</span><span data-ar>ماذا تريد أن ترسل؟</span></legend><label class="fb-type"><input type="radio" name="type" value="message" data-label-en="Message or question" data-label-ar="رسالة أو سؤال" data-q-en="Write your message" data-q-ar="اكتب رسالتك" data-ph-en="Hello, is it possible to…" data-ph-ar="السلام عليكم، هل يمكن…"><span><i aria-hidden="true">💬</i><span data-en>Message or question</span><span data-ar>رسالة أو سؤال</span></span></label><label class="fb-type"><input type="radio" name="type" value="improve" data-label-en="Improvement" data-label-ar="اقتراح تحسين" data-q-en="What could be better? And how?" data-q-ar="ما الذي تراه يكون أفضل؟ وكيف؟" data-ph-en="It would be better if…" data-ph-ar="سيكون أفضل لو…"><span><i aria-hidden="true">💡</i><span data-en>Improvement</span><span data-ar>اقتراح تحسين</span></span></label><label class="fb-type"><input type="radio" name="type" value="feature" checked data-label-en="New feature idea" data-label-ar="فكرة ميزة جديدة" data-q-en="Which feature do you wish for? And why do you need it?" data-q-ar="ما الميزة التي تتمنّاها؟ ولماذا تحتاجها؟" data-ph-en="I wish I could… because…" data-ph-ar="أتمنى أن أستطيع… لأن…"><span><i aria-hidden="true">🚀</i><span data-en>New feature idea</span><span data-ar>فكرة ميزة جديدة</span></span></label><label class="fb-type"><input type="radio" name="type" value="problem" data-label-en="A problem I had" data-label-ar="مشكلة واجهتني" data-q-en="What did you do? What happened? What did you expect?" data-q-ar="ماذا فعلت؟ وماذا حدث؟ وماذا كنت تتوقع؟" data-ph-en="I tapped… then… and I expected…" data-ph-ar="ضغطت… ثم حدث… وكنت أتوقع…"><span><i aria-hidden="true">🐞</i><span data-en>A problem I had</span><span data-ar>مشكلة واجهتني</span></span></label></fieldset>
+    <label><span class="lbl" data-fb-question></span>
+      <textarea name="message" rows="6" maxlength="2000" required></textarea></label>
+    <div class="fb-two">
+      <label><span class="lbl"><span data-en>Your name (optional)</span><span data-ar>اسمك (اختياري)</span></span>
+        <input name="name" type="text" maxlength="80" autocomplete="name"></label>
+      <label><span class="lbl"><span data-en>How can we reply? (optional: email or number)</span><span data-ar>كيف نرد عليك؟ (اختياري: بريد أو رقم)</span></span>
+        <input name="contact" type="text" maxlength="120" autocomplete="email"></label>
     </div>
-    <p class="fineprint" data-en>Nothing is stored on this website: the buttons open WhatsApp or your email app with your message ready to send.</p>
-    <p class="fineprint" data-ar>لا يُحفَظ شيء في هذا الموقع: الزرّان يفتحان واتساب أو تطبيق البريد ورسالتك جاهزة للإرسال.</p>
+    <label class="fb-hp" aria-hidden="true">Website<input name="website" type="text" tabindex="-1" autocomplete="off"></label>
+    
+    <p class="fb-status" data-fb-status role="status" hidden></p>
+    <div class="btn-row"><button class="btn btn-accent" type="submit" data-fb-submit><span data-en>Send</span><span data-ar>أرسل</span></button></div>
+    <div class="fb-fallback" data-fb-fallback hidden>
+      <button class="btn btn-secondary" type="button" data-fb-wa><span data-en>Send on WhatsApp</span><span data-ar>أرسل عبر واتساب</span></button>
+      <button class="btn btn-secondary" type="button" data-fb-mail><span data-en>Send by email</span><span data-ar>أرسل بالبريد</span></button>
+    </div>
+    <p class="fineprint" data-en>No files or pictures. We keep your message, and your name and contact only if you write them, to read and answer it — nothing else. See <a href="/privacy/#messages">Privacy</a>.</p>
+    <p class="fineprint" data-ar>لا ملفات ولا صور. نحفظ رسالتك، واسمك وطريقة التواصل إن كتبتهما، لنقرأها ونرد عليها فقط. انظر <a href="/privacy/#messages">الخصوصية</a>.</p>
   </form>
-  <h2 data-en>How we handle suggestions</h2><h2 data-ar>كيف نتعامل مع الاقتراحات</h2>
+  <div class="card fb-sent" data-fb-sent hidden>
+    <div class="fb-sent-icon" aria-hidden="true">🙏</div>
+    <h2 data-en>Thank you — we got your message</h2><h2 data-ar>شكرًا لك، وصلتنا رسالتك</h2>
+    <p data-en>We read every message ourselves. If we find a good opportunity to build your idea, we add it for everyone in an update — at no extra cost.</p><p data-ar>نقرأ كل رسالة بأنفسنا. وإذا وجدنا فرصة مناسبة لتنفيذ فكرتك أضفناها للجميع في تحديث — دون أي رسوم إضافية.</p>
+    <p class="fineprint" data-en>If you left a way to reach you, we will let you know when your idea is in the app.</p><p class="fineprint" data-ar>إن تركت طريقة للتواصل، نخبرك حين تصبح فكرتك في التطبيق.</p>
+    <div class="btn-row" style="justify-content:center"><a class="btn btn-primary" href="/" data-fb-back><span data-en>Back to the home page</span><span data-ar>عُد إلى الصفحة الرئيسية</span></a></div>
+  </div>
+  <h2 data-en>How we handle your messages</h2><h2 data-ar>كيف نتعامل مع رسائلك</h2>
   <ul><li data-en>We read every message.</li><li data-ar>نقرأ كل رسالة.</li><li data-en>We pick the ideas that help the most people and fit the app.</li><li data-ar>نختار الأفكار التي تفيد أكبر عدد من المستخدمين وتناسب التطبيق.</li><li data-en>If we build your suggestion, it reaches everyone in an update — no extra charge.</li><li data-ar>إذا نفّذنا اقتراحك، يصل للجميع في تحديث — دون أي رسوم إضافية.</li></ul>
   <p class="fineprint" data-en>We welcome every suggestion, but we cannot promise to build each one or to build it by a certain date.</p>
   <p class="fineprint" data-ar>نرحّب بكل اقتراح، لكننا لا نتعهّد بتنفيذ كل اقتراح ولا بموعد محدّد لتنفيذه.</p>

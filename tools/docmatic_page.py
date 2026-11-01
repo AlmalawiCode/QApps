@@ -440,7 +440,7 @@ def build_page(render, h, p, crumbs, app):
   <img alt=""><button type="button" class="dm-lb-nav dm-lb-next" aria-label="Next">›</button></div>'''
 
     body = (crumbs([("Home", "الرئيسية", "/"), ("Apps", "التطبيقات", "/apps/"), ("DocMatic", "DocMatic", None)])
-            + hero + stats + story + journey + spots + catalogue + price + gallery + faq + cta
+            + hero + stats + story + journey + spots + catalogue + suggest_card("docmatic", "DocMatic", "DocMatic") + price + gallery + faq + cta
             + lightbox + f"<script>{JS}</script>")
 
     return render("/apps/docmatic/",
@@ -449,6 +449,23 @@ def build_page(render, h, p, crumbs, app):
                   f"DocMatic turns WhatsApp photos into a neat PDF ready to print, edits and signs PDFs, hides private details, creates QR codes and prints ID photos — {N_MAIN} features, all on your phone.",
                   f"DocMatic يحوّل صور واتساب إلى ملف PDF مرتّب جاهز للطباعة، ويحرر ملفات PDF ويوقّعها، ويخفي البيانات الخاصة، وينشئ رموز QR ويطبع الصور الرسمية — {N_MAIN} خاصية على جوالك.",
                   body, active="apps", og_image=f"{IMG}/og.png", head_extra=f"<style>{CSS}</style>")
+
+
+def suggest_card(slug, name_en, name_ar):
+    """«Missing something in <app>? Suggest a feature» — opens /suggest/ with the
+    app pre-selected (approved proposal qapps_feedback, decision أ). Shared by
+    the DocMatic, Vault and Countdown pages."""
+    return f'''<section class="dm-suggest-wrap"><div class="container">
+  <a class="dm-suggest" href="/suggest/?app={slug}">
+    <span class="dm-suggest-ic" aria-hidden="true">💡</span>
+    <span class="dm-suggest-tx">
+      <b data-en>Missing something in {name_en}?</b><b data-ar>ينقصك شيء في {name_ar}؟</b>
+      <span data-en>Suggest a feature, an improvement, or tell us about a problem — we read every message.</span>
+      <span data-ar>اقترح ميزة أو تحسينًا، أو أخبرنا بمشكلة — نقرأ كل رسالة.</span>
+    </span>
+    <span class="dm-suggest-go"><span data-en>Suggest a feature →</span><span data-ar>اقترح ميزة ←</span></span>
+  </a>
+</div></section>'''
 
 
 # Page-only styles: kept here so the shared stylesheet is untouched.
@@ -516,6 +533,16 @@ html[dir="rtl"] .dm-story-text q{quotes:"«" "»"}
 .dm-count{min-width:30px;height:30px;padding:0 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:800;font-size:14px}
 .dm-feat ul{margin:0;padding:0 20px 16px;padding-inline-start:44px;display:grid;gap:6px;color:var(--muted);font-size:15.5px}
 .dm-openall{margin-top:6px}
+.dm-suggest-wrap{padding:36px 0}
+.dm-suggest{display:flex;align-items:center;gap:18px;background:var(--accent-soft);border:1.5px dashed var(--accent);border-radius:var(--radius);padding:22px 26px;text-decoration:none;color:var(--ink);transition:transform .2s}
+.dm-suggest:hover{transform:translateY(-2px);color:var(--ink)}
+.dm-suggest-ic{font-size:34px;line-height:1}
+.dm-suggest-tx{flex:1;display:grid;gap:4px}
+.dm-suggest-tx b{font-family:var(--f-display);font-size:20px}
+html[dir="rtl"] .dm-suggest-tx b{font-family:var(--f-display-ar)}
+.dm-suggest-tx span{color:var(--muted)}
+.dm-suggest-go{background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:10px 18px;font-weight:750;white-space:nowrap}
+@media (max-width:620px){.dm-suggest{flex-wrap:wrap;padding:18px}.dm-suggest-go{width:100%;text-align:center}}
 .dm-price-card{display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:center;background:var(--night);border-radius:var(--radius);padding:44px;color:var(--on-night)}
 .dm-price-card h2{color:#fff;font-size:clamp(28px,3.6vw,44px);margin:8px 0 12px}
 .dm-price-card p{color:var(--on-night-muted);font-size:17px}

@@ -2,3 +2,6 @@
 Thumbs.db
 __pycache__/
 *.pyc
+
+# internal proposals (kept local; contain licensed fonts)
+proposals/

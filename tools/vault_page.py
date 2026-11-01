@@ -364,7 +364,7 @@ def build_page(render, h, p, crumbs, app, store_button):
 
     js = docmatic_page.JS.replace("/assets/img/apps/docmatic/", f"{IMG}/")
     body = (crumbs([("Home", "الرئيسية", "/"), ("Apps", "التطبيقات", "/apps/"), (app["name_en"], app["name_ar"], None)])
-            + hero + stats + story + journey + spots + catalogue + price + video + gallery + faq + cta
+            + hero + stats + story + journey + spots + catalogue + docmatic_page.suggest_card("vault", "Vault", "خزنة الضمانات") + price + video + gallery + faq + cta
             + lightbox + f"<script>{js}</script>")
 
     return render("/apps/vault/",
