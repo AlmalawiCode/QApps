@@ -340,43 +340,12 @@ def header(active):
 
 
 def footer():
-    def col(title_en, title_ar, items):
-        lis = "".join(
-            f'<li><a href="{href}"><span data-en>{en}</span><span data-ar>{ar}</span></a></li>'
-            for en, ar, href in items)
-        return (f'<div><h4><span data-en>{title_en}</span><span data-ar>{title_ar}</span></h4>'
-                f'<ul>{lis}</ul></div>')
-
-    apps_col = col("Apps", "التطبيقات", [
-        *[(APPS[s]["name_en"], APPS[s]["name_ar"], f"/apps/{s}/") for s in site_layout.APP_ORDER],
-        ("All apps", "كل التطبيقات", "/apps/"),
-    ])
-    help_col = col("Help", "المساعدة", [
-        ("Tutorials", "الشروحات", "/tutorials/"),
-        ("Suggest a feature", "اقترح ميزة", "/suggest/"),
-        ("Support", "الدعم", "/support/"),
-        ("Contact", "تواصل معنا", "/contact/"),
-    ])
-    legal_col = col("Company", "الشركة", [
-        ("About", "من نحن", "/about/"),
-        ("Privacy", "الخصوصية", "/privacy/"),
-    ])
-    return f'''<footer class="site-footer"><div class="container">
-  <div class="footer-grid">
-    <div>
-      <div class="footer-brand">{qmark(size=40)}<span data-en><b>Q</b> Apps</span><span data-ar><b>كيو</b> آبز</span></div>
-      <p style="max-width:34ch" data-en>Valuable apps at tiny prices — pay once, yours for life.</p>
-      <p style="max-width:34ch" data-ar>تطبيقات قيّمة بأسعار زهيدة — ادفع مرّة، ولك مدى الحياة.</p>
-      <p style="margin-top:14px"><a href="mailto:{SUPPORT_EMAIL}"><bdi dir="ltr">{SUPPORT_EMAIL}</bdi></a></p>
-      <p style="margin-top:4px"><a href="{WHATSAPP_LINK}" target="_blank" rel="noopener"><span data-en>WhatsApp</span><span data-ar>واتساب</span>: <bdi dir="ltr">{WHATSAPP_DISPLAY}</bdi></a></p>
-    </div>
-    {apps_col}{help_col}{legal_col}
-  </div>
+    """Copyright line only (owner, 2026-11-02): the old four-column footer
+    (apps / help / company, email, WhatsApp) was a long list on phones, and
+    visitors now reach us through the «Suggest» form in the top menu."""
+    return f'''<footer class="site-footer site-footer-min"><div class="container">
   <div class="footer-bottom">
     <span>&copy; {YEAR} <span data-en>Q Apps. All rights reserved.</span><span data-ar>كيو آبز. جميع الحقوق محفوظة.</span></span>
-    <span><a href="/privacy/"><span data-en>Privacy</span><span data-ar>الخصوصية</span></a>
-      &nbsp;·&nbsp;
-      <a href="/support/"><span data-en>Support</span><span data-ar>الدعم</span></a></span>
   </div>
 </div></footer>'''
 

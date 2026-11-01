@@ -163,4 +163,7 @@ CSS = """
 .qa-help-card:hover{box-shadow:var(--shadow-md)}
 .qa-help-ic{font-size:24px;margin-bottom:4px}
 .qa-help-card small{color:var(--muted)}
+/* footer: copyright line only */
+.site-footer-min{padding:22px 0;margin-top:40px}
+.site-footer-min .footer-bottom{margin:0;padding:0;border:0;justify-content:center;text-align:center}
 """
