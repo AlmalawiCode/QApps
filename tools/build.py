@@ -228,7 +228,9 @@ APPS = {
         "tagline_en": "Scan, sign and send clean PDFs — all on your phone.",
         "tagline_ar": "امسح ووقّع وأرسل ملفات PDF نظيفة — على جوالك.",
         "status": "soon",   # internal testing on Google Play
-        # Privacy policy only for now (store requirement); no app page yet.
+        # App page (tools/docmatic_page.py) + privacy policy; no tutorial or
+        # support page yet, so cards link only to these.
+        "pages": ["app", "privacy"],
         "overview_langs": ["en", "ar"],
         "privacy_langs": ["en", "ar"],
         "tutorial_langs": ["en", "ar"],
@@ -288,9 +290,10 @@ LANG_META = {
 
 NAV = [
     ("home", "Home", "الرئيسية", "/"),
-    ("services", "Services", "الخدمات", "/#services"),
+    ("idea", "The idea", "الفكرة", "/#idea"),
     ("apps", "Apps", "التطبيقات", "/apps/"),
     ("tutorials", "Tutorials", "الشروحات", "/tutorials/"),
+    ("suggest", "Suggest", "اقترح", "/suggest/"),
     ("support", "Support", "الدعم", "/support/"),
     ("about", "About", "من نحن", "/about/"),
 ]
@@ -323,7 +326,7 @@ def header(active):
     links_html = "".join(links)
     return f'''<a class="skip" href="#main"><span data-en>Skip to content</span><span data-ar>تخطَّ إلى المحتوى</span></a>
 <header class="site-header"><div class="container"><nav class="nav" aria-label="Main">
-  <a class="brand" href="/" aria-label="Q Apps">{qmark()}<span><b>Q</b> Apps</span></a>
+  <a class="brand" href="/" aria-label="Q Apps">{qmark()}<span data-en><b>Q</b> Apps</span><span data-ar><b>كيو</b> آبز</span></a>
   <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
   <div class="nav-links" id="nav-links">{links_html}
     <button class="lang-btn" data-lang-toggle type="button" aria-label="التبديل إلى العربية">العربية</button>
@@ -346,6 +349,7 @@ def footer():
     ])
     help_col = col("Help", "المساعدة", [
         ("Tutorials", "الشروحات", "/tutorials/"),
+        ("Suggest a feature", "اقترح ميزة", "/suggest/"),
         ("Support", "الدعم", "/support/"),
         ("Contact", "تواصل معنا", "/contact/"),
     ])
@@ -356,17 +360,16 @@ def footer():
     return f'''<footer class="site-footer"><div class="container">
   <div class="footer-grid">
     <div>
-      <div class="footer-brand">{qmark(size=40)}<span><b>Q</b> Apps</span></div>
-      <p style="max-width:34ch" data-en>Web &amp; mobile application development — plus our own privacy-first apps.</p>
-      <p style="max-width:34ch" data-ar>تطوير تطبيقات الويب والجوال — إضافةً إلى تطبيقاتنا الخاصة التي تحترم الخصوصية.</p>
+      <div class="footer-brand">{qmark(size=40)}<span data-en><b>Q</b> Apps</span><span data-ar><b>كيو</b> آبز</span></div>
+      <p style="max-width:34ch" data-en>Valuable apps at tiny prices — pay once, yours for life.</p>
+      <p style="max-width:34ch" data-ar>تطبيقات قيّمة بأسعار زهيدة — ادفع مرّة، ولك مدى الحياة.</p>
       <p style="margin-top:14px"><a href="mailto:{SUPPORT_EMAIL}"><bdi dir="ltr">{SUPPORT_EMAIL}</bdi></a></p>
       <p style="margin-top:4px"><a href="{WHATSAPP_LINK}" target="_blank" rel="noopener"><span data-en>WhatsApp</span><span data-ar>واتساب</span>: <bdi dir="ltr">{WHATSAPP_DISPLAY}</bdi></a></p>
     </div>
     {apps_col}{help_col}{legal_col}
   </div>
   <div class="footer-bottom">
-    <span>&copy; {YEAR} Q Apps.
-      <span data-en>All rights reserved.</span><span data-ar>جميع الحقوق محفوظة.</span></span>
+    <span>&copy; {YEAR} <span data-en>Q Apps. All rights reserved.</span><span data-ar>كيو آبز. جميع الحقوق محفوظة.</span></span>
     <span><a href="/privacy/"><span data-en>Privacy</span><span data-ar>الخصوصية</span></a>
       &nbsp;·&nbsp;
       <a href="/support/"><span data-en>Support</span><span data-ar>الدعم</span></a></span>
@@ -462,6 +465,20 @@ def render(path, title_en, title_ar, desc_en, desc_ar, body,
 # reusable app-card (used on home + apps overview)
 # ---------------------------------------------------------------------------
 
+def app_links(app):
+    """Learn more · Tutorial · Privacy · Support — only the pages the app has
+    (APPS[...]["pages"]; all four when not set)."""
+    slug = app["slug"]
+    have = app.get("pages", ["app", "tutorial", "privacy", "support"])
+    items = [("app", f"/apps/{slug}/", "Learn more", "اعرف المزيد"),
+             ("tutorial", f"/tutorials/{slug}/", "Tutorial", "الشرح"),
+             ("privacy", f"/privacy/{slug}/", "Privacy", "الخصوصية"),
+             ("support", f"/support/{slug}/", "Support", "الدعم")]
+    return ('<div class="linkrow">' + "".join(
+        f'<a href="{u}"><span data-en>{en}</span><span data-ar>{ar}</span></a>'
+        for k, u, en, ar in items if k in have) + '</div>')
+
+
 def app_card(app):
     if app["status"] == "live":
         badge = '<span class="badge badge-live"><span data-en>Available now</span><span data-ar>متاح الآن</span></span>'
@@ -479,12 +496,7 @@ def app_card(app):
                        '<span data-ar>Google Play — قريبًا</span></span></div>')
 
     slug = app["slug"]
-    links = (f'<div class="linkrow">'
-             f'<a href="/apps/{slug}/"><span data-en>Learn more</span><span data-ar>اعرف المزيد</span></a>'
-             f'<a href="/tutorials/{slug}/"><span data-en>Tutorial</span><span data-ar>الشرح</span></a>'
-             f'<a href="/privacy/{slug}/"><span data-en>Privacy</span><span data-ar>الخصوصية</span></a>'
-             f'<a href="/support/{slug}/"><span data-en>Support</span><span data-ar>الدعم</span></a>'
-             f'</div>')
+    links = app_links(app)
 
     return f'''<article class="card app-card">
   <div class="app-head">
@@ -525,11 +537,7 @@ def featured_app_card(app, shot, desc_en, desc_ar):
         action_block = ('<div class="chips"><span class="chip">'
                         '<span data-en>App Store &amp; Google Play — coming soon</span>'
                         '<span data-ar>App Store وGoogle Play — قريبًا</span></span></div>')
-    links = (f'<div class="linkrow">'
-             f'<a href="/apps/{slug}/"><span data-en>Learn more</span><span data-ar>اعرف المزيد</span></a>'
-             f'<a href="/tutorials/{slug}/"><span data-en>Tutorial</span><span data-ar>الشرح</span></a>'
-             f'<a href="/privacy/{slug}/"><span data-en>Privacy</span><span data-ar>الخصوصية</span></a>'
-             f'<a href="/support/{slug}/"><span data-en>Support</span><span data-ar>الدعم</span></a></div>')
+    links = app_links(app)
     return f'''<article class="app-card-large">
   <div class="app-visual"><div class="device">
     <img class="app-icon" src="{app['icon']}" alt="{esc(app['name_en'])} icon" width="76" height="76">
@@ -547,19 +555,26 @@ def featured_app_card(app, shot, desc_en, desc_ar):
 def page_home():
     hero = f'''<section class="hero" id="home"><div class="container hero-grid">
   <div class="hero-copy">
-    <span class="eyebrow" data-en>Web &amp; Mobile Application Development</span><span class="eyebrow" data-ar>تطوير تطبيقات الويب والجوال</span>
-    <h1 data-en>Modern web and mobile applications, built with <em>purpose.</em></h1>
-    <h1 data-ar>تطبيقات ويب وجوال حديثة، تُبنى <em>لهدف واضح.</em></h1>
-    {p("Q Apps designs and develops reliable web and mobile applications — and publishes its own privacy-first apps for everyday life.",
-       "تصمّم Q Apps وتطوّر تطبيقات ويب وجوال موثوقة — وتنشر تطبيقاتها الخاصة التي تضع الخصوصية أولًا لحياتك اليومية.", "lead")}
+    <span class="eyebrow" data-en>Pay once &middot; Yours for life</span><span class="eyebrow" data-ar>ادفع مرّة &middot; لك مدى الحياة</span>
+    <h1 data-en>Valuable apps. Tiny prices. <em>Yours for life.</em></h1>
+    <h1 data-ar>تطبيقات قيّمة، بأسعار زهيدة، <em>ولك مدى الحياة.</em></h1>
+    {p("Q Apps builds useful apps you buy once, at a small price, and keep for life — no monthly or yearly subscription that never ends.",
+       "تبني كيو آبز تطبيقات مفيدة تشتريها مرّة واحدة بسعر زهيد وتبقى لك مدى الحياة — بلا اشتراك شهري أو سنوي لا ينتهي.", "lead")}
+    <figure class="inspire inspire-hero">
+      <blockquote>
+        <p data-en>I drew the idea of Q Apps from Mohammed Omar's experience with “<a class="inspire-link" href="https://qeu.app/" target="_blank" rel="noopener">Q</a>”: just as he made products affordable for people, I aim to offer useful apps at prices within everyone's reach.</p>
+        <p data-ar>استلهمتُ فكرة كيو آبز من تجربة محمد عمر في «<a class="inspire-link" href="https://qeu.app/" target="_blank" rel="noopener">كيو</a>»؛ فكما أتاح المنتجات للناس بأسعار ميسّرة، أسعى لتقديم تطبيقات مفيدة بأسعار في متناول الجميع.</p>
+      </blockquote>
+    </figure>
     <div class="btn-row">
-      <a class="btn btn-primary" href="/#services"><span data-en>Our Services</span><span data-ar>خدماتنا</span>{ARROW_SVG}</a>
-      <a class="btn btn-secondary" href="/apps/"><span data-en>View Apps</span><span data-ar>عرض التطبيقات</span></a>
+      <a class="btn btn-primary" href="/apps/"><span data-en>Browse the apps</span><span data-ar>تصفّح التطبيقات</span>{ARROW_SVG}</a>
+      <a class="btn btn-secondary" href="/suggest/"><span data-en>Suggest a feature</span><span data-ar>اقترح ميزة</span></a>
     </div>
     <div class="hero-meta">
+      <span>{ICON_CHECK}<span data-en>No subscriptions</span><span data-ar>بلا اشتراكات</span></span>
       <span>{APPLE_SVG.replace('<svg ', '<svg fill="currentColor" ')}iOS</span>
       <span>{PLAY_SVG.replace('<svg ', '<svg fill="currentColor" ')}Android</span>
-      <span>{ICON_CODE}<span data-en>Web</span><span data-ar>الويب</span></span>
+      <span><span data-en>Arabic &amp; English</span><span data-ar>العربية والإنجليزية</span></span>
     </div>
   </div>
   <div class="stage" aria-hidden="true">
@@ -570,17 +585,42 @@ def page_home():
     </svg>
     <div class="phone-frame pf-1"><img src="/assets/img/apps/countdown/Countdown_Home.jpg" alt="" loading="eager"></div>
     <div class="phone-frame pf-2"><img src="/assets/img/apps/vault/dashboard.jpg" alt="" loading="eager"></div>
-    <div class="fbadge web"><span>&lt;/&gt;</span><b data-en>Web Apps</b><b data-ar>تطبيقات الويب</b></div>
-    <div class="fbadge mobile"><span>{ICON_PHONE}</span><b data-en>Mobile Apps</b><b data-ar>تطبيقات الجوال</b></div>
+    <div class="fbadge web"><span dir="ltr">1&times;</span><b data-en>Pay once</b><b data-ar>ادفع مرّة</b></div>
+    <div class="fbadge mobile"><span>&infin;</span><b data-en>Yours for life</b><b data-ar>لك مدى الحياة</b></div>
+  </div>
+</div></section>'''
+
+    idea = f'''<section id="idea" style="padding-top:24px"><div class="container">
+  <div class="section-head">
+    <span class="kicker" data-en>The idea</span><span class="kicker" data-ar>الفكرة</span>
+    {h(2, "Why pay again and again?", "لماذا تدفع مرّة بعد مرّة؟")}
+    {p("We kept noticing the same thing: much of what people pay a lot for can be offered for very little. Many apps charge a monthly or yearly subscription — and over time you pay many times the value. That is where Q Apps came from: useful apps, a small one-time price, and lifetime access.",
+       "لاحظنا الأمر نفسه مرارًا: كثير ممّا يدفع الناس فيه الكثير يمكن أن يُقدَّم بسعر زهيد جدًّا. تطبيقات كثيرة تطلب اشتراكًا شهريًا أو سنويًا، ومع الوقت تدفع أضعاف قيمتها. من هنا جاءت فكرة كيو آبز: تطبيقات مفيدة، بسعر زهيد تدفعه مرّة واحدة، ووصول مدى الحياة.")}
+  </div>
+  <div class="compare">
+    <article class="compare-card compare-sub">
+      <span class="compare-tag" data-en>Typical subscription</span><span class="compare-tag" data-ar>الاشتراك المعتاد</span>
+      {h(3, "Every month. Every year. Forever.", "كل شهر، وكل سنة، إلى ما لا نهاية.")}
+      <div class="ticks" aria-hidden="true">{"<i></i>" * 36}</div>
+      {p("The payments keep coming, and the total keeps growing — often many times the price of the app itself.",
+         "الدفعات لا تتوقّف، والمجموع يكبر باستمرار — وكثيرًا ما يبلغ أضعاف قيمة التطبيق نفسه.")}
+    </article>
+    <article class="compare-card compare-q">
+      <span class="compare-tag" data-en><b>Q</b> Apps</span><span class="compare-tag" data-ar><b>كيو</b> آبز</span>
+      {h(3, "One small payment. Yours for life.", "دفعة واحدة زهيدة، ولك مدى الحياة.")}
+      <div class="ticks" aria-hidden="true"><i></i></div>
+      {p("Pay once and keep using what you bought, with no renewals and no surprise charges.",
+         "ادفع مرّة واحدة واستمرّ في استخدام ما اشتريته، بلا تجديد ولا رسوم مفاجئة.")}
+    </article>
   </div>
 </div></section>'''
 
     services = f'''<section id="services" style="padding-top:24px"><div class="container">
   <div class="section-head">
     <span class="kicker" data-en>Services</span><span class="kicker" data-ar>الخدمات</span>
-    {h(2, "What we build", "ما الذي نطوره")}
-    {p("A focused software studio specializing in two core areas: modern web applications and mobile applications.",
-       "استوديو برمجيّ متخصّص في مجالين أساسيين: تطبيقات الويب الحديثة وتطبيقات الجوال.")}
+    {h(2, "We also build apps for you", "ونبني تطبيقك أيضًا")}
+    {p("Beyond our own apps, we design and develop web and mobile applications for businesses and individuals.",
+       "إلى جانب تطبيقاتنا، نصمّم ونطوّر تطبيقات الويب والجوال للشركات والأفراد.")}
   </div>
   <div class="services">
     <article class="service-card">
@@ -606,6 +646,9 @@ def page_home():
        "تطبيقاتنا المنشورة — خاصّة بطبيعتها، ومتوفّرة بالعربية والإنجليزية.")}
   </div>
   <div class="app-grid">
+    {featured_app_card(APPS['docmatic'], "/assets/img/apps/docmatic/home_en.webp",
+        "WhatsApp photos become a neat PDF ready to print. Edit and sign PDFs, hide private details, create QR codes and print ID photos — all on your phone.",
+        "صور واتساب تصير ملف PDF مرتّبًا جاهزًا للطباعة. حرّر ملفات PDF ووقّعها، وأخفِ البيانات الخاصة، وأنشئ رموز QR، واطبع الصور الرسمية — كلها على جوالك.")}
     {featured_app_card(APPS['vault'], "/assets/img/apps/vault/dashboard.jpg",
         "Organize invoices and warranty records, scan receipts and ZATCA QR codes, and get reminded before a warranty expires.",
         "نظّم الفواتير وسجلّات الضمان، وامسح الإيصالات ورموز QR الضريبية، واحصل على تذكير قبل انتهاء الضمان.")}
@@ -617,24 +660,34 @@ def page_home():
 
     why = f'''<section id="about" style="padding-top:24px"><div class="container">
   <div class="section-head">
-    <span class="kicker" data-en>Why us</span><span class="kicker" data-ar>لماذا نحن</span>
-    {h(2, "Why Q Apps?", "لماذا Q Apps؟")}
+    <span class="kicker" data-en>Why Q Apps</span><span class="kicker" data-ar>لماذا كيو آبز</span>
+    {h(2, "More value, less money.", "قيمة أكبر، بمال أقل.")}
   </div>
   <div class="why-grid">
     <article class="why-card"><div class="service-icon">{ICON_TARGET}</div>
-      <strong data-en>Focused</strong><strong data-ar>تركيز واضح</strong>
-      {p("We concentrate on web and mobile application development — not services we don't provide.",
-         "نركّز على تطوير تطبيقات الويب والجوال — لا على خدمات لا نقدّمها.")}</article>
+      <strong data-en>Tiny prices</strong><strong data-ar>أسعار زهيدة</strong>
+      {p("We keep our prices small on purpose, so a good app is within everyone’s reach.",
+         "نُبقي أسعارنا زهيدة عن قصد، ليكون التطبيق الجيّد في متناول الجميع.")}</article>
     <article class="why-card"><div class="service-icon">{ICON_CHECK}</div>
-      <strong data-en>Reliable</strong><strong data-ar>موثوقية</strong>
-      {p("Every application is understandable, maintainable, tested, and practical for real users.",
-         "كل تطبيق واضح وقابل للصيانة ومختبَر وعمليّ للمستخدم الحقيقي.")}</article>
+      <strong data-en>Pay once, keep it</strong><strong data-ar>ادفع مرّة واحتفظ به</strong>
+      {p("No monthly or yearly subscriptions. One purchase, and the app is yours for life.",
+         "لا اشتراكات شهرية ولا سنوية. عملية شراء واحدة، ويبقى التطبيق لك مدى الحياة.")}</article>
     <article class="why-card"><div class="service-icon">{ICON_USER}</div>
-      <strong data-en>User-centered</strong><strong data-ar>يركّز على المستخدم</strong>
-      {p("Simple, professional, and consistent across desktop and mobile — in Arabic and English.",
-         "بسيط واحترافيّ ومتناسق على الحاسب والجوال — بالعربية والإنجليزية.")}</article>
+      <strong data-en>Built with you</strong><strong data-ar>نبنيه معك</strong>
+      {p("Tell us what you need. When we see a good opportunity, we add it — at no extra cost to you.",
+         "أخبرنا بما تحتاجه. وإذا وجدنا فرصة مناسبة أضفناه — دون أي تكلفة إضافية عليك.")}</article>
   </div>
 </div></section>'''
+
+    suggest = f'''<section style="padding-top:24px"><div class="container"><div class="suggest-band">
+  <div class="suggest-copy">
+    <span class="kicker" data-en>Your voice</span><span class="kicker" data-ar>صوتك</span>
+    {h(2, "Your idea could be our next feature.", "فكرتك قد تكون ميزتنا القادمة.")}
+    {p("Send us your opinion, a suggestion, or a feature you wish an app had. We read every message, and when we find a good opportunity to build it, we add it for everyone — free of charge.",
+       "أرسل لنا رأيك أو اقتراحك أو ميزة تتمنّى وجودها في أحد التطبيقات. نقرأ كل رسالة، وإذا وجدنا فرصة مناسبة لتنفيذها أضفناها للجميع — دون أي مقابل.")}
+  </div>
+  <a class="btn btn-accent" href="/suggest/"><span data-en>Suggest a feature</span><span data-ar>اقترح ميزة</span>{ARROW_SVG}</a>
+</div></div></section>'''
 
     cta = f'''<section style="padding-top:0"><div class="container"><div class="cta-band">
   <div>
@@ -644,7 +697,7 @@ def page_home():
   <a class="btn btn-secondary" href="/contact/"><span data-en>Contact us</span><span data-ar>تواصل معنا</span>{ARROW_SVG}</a>
 </div></div></section>'''
 
-    return hero + services + apps_section + why + cta
+    return hero + idea + apps_section + why + suggest + services + cta
 
 
 def page_apps():
@@ -652,17 +705,18 @@ def page_apps():
 <section class="section"><div class="container">
   {h(1, "Our Apps", "تطبيقاتنا")}
   {p("Every Q Apps app is private by design and available in Arabic and English. Choose an app to learn more, read a tutorial, or view its privacy policy.",
-     "كل تطبيق من Q Apps خاصٌّ بطبيعته ومتوفّر بالعربية والإنجليزية. اختر تطبيقًا لتعرف المزيد، أو لقراءة شرحه، أو لمطالعة سياسة خصوصيته.", "lead")}
+     "كل تطبيق من كيو آبز خاصٌّ بطبيعته ومتوفّر بالعربية والإنجليزية. اختر تطبيقًا لتعرف المزيد، أو لقراءة شرحه، أو لمطالعة سياسة خصوصيته.", "lead")}
   <div class="grid grid-2" style="margin-top:36px">
     {app_card(APPS['countdown-keeper'])}
     {app_card(APPS['vault'])}
+    {app_card(APPS['docmatic'])}
   </div>
 </div></section>'''
     return render("/apps/",
                   "Our Apps — Q Apps",
-                  "تطبيقاتنا — Q Apps",
+                  "تطبيقاتنا — كيو آبز",
                   "Explore mobile apps by Q Apps: Countdown Keeper and Vault — Warranty Manager. Private, offline-first, in Arabic and English.",
-                  "استعرض تطبيقات Q Apps: العدّاد وخزنة الضمانات. تطبيقات خاصة تعمل دون اتصال، بالعربية والإنجليزية.",
+                  "استعرض تطبيقات كيو آبز: العدّاد وخزنة الضمانات. تطبيقات خاصة تعمل دون اتصال، بالعربية والإنجليزية.",
                   body, active="apps")
 
 
@@ -758,10 +812,16 @@ def page_app_countdown():
     body = app_overview_body(app, features_list, intro_en, intro_ar, extra)
     return render("/apps/countdown-keeper/",
                   "Countdown Keeper — Event & Date Countdown App | Q Apps",
-                  "العدّاد — تطبيق العدّ التنازلي للمناسبات والتواريخ | Q Apps",
+                  "العدّاد — تطبيق العدّ التنازلي للمناسبات والتواريخ | كيو آبز",
                   "Countdown Keeper counts down to future events and up from past ones, with recurring Hijri/Gregorian dates, reminders, and date tools. Private and offline.",
                   "تطبيق العدّاد يعدّ تنازليًا للمناسبات القادمة وتصاعديًا للماضية، مع تواريخ متكرّرة هجرية/ميلادية وتذكيرات وأدوات للتاريخ. خاصّ ويعمل دون اتصال.",
                   body, active="apps")
+
+
+def page_app_docmatic():
+    """/apps/docmatic/ — long hand-tuned page kept in tools/docmatic_page.py."""
+    import docmatic_page
+    return docmatic_page.build_page(render, h, p, crumbs, APPS["docmatic"])
 
 
 def page_app_vault():
@@ -795,7 +855,7 @@ def page_app_vault():
     body = app_overview_body(app, features_list, intro_en, intro_ar, extra)
     return render("/apps/vault/",
                   "Vault — Warranty Manager | Q Apps",
-                  "خزنة الضمانات — إدارة الفواتير والضمانات | Q Apps",
+                  "خزنة الضمانات — إدارة الفواتير والضمانات | كيو آبز",
                   "Vault — Warranty Manager stores invoices, organizes products, scans receipts and ZATCA QR codes, and reminds you before warranties expire. Private and local-first.",
                   "خزنة الضمانات تحفظ الفواتير وتنظّم المنتجات وتمسح الإيصالات ورموز QR الضريبية وتذكّرك قبل انتهاء الضمان. خاصّة وتعمل محليًا.",
                   body, active="apps")
@@ -818,14 +878,14 @@ def page_tutorials():
 <section class="section"><div class="container">
   {h(1, "Tutorials", "الشروحات")}
   {p("Learn how to get the most out of each of our apps. Guides grow over time — pick an app to begin.",
-     "تعلّم كيف تستفيد من كل تطبيق من Q Apps استفادةً كاملة. تنمو الأدلة مع الوقت — اختر تطبيقًا لتبدأ.", "lead")}
+     "تعلّم كيف تستفيد من كل تطبيق من كيو آبز استفادةً كاملة. تنمو الأدلة مع الوقت — اختر تطبيقًا لتبدأ.", "lead")}
   <div class="grid grid-2" style="margin-top:32px">{"".join(cards)}</div>
 </div></section>'''
     return render("/tutorials/",
                   "Tutorials — Q Apps",
-                  "الشروحات — Q Apps",
+                  "الشروحات — كيو آبز",
                   "Step-by-step tutorials and guides for Q Apps: Countdown Keeper and Vault — Warranty Manager.",
-                  "شروحات وأدلة خطوة بخطوة لتطبيقات Q Apps: العدّاد وخزنة الضمانات.",
+                  "شروحات وأدلة خطوة بخطوة لتطبيقات كيو آبز: العدّاد وخزنة الضمانات.",
                   body, active="tutorials")
 
 
@@ -959,9 +1019,9 @@ def page_privacy_index():
 </section>'''
     return render("/privacy/",
                   "Privacy — Q Apps",
-                  "الخصوصية — Q Apps",
+                  "الخصوصية — كيو آبز",
                   "Privacy at Q Apps: local-first apps with no ads, analytics, or third-party tracking. Read each app's privacy policy.",
-                  "الخصوصية في Q Apps: تطبيقات تعمل محليًا بلا إعلانات أو تحليلات أو تتبّع من طرف ثالث. اقرأ سياسة خصوصية كل تطبيق.",
+                  "الخصوصية في كيو آبز: تطبيقات تعمل محليًا بلا إعلانات أو تحليلات أو تتبّع من طرف ثالث. اقرأ سياسة خصوصية كل تطبيق.",
                   body, active="privacy")
 
 
@@ -1117,9 +1177,9 @@ def page_support_index():
 </section>'''
     return render("/support/",
                   "Support — Q Apps",
-                  "الدعم — Q Apps",
+                  "الدعم — كيو آبز",
                   "Get help with Q Apps. Common questions, troubleshooting, and how to contact support for Countdown Keeper and Vault.",
-                  "احصل على المساعدة لتطبيقات Q Apps. أسئلة شائعة وحلول للمشكلات وطريقة التواصل مع الدعم لتطبيقَي العدّاد وخزنة الضمانات.",
+                  "احصل على المساعدة لتطبيقات كيو آبز. أسئلة شائعة وحلول للمشكلات وطريقة التواصل مع الدعم لتطبيقَي العدّاد وخزنة الضمانات.",
                   body, active="support")
 
 
@@ -1169,7 +1229,7 @@ def page_support_countdown():
     ]
     return support_page("countdown-keeper",
                         "Countdown Keeper Support — Q Apps",
-                        "دعم تطبيق العدّاد — Q Apps",
+                        "دعم تطبيق العدّاد — كيو آبز",
                         "Support for Countdown Keeper: common questions, troubleshooting reminders and calendars, and how to contact us.",
                         "دعم تطبيق العدّاد: أسئلة شائعة، وحلول لمشكلات التذكيرات والتقويم، وطريقة التواصل معنا.",
                         faqs, trouble)
@@ -1202,7 +1262,7 @@ def page_support_vault():
     ]
     return support_page("vault",
                         "Vault — Warranty Manager Support — Q Apps",
-                        "دعم خزنة الضمانات — Q Apps",
+                        "دعم خزنة الضمانات — كيو آبز",
                         "Support for Vault — Warranty Manager: backups, purchases, scanning, notifications and location troubleshooting, and how to contact us.",
                         "دعم خزنة الضمانات: النسخ الاحتياطي والمشتريات والمسح والإشعارات وحلّ مشكلات الموقع، وطريقة التواصل معنا.",
                         faqs, trouble)
@@ -1240,50 +1300,97 @@ def page_contact():
 </div></section>'''
     return render("/contact/",
                   "Contact — Q Apps",
-                  "تواصل معنا — Q Apps",
+                  "تواصل معنا — كيو آبز",
                   f"Contact Q Apps by email at {SUPPORT_EMAIL} for questions, feedback, or app support.",
-                  f"تواصل مع Q Apps عبر البريد {SUPPORT_EMAIL} للأسئلة أو الملاحظات أو دعم التطبيقات.",
+                  f"تواصل مع كيو آبز عبر البريد {SUPPORT_EMAIL} للأسئلة أو الملاحظات أو دعم التطبيقات.",
                   body, active="")
 
 
 def page_about():
     body = f'''{crumbs([("Home","الرئيسية","/"),("About","من نحن",None)])}
 <section class="section"><div class="container prose">
-  {h(1, "About Q Apps", "عن Q Apps")}
-  {p("Q Apps is a focused software studio specializing in web and mobile application development. We also design and publish our own privacy-first apps for everyday life.",
-     "Q Apps استوديو برمجيّ متخصّص في تطوير تطبيقات الويب والجوال. كما نصمّم وننشر تطبيقاتنا الخاصة التي تضع الخصوصية أولًا لحياتك اليومية.", "lead")}
-  {h(2, "What we build", "ما الذي نطوره")}
-  <div class="services" style="margin-top:20px">
-    <article class="service-card"><div class="service-icon" aria-hidden="true">&lt;/&gt;</div>
-      {h(3, "Web Application Development", "تطوير تطبيقات الويب")}
-      {p("Responsive, secure, and maintainable web applications designed around real business and user requirements.",
-         "تطبيقات ويب متجاوبة وآمنة وقابلة للصيانة، مصمّمة وفق احتياجات العمل والمستخدم الفعلية.")}</article>
-    <article class="service-card"><div class="service-icon" aria-hidden="true">▣</div>
-      {h(3, "Mobile Application Development", "تطوير تطبيقات الجوال")}
-      {p("Polished cross-platform mobile applications for Android and iOS, focused on usability, reliability, and performance.",
-         "تطبيقات جوال متقنة تعمل على أندرويد و iOS، مع تركيز على سهولة الاستخدام والموثوقية والأداء.")}</article>
-  </div>
+  {h(1, "About Q Apps", "عن كيو آبز")}
+  {p("Q Apps makes valuable apps at tiny prices. You pay once, and the app is yours for life — no monthly or yearly subscription.",
+     "تصنع كيو آبز تطبيقات قيّمة بأسعار زهيدة. تدفع مرّة واحدة، ويبقى التطبيق لك مدى الحياة — بلا اشتراك شهري أو سنوي.", "lead")}
+  {h(2, "How the idea started", "كيف بدأت الفكرة")}
+  {p("We were often surprised to find that things sold at high prices can be offered to people for very little — and still be good. Apps are no different: many useful apps ask for a subscription that, over the years, adds up to many times their real value.",
+     "كثيرًا ما تفاجأنا بأن أشياء تُباع بأسعار مرتفعة يمكن أن تُقدَّم للناس بأسعار زهيدة جدًّا وتبقى جيّدة. والتطبيقات ليست استثناءً: تطبيقات مفيدة كثيرة تطلب اشتراكًا يتراكم مع السنين حتى يبلغ أضعاف قيمتها الحقيقية.")}
+  {p("So we started Q Apps: apps at a small one-time price, with lifetime access and plenty of real benefit. You may find similar apps that charge many times more through a monthly or yearly subscription — ours you buy once.",
+     "فأطلقنا كيو آبز: تطبيقات بسعر زهيد تدفعه مرّة واحدة، مع وصول مدى الحياة وفوائد حقيقية كثيرة. قد تجد أحيانًا تطبيقات مشابهة تدفع فيها أضعاف ذلك باشتراك شهري أو سنوي — أمّا تطبيقاتنا فتشتريها مرّة واحدة.")}
+  {h(2, "Built with your ideas", "نبنيها بأفكارك")}
+  {p('We welcome your opinions, suggestions and the features you wish our apps had. When we find a good opportunity to build a suggestion, we add it for everyone at no extra cost. <a href="/suggest/">Suggest a feature</a>.',
+     'نرحّب بآرائك واقتراحاتك والميزات التي تتمنّاها في تطبيقاتنا. وإذا وجدنا فرصة مناسبة لتنفيذ اقتراح، أضفناه للجميع دون أي تكلفة إضافية. <a href="/suggest/">اقترح ميزة</a>.')}
+  <p class="fineprint" data-en>“Lifetime” means you pay once and keep using the app you bought, with no renewal fees, for as long as the app is offered on the App Store or Google Play. Suggestions are welcome, but we cannot promise to build every one or to build it by a certain date.</p>
+  <p class="fineprint" data-ar>«مدى الحياة» تعني أنك تدفع مرّة واحدة وتستمرّ في استخدام التطبيق الذي اشتريته دون رسوم تجديد، طالما كان التطبيق متاحًا على App Store أو Google Play. نرحّب بكل الاقتراحات، لكننا لا نتعهّد بتنفيذ كل اقتراح ولا بموعد محدّد لتنفيذه.</p>
   {h(2, "What we believe", "بماذا نؤمن")}
   <div class="features" style="margin-top:20px">
+    {feature("💸","Fair prices","سعر عادل","A small price you pay once. No subscriptions and no surprise charges.","سعر زهيد تدفعه مرّة واحدة. بلا اشتراكات ولا رسوم مفاجئة.")}
     {feature("🔒","Privacy by default","الخصوصية افتراضيًا","Your data belongs to you and stays on your device. No ads, no analytics, no tracking.","بياناتك مِلكك وتبقى على جهازك. بلا إعلانات ولا تحليلات ولا تتبّع.")}
+    {feature("💬","Your voice counts","صوتك مسموع","We read every suggestion, and the good ones become features for everyone.","نقرأ كل اقتراح، والجيّد منها يصبح ميزة للجميع.")}
     {feature("✨","Simplicity","البساطة","We remove everything that gets in the way, so each app does its job quickly.","نزيل كل ما يعترض الطريق، ليؤدّي كل تطبيق مهمّته بسرعة.")}
     {feature("🌍","Arabic &amp; English","العربية والإنجليزية","First-class Arabic with proper right-to-left layout, alongside English.","لغة عربية من الطراز الأول مع تخطيط سليم من اليمين إلى اليسار، إلى جانب الإنجليزية.")}
     {feature("🛠️","Craftsmanship","الإتقان","Careful engineering and attention to the details that make apps reliable.","هندسة دقيقة واهتمام بالتفاصيل التي تجعل التطبيقات موثوقة.")}
   </div>
   {h(2, "Our apps", "تطبيقاتنا")}
-  {p("We currently publish Countdown Keeper and Vault — Warranty Manager, with more to come.",
-     "ننشر حاليًا تطبيقَي العدّاد وخزنة الضمانات، والمزيد قادم.")}
+  {p("Vault — Warranty Manager is available now, with Countdown Keeper and DocMatic on the way.",
+     "تطبيق خزنة الضمانات متاح الآن، ويأتي قريبًا تطبيقا العدّاد وDocMatic.")}
   <p><a class="btn btn-primary" href="/apps/"><span data-en>See our apps</span><span data-ar>شاهد تطبيقاتنا</span></a></p>
+  {h(2, "We also build for others", "ونبني للآخرين أيضًا")}
+  {p("Beyond our own apps, we design and develop web and mobile applications for businesses and individuals.",
+     "إلى جانب تطبيقاتنا، نصمّم ونطوّر تطبيقات الويب والجوال للشركات والأفراد.")}
   {h(2, "Get in touch", "تواصل معنا")}
   {p(f'For anything at all, email <a href="mailto:{SUPPORT_EMAIL}">{SUPPORT_EMAIL}</a>.',
      f'لأي أمر، راسلنا على <a href="mailto:{SUPPORT_EMAIL}">{SUPPORT_EMAIL}</a>.')}
 </div></section>'''
     return render("/about/",
                   "About — Q Apps",
-                  "من نحن — Q Apps",
-                  "Q Apps is an independent studio building simple, private, useful mobile apps in Arabic and English.",
-                  "Q Apps استوديو مستقلّ يبني تطبيقات جوّال بسيطة وخاصة ومفيدة بالعربية والإنجليزية.",
+                  "من نحن — كيو آبز",
+                  "Q Apps makes valuable apps at tiny prices: pay once, yours for life — no subscriptions. In Arabic and English.",
+                  "كيو آبز تصنع تطبيقات قيّمة بأسعار زهيدة: ادفع مرّة ولك مدى الحياة — بلا اشتراكات. بالعربية والإنجليزية.",
                   body, active="about")
+
+
+def page_suggest():
+    options = "".join(
+        f'<option value="{esc(en)}">{esc(en)} — {esc(ar)}</option>'
+        for en, ar in [("Vault — Warranty Manager", "خزنة الضمانات"),
+                       ("Countdown Keeper", "العدّاد"),
+                       ("DocMatic", "DocMatic"),
+                       ("An idea for a new app", "فكرة لتطبيق جديد"),
+                       ("General feedback", "رأي عام")])
+    body = f'''{crumbs([("Home","الرئيسية","/"),("Suggest a feature","اقترح ميزة",None)])}
+<section class="section"><div class="container prose">
+  {h(1, "Suggest a feature", "اقترح ميزة")}
+  {p("Tell us what you think, what you would improve, or a feature you wish one of our apps had. We read every suggestion. When we find a good opportunity to build it, we add it for everyone — at no extra cost to you.",
+     "أخبرنا برأيك، أو بما تودّ تحسينه، أو بميزة تتمنّاها في أحد تطبيقاتنا. نقرأ كل اقتراح، وإذا وجدنا فرصة مناسبة لتنفيذه أضفناه للجميع — دون أي تكلفة إضافية عليك.", "lead")}
+  <form class="card suggest-form" data-suggest data-email="{SUPPORT_EMAIL}" data-wa="{WHATSAPP_NUMBER}">
+    <label><span class="lbl"><span data-en>Which app?</span><span data-ar>أيّ تطبيق؟</span></span>
+      <select name="app">{options}</select></label>
+    <label><span class="lbl"><span data-en>Your suggestion</span><span data-ar>اقتراحك</span></span>
+      <textarea name="idea" rows="6"></textarea></label>
+    <label><span class="lbl"><span data-en>Your name (optional)</span><span data-ar>اسمك (اختياري)</span></span>
+      <input name="name" type="text" autocomplete="name"></label>
+    <p class="form-error" data-suggest-error hidden><span data-en>Please write your suggestion first.</span><span data-ar>فضلًا اكتب اقتراحك أولًا.</span></p>
+    <div class="btn-row">
+      <button class="btn btn-accent" type="button" data-suggest-send="wa"><span data-en>Send on WhatsApp</span><span data-ar>أرسل عبر واتساب</span></button>
+      <button class="btn btn-secondary" type="button" data-suggest-send="email"><span data-en>Send by email</span><span data-ar>أرسل بالبريد</span></button>
+    </div>
+    <p class="fineprint" data-en>Nothing is stored on this website: the buttons open WhatsApp or your email app with your message ready to send.</p>
+    <p class="fineprint" data-ar>لا يُحفَظ شيء في هذا الموقع: الزرّان يفتحان واتساب أو تطبيق البريد ورسالتك جاهزة للإرسال.</p>
+  </form>
+  {h(2, "How we handle suggestions", "كيف نتعامل مع الاقتراحات")}
+  {ul([("We read every message.", "نقرأ كل رسالة."),
+       ("We pick the ideas that help the most people and fit the app.", "نختار الأفكار التي تفيد أكبر عدد من المستخدمين وتناسب التطبيق."),
+       ("If we build your suggestion, it reaches everyone in an update — no extra charge.", "إذا نفّذنا اقتراحك، يصل للجميع في تحديث — دون أي رسوم إضافية.")])}
+  <p class="fineprint" data-en>We welcome every suggestion, but we cannot promise to build each one or to build it by a certain date.</p>
+  <p class="fineprint" data-ar>نرحّب بكل اقتراح، لكننا لا نتعهّد بتنفيذ كل اقتراح ولا بموعد محدّد لتنفيذه.</p>
+</div></section>'''
+    return render("/suggest/",
+                  "Suggest a feature — Q Apps",
+                  "اقترح ميزة — كيو آبز",
+                  "Send Q Apps your feedback, suggestions and the features you want. When we find a good opportunity, we add them at no extra cost.",
+                  "أرسل إلى كيو آبز رأيك واقتراحاتك والميزات التي تريدها. وإذا وجدنا فرصة مناسبة أضفناها دون أي تكلفة إضافية.",
+                  body, active="suggest")
 
 
 def page_404():
@@ -1299,7 +1406,7 @@ def page_404():
   </div>
 </div>'''
     return render("/404", "Page not found — Q Apps",
-                  "الصفحة غير موجودة — Q Apps",
+                  "الصفحة غير موجودة — كيو آبز",
                   "The page you were looking for doesn't exist or has moved.",
                   "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
                   body, is404=True)
@@ -1378,11 +1485,11 @@ def page_vaultnew():
 def main():
     urls = []
     urls.append(render_home_and_collect())
-    for fn in (page_apps, page_app_countdown, page_app_vault,
+    for fn in (page_apps, page_app_countdown, page_app_vault, page_app_docmatic,
                page_tutorials, page_tutorial_countdown, page_tutorial_vault,
                page_privacy_index,
                page_support_index, page_support_countdown, page_support_vault,
-               page_contact, page_about):
+               page_contact, page_about, page_suggest):
         urls.append(fn())
     # Localized privacy policies (one direct URL per language, per app).
     priv_count = 0
@@ -1402,10 +1509,10 @@ def main():
 def render_home_and_collect():
     body = page_home()
     return render("/",
-                  "Q Apps — Simple, useful mobile apps",
-                  "Q Apps — تطبيقات جوّال بسيطة ومفيدة",
-                  "Q Apps builds simple, private, useful mobile apps in Arabic and English — including Countdown Keeper and Vault, the Warranty Manager.",
-                  "Q Apps تبني تطبيقات جوّال بسيطة وخاصة ومفيدة بالعربية والإنجليزية — منها تطبيق العدّاد وخزنة الضمانات.",
+                  "Q Apps — Valuable apps at tiny prices, yours for life",
+                  "كيو آبز — تطبيقات قيّمة بأسعار زهيدة، لك مدى الحياة",
+                  "Q Apps makes useful mobile apps you buy once at a small price and keep for life — no monthly or yearly subscriptions. In Arabic and English.",
+                  "كيو آبز تصنع تطبيقات جوّال مفيدة تشتريها مرّة واحدة بسعر زهيد وتبقى لك مدى الحياة — بلا اشتراكات شهرية أو سنوية. بالعربية والإنجليزية.",
                   body, active="home")
 
 

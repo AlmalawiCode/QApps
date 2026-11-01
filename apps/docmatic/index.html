@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-lang="en" data-title-en="DocMatic — Photos to PDF, PDF editor, QR codes &amp; ID tools | Q Apps" data-title-ar="DocMatic — الصور إلى PDF، محرر PDF، رموز QR وأدوات الهوية | كيو آبز">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>(function(){try{var l=localStorage.getItem('qapps-lang');if(!l){l=((navigator.language||navigator.userLanguage||'en').slice(0,2)==='ar')?'ar':'en';}var d=document.documentElement;d.setAttribute('data-lang',l);d.setAttribute('lang',l);d.setAttribute('dir',l==='ar'?'rtl':'ltr');var m={en:d.getAttribute('data-title-en'),ar:d.getAttribute('data-title-ar')};if(m[l]){document.title=m[l];}}catch(e){}})();</script>
+<title>DocMatic — Photos to PDF, PDF editor, QR codes &amp; ID tools | Q Apps</title>
+<meta name="description" content="DocMatic turns WhatsApp photos into a neat PDF ready to print, edits and signs PDFs, hides private details, creates QR codes and prints ID photos — 22 features, all on your phone.">
+<link rel="canonical" href="https://qeuapps.com/apps/docmatic/">
+<meta name="theme-color" content="#0F1B2D">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Q Apps">
+<meta property="og:title" content="DocMatic — Photos to PDF, PDF editor, QR codes &amp; ID tools | Q Apps">
+<meta property="og:description" content="DocMatic turns WhatsApp photos into a neat PDF ready to print, edits and signs PDFs, hides private details, creates QR codes and prints ID photos — 22 features, all on your phone.">
+<meta property="og:url" content="https://qeuapps.com/apps/docmatic/">
+<meta property="og:image" content="https://qeuapps.com/assets/img/apps/docmatic/og.png">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ar_SA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DocMatic — Photos to PDF, PDF editor, QR codes &amp; ID tools | Q Apps">
+<meta name="twitter:description" content="DocMatic turns WhatsApp photos into a neat PDF ready to print, edits and signs PDFs, hides private details, creates QR codes and prints ID photos — 22 features, all on your phone.">
+<meta name="twitter:image" content="https://qeuapps.com/assets/img/apps/docmatic/og.png">
+<style>
+.dm-hero{padding:56px 0 40px;overflow:hidden}
+.dm-hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.dm-hero-copy{display:grid;gap:18px}
+.dm-hero h1{font-size:clamp(36px,5.2vw,64px)}
+.dm-hero h1 em{font-style:normal;color:var(--accent)}
+.dm-brand{display:flex;gap:14px;align-items:center}
+.dm-brand img{border-radius:16px;box-shadow:var(--shadow-md)}
+.dm-brand strong{display:block;font-family:var(--f-display);font-size:24px;color:var(--ink)}
+.dm-brand small{color:var(--muted);font-size:14px}
+.dm-dev{justify-self:start;font-size:13.5px;font-weight:700;color:var(--mint);background:var(--mint-soft);padding:6px 12px;border-radius:999px}
+.dm-hero-stage{position:relative;height:620px}
+.dm-phone{all:unset;cursor:zoom-in;display:block;border-radius:30px;border:7px solid #0F1B2D;background:#0F1B2D;overflow:hidden;box-shadow:var(--shadow-lg);transition:transform .25s}
+.dm-phone:hover{transform:translateY(-4px)}
+.dm-phone:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.dm-phone img{width:100%;height:auto;display:block}
+.dm-hero-stage .dm-phone{position:absolute;width:250px}
+.dm-p1{inset-inline-start:6%;top:0;transform:rotate(-4deg)}
+.dm-p2{inset-inline-end:4%;top:70px;transform:rotate(4deg)}
+.dm-p1:hover{transform:rotate(-4deg) translateY(-4px)}.dm-p2:hover{transform:rotate(4deg) translateY(-4px)}
+.dm-stats-wrap{padding:0 0 24px}
+.dm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.dm-stats div{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:18px;display:grid;gap:4px;text-align:center}
+.dm-stats b{font-family:var(--f-display);font-size:clamp(30px,4vw,44px);color:var(--accent);line-height:1}
+.dm-stats span{color:var(--muted);font-weight:600;font-size:14.5px}
+.dm-story-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:44px;align-items:start}
+.dm-story-text{display:grid;gap:18px}
+.dm-story-text p{font-size:18px;line-height:1.85;color:var(--ink)}
+.dm-story-text q{color:var(--accent);font-weight:700}
+.dm-timeline{list-style:none;margin:0;padding:0;display:grid;gap:14px;position:relative}
+.dm-timeline li{display:flex;gap:14px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 16px}
+.dm-timeline li>span{font-size:26px;line-height:1}
+.dm-timeline b{display:block;color:var(--ink)}
+.dm-timeline small{color:var(--muted);font-size:14.5px}
+.dm-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.dm-step{display:grid;gap:14px;align-content:start}
+.dm-step-txt{display:grid;gap:6px}
+.dm-step h3{font-size:19px}
+.dm-step p{font-size:15px}
+.dm-num{width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:800}
+.dm-swipe-hint{display:none;text-align:center;font-size:14px;margin-top:10px}
+.dm-spot{padding:72px 0}
+.dm-spot-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.dm-flip .dm-spot-copy{order:2}
+.dm-spot-copy{display:grid;gap:14px}
+.dm-spot h2{font-size:clamp(28px,3.6vw,44px)}
+.dm-ticks{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:10px}
+.dm-ticks li{position:relative;padding-inline-start:30px;color:var(--ink);font-weight:600}
+.dm-ticks li::before{content:"✓";position:absolute;inset-inline-start:0;top:0;width:22px;height:22px;border-radius:50%;background:var(--mint-soft);color:var(--mint);display:grid;place-items:center;font-size:13px;font-weight:800}
+.dm-spot-shots{display:flex;gap:18px;justify-content:center;align-items:flex-start}
+.dm-spot-shots .dm-phone{width:min(260px,46%)}
+.dm-n3 .dm-phone{width:min(210px,31%)}
+.dm-n2 .dm-phone:nth-child(2),.dm-n3 .dm-phone:nth-child(2){margin-top:44px}
+.dm-feats{columns:3;column-gap:14px}
+.dm-feat{break-inside:avoid;margin:0 0 14px;background:var(--bg);border:1px solid var(--line);border-radius:var(--radius-sm);padding:0;transition:box-shadow .2s}
+.dm-feat[open]{box-shadow:var(--shadow-md);background:var(--surface)}
+.dm-feat summary{list-style:none;cursor:pointer;display:flex;gap:12px;align-items:center;padding:16px 18px}
+.dm-feat summary::-webkit-details-marker{display:none}
+.dm-ico{font-size:24px;line-height:1}
+.dm-feat-t{flex:1;font-weight:750;color:var(--ink)}
+.dm-count{min-width:30px;height:30px;padding:0 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:800;font-size:14px}
+.dm-feat ul{margin:0;padding:0 20px 16px;padding-inline-start:44px;display:grid;gap:6px;color:var(--muted);font-size:15.5px}
+.dm-openall{margin-top:6px}
+.dm-price-card{display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:center;background:var(--night);border-radius:var(--radius);padding:44px;color:var(--on-night)}
+.dm-price-card h2{color:#fff;font-size:clamp(28px,3.6vw,44px);margin:8px 0 12px}
+.dm-price-card p{color:var(--on-night-muted);font-size:17px}
+.dm-price-card .dm-ticks li{color:#fff}
+.dm-gallery{display:grid;grid-template-columns:repeat(8,1fr);gap:16px}
+.dm-gallery figure{margin:0;display:grid;gap:8px}
+.dm-gallery .dm-phone{border-width:5px;border-radius:20px;box-shadow:var(--shadow-md)}
+.dm-gallery figcaption{text-align:center;font-size:13.5px;font-weight:650;color:var(--muted)}
+.dm-lb{position:fixed;inset:0;z-index:100;background:rgba(6,12,22,.92);display:flex;align-items:center;justify-content:center;padding:20px}
+.dm-lb[hidden]{display:none}
+.dm-lb img{max-height:92vh;max-width:min(94vw,520px);width:auto;border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.dm-lb-x{position:absolute;top:14px;inset-inline-end:14px;width:46px;height:46px;border-radius:50%;border:0;background:#fff;color:#0F1B2D;font-size:22px;cursor:pointer}
+.dm-lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;border:0;background:rgba(255,255,255,.15);color:#fff;font-size:34px;cursor:pointer}
+.dm-lb-prev{left:14px}.dm-lb-next{right:14px}
+@media (max-width:1100px){
+  .dm-gallery{grid-template-columns:repeat(4,1fr)}
+  .dm-feats{columns:2}
+}
+@media (max-width:900px){
+  .dm-hero-grid,.dm-story-grid,.dm-spot-grid,.dm-price-card{grid-template-columns:1fr}
+  .dm-hero{padding-top:28px}
+  .dm-hero-stage{height:470px;max-width:440px;width:100%;margin-inline:auto}
+  .dm-hero-stage .dm-phone{width:200px}
+  .dm-flip .dm-spot-copy{order:0}
+  .dm-spot{padding:52px 0}
+  .dm-stats{grid-template-columns:repeat(2,1fr)}
+  .dm-steps{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;padding-bottom:10px;margin-inline:-16px;padding-inline:16px;scrollbar-width:none}
+  .dm-steps::-webkit-scrollbar{display:none}
+  .dm-step{flex:0 0 68%;scroll-snap-align:center}
+  .dm-swipe-hint{display:block}
+  .dm-price-card{padding:30px 22px}
+}
+@media (max-width:620px){
+  .dm-feats{columns:1}
+  .dm-gallery{grid-template-columns:repeat(2,1fr)}
+  .dm-hero-stage{height:400px}
+  .dm-hero-stage .dm-phone{width:170px}
+  .dm-spot-shots .dm-phone{width:min(220px,47%)}
+  .dm-n3{justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-16px;padding:4px 16px 12px;scrollbar-width:none}
+  .dm-n3::-webkit-scrollbar{display:none}
+  .dm-n3 .dm-phone{flex:0 0 58%;width:auto;scroll-snap-align:center}
+  .dm-n3 .dm-phone:nth-child(2){margin-top:0}
+  .dm-story-text p{font-size:17px}
+}
+</style>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500..700&family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Manrope:wght@400..800&display=swap">
+<link rel="stylesheet" href="/assets/css/styles.css?v=84c67d1bba">
+</head>
+<body>
+<a class="skip" href="#main"><span data-en>Skip to content</span><span data-ar>تخطَّ إلى المحتوى</span></a>
+<header class="site-header"><div class="container"><nav class="nav" aria-label="Main">
+  <a class="brand" href="/" aria-label="Q Apps"><svg class="qmark" viewBox="0 0 120 120" width="38" height="38" aria-hidden="true"><circle class="qm-ring" cx="56" cy="56" r="37" fill="none" stroke-width="19"/><rect class="qm-tile" x="72" y="72" width="40" height="40" rx="12" stroke-width="7" paint-order="stroke"/><circle class="qm-dot" cx="92" cy="92" r="5"/></svg><span data-en><b>Q</b> Apps</span><span data-ar><b>كيو</b> آبز</span></a>
+  <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
+  <div class="nav-links" id="nav-links"><a href="/"><span data-en>Home</span><span data-ar>الرئيسية</span></a><a href="/#idea"><span data-en>The idea</span><span data-ar>الفكرة</span></a><a href="/apps/" aria-current="page"><span data-en>Apps</span><span data-ar>التطبيقات</span></a><a href="/tutorials/"><span data-en>Tutorials</span><span data-ar>الشروحات</span></a><a href="/suggest/"><span data-en>Suggest</span><span data-ar>اقترح</span></a><a href="/support/"><span data-en>Support</span><span data-ar>الدعم</span></a><a href="/about/"><span data-en>About</span><span data-ar>من نحن</span></a>
+    <button class="lang-btn" data-lang-toggle type="button" aria-label="التبديل إلى العربية">العربية</button>
+  </div>
+</nav></div></header>
+<main id="main">
+<div class="container"><nav class="crumbs" aria-label="Breadcrumb"><a href="/"><span data-en>Home</span><span data-ar>الرئيسية</span></a><span aria-hidden="true">/</span><a href="/apps/"><span data-en>Apps</span><span data-ar>التطبيقات</span></a><span aria-hidden="true">/</span><span data-en>DocMatic</span><span data-ar>DocMatic</span></nav></div><section class="dm-hero"><div class="container dm-hero-grid">
+  <div class="dm-hero-copy">
+    <div class="dm-brand"><img src="/assets/img/apps/docmatic/icon.png" alt="DocMatic icon" width="64" height="64">
+      <div><strong>DocMatic</strong><small data-en>PDF &amp; document tools</small><small data-ar>أدوات PDF والمستندات</small></div></div>
+    <span class="dm-dev"><span data-en>In development · coming soon to App Store &amp; Google Play</span><span data-ar>قيد التطوير · قريبًا على App Store وGoogle Play</span></span>
+    <h1 data-en>Every paper task. <em>One app on your phone.</em></h1><h1 data-ar>كل ما تحتاجه لأوراقك، <em>في تطبيق واحد على جوالك.</em></h1>
+    <p class="lead" data-en>Photos from WhatsApp become a neat PDF, cropped and straightened for you. Then edit any PDF: arrange, merge, split, fill in and sign, make it smaller — 22 main features and more than 110 tools, all on your phone.</p><p class="lead" data-ar>صور واتساب تصير ملف PDF مرتّبًا، مقصوصًا ومعدّل الميلان تلقائيًا. ثم حرّر أي ملف PDF: رتّب، وادمج، وقسّم، واملأ النماذج ووقّع، وصغّر الحجم — 22 خاصية رئيسية وأكثر من 110 أداة، كلها على جوالك.</p>
+    <div class="btn-row">
+      <a class="btn btn-accent" href="#features"><span data-en>See all features</span><span data-ar>شاهد كل الخصائص</span></a>
+      <a class="btn btn-secondary" href="#story"><span data-en>How it started</span><span data-ar>كيف بدأت الفكرة</span></a>
+    </div>
+  </div>
+  <div class="dm-hero-stage">
+    <button type="button" class="dm-phone dm-p1" data-zoom="home" aria-label="DocMatic home page"><img data-en src="/assets/img/apps/docmatic/home_en.webp" alt="DocMatic home page" loading="eager" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/home_ar.webp" alt="الصفحة الرئيسية في DocMatic" loading="eager" width="620" height="1341"></button>
+    <button type="button" class="dm-phone dm-p2" data-zoom="editor_tools" aria-label="The editor with a signature and hidden line"><img data-en src="/assets/img/apps/docmatic/editor_tools_en.webp" alt="The editor with a signature and hidden line" loading="eager" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/editor_tools_ar.webp" alt="المحرر مع توقيع وسطر مخفي" loading="eager" width="620" height="1341"></button>
+  </div>
+</div></section><section class="dm-stats-wrap"><div class="container"><div class="dm-stats">
+  <div><b>22</b><span data-en>main features</span><span data-ar>خاصية رئيسية</span></div>
+  <div><b>115</b><span data-en>tools inside them</span><span data-ar>أداة داخلها</span></div>
+  <div><b dir="ltr">1×</b><span data-en>small price, yours for life</span><span data-ar>سعر زهيد، لك مدى الحياة</span></div>
+  <div><b>0</b><span data-en>subscriptions · ads · accounts</span><span data-ar>اشتراكات · إعلانات · حسابات</span></div>
+</div></div></section><section id="story" class="dm-story"><div class="container">
+  <div class="section-head">
+    <span class="kicker" data-en>The story</span><span class="kicker" data-ar>القصة</span>
+    <h2 data-en>It started with school papers on WhatsApp.</h2><h2 data-ar>بدأت بأوراق المدرسة على واتساب.</h2>
+  </div>
+  <div class="dm-story-grid">
+    <div class="dm-story-text">
+      <p data-en>My wife follows our son's schooling, and the school sends everything as photos: forms, homework, notices. Every time, she forwarded them to me: <q>Can you make these a PDF?</q> And every time I sat at the computer, collected the photos, straightened them, put them in order and turned them into a file she could print or send back.</p><p data-ar>زوجتي تتابع دراسة ابننا، والمدرسة ترسل كل شيء على شكل صور: نماذج وواجبات وتعاميم. وفي كل مرة كانت ترسلها لي: <q>ممكن تسويها PDF؟</q> وفي كل مرة أجلس أمام الكمبيوتر، أجمع الصور، وأعدّل ميلانها، وأرتّبها، وأحوّلها إلى ملف تطبعه أو تعيد إرساله.</p>
+      <p data-en>One day the question came by itself: why not a simple app? You share the photos from WhatsApp, and it puts them in order as a PDF ready to print. No computer, no waiting for me.</p><p data-ar>وفي أحد الأيام جاء السؤال وحده: لماذا لا يكون هناك تطبيق بسيط؟ تشارك الصور من واتساب، فيرتّبها لك ملف PDF جاهزًا للطباعة. بلا كمبيوتر، وبلا انتظار.</p>
+      <p data-en>It began as a small idea: photos in, a PDF out. Then the ideas kept coming. The app should find the paper's edges, crop it and straighten it by itself, and let me reorder the pages with a finger. Then it should open any PDF and edit it: merge files and split them, extract, rotate and delete pages, fill in forms and sign them, write and highlight on the page, and make the file small enough for any website. Photographed pages should become searchable text, in Arabic and English.</p><p data-ar>بدأت فكرة صغيرة: صور تدخل، وملف PDF يخرج. ثم توالت الأفكار. أن يجد التطبيق حواف الورقة ويقصّها ويعدّل ميلانها وحده، وأن أرتّب الصفحات بإصبعي. ثم أن يفتح أي ملف PDF ويحرّره: يدمج الملفات ويقسّمها، ويستخرج الصفحات ويدوّرها ويحذفها، ويملأ النماذج ويوقّعها، ويكتب على الصفحة ويظلّل، ويصغّر حجم الملف حتى يقبله أي موقع. وأن تصير الصفحات المصوّرة نصًا قابلًا للبحث، بالعربية والإنجليزية.</p>
+      <p data-en>Then came the everyday jobs of the house: both sides of the ID on one page, a passport photo printed at home, QR codes and barcodes… One by one they were added, until the small idea became a complete app: 22 main features and 115 tools inside them.</p><p data-ar>ثم جاءت حاجات البيت اليومية: وجها الهوية في صفحة واحدة، وصورة الجواز تطبعها في البيت، ورموز QR والباركود… أُضيفت واحدة بعد واحدة، حتى صارت الفكرة الصغيرة تطبيقًا متكاملًا: 22 خاصية رئيسية و115 أداة داخلها.</p>
+    </div>
+    <ol class="dm-timeline">
+      <li><span>🖼️</span><div><b data-en>Photos from the school</b><b data-ar>صور من المدرسة</b><small data-en>Forms and notices arrive as WhatsApp photos.</small><small data-ar>النماذج والتعاميم تصل صورًا على واتساب.</small></div></li>
+      <li><span>💻</span><div><b data-en>A PDF by hand</b><b data-ar>PDF باليد</b><small data-en>Every time: the computer, the order, the file.</small><small data-ar>كل مرة: الكمبيوتر والترتيب والملف.</small></div></li>
+      <li><span>💡</span><div><b data-en>A simple app</b><b data-ar>تطبيق بسيط</b><small data-en>Share the photos, get a PDF ready to print.</small><small data-ar>شارك الصور، يصلك PDF جاهز للطباعة.</small></div></li>
+      <li><span>🚀</span><div><b data-en>22 features</b><b data-ar>22 خاصية</b><small data-en>A full PDF editor, and much more.</small><small data-ar>محرر PDF كامل، وأكثر بكثير.</small></div></li>
+    </ol>
+  </div>
+</div></section><section class="section-soft dm-journey"><div class="container">
+  <div class="section-head center">
+    <span class="kicker" data-en>How it works</span><span class="kicker" data-ar>كيف يعمل</span>
+    <h2 data-en>From WhatsApp photos to a printed file, in five steps.</h2><h2 data-ar>من صور واتساب إلى ملف مطبوع، في خمس خطوات.</h2>
+  </div>
+  <ol class="dm-steps"><li class="dm-step"><button type="button" class="dm-phone " data-zoom="inbox" aria-label="Share from WhatsApp"><img data-en src="/assets/img/apps/docmatic/inbox_en.webp" alt="Share from WhatsApp" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/inbox_ar.webp" alt="شارك من واتساب" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">1</span>
+        <h3 data-en>Share from WhatsApp</h3><h3 data-ar>شارك من واتساب</h3><p data-en>Select the photos in the chat, tap Share and choose DocMatic. They land in the Inbox.</p><p data-ar>حدّد الصور في المحادثة، اضغط «مشاركة» واختر DocMatic، فتصل إلى الوارد.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="board" aria-label="Arrange"><img data-en src="/assets/img/apps/docmatic/board_en.webp" alt="Arrange" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/board_ar.webp" alt="رتّب" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">2</span>
+        <h3 data-en>Arrange</h3><h3 data-ar>رتّب</h3><p data-en>The pages are straightened and cropped for you. Drag to reorder, add or remove.</p><p data-ar>تُعدَّل الصفحات وتُقصّ لك تلقائيًا. اسحب لترتيبها، أضف أو احذف.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="save_location" aria-label="Choose a folder, save"><img data-en src="/assets/img/apps/docmatic/save_location_en.webp" alt="Choose a folder, save" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/save_location_ar.webp" alt="اختر المجلد واحفظ" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">3</span>
+        <h3 data-en>Choose a folder, save</h3><h3 data-ar>اختر المجلد واحفظ</h3><p data-en>Like on a computer: pick the folder first, then Save.</p><p data-ar>كما في الكمبيوتر: اختر المجلد أولًا ثم احفظ.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="file" aria-label="Share or print"><img data-en src="/assets/img/apps/docmatic/file_en.webp" alt="Share or print" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/file_ar.webp" alt="شارك أو اطبع" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">4</span>
+        <h3 data-en>Share or print</h3><h3 data-ar>شارك أو اطبع</h3><p data-en>The file opens ready: Share, Print, Size, Editor.</p><p data-ar>يُفتح الملف جاهزًا: مشاركة، طباعة، الحجم، المحرر.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="size" aria-label="Make it smaller"><img data-en src="/assets/img/apps/docmatic/size_en.webp" alt="Make it smaller" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/size_ar.webp" alt="صغّر الحجم" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">5</span>
+        <h3 data-en>Make it smaller</h3><h3 data-ar>صغّر الحجم</h3><p data-en>Too big for the website? Choose a smaller size. The original is kept.</p><p data-ar>أكبر مما يقبله الموقع؟ اختر حجمًا أصغر، والأصل محفوظ.</p></div></li></ol>
+  <p class="dm-swipe-hint" data-en>Swipe to see every step.</p><p class="dm-swipe-hint" data-ar>اسحب لترى كل الخطوات.</p>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker" data-en>The editor</span><span class="kicker" data-ar>المحرر</span>
+    <h2 data-en>A full PDF editor in your pocket.</h2><h2 data-ar>محرر PDF كامل في جيبك.</h2>
+    <p class="lead" data-en>Fill in forms, write, highlight and stamp right on the page, crop and fit it to the paper, hide what is private. Every step can be undone, and nothing changes until you tap Save.</p><p class="lead" data-ar>املأ النماذج، واكتب، وظلّل، واختم على الصفحة نفسها، وقصّ الصفحة وناسبها مع الورق، وأخفِ ما هو خاص. كل خطوة يمكن التراجع عنها، ولا يتغيّر شيء حتى تضغط «حفظ».</p>
+    <ul class="dm-ticks"><li data-en>Five sections: Pages, Add, Draw, Protect, Paper</li><li data-ar>خمسة أقسام: الصفحات، الإضافة، الرسم، الحماية، الورق</li><li data-en>Fill in the form's fields, then sign</li><li data-ar>املأ حقول النموذج ثم وقّع</li><li data-en>A black box that really erases what is under it</li><li data-ar>مربع أسود يمحو ما تحته فعلًا</li><li data-en>Marks stay sharp on PDF pages</li><li data-ar>العلامات تبقى حادة على صفحات PDF</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n2"><button type="button" class="dm-phone " data-zoom="editor_tools" aria-label="Editor: Add tools on a signed lease"><img data-en src="/assets/img/apps/docmatic/editor_tools_en.webp" alt="Editor: Add tools on a signed lease" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/editor_tools_ar.webp" alt="المحرر: أدوات الإضافة على عقد موقّع" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="sign_hide" aria-label="A signed page with a hidden line"><img data-en src="/assets/img/apps/docmatic/sign_hide_en.webp" alt="A signed page with a hidden line" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/sign_hide_ar.webp" alt="صفحة موقّعة مع سطر مخفي" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot dm-flip"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker" data-en>Pages</span><span class="kicker" data-ar>الصفحات</span>
+    <h2 data-en>Every page, in your hands.</h2><h2 data-ar>كل صفحة، بين يديك.</h2>
+    <p class="lead" data-en>See all the pages at once, pick odd, even or a range, then rotate, move, duplicate, extract or split.</p><p class="lead" data-ar>شاهد كل الصفحات مرة واحدة، حدّد الفردية أو الزوجية أو نطاقًا، ثم دوّر أو انقل أو كرّر أو استخرج أو قسّم.</p>
+    <ul class="dm-ticks"><li data-en>Insert pages from other files or the camera</li><li data-ar>أدرج صفحات من ملفات أخرى أو من الكاميرا</li><li data-en>Find and remove blank pages</li><li data-ar>اكتشف الصفحات الفارغة واحذفها</li><li data-en>Pages to images in one tap</li><li data-ar>الصفحات إلى صور بلمسة</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n1"><button type="button" class="dm-phone " data-zoom="editor_pages" aria-label="All pages, two selected"><img data-en src="/assets/img/apps/docmatic/editor_pages_en.webp" alt="All pages, two selected" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/editor_pages_ar.webp" alt="كل الصفحات، صفحتان محددتان" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker" data-en>Open PDF</span><span class="kicker" data-ar>افتح PDF</span>
+    <h2 data-en>Any PDF, from anywhere.</h2><h2 data-ar>أي ملف PDF، من أي مكان.</h2>
+    <p class="lead" data-en>Three doors and nothing to learn: what was shared to you, what you saved, or a file from Drive, iCloud or the phone.</p><p class="lead" data-ar>ثلاثة أبواب ولا شيء تتعلمه: ما وصلك بالمشاركة، أو ما حفظته، أو ملف من Drive أو iCloud أو الجوال.</p>
+    <ul class="dm-ticks"><li data-en>From the Inbox, My files or outside the app</li><li data-ar>من الوارد أو ملفاتي أو من خارج التطبيق</li><li data-en>Password-protected PDFs open too</li><li data-ar>حتى الملفات المحمية بكلمة مرور تُفتح</li><li data-en>A tip on every door: how to send a file from WhatsApp</li><li data-ar>تلميح في كل باب: كيف ترسل ملفًا من واتساب</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n1"><button type="button" class="dm-phone " data-zoom="open_pdf" aria-label="The Open PDF sheet"><img data-en src="/assets/img/apps/docmatic/open_pdf_en.webp" alt="The Open PDF sheet" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/open_pdf_ar.webp" alt="قائمة افتح PDF" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot dm-flip"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker" data-en>QR &amp; barcodes</span><span class="kicker" data-ar>QR والباركود</span>
+    <h2 data-en>Read any code. Create your own.</h2><h2 data-ar>اقرأ أي رمز. وأنشئ رمزك.</h2>
+    <p class="lead" data-en>Wi-Fi for your guests, your contact card, your shop's link, product labels from a list — and the app checks the new code really scans.</p><p class="lead" data-ar>واي فاي لضيوفك، بطاقة التواصل، رابط متجرك، ملصقات منتجات من قائمة — والتطبيق يتحقق أن الرمز الجديد يُقرأ فعلًا.</p>
+    <ul class="dm-ticks"><li data-en>Link, text, Wi-Fi, contact, email, phone, message, location</li><li data-ar>رابط، نص، واي فاي، جهة اتصال، بريد، هاتف، رسالة، موقع</li><li data-en>13 barcode types and label sheets</li><li data-ar>13 نوع باركود وأوراق ملصقات</li><li data-en>Put the code on a page in the editor</li><li data-ar>ضع الرمز على صفحة في المحرر</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n2"><button type="button" class="dm-phone " data-zoom="code_contact" aria-label="Creating a QR code for a contact"><img data-en src="/assets/img/apps/docmatic/code_contact_en.webp" alt="Creating a QR code for a contact" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/code_contact_ar.webp" alt="إنشاء رمز QR لجهة اتصال" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="codes" aria-label="Codes and their history"><img data-en src="/assets/img/apps/docmatic/codes_en.webp" alt="Codes and their history" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/codes_ar.webp" alt="الرموز وسجلها" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker" data-en>Everyday tools</span><span class="kicker" data-ar>أدوات يومية</span>
+    <h2 data-en>The small jobs, done in seconds.</h2><h2 data-ar>المهام الصغيرة، في ثوانٍ.</h2>
+    <p class="lead" data-en>Both sides of an ID on one page, a passport photo printed at home, WhatsApp without saving the number, smaller photos, Hijri and Gregorian dates.</p><p class="lead" data-ar>وجها الهوية في صفحة واحدة، وصورة جواز تطبعها في البيت، وواتساب دون حفظ الرقم، وصور أصغر، وتاريخ هجري وميلادي.</p>
+    <ul class="dm-ticks"><li data-en>ID card at real size, photo blurred if you want</li><li data-ar>بطاقة الهوية بمقاسها الحقيقي، مع تمويه الصورة إن شئت</li><li data-en>ID and passport photos, as many as fit on the paper</li><li data-ar>صور الهوية والجواز، بأكبر عدد يتسع في الورقة</li><li data-en>Pin your favourite tools to the home page</li><li data-ar>ثبّت أدواتك المفضلة على الصفحة الرئيسية</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n3"><button type="button" class="dm-phone " data-zoom="id_card" aria-label="Both sides of an ID on one page"><img data-en src="/assets/img/apps/docmatic/id_card_en.webp" alt="Both sides of an ID on one page" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/id_card_ar.webp" alt="وجها الهوية في صفحة واحدة" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="studio" aria-label="ID and passport photos"><img data-en src="/assets/img/apps/docmatic/studio_en.webp" alt="ID and passport photos" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/studio_ar.webp" alt="صور الهوية والجواز" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="whatsapp" aria-label="WhatsApp without saving the number"><img data-en src="/assets/img/apps/docmatic/whatsapp_en.webp" alt="WhatsApp without saving the number" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/whatsapp_ar.webp" alt="واتساب دون حفظ الرقم" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section id="features" class="section-soft"><div class="container">
+  <div class="section-head center">
+    <span class="kicker" data-en>Everything inside</span><span class="kicker" data-ar>كل ما في التطبيق</span>
+    <h2 data-en>22 main features. 115 tools inside them.</h2><h2 data-ar>22 خاصية رئيسية. 115 أداة داخلها.</h2>
+    <p data-en>Tap any feature to see what it holds.</p><p data-ar>اضغط أي خاصية لترى ما بداخلها.</p>
+    <button type="button" class="btn btn-secondary dm-openall" aria-pressed="false"><span data-en>Open all</span><span data-ar>افتح الكل</span></button>
+  </div>
+  <div class="dm-feats"><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">📸</span>
+      <span class="dm-feat-t"><span data-en>Photos to PDF</span><span data-ar>الصور إلى PDF</span></span><span class="dm-count">8</span></summary>
+      <ul><li data-en>Turn any number of photos into one PDF</li><li data-ar>حوّل أي عدد من الصور إلى ملف PDF واحد</li><li data-en>Drag to reorder pages</li><li data-ar>رتّب الصفحات بالسحب</li><li data-en>Finds the paper's edges and straightens it</li><li data-ar>يجد حواف الورقة ويعدّل ميلانها</li><li data-en>Smart crop, margins or your own hand crop</li><li data-ar>قصّ ذكي، أو حسب الهوامش، أو بيدك</li><li data-en>Fix the tilt by a degree</li><li data-ar>تصحيح الميلان بالدرجة</li><li data-en>Filters: original, document, photocopy, vivid</li><li data-ar>مرشّحات: الأصل، مستند، نسخة ضوئية، ألوان زاهية</li><li data-en>Clean the edges and punch holes</li><li data-ar>تنظيف الحواف وثقوب التخريم</li><li data-en>Pick photos from the gallery or the Inbox</li><li data-ar>اختر الصور من المعرض أو من الوارد</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">📑</span>
+      <span class="dm-feat-t"><span data-en>Editor — pages</span><span data-ar>المحرر — الصفحات</span></span><span class="dm-count">14</span></summary>
+      <ul><li data-en>All pages at a glance</li><li data-ar>كل الصفحات في نظرة واحدة</li><li data-en>Select all, odd, even or a range</li><li data-ar>حدّد الكل أو الفردية أو الزوجية أو نطاقًا</li><li data-en>Rotate, duplicate, delete</li><li data-ar>تدوير، تكرار، حذف</li><li data-en>Move pages after any page</li><li data-ar>انقل الصفحات بعد أي صفحة</li><li data-en>Reverse the order</li><li data-ar>اعكس الترتيب</li><li data-en>Insert pages from other files or the camera</li><li data-ar>أدرج صفحات من ملفات أخرى أو من الكاميرا</li><li data-en>Merge other files into it</li><li data-ar>ادمج ملفات أخرى فيه</li><li data-en>Replace a page with one from another file</li><li data-ar>استبدل صفحة بصفحة من ملف آخر</li><li data-en>Add a blank page before or after</li><li data-ar>أضف صفحة فارغة قبل أو بعد</li><li data-en>Find and remove blank pages</li><li data-ar>اكتشف الصفحات الفارغة واحذفها</li><li data-en>Extract pages as a new file</li><li data-ar>استخرج صفحات كملف جديد</li><li data-en>Split the file</li><li data-ar>قسّم الملف</li><li data-en>Pages to images</li><li data-ar>الصفحات إلى صور</li><li data-en>Undo and redo every step</li><li data-ar>تراجع وإعادة لكل خطوة</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">✍️</span>
+      <span class="dm-feat-t"><span data-en>Editor — add</span><span data-ar>المحرر — الإضافة</span></span><span class="dm-count">12</span></summary>
+      <ul><li data-en>Fill in the form's fields</li><li data-ar>املأ حقول النموذج</li><li data-en>Your signature, drawn once and kept</li><li data-ar>توقيعك: ترسمه مرة ويبقى محفوظًا</li><li data-en>Initials</li><li data-ar>الأحرف الأولى</li><li data-en>Text and date</li><li data-ar>نص وتاريخ</li><li data-en>Tick and cross</li><li data-ar>علامة صح وخطأ</li><li data-en>Stamps: Approved, Paid, Received, Copy…</li><li data-ar>أختام: معتمد، مدفوع، مستلم، نسخة…</li><li data-en>Your own logo or stamp</li><li data-ar>شعارك أو ختمك الخاص</li><li data-en>Pictures</li><li data-ar>صور</li><li data-en>Page numbers in six positions</li><li data-ar>ترقيم الصفحات في ست مواضع</li><li data-en>Header and footer on every page</li><li data-ar>ترويسة وتذييل في كل صفحة</li><li data-en>Watermark</li><li data-ar>علامة مائية</li><li data-en>Notes and bookmarks</li><li data-ar>ملاحظات وعلامات مرجعية</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🖊️</span>
+      <span class="dm-feat-t"><span data-en>Editor — draw</span><span data-ar>المحرر — الرسم</span></span><span class="dm-count">5</span></summary>
+      <ul><li data-en>Pen and highlighter</li><li data-ar>قلم وقلم تظليل</li><li data-en>Line, arrow, rectangle, circle</li><li data-ar>خط، سهم، مستطيل، دائرة</li><li data-en>Highlight, underline or strike out text</li><li data-ar>ظلّل النص أو ضع تحته خطًا أو اشطبه</li><li data-en>Eraser</li><li data-ar>ممحاة</li><li data-en>Marks stay sharp on PDF pages</li><li data-ar>العلامات تبقى حادة على صفحات PDF</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🛡️</span>
+      <span class="dm-feat-t"><span data-en>Editor — protect</span><span data-ar>المحرر — الحماية</span></span><span class="dm-count">4</span></summary>
+      <ul><li data-en>Hide with a black box that really erases</li><li data-ar>أخفِ بمربع أسود يمحو ما تحته فعلًا</li><li data-en>Blur a face or a number</li><li data-ar>موّه وجهًا أو رقمًا</li><li data-en>Find a word and hide it on every page</li><li data-ar>ابحث عن كلمة وأخفِها في كل الصفحات</li><li data-en>Hidden data removed on every save</li><li data-ar>البيانات المخفية تُزال مع كل حفظ</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">📐</span>
+      <span class="dm-feat-t"><span data-en>Editor — paper</span><span data-ar>المحرر — الورق</span></span><span class="dm-count">3</span></summary>
+      <ul><li data-en>Crop and fit</li><li data-ar>قص وملاءمة</li><li data-en>Enlarge the content to fill the paper</li><li data-ar>كبّر المحتوى ليملأ الورقة</li><li data-en>Whole image or fill the page</li><li data-ar>الصورة كاملة أو تملأ الصفحة</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🗜️</span>
+      <span class="dm-feat-t"><span data-en>File size</span><span data-ar>حجم الملف</span></span><span class="dm-count">4</span></summary>
+      <ul><li data-en>Original, standard or small</li><li data-ar>الأصلي، أو متوسط، أو صغير</li><li data-en>See the size before you choose</li><li data-ar>ترى الحجم قبل أن تختار</li><li data-en>Always reversible: the original is kept</li><li data-ar>يمكن التراجع دائمًا: الأصل محفوظ</li><li data-en>Paper size: A4, A5, Letter or as is</li><li data-ar>مقاس الورق: A4 أو A5 أو Letter أو كما هو</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔎</span>
+      <span class="dm-feat-t"><span data-en>Searchable text</span><span data-ar>نص قابل للبحث</span></span><span class="dm-count">3</span></summary>
+      <ul><li data-en>Reads photographed pages on the phone</li><li data-ar>يقرأ الصفحات المصوّرة على الجوال</li><li data-en>Arabic and English</li><li data-ar>العربية والإنجليزية</li><li data-en>Search, highlight and copy the text</li><li data-ar>ابحث وظلّل وانسخ النص</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">📂</span>
+      <span class="dm-feat-t"><span data-en>Open any PDF</span><span data-ar>افتح أي PDF</span></span><span class="dm-count">4</span></summary>
+      <ul><li data-en>From the Inbox: what you shared to DocMatic</li><li data-ar>من الوارد: ما شاركته إلى DocMatic</li><li data-en>From My files: what you saved before</li><li data-ar>من ملفاتي: ما حفظته من قبل</li><li data-en>From outside the app: Files, iCloud, Google Drive</li><li data-ar>من خارج التطبيق: الملفات وiCloud وGoogle Drive</li><li data-en>Opens password-protected PDFs</li><li data-ar>يفتح ملفات PDF المحمية بكلمة مرور</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">📷</span>
+      <span class="dm-feat-t"><span data-en>Scan with the camera</span><span data-ar>المسح بالكاميرا</span></span><span class="dm-count">4</span></summary>
+      <ul><li data-en>A scan door right on the home page</li><li data-ar>باب المسح على الصفحة الرئيسية مباشرة</li><li data-en>Several pages in one go</li><li data-ar>عدة صفحات في مرة واحدة</li><li data-en>Edges found and the page straightened for you</li><li data-ar>يجد الحواف ويعدّل الصفحة تلقائيًا</li><li data-en>Camera asked only at the first scan</li><li data-ar>لا يطلب الكاميرا إلا عند أول مسح</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">💬</span>
+      <span class="dm-feat-t"><span data-en>Share in from WhatsApp</span><span data-ar>شارك من واتساب</span></span><span class="dm-count">4</span></summary>
+      <ul><li data-en>Share photos or a PDF from any chat</li><li data-ar>شارك الصور أو ملف PDF من أي محادثة</li><li data-en>Everything lands in one Inbox</li><li data-ar>كل شيء يصل إلى وارد واحد</li><li data-en>Works from any app that can share</li><li data-ar>يعمل من أي تطبيق فيه «مشاركة»</li><li data-en>Nothing in the Inbox is deleted by itself</li><li data-ar>لا يُحذف شيء من الوارد من تلقاء نفسه</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🗂️</span>
+      <span class="dm-feat-t"><span data-en>Save like on a computer</span><span data-ar>احفظ كما في الكمبيوتر</span></span><span class="dm-count">6</span></summary>
+      <ul><li data-en>Choose the folder before you save</li><li data-ar>اختر المجلد قبل الحفظ</li><li data-en>Folders and folders inside folders</li><li data-ar>مجلدات ومجلدات داخلها</li><li data-en>Move files between folders</li><li data-ar>انقل الملفات بين المجلدات</li><li data-en>Recent files and search</li><li data-ar>آخر الملفات والبحث</li><li data-en>Trash that keeps files for 30 days</li><li data-ar>سلة تحفظ الملفات 30 يومًا</li><li data-en>A reminder when you leave without saving</li><li data-ar>تنبيه إذا خرجت دون حفظ</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">📤</span>
+      <span class="dm-feat-t"><span data-en>Share and print</span><span data-ar>المشاركة والطباعة</span></span><span class="dm-count">4</span></summary>
+      <ul><li data-en>Send by WhatsApp, email or Drive in one tap</li><li data-ar>أرسل بواتساب أو البريد أو Drive بلمسة</li><li data-en>Print straight from the file</li><li data-ar>اطبع من الملف مباشرة</li><li data-en>Share several files at once</li><li data-ar>شارك عدة ملفات مرة واحدة</li><li data-en>What you see is exactly what you send</li><li data-ar>ما تراه هو بالضبط ما ترسله</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔐</span>
+      <span class="dm-feat-t"><span data-en>Locked folders and app lock</span><span data-ar>المجلدات المقفلة وقفل التطبيق</span></span><span class="dm-count">3</span></summary>
+      <ul><li data-en>Locked folders with real AES-256 encryption</li><li data-ar>مجلدات مقفلة بتشفير حقيقي AES-256</li><li data-en>Not just a password: the files themselves are encrypted</li><li data-ar>ليست مجرد كلمة مرور: الملفات نفسها مشفّرة</li><li data-en>Fingerprint or device PIN to open the app</li><li data-ar>البصمة أو رمز الجهاز لفتح التطبيق</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔳</span>
+      <span class="dm-feat-t"><span data-en>QR codes and barcodes — read</span><span data-ar>رموز QR والباركود — القراءة</span></span><span class="dm-count">5</span></summary>
+      <ul><li data-en>Scan with the camera</li><li data-ar>امسح بالكاميرا</li><li data-en>Read from a picture or a file</li><li data-ar>اقرأ من صورة أو ملف</li><li data-en>Read every code inside a PDF</li><li data-ar>اقرأ كل الرموز داخل ملف PDF</li><li data-en>Understands links, Wi-Fi, contacts, products, tax invoices</li><li data-ar>يفهم الروابط والواي فاي وجهات الاتصال والمنتجات والفواتير الضريبية</li><li data-en>History of every code you read</li><li data-ar>سجل لكل رمز قرأته</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">✨</span>
+      <span class="dm-feat-t"><span data-en>QR codes and barcodes — create</span><span data-ar>رموز QR والباركود — الإنشاء</span></span><span class="dm-count">8</span></summary>
+      <ul><li data-en>Link, text, Wi-Fi, contact, email</li><li data-ar>رابط، نص، واي فاي، جهة اتصال، بريد</li><li data-en>Phone, message, location</li><li data-ar>هاتف، رسالة، موقع</li><li data-en>13 barcode types: EAN, UPC, Code 128, Data Matrix, PDF417…</li><li data-ar>13 نوع باركود: EAN وUPC وCode 128 وData Matrix وPDF417…</li><li data-en>Your own colours</li><li data-ar>ألوانك الخاصة</li><li data-en>Checks the new code really scans</li><li data-ar>يتحقق أن الرمز الجديد يُقرأ فعلًا</li><li data-en>Print at an exact size in millimetres</li><li data-ar>اطبعه بمقاس دقيق بالمليمتر</li><li data-en>Label sheets from a list (CSV)</li><li data-ar>ورقة ملصقات من قائمة (CSV)</li><li data-en>Put the code on a page in the editor</li><li data-ar>ضع الرمز على صفحة في المحرر</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🟢</span>
+      <span class="dm-feat-t"><span data-en>WhatsApp without saving the number</span><span data-ar>واتساب دون حفظ الرقم</span></span><span class="dm-count">4</span></summary>
+      <ul><li data-en>Message any number in one tap</li><li data-ar>راسل أي رقم بلمسة</li><li data-en>Country code chosen for you</li><li data-ar>رمز الدولة مختار لك</li><li data-en>Ready messages you reuse</li><li data-ar>رسائل جاهزة تعيد استخدامها</li><li data-en>A location inside the ready message</li><li data-ar>موقع داخل الرسالة الجاهزة</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🪪</span>
+      <span class="dm-feat-t"><span data-en>ID card</span><span data-ar>بطاقة الهوية</span></span><span class="dm-count">5</span></summary>
+      <ul><li data-en>Both sides on one page</li><li data-ar>الوجهان في صفحة واحدة</li><li data-en>ID, passport or licence</li><li data-ar>هوية أو جواز أو رخصة</li><li data-en>Real size, ready to print</li><li data-ar>بالمقاس الحقيقي جاهزة للطباعة</li><li data-en>Two copies per page</li><li data-ar>نسختان في الصفحة</li><li data-en>Blur the photo before you send</li><li data-ar>موّه الصورة الشخصية قبل الإرسال</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🧑‍💼</span>
+      <span class="dm-feat-t"><span data-en>ID and passport photos</span><span data-ar>صور الهوية والجواز</span></span><span class="dm-count">6</span></summary>
+      <ul><li data-en>Take it with the camera or choose a photo</li><li data-ar>التقطها بالكاميرا أو اختر صورة</li><li data-en>Standard sizes or your own</li><li data-ar>مقاسات معتمدة أو مقاسك</li><li data-en>Light, contrast and warmth</li><li data-ar>الإضاءة والتباين والدفء</li><li data-en>White background on a plain wall</li><li data-ar>خلفية بيضاء على جدار سادة</li><li data-en>As many as fit on your paper, with cut lines</li><li data-ar>أكبر عدد يتسع في ورقتك، مع خطوط القص</li><li data-en>Print quality up to 600 dpi</li><li data-ar>جودة طباعة حتى 600 نقطة</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🖼️</span>
+      <span class="dm-feat-t"><span data-en>Compress and convert images</span><span data-ar>ضغط الصور وتحويلها</span></span><span class="dm-count">4</span></summary>
+      <ul><li data-en>Make photos smaller</li><li data-ar>صغّر حجم الصور</li><li data-en>HEIC to JPG</li><li data-ar>من HEIC إلى JPG</li><li data-en>Resize</li><li data-ar>غيّر المقاس</li><li data-en>From the gallery or from My files</li><li data-ar>من المعرض أو من ملفاتي</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">📅</span>
+      <span class="dm-feat-t"><span data-en>Date converter</span><span data-ar>محوّل التاريخ</span></span><span class="dm-count">1</span></summary>
+      <ul><li data-en>Hijri ⇄ Gregorian</li><li data-ar>هجري ⇄ ميلادي</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🏠</span>
+      <span class="dm-feat-t"><span data-en>Your home page</span><span data-ar>صفحتك الرئيسية</span></span><span class="dm-count">4</span></summary>
+      <ul><li data-en>Three doors: Open PDF, Photos to PDF, Scan</li><li data-ar>ثلاثة أبواب: افتح PDF، صور إلى PDF، امسح</li><li data-en>Pin up to nine shortcuts</li><li data-ar>ثبّت حتى تسعة اختصارات</li><li data-en>Drag to reorder your shortcuts</li><li data-ar>رتّب اختصاراتك بالسحب</li><li data-en>Arabic and English, light and dark</li><li data-ar>عربي وإنجليزي، فاتح وداكن</li></ul></details></div>
+</div></section><section class="dm-price"><div class="container"><div class="dm-price-card">
+  <div>
+    <span class="kicker" data-en>Price</span><span class="kicker" data-ar>السعر</span>
+    <h2 data-en>One small price. Yours for life.</h2><h2 data-ar>سعر زهيد مرة واحدة، ولك مدى الحياة.</h2>
+    <p data-en>No monthly or yearly subscription, no ads, no account. Your files stay on your phone, and they leave it only when you share or print them.</p><p data-ar>بلا اشتراك شهري أو سنوي، وبلا إعلانات، وبلا حساب. ملفاتك تبقى على جوالك، ولا تخرج منه إلا حين تشاركها أو تطبعها.</p>
+  </div>
+  <ul class="dm-ticks dm-ticks-big">
+    <li data-en>Pay once</li><li data-ar>ادفع مرة واحدة</li>
+    <li data-en>No subscription, no ads</li><li data-ar>بلا اشتراك وبلا إعلانات</li>
+    <li data-en>No account needed</li><li data-ar>لا حاجة لحساب</li>
+    <li data-en>Works on the phone, even offline</li><li data-ar>يعمل على الجوال حتى دون إنترنت</li>
+    <li data-en>Arabic and English</li><li data-ar>العربية والإنجليزية</li>
+  </ul>
+</div></div></section><section class="section-soft"><div class="container">
+  <div class="section-head center">
+    <span class="kicker" data-en>Screens</span><span class="kicker" data-ar>الشاشات</span>
+    <h2 data-en>Real screens from the app.</h2><h2 data-ar>شاشات حقيقية من التطبيق.</h2>
+    <p data-en>Tap any screen to see it large.</p><p data-ar>اضغط أي شاشة لتراها مكبّرة.</p>
+  </div>
+  <div class="dm-gallery"><figure><button type="button" class="dm-phone " data-zoom="home" aria-label="Home"><img data-en src="/assets/img/apps/docmatic/home_en.webp" alt="Home" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/home_ar.webp" alt="الرئيسية" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Home</span><span data-ar>الرئيسية</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="open_pdf" aria-label="Open PDF"><img data-en src="/assets/img/apps/docmatic/open_pdf_en.webp" alt="Open PDF" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/open_pdf_ar.webp" alt="افتح PDF" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Open PDF</span><span data-ar>افتح PDF</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="inbox" aria-label="Inbox"><img data-en src="/assets/img/apps/docmatic/inbox_en.webp" alt="Inbox" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/inbox_ar.webp" alt="الوارد" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Inbox</span><span data-ar>الوارد</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="board" aria-label="Photos to PDF"><img data-en src="/assets/img/apps/docmatic/board_en.webp" alt="Photos to PDF" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/board_ar.webp" alt="الصور إلى PDF" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Photos to PDF</span><span data-ar>الصور إلى PDF</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="save_location" aria-label="Save location"><img data-en src="/assets/img/apps/docmatic/save_location_en.webp" alt="Save location" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/save_location_ar.webp" alt="مكان الحفظ" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Save location</span><span data-ar>مكان الحفظ</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="file" aria-label="The file"><img data-en src="/assets/img/apps/docmatic/file_en.webp" alt="The file" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/file_ar.webp" alt="الملف" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>The file</span><span data-ar>الملف</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="editor_tools" aria-label="Editor"><img data-en src="/assets/img/apps/docmatic/editor_tools_en.webp" alt="Editor" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/editor_tools_ar.webp" alt="المحرر" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Editor</span><span data-ar>المحرر</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="editor_pages" aria-label="Pages"><img data-en src="/assets/img/apps/docmatic/editor_pages_en.webp" alt="Pages" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/editor_pages_ar.webp" alt="الصفحات" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Pages</span><span data-ar>الصفحات</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="size" aria-label="File size"><img data-en src="/assets/img/apps/docmatic/size_en.webp" alt="File size" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/size_ar.webp" alt="حجم الملف" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>File size</span><span data-ar>حجم الملف</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="sign_hide" aria-label="Sign &amp; hide"><img data-en src="/assets/img/apps/docmatic/sign_hide_en.webp" alt="Sign &amp; hide" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/sign_hide_ar.webp" alt="التوقيع والإخفاء" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Sign &amp; hide</span><span data-ar>التوقيع والإخفاء</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="code_contact" aria-label="Create a code"><img data-en src="/assets/img/apps/docmatic/code_contact_en.webp" alt="Create a code" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/code_contact_ar.webp" alt="إنشاء رمز" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Create a code</span><span data-ar>إنشاء رمز</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="codes" aria-label="QR &amp; barcodes"><img data-en src="/assets/img/apps/docmatic/codes_en.webp" alt="QR &amp; barcodes" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/codes_ar.webp" alt="QR والباركود" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>QR &amp; barcodes</span><span data-ar>QR والباركود</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="id_card" aria-label="ID card"><img data-en src="/assets/img/apps/docmatic/id_card_en.webp" alt="ID card" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/id_card_ar.webp" alt="بطاقة الهوية" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>ID card</span><span data-ar>بطاقة الهوية</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="studio" aria-label="ID photo"><img data-en src="/assets/img/apps/docmatic/studio_en.webp" alt="ID photo" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/studio_ar.webp" alt="صورة رسمية" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>ID photo</span><span data-ar>صورة رسمية</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="whatsapp" aria-label="WhatsApp"><img data-en src="/assets/img/apps/docmatic/whatsapp_en.webp" alt="WhatsApp" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/whatsapp_ar.webp" alt="واتساب" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>WhatsApp</span><span data-ar>واتساب</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="tools" aria-label="Tools"><img data-en src="/assets/img/apps/docmatic/tools_en.webp" alt="Tools" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/docmatic/tools_ar.webp" alt="الأدوات" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Tools</span><span data-ar>الأدوات</span></figcaption></figure></div>
+</div></section><section><div class="container" style="max-width:820px">
+  <h2 class="center" data-en>Questions</h2><h2 class="center" data-ar>أسئلة</h2>
+  <div class="faq" style="margin-top:28px"><details><summary><span data-en>Is DocMatic available now?</span><span data-ar>هل DocMatic متاح الآن؟</span></summary><p data-en>It is in its final testing. It will be on the App Store and Google Play soon.</p><p data-ar>هو في مرحلة الاختبار الأخيرة، وسيكون قريبًا على App Store وGoogle Play.</p></details><details><summary><span data-en>Do my files leave my phone?</span><span data-ar>هل تخرج ملفاتي من جوالي؟</span></summary><p data-en>No. Everything is done on the phone. A file leaves only when you share or print it.</p><p data-ar>لا. كل شيء يتم على الجوال، ولا يخرج الملف إلا حين تشاركه أو تطبعه.</p></details><details><summary><span data-en>Do I need an account?</span><span data-ar>هل أحتاج إلى حساب؟</span></summary><p data-en>No account, no sign-in. Open the app and start.</p><p data-ar>لا حساب ولا تسجيل دخول. افتح التطبيق وابدأ.</p></details><details><summary><span data-en>Is it a subscription?</span><span data-ar>هل هو اشتراك؟</span></summary><p data-en>No. One small price, and the app is yours for life.</p><p data-ar>لا. سعر زهيد مرة واحدة، ويبقى التطبيق لك مدى الحياة.</p></details><details><summary><span data-en>Does it read Arabic?</span><span data-ar>هل يقرأ العربية؟</span></summary><p data-en>Yes. The whole app is in Arabic and English, and it reads Arabic and English text on photographed pages.</p><p data-ar>نعم. التطبيق كله بالعربية والإنجليزية، ويقرأ النص العربي والإنجليزي في الصفحات المصوّرة.</p></details></div>
+</div></section><section style="padding-top:0"><div class="container"><div class="cta-band">
+  <div>
+    <h2 data-en>Coming soon to your phone.</h2><h2 data-ar>قريبًا على جوالك.</h2>
+    <p data-en>Have an idea that would make DocMatic better? Tell us — the best ones are added for everyone.</p><p data-ar>عندك فكرة تجعل DocMatic أفضل؟ أخبرنا — وأفضل الأفكار تُضاف للجميع.</p>
+  </div>
+  <a class="btn btn-accent" href="/suggest/"><span data-en>Suggest a feature</span><span data-ar>اقترح ميزة</span></a>
+</div></div></section><div class="dm-lb" hidden><button type="button" class="dm-lb-x" aria-label="Close">✕</button>
+  <button type="button" class="dm-lb-nav dm-lb-prev" aria-label="Previous">‹</button>
+  <img alt=""><button type="button" class="dm-lb-nav dm-lb-next" aria-label="Next">›</button></div><script>
+(function(){
+  var lb=document.querySelector('.dm-lb'),im=lb.querySelector('img'),list=[],i=0;
+  function lang(){return document.documentElement.getAttribute('data-lang')==='ar'?'ar':'en';}
+  function names(){var s=[];document.querySelectorAll('.dm-gallery [data-zoom]').forEach(function(b){s.push(b.dataset.zoom);});return s;}
+  function show(){im.src='/assets/img/apps/docmatic/'+list[i]+'_'+lang()+'.webp';}
+  function open(n){list=names();i=Math.max(0,list.indexOf(n));show();lb.hidden=false;document.body.style.overflow='hidden';}
+  function close(){lb.hidden=true;document.body.style.overflow='';}
+  function step(d){i=(i+d+list.length)%list.length;show();}
+  document.querySelectorAll('[data-zoom]').forEach(function(b){b.addEventListener('click',function(){open(b.dataset.zoom);});});
+  lb.querySelector('.dm-lb-x').addEventListener('click',close);
+  lb.querySelector('.dm-lb-prev').addEventListener('click',function(e){e.stopPropagation();step(-1);});
+  lb.querySelector('.dm-lb-next').addEventListener('click',function(e){e.stopPropagation();step(1);});
+  lb.addEventListener('click',function(e){if(e.target===lb)close();});
+  document.addEventListener('keydown',function(e){if(lb.hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1);});
+  var x0=null;lb.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+  lb.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)step(dx<0?1:-1);x0=null;});
+  var btn=document.querySelector('.dm-openall');
+  if(btn)btn.addEventListener('click',function(){var on=btn.getAttribute('aria-pressed')!=='true';
+    document.querySelectorAll('.dm-feat').forEach(function(d){d.open=on;});btn.setAttribute('aria-pressed',on);
+    btn.querySelectorAll('span').forEach(function(s){s.textContent=on?(s.hasAttribute('data-ar')?'أغلق الكل':'Close all'):(s.hasAttribute('data-ar')?'افتح الكل':'Open all');});});
+  if(window.matchMedia('(min-width:901px)').matches&&btn)btn.click();
+})();
+</script>
+</main>
+<footer class="site-footer"><div class="container">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand"><svg class="qmark" viewBox="0 0 120 120" width="40" height="40" aria-hidden="true"><circle class="qm-ring" cx="56" cy="56" r="37" fill="none" stroke-width="19"/><rect class="qm-tile" x="72" y="72" width="40" height="40" rx="12" stroke-width="7" paint-order="stroke"/><circle class="qm-dot" cx="92" cy="92" r="5"/></svg><span data-en><b>Q</b> Apps</span><span data-ar><b>كيو</b> آبز</span></div>
+      <p style="max-width:34ch" data-en>Valuable apps at tiny prices — pay once, yours for life.</p>
+      <p style="max-width:34ch" data-ar>تطبيقات قيّمة بأسعار زهيدة — ادفع مرّة، ولك مدى الحياة.</p>
+      <p style="margin-top:14px"><a href="mailto:thibantechsolutions@gmail.com"><bdi dir="ltr">thibantechsolutions@gmail.com</bdi></a></p>
+      <p style="margin-top:4px"><a href="https://wa.me/966554260804" target="_blank" rel="noopener"><span data-en>WhatsApp</span><span data-ar>واتساب</span>: <bdi dir="ltr">+966 55 426 0804</bdi></a></p>
+    </div>
+    <div><h4><span data-en>Apps</span><span data-ar>التطبيقات</span></h4><ul><li><a href="/apps/countdown-keeper/"><span data-en>Countdown Keeper</span><span data-ar>العدّاد</span></a></li><li><a href="/apps/vault/"><span data-en>Vault — Warranty Manager</span><span data-ar>خزنة الضمانات</span></a></li><li><a href="/apps/"><span data-en>All apps</span><span data-ar>كل التطبيقات</span></a></li></ul></div><div><h4><span data-en>Help</span><span data-ar>المساعدة</span></h4><ul><li><a href="/tutorials/"><span data-en>Tutorials</span><span data-ar>الشروحات</span></a></li><li><a href="/suggest/"><span data-en>Suggest a feature</span><span data-ar>اقترح ميزة</span></a></li><li><a href="/support/"><span data-en>Support</span><span data-ar>الدعم</span></a></li><li><a href="/contact/"><span data-en>Contact</span><span data-ar>تواصل معنا</span></a></li></ul></div><div><h4><span data-en>Company</span><span data-ar>الشركة</span></h4><ul><li><a href="/about/"><span data-en>About</span><span data-ar>من نحن</span></a></li><li><a href="/privacy/"><span data-en>Privacy</span><span data-ar>الخصوصية</span></a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 <span data-en>Q Apps. All rights reserved.</span><span data-ar>كيو آبز. جميع الحقوق محفوظة.</span></span>
+    <span><a href="/privacy/"><span data-en>Privacy</span><span data-ar>الخصوصية</span></a>
+      &nbsp;·&nbsp;
+      <a href="/support/"><span data-en>Support</span><span data-ar>الدعم</span></a></span>
+  </div>
+</div></footer>
+<script src="/assets/js/site.js?v=fe561f2f3e" defer></script>
+<script>document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-lang-toggle]');if(!b)return;setTimeout(function(){var d=document.documentElement,l=d.getAttribute('data-lang');var m={en:d.getAttribute('data-title-en'),ar:d.getAttribute('data-title-ar')};if(m[l]){document.title=m[l];}},0);});</script>
+</body>
+</html>

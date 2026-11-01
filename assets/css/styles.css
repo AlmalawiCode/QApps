@@ -377,6 +377,50 @@ html[dir="rtl"] .why-card strong{font-family:var(--f-display-ar);letter-spacing:
 .cta-band .btn-secondary:hover{color:#1A0A04}
 @media (max-width:820px){.cta-band{flex-direction:column;align-items:flex-start}}
 
+/* ------------------------------------------------------------------ the idea: subscription vs one-time */
+.compare{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media (max-width:820px){.compare{grid-template-columns:1fr}}
+.compare-card{position:relative;overflow:hidden;border-radius:var(--radius);padding:34px;display:grid;gap:16px;align-content:start;
+  background:var(--surface);border:1px solid var(--line)}
+.compare-card h3{font-size:clamp(22px,2.3vw,30px)}
+.compare-tag{justify-self:start;font-family:var(--f-mono);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;
+  padding:6px 12px;border-radius:999px;background:var(--soft);color:var(--muted)}
+html[dir="rtl"] .compare-tag{font-family:var(--f-body-ar);letter-spacing:0;text-transform:none;font-size:14px;font-weight:600}
+.compare-tag b{color:var(--accent)}
+.ticks{display:flex;flex-wrap:wrap;gap:6px;min-height:40px;align-content:flex-start}
+.ticks i{width:16px;height:16px;border-radius:5px;background:color-mix(in srgb,var(--muted) 38%,transparent)}
+.compare-q{background:var(--night);border-color:var(--night)}
+.compare-q h3{color:var(--on-night)}
+.compare-q p{color:var(--on-night-muted)}
+.compare-q .compare-tag{background:color-mix(in srgb,var(--accent) 22%,transparent);color:var(--on-night)}
+.compare-q .ticks i{width:40px;height:40px;border-radius:12px;background:var(--accent);box-shadow:0 0 0 6px color-mix(in srgb,var(--accent) 22%,transparent)}
+.compare-q::after{content:"";position:absolute;width:260px;aspect-ratio:1;border-radius:50%;inset-inline-end:-90px;bottom:-130px;
+  border:40px solid color-mix(in srgb,var(--accent) 18%,transparent);pointer-events:none}
+
+/* suggestion band (home) */
+.suggest-band{position:relative;overflow:hidden;border-radius:36px;background:var(--accent-soft);
+  border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
+  padding:clamp(28px,4.5vw,56px);display:flex;align-items:center;justify-content:space-between;gap:28px}
+.suggest-copy{display:grid;gap:10px;max-width:44em}
+.suggest-band h2{font-size:clamp(26px,3.2vw,40px)}
+.suggest-band p{color:var(--ink);opacity:.8;font-size:17.5px}
+.suggest-band .btn{flex:none}
+@media (max-width:820px){.suggest-band{flex-direction:column;align-items:flex-start}}
+
+/* suggestion form */
+.suggest-form{display:grid;gap:18px;margin:28px 0 8px;max-width:640px}
+.suggest-form:hover{transform:none}
+.suggest-form label{display:grid;gap:6px}
+.suggest-form .lbl{font-weight:650;color:var(--ink);font-size:15.5px}
+.suggest-form :is(input,select,textarea){font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);
+  border-radius:12px;padding:12px 14px;width:100%}
+.suggest-form textarea{resize:vertical;min-height:140px}
+.suggest-form :is(input,select,textarea):focus{outline:2.5px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.suggest-form button{cursor:pointer;font:inherit}
+.form-error{color:#C2361A;font-weight:600;margin:0}
+.fineprint{font-size:14px;color:var(--muted);line-height:1.6}
+.prose .fineprint{margin:.4em 0}
+
 /* ------------------------------------------------------------------ inner pages */
 .page-hero{padding:56px 0 8px}
 .prose{max-width:780px}
@@ -560,3 +604,22 @@ html[dir="rtl"] .doc-date{font-family:inherit}
   *,*::before,*::after{animation:none !important;transition:none !important}
   html{scroll-behavior:auto}
 }
+
+/* Arabic wordmark «كيو آبز»: Arabic display face, «كيو» stays in the accent orange. */
+html[dir="rtl"] :is(.brand,.footer-brand,.compare-tag){font-family:var(--f-display-ar);letter-spacing:0}
+
+/* The founder's inspiration line under «The idea»: a quiet quote card, Q-orange rule. */
+.inspire{margin:36px auto 0;max-width:820px}
+.inspire blockquote{margin:0;position:relative;background:var(--surface);border:1px solid var(--line);border-inline-start:5px solid var(--accent);border-radius:var(--radius-sm);padding:26px 30px 26px 30px;box-shadow:var(--shadow-sm)}
+.inspire blockquote::before{content:"\201C";position:absolute;top:-22px;inset-inline-start:22px;font-family:Georgia,serif;font-size:76px;line-height:1;color:var(--accent)}
+html[dir="rtl"] .inspire blockquote::before{content:"\201D"}
+.inspire p{color:var(--ink);font-size:clamp(17px,1.6vw,20px);line-height:1.9;font-weight:500}
+html[dir="rtl"] .inspire p{font-family:var(--f-display-ar);font-weight:500}
+@media (max-width:560px){.inspire blockquote{padding:22px 20px}}
+/* In the hero, right under the promise: visible at once, next to the big Q. */
+.inspire-hero{margin:4px 0 0;max-width:none}
+.inspire-hero blockquote{padding:20px 24px;box-shadow:var(--shadow-md)}
+.inspire-hero blockquote::before{top:-24px;font-size:64px}
+.inspire-hero p{font-size:clamp(16px,1.35vw,18px);line-height:1.85}
+.inspire-link{color:var(--accent);font-weight:700;text-decoration:underline;text-underline-offset:4px}
+.inspire-link:hover{color:var(--ink)}

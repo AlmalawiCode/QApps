@@ -32,6 +32,37 @@
     apply(lang);
   }
 
+  // "Suggest a feature" form: nothing is sent from the website itself; we
+  // open WhatsApp or the visitor's mail app with the message pre-filled.
+  function sendSuggestion(btn) {
+    var form = btn.closest("[data-suggest]");
+    if (!form) return;
+    var idea = form.elements.idea.value.trim();
+    var err = form.querySelector("[data-suggest-error]");
+    if (!idea) {
+      if (err) err.hidden = false;
+      form.elements.idea.focus();
+      return;
+    }
+    if (err) err.hidden = true;
+    var app = form.elements.app.value;
+    var name = form.elements.name.value.trim();
+    var ar = current() === "ar";
+    var text = (ar ? "اقتراح لـ Q Apps" : "Suggestion for Q Apps") + "\n" +
+      (ar ? "التطبيق: " : "App: ") + app + "\n\n" + idea +
+      (name ? "\n\n" + (ar ? "الاسم: " : "Name: ") + name : "");
+    var url;
+    if (btn.getAttribute("data-suggest-send") === "wa") {
+      url = "https://wa.me/" + form.getAttribute("data-wa") + "?text=" + encodeURIComponent(text);
+      window.open(url, "_blank", "noopener");
+    } else {
+      url = "mailto:" + form.getAttribute("data-email") +
+        "?subject=" + encodeURIComponent((ar ? "اقتراح: " : "Suggestion: ") + app) +
+        "&body=" + encodeURIComponent(text);
+      window.location.href = url;
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     // Sync button labels with whatever the head script already applied.
     apply(current());
@@ -41,6 +72,12 @@
       if (toggle) {
         e.preventDefault();
         setLang(current() === "ar" ? "en" : "ar");
+        return;
+      }
+      var send = e.target.closest && e.target.closest("[data-suggest-send]");
+      if (send) {
+        e.preventDefault();
+        sendSuggestion(send);
         return;
       }
       var navToggle = e.target.closest && e.target.closest("[data-nav-toggle]");
