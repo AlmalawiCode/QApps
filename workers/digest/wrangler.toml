@@ -1,0 +1,25 @@
+# workers/digest — the daily email of new website messages (see src/index.js).
+# Deploy from this folder:  npx wrangler deploy
+# Secret (once):            npx wrangler secret put DIGEST_TO   (a verified Email Routing address)
+# No public URL: it only runs on the schedule below.
+
+name = "qapps-digest"
+main = "src/index.js"
+compatibility_date = "2026-10-23"
+workers_dev = false
+preview_urls = false
+
+[triggers]
+crons = ["0 5 * * *"]   # 05:00 UTC = 08:00 Saudi time, every day
+
+[[d1_databases]]
+binding = "DB"
+database_name = "qapps-feedback"
+database_id = "d34aab8d-c073-4fc3-9a29-7142693b87b8"
+
+# Sends only to verified Email Routing destination addresses of this account.
+[[send_email]]
+name = "EMAIL"
+
+[vars]
+DIGEST_FROM = "digest@qeuapps.com"

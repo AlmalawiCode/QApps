@@ -15,6 +15,7 @@ Live on the App Store; Google Play not yet.
 """
 
 import docmatic_page
+import site_layout
 
 IMG = "/assets/img/apps/countdown"
 
@@ -124,7 +125,7 @@ def build_page(render, h, p, crumbs, app, store_button):
     hero = f'''<section class="dm-hero"><div class="container dm-hero-grid">
   <div class="dm-hero-copy">
     <div class="dm-brand"><img src="{app['icon']}" alt="Countdown Keeper icon" width="64" height="64">
-      <div><strong data-en>Countdown Keeper</strong><strong data-ar>كم مضى وكم بقي</strong>{two("How long since, how long until", "العدّاد — لتواريخك المهمة", "small")}</div></div>
+      <div><strong data-en>Countdown Keeper</strong><strong data-ar>كم مضى وكم بقي</strong>{two("How long since, how long until", "عدّادات لتواريخك المهمة", "small")}</div></div>
     <span class="dm-dev">{two("Now on the App Store · Google Play soon", "متاح الآن على App Store · وقريبًا على Google Play")}</span>
     {h(1, "How long has it been? <em>How long is left?</em>", "كم مضى؟ <em>وكم بقي؟</em>")}
     {p("Your graduation, your marriage, your first day at work, the day you moved into your home — and the retirement or trip still ahead. Live counters for the dates that made your story, in Hijri and Gregorian — "
@@ -292,7 +293,7 @@ def build_page(render, h, p, crumbs, app, store_button):
     gal = [("home", "Home", "الرئيسية"), ("story", "Event story", "قصة الحدث"), ("list", "Events", "الأحداث"),
            ("detail", "A date", "تاريخ"), ("add", "New date", "حدث جديد"), ("tools", "Tools", "الأدوات"),
            ("settings", "Settings", "الإعدادات")]
-    gallery = f'''<section class="section-soft"><div class="container">
+    gallery = f'''<section id="screens" class="section-soft"><div class="container">
   <div class="section-head center">
     <span class="kicker" data-en>Screens</span><span class="kicker" data-ar>الشاشات</span>
     {h(2, "Real screens from the app.", "شاشات حقيقية من التطبيق.")}
@@ -318,14 +319,9 @@ def build_page(render, h, p, crumbs, app, store_button):
     faq_html = "".join(
         f'<details><summary>{two(qe, qa)}</summary><p data-en>{ae}</p><p data-ar>{aa}</p></details>'
         for qe, qa, ae, aa in faqs)
-    links = (f'<div class="linkrow" style="margin-top:22px;justify-content:center">'
-             f'<a href="/tutorials/countdown-keeper/">{two("Tutorial", "الشرح")}</a>'
-             f'<a href="/support/countdown-keeper/">{two("Support", "الدعم")}</a>'
-             f'<a href="/privacy/countdown-keeper/">{two("Privacy policy", "سياسة الخصوصية")}</a></div>')
-    faq = f'''<section><div class="container" style="max-width:820px">
+    faq = f'''<section id="questions"><div class="container" style="max-width:820px">
   {h(2, "Questions", "أسئلة", "center")}
   <div class="faq" style="margin-top:28px">{faq_html}</div>
-  {links}
 </div></section>'''
 
     cta = f'''<section style="padding-top:0"><div class="container"><div class="cta-band">
@@ -343,7 +339,8 @@ def build_page(render, h, p, crumbs, app, store_button):
 
     js = docmatic_page.JS.replace("/assets/img/apps/docmatic/", f"{IMG}/")
     body = (crumbs([("Home", "الرئيسية", "/"), ("Apps", "التطبيقات", "/apps/"), (app["name_en"], app["name_ar"], None)])
-            + hero + stats + story + journey + spots + catalogue + docmatic_page.suggest_card("countdown-keeper", "Countdown Keeper", "كم مضى وكم بقي") + price + gallery + faq + cta
+            + hero + site_layout.app_tabs(app) + stats + gallery + catalogue + spots + story + journey + price + faq
+            + site_layout.help_links(app) + docmatic_page.suggest_card("countdown-keeper", "Countdown Keeper", "كم مضى وكم بقي") + cta
             + lightbox + f"<script>{js}</script>")
 
     return render("/apps/countdown-keeper/",

@@ -85,7 +85,9 @@ robots.txt sitemap.xml site.webmanifest
 3. Add page functions modelled on the existing ones:
    `page_app_<slug>`, `page_tutorial_<slug>`, `page_privacy_<slug>`,
    `page_support_<slug>`, and register them in `main()`.
-4. Add the app to the cards in `page_apps`, `page_home`, and the index pages.
+4. Add the slug to `APP_ORDER` and a one-line tile text to `SHORT` in
+   `tools/site_layout.py` — the home grid, `/apps/`, the app count and the footer
+   all follow from it.
 5. Run `python3 tools/build.py` and preview locally.
 
 Only add a real, public store URL. If an app isn't released yet, set
@@ -138,6 +140,8 @@ The Vault campaign page calls the existing Cloudflare Worker at
 `Access-Control-Allow-Origin: *`, so it works unchanged from qeuapps.com.
 
 ## Contact & suggest (messages from visitors)
+
+**Full owner's guide (Arabic): [`docs/feedback-system-guide-ar.html`](docs/feedback-system-guide-ar.html)** — tables and columns, how a message is saved and read, every Cloudflare setting, backups, and rebuilding from scratch.
 
 Approved proposal: `proposals/qapps_feedback_proposal_ar.html` (website only; the
 apps are unchanged). Visitors write on **`/suggest/`** (each app page links to it
@@ -194,9 +198,24 @@ python3 tools/build.py   # rebuild without the test key before committing
 ```
 (`1x…AA` are Cloudflare's always-pass test keys. `ADMIN_DEV_BYPASS` works only on localhost.)
 
-Not built yet: the daily email summary (Pages Functions have no scheduled
-jobs; it needs a small separate Worker with a Cron Trigger) and the public
-«ideas we built» page (proposal phase 2).
+### Daily email summary (`workers/digest/`)
+
+A separate Worker, **`qapps-digest`** (Pages Functions cannot run on a
+schedule), runs every day at 05:00 UTC (08:00 Saudi time), reads the same D1
+database and emails the owner the messages of the last 24 hours, with a link to
+`/admin/`. Nothing is sent on a day with no new messages. It has no public URL.
+
+- Mail goes out through **Cloudflare Email Routing** on `qeuapps.com`
+  (`send_email` binding, from `digest@qeuapps.com`). It can only send to a
+  *verified* destination address of the account.
+- The recipient is the Worker secret **`DIGEST_TO`** (kept out of this public repo).
+- Setup, once: Email → Email Routing on `qeuapps.com` → enable; add the
+  destination address and click the verification email; then from
+  `workers/digest/`: `npx wrangler deploy` and `npx wrangler secret put DIGEST_TO`.
+- Local test: `npx wrangler dev --test-scheduled` with `DIGEST_TO` in
+  `.dev.vars`, then open `/__scheduled` — the email is written to a local `.eml` file.
+
+Not built yet: the public «ideas we built» page (proposal phase 2).
 
 ## License / assets
 

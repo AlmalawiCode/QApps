@@ -14,6 +14,7 @@ Screens are the owner's real-device captures (copied, never edited).
 """
 
 import docmatic_page
+import site_layout
 
 IMG = "/assets/img/apps/vault"
 
@@ -301,7 +302,7 @@ def build_page(render, h, p, crumbs, app, store_button):
 </div></div></section>'''
 
     embed = app.get("youtube_embed")
-    video = f'''<section><div class="container" style="max-width:860px">
+    video = f'''<section id="video"><div class="container" style="max-width:860px">
   {h(2, "Watch it in action", "شاهده أثناء العمل", "center")}
   <div class="video-wrap" style="margin-top:22px">
     <iframe src="{embed}" title="Vault — Warranty Manager video" loading="lazy"
@@ -313,7 +314,7 @@ def build_page(render, h, p, crumbs, app, store_button):
            ("detail", "Warranty details", "تفاصيل الضمان"), ("status", "Warranty status", "حالة الضمان"),
            ("insights", "Insights", "الإحصائيات"), ("settings", "Settings", "الإعدادات"),
            ("cardstyle", "Card style", "نمط البطاقة")]
-    gallery = f'''<section class="section-soft"><div class="container">
+    gallery = f'''<section id="screens" class="section-soft"><div class="container">
   <div class="section-head center">
     <span class="kicker" data-en>Screens</span><span class="kicker" data-ar>الشاشات</span>
     {h(2, "Real screens from the app.", "شاشات حقيقية من التطبيق.")}
@@ -339,14 +340,9 @@ def build_page(render, h, p, crumbs, app, store_button):
     faq_html = "".join(
         f'<details><summary>{two(qe, qa)}</summary><p data-en>{ae}</p><p data-ar>{aa}</p></details>'
         for qe, qa, ae, aa in faqs)
-    links = (f'<div class="linkrow" style="margin-top:22px;justify-content:center">'
-             f'<a href="/tutorials/vault/">{two("Tutorial", "الشرح")}</a>'
-             f'<a href="/support/vault/">{two("Support", "الدعم")}</a>'
-             f'<a href="/privacy/vault/">{two("Privacy policy", "سياسة الخصوصية")}</a></div>')
-    faq = f'''<section><div class="container" style="max-width:820px">
+    faq = f'''<section id="questions"><div class="container" style="max-width:820px">
   {h(2, "Questions", "أسئلة", "center")}
   <div class="faq" style="margin-top:28px">{faq_html}</div>
-  {links}
 </div></section>'''
 
     cta = f'''<section style="padding-top:0"><div class="container"><div class="cta-band">
@@ -364,7 +360,8 @@ def build_page(render, h, p, crumbs, app, store_button):
 
     js = docmatic_page.JS.replace("/assets/img/apps/docmatic/", f"{IMG}/")
     body = (crumbs([("Home", "الرئيسية", "/"), ("Apps", "التطبيقات", "/apps/"), (app["name_en"], app["name_ar"], None)])
-            + hero + stats + story + journey + spots + catalogue + docmatic_page.suggest_card("vault", "Vault", "خزنة الضمانات") + price + video + gallery + faq + cta
+            + hero + site_layout.app_tabs(app, has_video=True) + stats + gallery + catalogue + spots + story + journey + price + video + faq
+            + site_layout.help_links(app) + docmatic_page.suggest_card("vault", "Vault", "خزنة الضمانات") + cta
             + lightbox + f"<script>{js}</script>")
 
     return render("/apps/vault/",
