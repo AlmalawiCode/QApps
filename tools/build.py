@@ -203,7 +203,8 @@ APPS = {
         "icon": "/assets/img/apps/countdown/icon.png",
         "tagline_en": "Count down to what matters — and count up from what already happened.",
         "tagline_ar": "عُدّ تنازليًا لما يهمّك، وتصاعديًا لما مضى من أحداثك.",
-        "status": "soon",   # not yet on stores
+        "status": "live",   # App Store (2026-11); Google Play not yet
+        "appstore": "https://apps.apple.com/app/id6806348941",
         # Language availability is tracked per CONTENT TYPE — an app may ship
         # its privacy policy in more languages than its other content.
         "overview_langs": ["en", "ar"],
@@ -787,35 +788,9 @@ def app_overview_body(app, features_list, intro_en, intro_ar, extra=""):
 
 
 def page_app_countdown():
-    app = APPS["countdown-keeper"]
-    features_list = [
-        ("⏳", "Countdown &amp; count-up", "عدّ تنازلي وتصاعدي", "Count down to a future date or count up from a past one, updated live to the second.", "عُدّ تنازليًا نحو تاريخ قادم أو تصاعديًا منذ حدثٍ مضى، بتحديث حيّ حتى الثانية."),
-        ("🗂️", "Organize events", "تنظيم المناسبات", "A searchable, sortable list with pinned favourites, custom colours, an emoji or your own photo, and notes.", "قائمة قابلة للبحث والفرز مع تثبيت المهمّ، وألوان مخصّصة، ورمزٍ تعبيري أو صورتك الخاصة، وملاحظات."),
-        ("🔁", "Recurring events", "أحداث متكرّرة", "Repeat an event monthly in either the Gregorian or Hijri calendar.", "كرِّر الحدث شهريًا وفق التقويم الميلادي أو الهجري."),
-        ("🔔", "Reminders", "تذكيرات", "Optional local notifications before an event — at the time, a day, or a week ahead.", "إشعارات محلية اختيارية قبل الحدث — عند موعده، أو قبله بيوم، أو بأسبوع."),
-        ("♻️", "Recycle bin", "سلة المحذوفات", "Deleted events can be restored before they are permanently removed.", "يمكن استعادة المناسبات المحذوفة قبل إزالتها نهائيًا."),
-        ("🧮", "Date &amp; time tools", "أدوات التاريخ والوقت", "A Hijri↔Gregorian converter, age calculator, date difference, add/subtract days, and a retirement estimator.", "محوّل هجري↔ميلادي، وحاسبة العمر، وفرق التاريخين، وإضافة/طرح الأيام، ومقدّر تاريخ التقاعد."),
-        ("📅", "Dual calendar", "تقويم مزدوج", "See every date in the Gregorian or Hijri (Umm al-Qura) calendar you prefer.", "اعرض كل تاريخ بالتقويم الميلادي أو الهجري (أم القرى) حسب تفضيلك."),
-        ("↔️", "Import &amp; export", "استيراد وتصدير", "Share selected events as a JSON file and import them back — you control the file.", "شارك مناسبات مختارة كملف JSON واستوردها مجددًا — الملف بين يديك."),
-        ("🔒", "Private &amp; offline", "خاص وبلا اتصال", "Works fully offline with no accounts and no tracking; add an optional biometric app lock.", "يعمل دون اتصال تمامًا، بلا حسابات وبلا تتبّع؛ مع قفلٍ اختياري بالبصمة."),
-    ]
-    intro_en = ("Countdown Keeper answers one question instantly: how long until — or since — this "
-                "event? It is a fast, private counter for birthdays, anniversaries, deadlines, holidays "
-                "and more, with a set of handy date and time tools built in.")
-    intro_ar = ("يجيب تطبيق العدّاد عن سؤال واحد فورًا: كم بقي على هذا الحدث — أو كم مضى عليه؟ إنه عدّاد "
-                "سريع وخاص للمواليد والذكرى السنوية والمواعيد النهائية والإجازات وغيرها، مع مجموعة من أدوات "
-                "التاريخ والوقت العملية.")
-    extra = f'''<div class="callout" style="margin-top:30px">
-      {p("Countdown Keeper is in active development and will be published on the App Store and Google Play soon.",
-         "تطبيق العدّاد قيد التطوير النشِط، وسيُنشر قريبًا على App Store وGoogle Play.")}
-    </div>'''
-    body = app_overview_body(app, features_list, intro_en, intro_ar, extra)
-    return render("/apps/countdown-keeper/",
-                  "Countdown Keeper — Event & Date Countdown App | Q Apps",
-                  "العدّاد — تطبيق العدّ التنازلي للمناسبات والتواريخ | كيو آبز",
-                  "Countdown Keeper counts down to future events and up from past ones, with recurring Hijri/Gregorian dates, reminders, and date tools. Private and offline.",
-                  "تطبيق العدّاد يعدّ تنازليًا للمناسبات القادمة وتصاعديًا للماضية، مع تواريخ متكرّرة هجرية/ميلادية وتذكيرات وأدوات للتاريخ. خاصّ ويعمل دون اتصال.",
-                  body, active="apps")
+    """/apps/countdown-keeper/ — long hand-tuned page kept in tools/countdown_page.py."""
+    import countdown_page
+    return countdown_page.build_page(render, h, p, crumbs, APPS["countdown-keeper"], store_button)
 
 
 def page_app_docmatic():
@@ -825,40 +800,9 @@ def page_app_docmatic():
 
 
 def page_app_vault():
-    app = APPS["vault"]
-    features_list = [
-        ("🧾", "Invoices &amp; receipts", "الفواتير والإيصالات", "Capture receipts with your camera or import them from files and photos, all in one place.", "التقط الإيصالات بالكاميرا أو استوردها من الملفات والصور، في مكان واحد."),
-        ("📸", "Smart scanning", "مسح ذكي", "Scan paper receipts with edge detection and auto-capture, and read ZATCA invoice QR codes.", "امسح الإيصالات الورقية مع كشف الحواف والالتقاط التلقائي، واقرأ رموز QR لفواتير هيئة الزكاة والضريبة."),
-        ("🛡️", "Warranty tracking", "تتبّع الضمانات", "Record warranty periods and get a reminder on your device before a warranty expires.", "سجّل مدد الضمان واحصل على تذكير على جهازك قبل انتهاء الضمان."),
-        ("📦", "Products", "المنتجات", "Organize the products under each invoice with their own photos and details.", "نظّم المنتجات ضمن كل فاتورة بصورها وتفاصيلها الخاصة."),
-        ("📍", "Store &amp; location", "المتجر والموقع", "Save where you bought an item, optionally capture the store's location, and reopen it in your maps app.", "احفظ مكان الشراء، مع إمكانية التقاط موقع المتجر، وأعد فتحه في تطبيق الخرائط لديك."),
-        ("📄", "Reports &amp; PDF", "تقارير وPDF", "Turn a receipt into a shareable PDF and export bulk warranty reports to print or send.", "حوّل الإيصال إلى ملف PDF قابل للمشاركة، وصدّر تقارير ضمان مجمّعة للطباعة أو الإرسال."),
-        ("📥", "Share into Vault", "المشاركة إلى الخزنة", "Send a PDF or image from another app straight into Vault.", "أرسل ملف PDF أو صورة من تطبيق آخر مباشرةً إلى الخزنة."),
-        ("🔐", "Encrypted backup", "نسخ احتياطي مشفّر", "Create a password-protected backup (AES-256) and restore it whenever you need — you choose where it is stored.", "أنشئ نسخة احتياطية محمية بكلمة مرور (AES-256) واستعدها متى شئت — وأنت تختار مكان تخزينها."),
-        ("🔒", "Private &amp; secure", "خاص وآمن", "Local-first with an optional Face ID / biometric app lock; no ads and no tracking.", "يعمل محليًا مع قفلٍ اختياري ببصمة الوجه أو البصمة؛ بلا إعلانات وبلا تتبّع."),
-    ]
-    intro_en = ("Vault — Warranty Manager keeps your purchase invoices, products and warranty dates "
-                "organized in one private place, and reminds you before a warranty runs out. It is free "
-                "to get started, with a one-time Lifetime Access that unlocks unlimited invoices and products.")
-    intro_ar = ("خزنة الضمانات تحفظ فواتير مشترياتك ومنتجاتك وتواريخ ضماناتها منظّمةً في مكان واحد خاص، "
-                "وتذكّرك قبل انتهاء الضمان. تبدأ مجانًا، مع خيار «الوصول مدى الحياة» بدفعة واحدة يفتح عددًا "
-                "غير محدود من الفواتير والمنتجات.")
-    embed = APPS["vault"]["youtube_embed"]
-    extra = f'''<div style="max-width:760px;margin:40px auto 0">
-      {h(3, "Watch it in action", "شاهده أثناء العمل", "center")}
-      <div class="video-wrap" style="margin-top:16px">
-        <iframe src="{embed}" title="Vault — Warranty Manager video" loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen></iframe>
-      </div>
-    </div>'''
-    body = app_overview_body(app, features_list, intro_en, intro_ar, extra)
-    return render("/apps/vault/",
-                  "Vault — Warranty Manager | Q Apps",
-                  "خزنة الضمانات — إدارة الفواتير والضمانات | كيو آبز",
-                  "Vault — Warranty Manager stores invoices, organizes products, scans receipts and ZATCA QR codes, and reminds you before warranties expire. Private and local-first.",
-                  "خزنة الضمانات تحفظ الفواتير وتنظّم المنتجات وتمسح الإيصالات ورموز QR الضريبية وتذكّرك قبل انتهاء الضمان. خاصّة وتعمل محليًا.",
-                  body, active="apps")
+    """/apps/vault/ — long hand-tuned page kept in tools/vault_page.py."""
+    import vault_page
+    return vault_page.build_page(render, h, p, crumbs, APPS["vault"], store_button)
 
 
 # ---------------------------- tutorials ------------------------------------

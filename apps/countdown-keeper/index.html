@@ -1,27 +1,134 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" data-lang="en" data-title-en="Countdown Keeper — Event &amp; Date Countdown App | Q Apps" data-title-ar="العدّاد — تطبيق العدّ التنازلي للمناسبات والتواريخ | كيو آبز">
+<html lang="en" dir="ltr" data-lang="en" data-title-en="Countdown Keeper — How long since, how long until | Q Apps" data-title-ar="كم مضى وكم بقي — عدّاد تواريخك المهمة بالهجري والميلادي | كيو آبز">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){try{var l=localStorage.getItem('qapps-lang');if(!l){l=((navigator.language||navigator.userLanguage||'en').slice(0,2)==='ar')?'ar':'en';}var d=document.documentElement;d.setAttribute('data-lang',l);d.setAttribute('lang',l);d.setAttribute('dir',l==='ar'?'rtl':'ltr');var m={en:d.getAttribute('data-title-en'),ar:d.getAttribute('data-title-ar')};if(m[l]){document.title=m[l];}}catch(e){}})();</script>
-<title>Countdown Keeper — Event &amp; Date Countdown App | Q Apps</title>
-<meta name="description" content="Countdown Keeper counts down to future events and up from past ones, with recurring Hijri/Gregorian dates, reminders, and date tools. Private and offline.">
+<title>Countdown Keeper — How long since, how long until | Q Apps</title>
+<meta name="description" content="Countdown Keeper shows how long has passed since your important dates and how long is left until the next ones — live counters in Hijri and Gregorian, reminders and date tools. 14 features.">
 <link rel="canonical" href="https://qeuapps.com/apps/countdown-keeper/">
 <meta name="theme-color" content="#0F1B2D">
 <meta name="color-scheme" content="light dark">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Q Apps">
-<meta property="og:title" content="Countdown Keeper — Event &amp; Date Countdown App | Q Apps">
-<meta property="og:description" content="Countdown Keeper counts down to future events and up from past ones, with recurring Hijri/Gregorian dates, reminders, and date tools. Private and offline.">
+<meta property="og:title" content="Countdown Keeper — How long since, how long until | Q Apps">
+<meta property="og:description" content="Countdown Keeper shows how long has passed since your important dates and how long is left until the next ones — live counters in Hijri and Gregorian, reminders and date tools. 14 features.">
 <meta property="og:url" content="https://qeuapps.com/apps/countdown-keeper/">
 <meta property="og:image" content="https://qeuapps.com/assets/img/brand/og-default.png">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="ar_SA">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Countdown Keeper — Event &amp; Date Countdown App | Q Apps">
-<meta name="twitter:description" content="Countdown Keeper counts down to future events and up from past ones, with recurring Hijri/Gregorian dates, reminders, and date tools. Private and offline.">
+<meta name="twitter:title" content="Countdown Keeper — How long since, how long until | Q Apps">
+<meta name="twitter:description" content="Countdown Keeper shows how long has passed since your important dates and how long is left until the next ones — live counters in Hijri and Gregorian, reminders and date tools. 14 features.">
 <meta name="twitter:image" content="https://qeuapps.com/assets/img/brand/og-default.png">
-
+<style>
+.dm-hero{padding:56px 0 40px;overflow:hidden}
+.dm-hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.dm-hero-copy{display:grid;gap:18px}
+.dm-hero h1{font-size:clamp(36px,5.2vw,64px)}
+.dm-hero h1 em{font-style:normal;color:var(--accent)}
+.dm-brand{display:flex;gap:14px;align-items:center}
+.dm-brand img{border-radius:16px;box-shadow:var(--shadow-md)}
+.dm-brand strong{display:block;font-family:var(--f-display);font-size:24px;color:var(--ink)}
+.dm-brand small{color:var(--muted);font-size:14px}
+.dm-dev{justify-self:start;font-size:13.5px;font-weight:700;color:var(--mint);background:var(--mint-soft);padding:6px 12px;border-radius:999px}
+.dm-hero-stage{position:relative;height:620px}
+.dm-phone{all:unset;cursor:zoom-in;display:block;border-radius:30px;border:7px solid #0F1B2D;background:#0F1B2D;overflow:hidden;box-shadow:var(--shadow-lg);transition:transform .25s}
+.dm-phone:hover{transform:translateY(-4px)}
+.dm-phone:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.dm-phone img{width:100%;height:auto;display:block}
+.dm-hero-stage .dm-phone{position:absolute;width:250px}
+.dm-p1{inset-inline-start:6%;top:0;transform:rotate(-4deg)}
+.dm-p2{inset-inline-end:4%;top:70px;transform:rotate(4deg)}
+.dm-p1:hover{transform:rotate(-4deg) translateY(-4px)}.dm-p2:hover{transform:rotate(4deg) translateY(-4px)}
+.dm-stats-wrap{padding:0 0 24px}
+.dm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.dm-stats div{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:18px;display:grid;gap:4px;text-align:center}
+.dm-stats b{font-family:var(--f-display);font-size:clamp(30px,4vw,44px);color:var(--accent);line-height:1}
+.dm-stats span{color:var(--muted);font-weight:600;font-size:14.5px}
+.dm-story-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:44px;align-items:start}
+.dm-story-text{display:grid;gap:18px}
+.dm-story-text p{font-size:18px;line-height:1.85;color:var(--ink)}
+.dm-story-text q{color:var(--accent);font-weight:700}
+.dm-timeline{list-style:none;margin:0;padding:0;display:grid;gap:14px;position:relative}
+.dm-timeline li{display:flex;gap:14px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 16px}
+.dm-timeline li>span{font-size:26px;line-height:1}
+.dm-timeline b{display:block;color:var(--ink)}
+.dm-timeline small{color:var(--muted);font-size:14.5px}
+.dm-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.dm-step{display:grid;gap:14px;align-content:start}
+.dm-step-txt{display:grid;gap:6px}
+.dm-step h3{font-size:19px}
+.dm-step p{font-size:15px}
+.dm-num{width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:800}
+.dm-swipe-hint{display:none;text-align:center;font-size:14px;margin-top:10px}
+.dm-spot{padding:72px 0}
+.dm-spot-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.dm-flip .dm-spot-copy{order:2}
+.dm-spot-copy{display:grid;gap:14px}
+.dm-spot h2{font-size:clamp(28px,3.6vw,44px)}
+.dm-ticks{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:10px}
+.dm-ticks li{position:relative;padding-inline-start:30px;color:var(--ink);font-weight:600}
+.dm-ticks li::before{content:"✓";position:absolute;inset-inline-start:0;top:0;width:22px;height:22px;border-radius:50%;background:var(--mint-soft);color:var(--mint);display:grid;place-items:center;font-size:13px;font-weight:800}
+.dm-spot-shots{display:flex;gap:18px;justify-content:center;align-items:flex-start}
+.dm-spot-shots .dm-phone{width:min(260px,46%)}
+.dm-n3 .dm-phone{width:min(210px,31%)}
+.dm-n2 .dm-phone:nth-child(2),.dm-n3 .dm-phone:nth-child(2){margin-top:44px}
+.dm-feats{columns:3;column-gap:14px}
+.dm-feat{break-inside:avoid;margin:0 0 14px;background:var(--bg);border:1px solid var(--line);border-radius:var(--radius-sm);padding:0;transition:box-shadow .2s}
+.dm-feat[open]{box-shadow:var(--shadow-md);background:var(--surface)}
+.dm-feat summary{list-style:none;cursor:pointer;display:flex;gap:12px;align-items:center;padding:16px 18px}
+.dm-feat summary::-webkit-details-marker{display:none}
+.dm-ico{font-size:24px;line-height:1}
+.dm-feat-t{flex:1;font-weight:750;color:var(--ink)}
+.dm-count{min-width:30px;height:30px;padding:0 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:800;font-size:14px}
+.dm-feat ul{margin:0;padding:0 20px 16px;padding-inline-start:44px;display:grid;gap:6px;color:var(--muted);font-size:15.5px}
+.dm-openall{margin-top:6px}
+.dm-price-card{display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:center;background:var(--night);border-radius:var(--radius);padding:44px;color:var(--on-night)}
+.dm-price-card h2{color:#fff;font-size:clamp(28px,3.6vw,44px);margin:8px 0 12px}
+.dm-price-card p{color:var(--on-night-muted);font-size:17px}
+.dm-price-card .dm-ticks li{color:#fff}
+.dm-gallery{display:grid;grid-template-columns:repeat(8,1fr);gap:16px}
+.dm-gallery figure{margin:0;display:grid;gap:8px}
+.dm-gallery .dm-phone{border-width:5px;border-radius:20px;box-shadow:var(--shadow-md)}
+.dm-gallery figcaption{text-align:center;font-size:13.5px;font-weight:650;color:var(--muted)}
+.dm-lb{position:fixed;inset:0;z-index:100;background:rgba(6,12,22,.92);display:flex;align-items:center;justify-content:center;padding:20px}
+.dm-lb[hidden]{display:none}
+.dm-lb img{max-height:92vh;max-width:min(94vw,520px);width:auto;border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.dm-lb-x{position:absolute;top:14px;inset-inline-end:14px;width:46px;height:46px;border-radius:50%;border:0;background:#fff;color:#0F1B2D;font-size:22px;cursor:pointer}
+.dm-lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;border:0;background:rgba(255,255,255,.15);color:#fff;font-size:34px;cursor:pointer}
+.dm-lb-prev{left:14px}.dm-lb-next{right:14px}
+@media (max-width:1100px){
+  .dm-gallery{grid-template-columns:repeat(4,1fr)}
+  .dm-feats{columns:2}
+}
+@media (max-width:900px){
+  .dm-hero-grid,.dm-story-grid,.dm-spot-grid,.dm-price-card{grid-template-columns:1fr}
+  .dm-hero{padding-top:28px}
+  .dm-hero-stage{height:470px;max-width:440px;width:100%;margin-inline:auto}
+  .dm-hero-stage .dm-phone{width:200px}
+  .dm-flip .dm-spot-copy{order:0}
+  .dm-spot{padding:52px 0}
+  .dm-stats{grid-template-columns:repeat(2,1fr)}
+  .dm-steps{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;padding-bottom:10px;margin-inline:-16px;padding-inline:16px;scrollbar-width:none}
+  .dm-steps::-webkit-scrollbar{display:none}
+  .dm-step{flex:0 0 68%;scroll-snap-align:center}
+  .dm-swipe-hint{display:block}
+  .dm-price-card{padding:30px 22px}
+}
+@media (max-width:620px){
+  .dm-feats{columns:1}
+  .dm-gallery{grid-template-columns:repeat(2,1fr)}
+  .dm-hero-stage{height:400px}
+  .dm-hero-stage .dm-phone{width:170px}
+  .dm-spot-shots .dm-phone{width:min(220px,47%)}
+  .dm-n3{justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-16px;padding:4px 16px 12px;scrollbar-width:none}
+  .dm-n3::-webkit-scrollbar{display:none}
+  .dm-n3 .dm-phone{flex:0 0 58%;width:auto;scroll-snap-align:center}
+  .dm-n3 .dm-phone:nth-child(2){margin-top:0}
+  .dm-story-text p{font-size:17px}
+}
+</style>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
@@ -42,46 +149,187 @@
   </div>
 </nav></div></header>
 <main id="main">
-<div class="container"><nav class="crumbs" aria-label="Breadcrumb"><a href="/"><span data-en>Home</span><span data-ar>الرئيسية</span></a><span aria-hidden="true">/</span><a href="/apps/"><span data-en>Apps</span><span data-ar>التطبيقات</span></a><span aria-hidden="true">/</span><span data-en>Countdown Keeper</span><span data-ar>العدّاد</span></nav></div>
-<section class="section"><div class="container">
-  <div class="app-head" style="margin-bottom:18px">
-    <img src="/assets/img/apps/countdown/icon.png" alt="Countdown Keeper icon" width="80" height="80" style="border-radius:18px;box-shadow:var(--shadow-md)">
-    <div><h1 data-en>Countdown Keeper</h1><h1 data-ar>العدّاد</h1>
-      <p class="muted" data-en>Count down to what matters — and count up from what already happened.</p><p class="muted" data-ar>عُدّ تنازليًا لما يهمّك، وتصاعديًا لما مضى من أحداثك.</p></div>
+<div class="container"><nav class="crumbs" aria-label="Breadcrumb"><a href="/"><span data-en>Home</span><span data-ar>الرئيسية</span></a><span aria-hidden="true">/</span><a href="/apps/"><span data-en>Apps</span><span data-ar>التطبيقات</span></a><span aria-hidden="true">/</span><span data-en>Countdown Keeper</span><span data-ar>العدّاد</span></nav></div><section class="dm-hero"><div class="container dm-hero-grid">
+  <div class="dm-hero-copy">
+    <div class="dm-brand"><img src="/assets/img/apps/countdown/icon.png" alt="Countdown Keeper icon" width="64" height="64">
+      <div><strong data-en>Countdown Keeper</strong><strong data-ar>كم مضى وكم بقي</strong><small data-en>How long since, how long until</small><small data-ar>العدّاد — لتواريخك المهمة</small></div></div>
+    <span class="dm-dev"><span data-en>Now on the App Store · Google Play soon</span><span data-ar>متاح الآن على App Store · وقريبًا على Google Play</span></span>
+    <h1 data-en>How long has it been? <em>How long is left?</em></h1><h1 data-ar>كم مضى؟ <em>وكم بقي؟</em></h1>
+    <p class="lead" data-en>Your graduation, your marriage, your first day at work, the day you moved into your home — and the retirement or trip still ahead. Live counters for the dates that made your story, in Hijri and Gregorian — 14 main features and 53 tools inside them.</p><p class="lead" data-ar>تخرجك، وزواجك، وأول يوم في عملك، ويوم انتقلت إلى بيتك — والتقاعد أو الرحلة التي تنتظرك. عدّادات حيّة للتواريخ التي صنعت قصتك، بالهجري والميلادي — 14 خاصية رئيسية و53 أداة داخلها.</p>
+    <div class="stores" style="align-items:center"><a class="store-btn" href="https://apps.apple.com/app/id6806348941" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 1.6c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.9 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.9-1.4zM19 17.3c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.3-1.5 0-1.9-1-4-1-2 0-2.5 1-4 1-1.6 0-2.9-1.6-3.9-3.1-2.7-4.2-3-9.1-1.3-11.7 1.2-1.8 3-2.9 4.8-2.9 1.8 0 2.9 1 4.4 1 1.4 0 2.3-1 4.4-1 1.6 0 3.2.9 4.4 2.4-3.9 2.1-3.2 7.6.2 9.1z"/></svg><span><small data-en>Download on the</small><small data-ar>حمّله من</small><strong>App Store</strong></span></a><span class="chip"><span data-en>Google Play — coming soon</span><span data-ar>Google Play — قريبًا</span></span></div>
   </div>
-  <p class="lead" data-en>Countdown Keeper answers one question instantly: how long until — or since — this event? It is a fast, private counter for birthdays, anniversaries, deadlines, holidays and more, with a set of handy date and time tools built in.</p><p class="lead" data-ar>يجيب تطبيق العدّاد عن سؤال واحد فورًا: كم بقي على هذا الحدث — أو كم مضى عليه؟ إنه عدّاد سريع وخاص للمواليد والذكرى السنوية والمواعيد النهائية والإجازات وغيرها، مع مجموعة من أدوات التاريخ والوقت العملية.</p>
-  <div class="chips" style="margin-top:8px"><span class="chip"><span data-en>App Store — coming soon</span><span data-ar>App Store — قريبًا</span></span><span class="chip"><span data-en>Google Play — coming soon</span><span data-ar>Google Play — قريبًا</span></span></div>
-  <div class="linkrow" style="margin-top:16px">
-    <a href="/tutorials/countdown-keeper/"><span data-en>Tutorial</span><span data-ar>الشرح</span></a>
-    <a href="/support/countdown-keeper/"><span data-en>Support</span><span data-ar>الدعم</span></a>
-    <a href="/privacy/countdown-keeper/"><span data-en>Privacy policy</span><span data-ar>سياسة الخصوصية</span></a>
+  <div class="dm-hero-stage">
+    <button type="button" class="dm-phone dm-p1" data-zoom="home" aria-label="Countdown Keeper home page"><img data-en src="/assets/img/apps/countdown/home_en.webp" alt="Countdown Keeper home page" loading="eager" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/home_ar.webp" alt="الصفحة الرئيسية في كم مضى وكم بقي" loading="eager" width="620" height="1341"></button>
+    <button type="button" class="dm-phone dm-p2" data-zoom="detail" aria-label="A date with its live counter"><img data-en src="/assets/img/apps/countdown/detail_en.webp" alt="A date with its live counter" loading="eager" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/detail_ar.webp" alt="تاريخ مع عدّاده الحي" loading="eager" width="620" height="1341"></button>
   </div>
-</div></section>
-<section class="section section-soft"><div class="container">
-  <h2 class="center" data-en>Screenshots</h2><h2 class="center" data-ar>لقطات من التطبيق</h2>
-  <div class="shots"><img src="/assets/img/apps/countdown/Countdown_Home.jpg" alt="Countdown Keeper home screen with event counters" loading="lazy" width="230"><img src="/assets/img/apps/countdown/event.jpg" alt="Creating an event in Countdown Keeper" loading="lazy" width="230"><img src="/assets/img/apps/countdown/tools.jpg" alt="Date and time tools in Countdown Keeper" loading="lazy" width="230"><img src="/assets/img/apps/countdown/Countdown_Settings.jpg" alt="Countdown Keeper settings screen" loading="lazy" width="230"></div>
-</div></section>
-<section class="section"><div class="container">
-  <h2 class="center" data-en>Features</h2><h2 class="center" data-ar>المزايا</h2>
-  <div class="features" style="margin-top:30px"><div class="feature"><div class="dot" aria-hidden="true">⏳</div><div><h4 data-en>Countdown &amp; count-up</h4><h4 data-ar>عدّ تنازلي وتصاعدي</h4><p data-en>Count down to a future date or count up from a past one, updated live to the second.</p><p data-ar>عُدّ تنازليًا نحو تاريخ قادم أو تصاعديًا منذ حدثٍ مضى، بتحديث حيّ حتى الثانية.</p></div></div><div class="feature"><div class="dot" aria-hidden="true">🗂️</div><div><h4 data-en>Organize events</h4><h4 data-ar>تنظيم المناسبات</h4><p data-en>A searchable, sortable list with pinned favourites, custom colours, an emoji or your own photo, and notes.</p><p data-ar>قائمة قابلة للبحث والفرز مع تثبيت المهمّ، وألوان مخصّصة، ورمزٍ تعبيري أو صورتك الخاصة، وملاحظات.</p></div></div><div class="feature"><div class="dot" aria-hidden="true">🔁</div><div><h4 data-en>Recurring events</h4><h4 data-ar>أحداث متكرّرة</h4><p data-en>Repeat an event monthly in either the Gregorian or Hijri calendar.</p><p data-ar>كرِّر الحدث شهريًا وفق التقويم الميلادي أو الهجري.</p></div></div><div class="feature"><div class="dot" aria-hidden="true">🔔</div><div><h4 data-en>Reminders</h4><h4 data-ar>تذكيرات</h4><p data-en>Optional local notifications before an event — at the time, a day, or a week ahead.</p><p data-ar>إشعارات محلية اختيارية قبل الحدث — عند موعده، أو قبله بيوم، أو بأسبوع.</p></div></div><div class="feature"><div class="dot" aria-hidden="true">♻️</div><div><h4 data-en>Recycle bin</h4><h4 data-ar>سلة المحذوفات</h4><p data-en>Deleted events can be restored before they are permanently removed.</p><p data-ar>يمكن استعادة المناسبات المحذوفة قبل إزالتها نهائيًا.</p></div></div><div class="feature"><div class="dot" aria-hidden="true">🧮</div><div><h4 data-en>Date &amp; time tools</h4><h4 data-ar>أدوات التاريخ والوقت</h4><p data-en>A Hijri↔Gregorian converter, age calculator, date difference, add/subtract days, and a retirement estimator.</p><p data-ar>محوّل هجري↔ميلادي، وحاسبة العمر، وفرق التاريخين، وإضافة/طرح الأيام، ومقدّر تاريخ التقاعد.</p></div></div><div class="feature"><div class="dot" aria-hidden="true">📅</div><div><h4 data-en>Dual calendar</h4><h4 data-ar>تقويم مزدوج</h4><p data-en>See every date in the Gregorian or Hijri (Umm al-Qura) calendar you prefer.</p><p data-ar>اعرض كل تاريخ بالتقويم الميلادي أو الهجري (أم القرى) حسب تفضيلك.</p></div></div><div class="feature"><div class="dot" aria-hidden="true">↔️</div><div><h4 data-en>Import &amp; export</h4><h4 data-ar>استيراد وتصدير</h4><p data-en>Share selected events as a JSON file and import them back — you control the file.</p><p data-ar>شارك مناسبات مختارة كملف JSON واستوردها مجددًا — الملف بين يديك.</p></div></div><div class="feature"><div class="dot" aria-hidden="true">🔒</div><div><h4 data-en>Private &amp; offline</h4><h4 data-ar>خاص وبلا اتصال</h4><p data-en>Works fully offline with no accounts and no tracking; add an optional biometric app lock.</p><p data-ar>يعمل دون اتصال تمامًا، بلا حسابات وبلا تتبّع؛ مع قفلٍ اختياري بالبصمة.</p></div></div></div>
-  <div class="callout" style="margin-top:30px">
-      <p data-en>Countdown Keeper is in active development and will be published on the App Store and Google Play soon.</p><p data-ar>تطبيق العدّاد قيد التطوير النشِط، وسيُنشر قريبًا على App Store وGoogle Play.</p>
-    </div>
-</div></section>
-<section class="section section-soft"><div class="container">
-  <h2 class="center" data-en>Available languages</h2><h2 class="center" data-ar>اللغات المتوفّرة</h2>
-  <p class="lead center" data-en>Privacy Policy is available in every language below. App overview, tutorials, and support are available in English and Arabic.</p><p class="lead center" data-ar>سياسة الخصوصية متوفّرة بكل اللغات أدناه. أمّا نبذة التطبيق والشروحات والدعم فمتوفّرة بالعربية والإنجليزية.</p>
-  <div class="avail">
-    <div class="avail-row">
-      <span class="avail-label"><span data-en>Privacy Policy</span><span data-ar>سياسة الخصوصية</span></span>
-      <div class="lang-pills"><a class="lang-pill" href="/privacy/countdown-keeper/en/" hreflang="en" lang="en">English</a><a class="lang-pill" href="/privacy/countdown-keeper/ar/" hreflang="ar" lang="ar">العربية</a><a class="lang-pill" href="/privacy/countdown-keeper/de/" hreflang="de" lang="de">Deutsch</a><a class="lang-pill" href="/privacy/countdown-keeper/fr/" hreflang="fr" lang="fr">Français</a><a class="lang-pill" href="/privacy/countdown-keeper/es/" hreflang="es" lang="es">Español</a><a class="lang-pill" href="/privacy/countdown-keeper/tr/" hreflang="tr" lang="tr">Türkçe</a><a class="lang-pill" href="/privacy/countdown-keeper/ja/" hreflang="ja" lang="ja">日本語</a><a class="lang-pill" href="/privacy/countdown-keeper/ko/" hreflang="ko" lang="ko">한국어</a><a class="lang-pill" href="/privacy/countdown-keeper/id/" hreflang="id" lang="id">Bahasa Indonesia</a><a class="lang-pill" href="/privacy/countdown-keeper/ms/" hreflang="ms" lang="ms">Bahasa Melayu</a><a class="lang-pill" href="/privacy/countdown-keeper/zh/" hreflang="zh" lang="zh">简体中文</a><a class="lang-pill" href="/privacy/countdown-keeper/pt/" hreflang="pt" lang="pt">Português (Brasil)</a><a class="lang-pill" href="/privacy/countdown-keeper/it/" hreflang="it" lang="it">Italiano</a><a class="lang-pill" href="/privacy/countdown-keeper/ru/" hreflang="ru" lang="ru">Русский</a><a class="lang-pill" href="/privacy/countdown-keeper/nl/" hreflang="nl" lang="nl">Nederlands</a><a class="lang-pill" href="/privacy/countdown-keeper/ur/" hreflang="ur" lang="ur">اردو</a><a class="lang-pill" href="/privacy/countdown-keeper/bn/" hreflang="bn" lang="bn">বাংলা</a><a class="lang-pill" href="/privacy/countdown-keeper/hi/" hreflang="hi" lang="hi">हिन्दी</a></div>
-    </div>
-    <div class="avail-row">
-      <span class="avail-label"><span data-en>Overview · Tutorials · Support</span><span data-ar>النبذة · الشروحات · الدعم</span></span>
-      <div class="lang-pills"><span class="lang-pill static">English · العربية</span></div>
-    </div>
+</div></section><section class="dm-stats-wrap"><div class="container"><div class="dm-stats">
+  <div><b>14</b><span data-en>main features</span><span data-ar>خاصية رئيسية</span></div>
+  <div><b>53</b><span data-en>tools inside them</span><span data-ar>أداة داخلها</span></div>
+  <div><b>2</b><span data-en>calendars: Hijri &amp; Gregorian</span><span data-ar>تقويمان: هجري وميلادي</span></div>
+  <div><b>18</b><span data-en>languages</span><span data-ar>لغة</span></div>
+</div></div></section><section id="story" class="dm-story"><div class="container">
+  <div class="section-head">
+    <span class="kicker" data-en>Why Countdown Keeper</span><span class="kicker" data-ar>لماذا كم مضى وكم بقي</span>
+    <h2 data-en>One simple question, answered at once.</h2><h2 data-ar>سؤال واحد بسيط، وجوابه فورًا.</h2>
   </div>
-</div></section>
+  <div class="dm-story-grid">
+    <div class="dm-story-text">
+      <p data-en>How long since you graduated? Since your wedding, since your first day at work, since you moved into your home? And how long until you retire, until the last installment, until the trip you are waiting for? We usually count it in our heads, or search old papers for the date.</p><p data-ar>كم مضى على تخرجك؟ وعلى زواجك، وأول يوم في عملك، ويوم سكنت بيتك؟ وكم بقي على تقاعدك، وعلى آخر قسط، وعلى الرحلة التي تنتظرها؟ عادةً نحسبها في أذهاننا، أو نبحث عن التاريخ في الأوراق القديمة.</p>
+      <p data-en>Countdown Keeper keeps every important date in one simple place and tells you exactly how long has passed — or how long is left — in years, months and days, on a live counter. When a date arrives, its counter turns from “remaining” to “elapsed” by itself.</p><p data-ar>يحفظ «كم مضى وكم بقي» كل تاريخ مهمّ في مكان واحد بسيط، ويخبرك بالضبط كم مضى عليه — أو كم بقي حتى موعده — بالسنوات والأشهر والأيام، في عدّاد حيّ. وحين يحلّ الموعد، يتحوّل العدّاد من «كم بقي» إلى «كم مضى» وحده.</p>
+      <p data-en>Then come the details: Hijri or Gregorian for each date, the story behind every date, monthly dates like salary and rent, reminders, date tools — 14 main features and 53 tools inside them. No account, no sign-in: open the app and your counters are there.</p><p data-ar>ثم تأتي التفاصيل: هجري أو ميلادي لكل تاريخ، وقصة وراء كل تاريخ، وتواريخ شهرية كالراتب والإيجار، وتذكيرات، وأدوات للتاريخ — 14 خاصية رئيسية و53 أداة داخلها. بلا حساب وبلا تسجيل دخول: تفتح التطبيق فترى عدّاداتك.</p>
+    </div>
+    <ol class="dm-timeline">
+      <li><span>🎓</span><div><b data-en>What has passed</b><b data-ar>ما مضى</b><small data-en>Graduation, marriage, first job, your home.</small><small data-ar>التخرج، والزواج، وأول عمل، وبيتك.</small></div></li>
+      <li><span>⏳</span><div><b data-en>Counted live</b><b data-ar>عدّ حيّ</b><small data-en>Years, months, days — to the second.</small><small data-ar>سنوات وأشهر وأيام — حتى الثانية.</small></div></li>
+      <li><span>🗓️</span><div><b data-en>What is ahead</b><b data-ar>ما بقي</b><small data-en>Retirement, the last installment, a trip.</small><small data-ar>التقاعد، وآخر قسط، ورحلة.</small></div></li>
+      <li><span>🔔</span><div><b data-en>Reminded in time</b><b data-ar>تذكير في الوقت</b><small data-en>At the time, a day or a week before.</small><small data-ar>في وقته، أو قبله بيوم أو أسبوع.</small></div></li>
+    </ol>
+  </div>
+</div></section><section class="section-soft dm-journey"><div class="container">
+  <div class="section-head center">
+    <span class="kicker" data-en>How it works</span><span class="kicker" data-ar>كيف يعمل</span>
+    <h2 data-en>Your important dates, counted for you.</h2><h2 data-ar>تواريخك المهمة، محسوبة لك.</h2>
+  </div>
+  <ol class="dm-steps"><li class="dm-step"><button type="button" class="dm-phone " data-zoom="add" aria-label="Add a date"><img data-en src="/assets/img/apps/countdown/add_en.webp" alt="Add a date" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/add_ar.webp" alt="أضف تاريخًا" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">1</span>
+        <h3 data-en>Add a date</h3><h3 data-ar>أضف تاريخًا</h3><p data-en>Name it, pick the date in Hijri or Gregorian, and choose what the counter shows.</p><p data-ar>سمّه، واختر التاريخ بالهجري أو الميلادي، وحدّد ما يعرضه العدّاد.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="home" aria-label="See your counters"><img data-en src="/assets/img/apps/countdown/home_en.webp" alt="See your counters" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/home_ar.webp" alt="شاهد عدّاداتك" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">2</span>
+        <h3 data-en>See your counters</h3><h3 data-ar>شاهد عدّاداتك</h3><p data-en>Open the app: total, upcoming and past, nearest first.</p><p data-ar>افتح التطبيق: الإجمالي والقادمة والمنقضية، والأقرب أولًا.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="story" aria-label="Tell its story"><img data-en src="/assets/img/apps/countdown/story_en.webp" alt="Tell its story" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/story_ar.webp" alt="اكتب قصته" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">3</span>
+        <h3 data-en>Tell its story</h3><h3 data-ar>اكتب قصته</h3><p data-en>Every date can keep the story behind it, under its card.</p><p data-ar>كل تاريخ يحفظ قصته، أسفل بطاقته.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="list" aria-label="Search and sort"><img data-en src="/assets/img/apps/countdown/list_en.webp" alt="Search and sort" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/list_ar.webp" alt="ابحث ورتّب" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">4</span>
+        <h3 data-en>Search and sort</h3><h3 data-ar>ابحث ورتّب</h3><p data-en>Eight ways to sort, or drag them into your own order.</p><p data-ar>ثماني طرق للترتيب، أو اسحبها بترتيبك الخاص.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="tools" aria-label="Use the date tools"><img data-en src="/assets/img/apps/countdown/tools_en.webp" alt="Use the date tools" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/tools_ar.webp" alt="استخدم أدوات التاريخ" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">5</span>
+        <h3 data-en>Use the date tools</h3><h3 data-ar>استخدم أدوات التاريخ</h3><p data-en>Converter, age, difference, add or subtract, retirement.</p><p data-ar>المحوّل، والعمر، والفرق، والجمع والطرح، والتقاعد.</p></div></li></ol>
+  <p class="dm-swipe-hint" data-en>Swipe to see every step.</p><p class="dm-swipe-hint" data-ar>اسحب لترى كل الخطوات.</p>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker" data-en>Live counters</span><span class="kicker" data-ar>عدّادات حيّة</span>
+    <h2 data-en>Every date, counted to the second.</h2><h2 data-ar>كل تاريخ، محسوب حتى الثانية.</h2>
+    <p class="lead" data-en>Years, months and days since a date — or until it — on a counter that moves every second, and turns from “remaining” to “elapsed” by itself.</p><p class="lead" data-ar>سنوات وأشهر وأيام منذ تاريخ — أو حتى موعده — في عدّاد يتحرّك كل ثانية، ويتحوّل من «كم بقي» إلى «كم مضى» وحده.</p>
+    <ul class="dm-ticks"><li data-en>Choose the units the counter shows</li><li data-ar>اختر الوحدات التي يعرضها العدّاد</li><li data-en>“Today” on the day itself</li><li data-ar>«اليوم» في يوم الحدث نفسه</li><li data-en>Monthly dates move to the next one by themselves</li><li data-ar>التواريخ الشهرية تنتقل إلى الموعد التالي وحدها</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n2"><button type="button" class="dm-phone " data-zoom="detail" aria-label="A date with its live counter"><img data-en src="/assets/img/apps/countdown/detail_en.webp" alt="A date with its live counter" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/detail_ar.webp" alt="تاريخ مع عدّاده الحي" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="home" aria-label="Home: your nearest dates"><img data-en src="/assets/img/apps/countdown/home_en.webp" alt="Home: your nearest dates" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/home_ar.webp" alt="الرئيسية: أقرب أحداثك" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot dm-flip"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker" data-en>Event story</span><span class="kicker" data-ar>قصة الحدث</span>
+    <h2 data-en>Every date has a story.</h2><h2 data-ar>لكل تاريخ قصة.</h2>
+    <p class="lead" data-en>Write what happened on that day, and show it under its card with one tap.</p><p class="lead" data-ar>اكتب ما حدث في ذلك اليوم، واعرضه أسفل بطاقته بلمسة.</p>
+    <ul class="dm-ticks"><li data-en>An emoji or your own photo for each date</li><li data-ar>أيقونة أو صورتك الخاصة لكل تاريخ</li><li data-en>A colour and 9 card styles</li><li data-ar>لون و9 أشكال للبطاقة</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n1"><button type="button" class="dm-phone " data-zoom="story" aria-label="A date with its story"><img data-en src="/assets/img/apps/countdown/story_en.webp" alt="A date with its story" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/story_ar.webp" alt="تاريخ مع قصته" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker" data-en>Hijri &amp; Gregorian</span><span class="kicker" data-ar>هجري وميلادي</span>
+    <h2 data-en>Both calendars, date by date.</h2><h2 data-ar>التقويمان معًا، لكل تاريخ.</h2>
+    <p class="lead" data-en>Pick Gregorian or Hijri (Umm al-Qura) for each date on its own — and if you have a date in the other calendar, convert it and save it straight away.</p><p class="lead" data-ar>اختر الميلادي أو الهجري (أم القرى) لكل تاريخ على حدة — وإن كان لديك تاريخ بالتقويم الآخر، حوّله واحفظه مباشرة.</p>
+    <ul class="dm-ticks"><li data-en>Reminders at the time, a day or a week before</li><li data-ar>تذكيرات في وقتها، أو قبلها بيوم أو أسبوع</li><li data-en>Repeat after 5 or 10 minutes</li><li data-ar>تكرار بعد 5 أو 10 دقائق</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n1"><button type="button" class="dm-phone " data-zoom="add" aria-label="Adding a new date"><img data-en src="/assets/img/apps/countdown/add_en.webp" alt="Adding a new date" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/add_ar.webp" alt="إضافة تاريخ جديد" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot dm-flip"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker" data-en>Search &amp; sort</span><span class="kicker" data-ar>البحث والترتيب</span>
+    <h2 data-en>Find any date, in any order.</h2><h2 data-ar>اعثر على أي تاريخ، بأي ترتيب.</h2>
+    <p class="lead" data-en>Search your dates and sort them eight ways — or drag them into your own order. Pin the ones that matter most.</p><p class="lead" data-ar>ابحث في تواريخك ورتّبها بثماني طرق — أو اسحبها بترتيبك الخاص. وثبّت أهمّها.</p>
+    <ul class="dm-ticks"><li data-en>Upcoming first, past first, pinned first</li><li data-ar>القادمة أولًا، المنقضية أولًا، المثبّتة أولًا</li><li data-en>Deleted dates kept 30 days in the trash</li><li data-ar>المحذوفات تبقى 30 يومًا</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n1"><button type="button" class="dm-phone " data-zoom="list" aria-label="Sorting your dates"><img data-en src="/assets/img/apps/countdown/list_en.webp" alt="Sorting your dates" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/list_ar.webp" alt="ترتيب تواريخك" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker" data-en>Date tools</span><span class="kicker" data-ar>أدوات التاريخ</span>
+    <h2 data-en>Five date tools, built in.</h2><h2 data-ar>خمس أدوات للتاريخ، مدمجة.</h2>
+    <p class="lead" data-en>Convert Hijri and Gregorian, calculate an exact age, the difference between two dates, add or subtract days, and estimate your retirement date.</p><p class="lead" data-ar>حوّل بين الهجري والميلادي، واحسب العمر بدقة، والفرق بين تاريخين، واجمع الأيام أو اطرحها، وقدّر تاريخ تقاعدك.</p>
+    <ul class="dm-ticks"><li data-en>Encrypted backup and restore</li><li data-ar>نسخ احتياطي مشفّر واستعادة</li><li data-en>Optional fingerprint or face lock</li><li data-ar>قفل اختياري بالبصمة أو الوجه</li><li data-en>18 languages</li><li data-ar>18 لغة</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n2"><button type="button" class="dm-phone " data-zoom="tools" aria-label="Date tools"><img data-en src="/assets/img/apps/countdown/tools_en.webp" alt="Date tools" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/tools_ar.webp" alt="أدوات التاريخ" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="settings" aria-label="Settings"><img data-en src="/assets/img/apps/countdown/settings_en.webp" alt="Settings" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/settings_ar.webp" alt="الإعدادات" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section id="features" class="section-soft"><div class="container">
+  <div class="section-head center">
+    <span class="kicker" data-en>Everything inside</span><span class="kicker" data-ar>كل ما في التطبيق</span>
+    <h2 data-en>14 main features. 53 tools inside them.</h2><h2 data-ar>14 خاصية رئيسية. 53 أداة داخلها.</h2>
+    <p data-en>Tap any feature to see what it holds.</p><p data-ar>اضغط أي خاصية لترى ما بداخلها.</p>
+    <button type="button" class="btn btn-secondary dm-openall" aria-pressed="false"><span data-en>Open all</span><span data-ar>افتح الكل</span></button>
+  </div>
+  <div class="dm-feats"><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">⏳</span>
+      <span class="dm-feat-t"><span data-en>Live counters</span><span data-ar>عدّادات حيّة</span></span><span class="dm-count">6</span></summary>
+      <ul><li data-en>How long since a date, or how long until it</li><li data-ar>كم مضى على تاريخ، أو كم بقي حتى موعده</li><li data-en>Updated every second</li><li data-ar>تتحدّث كل ثانية</li><li data-en>Turns from “remaining” to “elapsed” by itself when the day comes</li><li data-ar>تتحوّل من «كم بقي» إلى «كم مضى» وحدها عند حلول الموعد</li><li data-en>Shows “Today” on the day itself</li><li data-ar>تُظهر «اليوم» في يوم الحدث نفسه</li><li data-en>Choose the units: years, months, days, hours, minutes, seconds</li><li data-ar>اختر الوحدات: سنوات، أشهر، أيام، ساعات، دقائق، ثوانٍ</li><li data-en>A time of day, if you want one</li><li data-ar>وقت من اليوم إن أردت</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🌙</span>
+      <span class="dm-feat-t"><span data-en>Hijri and Gregorian</span><span data-ar>هجري وميلادي</span></span><span class="dm-count">3</span></summary>
+      <ul><li data-en>Gregorian or Hijri (Umm al-Qura)</li><li data-ar>ميلادي أو هجري (أم القرى)</li><li data-en>A calendar for each date on its own</li><li data-ar>تقويم لكل تاريخ على حدة</li><li data-en>Have a date in the other calendar? Convert it and save it</li><li data-ar>عندك تاريخ بالتقويم الآخر؟ حوّله واحفظه مباشرة</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">📖</span>
+      <span class="dm-feat-t"><span data-en>Event story</span><span data-ar>قصة الحدث</span></span><span class="dm-count">2</span></summary>
+      <ul><li data-en>Write the story of any date</li><li data-ar>اكتب قصة أي تاريخ</li><li data-en>Show it under its card with one tap</li><li data-ar>اعرضها أسفل بطاقته بلمسة</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔁</span>
+      <span class="dm-feat-t"><span data-en>Monthly dates</span><span data-ar>تواريخ شهرية</span></span><span class="dm-count">2</span></summary>
+      <ul><li data-en>Salary, rent, installments</li><li data-ar>الراتب، والإيجار، والأقساط</li><li data-en>Moves to the next date by itself</li><li data-ar>ينتقل إلى الموعد التالي وحده</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔔</span>
+      <span class="dm-feat-t"><span data-en>Reminders</span><span data-ar>التذكيرات</span></span><span class="dm-count">3</span></summary>
+      <ul><li data-en>At the time, a day before or a week before</li><li data-ar>في وقته، أو قبله بيوم، أو قبله بأسبوع</li><li data-en>Repeat after 5 or 10 minutes</li><li data-ar>تكرار بعد 5 أو 10 دقائق</li><li data-en>“Remind me again” from the reminder log</li><li data-ar>«ذكّرني مجددًا» من سجلّ التذكيرات</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🎨</span>
+      <span class="dm-feat-t"><span data-en>Make it yours</span><span data-ar>على ذوقك</span></span><span class="dm-count">3</span></summary>
+      <ul><li data-en>An emoji or your own photo for each date</li><li data-ar>أيقونة تعبيرية أو صورتك الخاصة لكل تاريخ</li><li data-en>A colour for each card</li><li data-ar>لون لكل بطاقة</li><li data-en>Pin your most important dates</li><li data-ar>ثبّت أهم تواريخك</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🃏</span>
+      <span class="dm-feat-t"><span data-en>9 card styles</span><span data-ar>9 أشكال للبطاقة</span></span><span class="dm-count">9</span></summary>
+      <ul><li data-en>Classic</li><li data-ar>كلاسيك</li><li data-en>One line</li><li data-ar>سطر واحد</li><li data-en>Large counters</li><li data-ar>عدّادات كبيرة</li><li data-en>Days only</li><li data-ar>الأيام فقط</li><li data-en>Big emoji</li><li data-ar>إيموجي كبير</li><li data-en>Minimal</li><li data-ar>مينيمال</li><li data-en>Dashboard</li><li data-ar>داشبورد</li><li data-en>Modern premium</li><li data-ar>بريميوم حديث</li><li data-en>Large number</li><li data-ar>رقم ضخم</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔎</span>
+      <span class="dm-feat-t"><span data-en>Search and 8 ways to sort</span><span data-ar>البحث و8 طرق للترتيب</span></span><span class="dm-count">6</span></summary>
+      <ul><li data-en>Search your dates</li><li data-ar>ابحث في تواريخك</li><li data-en>My order: drag to arrange</li><li data-ar>ترتيبي: اسحب لترتّب</li><li data-en>Upcoming first, or past first</li><li data-ar>القادمة أولًا، أو المنقضية أولًا</li><li data-en>Pinned first</li><li data-ar>المثبّتة أولًا</li><li data-en>By date or by name</li><li data-ar>حسب التاريخ أو حسب الاسم</li><li data-en>Recently added, or oldest added</li><li data-ar>المضافة حديثًا، أو الأقدم إضافة</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🏠</span>
+      <span class="dm-feat-t"><span data-en>Home at a glance</span><span data-ar>الرئيسية بنظرة واحدة</span></span><span class="dm-count">3</span></summary>
+      <ul><li data-en>Total, upcoming and past</li><li data-ar>الإجمالي، والقادمة، والمنقضية</li><li data-en>Your nearest dates first</li><li data-ar>أقرب أحداثك أولًا</li><li data-en>Open the app and see your counters at once</li><li data-ar>افتح التطبيق فترى عدّاداتك مباشرة</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🧮</span>
+      <span class="dm-feat-t"><span data-en>5 date tools</span><span data-ar>5 أدوات للتاريخ</span></span><span class="dm-count">5</span></summary>
+      <ul><li data-en>Hijri ⇄ Gregorian converter</li><li data-ar>محوّل هجري ⇄ ميلادي</li><li data-en>Age calculator</li><li data-ar>حاسبة العمر</li><li data-en>Difference between two dates</li><li data-ar>الفرق بين تاريخين</li><li data-en>Add or subtract days</li><li data-ar>جمع الأيام وطرحها</li><li data-en>Retirement estimator</li><li data-ar>مقدّر التقاعد</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">♻️</span>
+      <span class="dm-feat-t"><span data-en>Trash</span><span data-ar>المحذوفات</span></span><span class="dm-count">3</span></summary>
+      <ul><li data-en>Deleted dates kept for 30 days</li><li data-ar>التواريخ المحذوفة تبقى 30 يومًا</li><li data-en>Restore with a tap</li><li data-ar>استعدها بلمسة</li><li data-en>Select several at once</li><li data-ar>حدّد عدة تواريخ مرة واحدة</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔐</span>
+      <span class="dm-feat-t"><span data-en>Backup and your data</span><span data-ar>النسخ الاحتياطي وبياناتك</span></span><span class="dm-count">3</span></summary>
+      <ul><li data-en>Encrypted backup of all your data</li><li data-ar>نسخة احتياطية مشفّرة لكل بياناتك</li><li data-en>Restore when you need it</li><li data-ar>استعدها عند الحاجة</li><li data-en>Export and import your dates as a JSON file</li><li data-ar>صدّر تواريخك واستوردها كملف JSON</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔒</span>
+      <span class="dm-feat-t"><span data-en>Private and locked</span><span data-ar>خاص ومقفل</span></span><span class="dm-count">3</span></summary>
+      <ul><li data-en>No account, no sign-in</li><li data-ar>بلا حساب وبلا تسجيل دخول</li><li data-en>Works offline; your data stays on your phone</li><li data-ar>يعمل دون إنترنت، وبياناتك على جوالك</li><li data-en>Optional fingerprint or face lock</li><li data-ar>قفل اختياري بالبصمة أو الوجه</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🌍</span>
+      <span class="dm-feat-t"><span data-en>18 languages</span><span data-ar>18 لغة</span></span><span class="dm-count">2</span></summary>
+      <ul><li data-en>Arabic and Urdu right to left</li><li data-ar>العربية والأردية من اليمين إلى اليسار</li><li data-en>Light and dark</li><li data-ar>فاتح وداكن</li></ul></details></div>
+</div></section><section class="dm-price"><div class="container"><div class="dm-price-card">
+  <div>
+    <span class="kicker" data-en>Price</span><span class="kicker" data-ar>السعر</span>
+    <h2 data-en>Free to start. One payment for life.</h2><h2 data-ar>ابدأ مجانًا. ودفعة واحدة مدى الحياة.</h2>
+    <p data-en>Start free with up to 5 dates. When you need more, Lifetime Access removes the limit with a single payment — no subscription.</p><p data-ar>ابدأ مجانًا بما يصل إلى 5 أحداث. وحين تحتاج إلى المزيد، يفتح «الوصول مدى الحياة» الحدّ بدفعة واحدة — بلا اشتراك.</p>
+    <div style="margin-top:18px"><div class="stores" style="align-items:center"><a class="store-btn" href="https://apps.apple.com/app/id6806348941" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 1.6c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.9 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.9-1.4zM19 17.3c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.3-1.5 0-1.9-1-4-1-2 0-2.5 1-4 1-1.6 0-2.9-1.6-3.9-3.1-2.7-4.2-3-9.1-1.3-11.7 1.2-1.8 3-2.9 4.8-2.9 1.8 0 2.9 1 4.4 1 1.4 0 2.3-1 4.4-1 1.6 0 3.2.9 4.4 2.4-3.9 2.1-3.2 7.6.2 9.1z"/></svg><span><small data-en>Download on the</small><small data-ar>حمّله من</small><strong>App Store</strong></span></a><span class="chip"><span data-en>Google Play — coming soon</span><span data-ar>Google Play — قريبًا</span></span></div></div>
+  </div>
+  <ul class="dm-ticks dm-ticks-big">
+    <li data-en>Free: up to 5 dates</li><li data-ar>مجانًا: حتى 5 أحداث</li>
+    <li data-en>Lifetime Access: pay once</li><li data-ar>الوصول مدى الحياة: ادفع مرة واحدة</li>
+    <li data-en>No account, works offline</li><li data-ar>بلا حساب، ويعمل دون إنترنت</li>
+    <li data-en>Your data stays on your phone</li><li data-ar>بياناتك تبقى على جوالك</li>
+    <li data-en>18 languages</li><li data-ar>18 لغة</li>
+  </ul>
+</div></div></section><section class="section-soft"><div class="container">
+  <div class="section-head center">
+    <span class="kicker" data-en>Screens</span><span class="kicker" data-ar>الشاشات</span>
+    <h2 data-en>Real screens from the app.</h2><h2 data-ar>شاشات حقيقية من التطبيق.</h2>
+    <p data-en>Tap any screen to see it large.</p><p data-ar>اضغط أي شاشة لتراها مكبّرة.</p>
+  </div>
+  <div class="dm-gallery"><figure><button type="button" class="dm-phone " data-zoom="home" aria-label="Home"><img data-en src="/assets/img/apps/countdown/home_en.webp" alt="Home" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/home_ar.webp" alt="الرئيسية" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Home</span><span data-ar>الرئيسية</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="story" aria-label="Event story"><img data-en src="/assets/img/apps/countdown/story_en.webp" alt="Event story" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/story_ar.webp" alt="قصة الحدث" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Event story</span><span data-ar>قصة الحدث</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="list" aria-label="Events"><img data-en src="/assets/img/apps/countdown/list_en.webp" alt="Events" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/list_ar.webp" alt="الأحداث" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Events</span><span data-ar>الأحداث</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="detail" aria-label="A date"><img data-en src="/assets/img/apps/countdown/detail_en.webp" alt="A date" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/detail_ar.webp" alt="تاريخ" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>A date</span><span data-ar>تاريخ</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="add" aria-label="New date"><img data-en src="/assets/img/apps/countdown/add_en.webp" alt="New date" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/add_ar.webp" alt="حدث جديد" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>New date</span><span data-ar>حدث جديد</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="tools" aria-label="Tools"><img data-en src="/assets/img/apps/countdown/tools_en.webp" alt="Tools" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/tools_ar.webp" alt="الأدوات" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Tools</span><span data-ar>الأدوات</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="settings" aria-label="Settings"><img data-en src="/assets/img/apps/countdown/settings_en.webp" alt="Settings" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/countdown/settings_ar.webp" alt="الإعدادات" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Settings</span><span data-ar>الإعدادات</span></figcaption></figure></div>
+</div></section><section><div class="container" style="max-width:820px">
+  <h2 class="center" data-en>Questions</h2><h2 class="center" data-ar>أسئلة</h2>
+  <div class="faq" style="margin-top:28px"><details><summary><span data-en>Is it free?</span><span data-ar>هل التطبيق مجاني؟</span></summary><p data-en>You can start free with up to 5 dates. Lifetime Access is a single payment that removes the limit — no subscription.</p><p data-ar>تبدأ مجانًا بما يصل إلى 5 أحداث. و«الوصول مدى الحياة» دفعة واحدة ترفع الحدّ — بلا اشتراك.</p></details><details><summary><span data-en>Does it support the Hijri calendar?</span><span data-ar>هل يدعم التقويم الهجري؟</span></summary><p data-en>Yes — Hijri (Umm al-Qura) and Gregorian, chosen for each date on its own.</p><p data-ar>نعم — الهجري (أم القرى) والميلادي، تختار لكل تاريخ على حدة.</p></details><details><summary><span data-en>Do I need an account or the internet?</span><span data-ar>هل أحتاج إلى حساب أو إنترنت؟</span></summary><p data-en>Neither. It works offline and your data stays on your phone.</p><p data-ar>لا هذا ولا ذاك. يعمل دون إنترنت، وتبقى بياناتك على جوالك.</p></details><details><summary><span data-en>Is it on Google Play?</span><span data-ar>هل هو على Google Play؟</span></summary><p data-en>It is on the App Store now, and coming soon to Google Play.</p><p data-ar>هو على App Store الآن، وقريبًا على Google Play.</p></details></div>
+  <div class="linkrow" style="margin-top:22px;justify-content:center"><a href="/tutorials/countdown-keeper/"><span data-en>Tutorial</span><span data-ar>الشرح</span></a><a href="/support/countdown-keeper/"><span data-en>Support</span><span data-ar>الدعم</span></a><a href="/privacy/countdown-keeper/"><span data-en>Privacy policy</span><span data-ar>سياسة الخصوصية</span></a></div>
+</div></section><section style="padding-top:0"><div class="container"><div class="cta-band">
+  <div>
+    <h2 data-en>How long has it been? How long is left?</h2><h2 data-ar>كم مضى؟ وكم بقي؟</h2>
+    <p data-en>Keep every important date in one place, and always know at a glance.</p><p data-ar>احفظ كل تاريخ مهمّ في مكان واحد، واعرف دائمًا بنظرة واحدة.</p>
+  </div>
+  <div class="stores" style="align-items:center"><a class="store-btn" href="https://apps.apple.com/app/id6806348941" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 1.6c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.9 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.9-1.4zM19 17.3c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.3-1.5 0-1.9-1-4-1-2 0-2.5 1-4 1-1.6 0-2.9-1.6-3.9-3.1-2.7-4.2-3-9.1-1.3-11.7 1.2-1.8 3-2.9 4.8-2.9 1.8 0 2.9 1 4.4 1 1.4 0 2.3-1 4.4-1 1.6 0 3.2.9 4.4 2.4-3.9 2.1-3.2 7.6.2 9.1z"/></svg><span><small data-en>Download on the</small><small data-ar>حمّله من</small><strong>App Store</strong></span></a><span class="chip"><span data-en>Google Play — coming soon</span><span data-ar>Google Play — قريبًا</span></span></div>
+</div></div></section><div class="dm-lb" hidden><button type="button" class="dm-lb-x" aria-label="Close">✕</button>
+  <button type="button" class="dm-lb-nav dm-lb-prev" aria-label="Previous">‹</button>
+  <img alt=""><button type="button" class="dm-lb-nav dm-lb-next" aria-label="Next">›</button></div><script>
+(function(){
+  var lb=document.querySelector('.dm-lb'),im=lb.querySelector('img'),list=[],i=0;
+  function lang(){return document.documentElement.getAttribute('data-lang')==='ar'?'ar':'en';}
+  function names(){var s=[];document.querySelectorAll('.dm-gallery [data-zoom]').forEach(function(b){s.push(b.dataset.zoom);});return s;}
+  function show(){im.src='/assets/img/apps/countdown/'+list[i]+'_'+lang()+'.webp';}
+  function open(n){list=names();i=Math.max(0,list.indexOf(n));show();lb.hidden=false;document.body.style.overflow='hidden';}
+  function close(){lb.hidden=true;document.body.style.overflow='';}
+  function step(d){i=(i+d+list.length)%list.length;show();}
+  document.querySelectorAll('[data-zoom]').forEach(function(b){b.addEventListener('click',function(){open(b.dataset.zoom);});});
+  lb.querySelector('.dm-lb-x').addEventListener('click',close);
+  lb.querySelector('.dm-lb-prev').addEventListener('click',function(e){e.stopPropagation();step(-1);});
+  lb.querySelector('.dm-lb-next').addEventListener('click',function(e){e.stopPropagation();step(1);});
+  lb.addEventListener('click',function(e){if(e.target===lb)close();});
+  document.addEventListener('keydown',function(e){if(lb.hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1);});
+  var x0=null;lb.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+  lb.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)step(dx<0?1:-1);x0=null;});
+  var btn=document.querySelector('.dm-openall');
+  if(btn)btn.addEventListener('click',function(){var on=btn.getAttribute('aria-pressed')!=='true';
+    document.querySelectorAll('.dm-feat').forEach(function(d){d.open=on;});btn.setAttribute('aria-pressed',on);
+    btn.querySelectorAll('span').forEach(function(s){s.textContent=on?(s.hasAttribute('data-ar')?'أغلق الكل':'Close all'):(s.hasAttribute('data-ar')?'افتح الكل':'Open all');});});
+  if(window.matchMedia('(min-width:901px)').matches&&btn)btn.click();
+})();
+</script>
 </main>
 <footer class="site-footer"><div class="container">
   <div class="footer-grid">
