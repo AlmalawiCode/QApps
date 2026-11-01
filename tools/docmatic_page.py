@@ -238,8 +238,8 @@ def build_page(render, h, p, crumbs, app):
   </div>
   <div class="dm-story-grid">
     <div class="dm-story-text">
-      {p("My wife follows our son's schooling, and the school sends everything as photos: forms, homework, notices. Every time, she forwarded them to me: <q>Can you make these a PDF?</q> And every time I sat at the computer, collected the photos, straightened them, put them in order and turned them into a file she could print or send back.",
-         "زوجتي تتابع دراسة ابننا، والمدرسة ترسل كل شيء على شكل صور: نماذج وواجبات وتعاميم. وفي كل مرة كانت ترسلها لي: <q>ممكن تسويها PDF؟</q> وفي كل مرة أجلس أمام الكمبيوتر، أجمع الصور، وأعدّل ميلانها، وأرتّبها، وأحوّلها إلى ملف تطبعه أو تعيد إرساله.")}
+      {p("My wife follows our son's schooling, and the school sends everything as photos: forms and homework. Every time, she forwarded them to me: <q>Can you make these a PDF?</q> And every time I sat at the computer, collected the photos, straightened them, put them in order and turned them into a file she could print or send back.",
+         "زوجتي تتابع دراسة ابننا، والمدرسة ترسل كل شيء على شكل صور: نماذج وواجبات. وفي كل مرة كانت ترسلها لي: <q>ممكن تسويها PDF؟</q> وفي كل مرة أجلس أمام الكمبيوتر، أجمع الصور، وأعدّل ميلانها، وأرتّبها، وأحوّلها إلى ملف تطبعه أو تعيد إرساله.")}
       {p("One day the question came by itself: why not a simple app? You share the photos from WhatsApp, and it puts them in order as a PDF ready to print. No computer, no waiting for me.",
          "وفي أحد الأيام جاء السؤال وحده: لماذا لا يكون هناك تطبيق بسيط؟ تشارك الصور من واتساب، فيرتّبها لك ملف PDF جاهزًا للطباعة. بلا كمبيوتر، وبلا انتظار.")}
       {p("It began as a small idea: photos in, a PDF out. Then the ideas kept coming. The app should find the paper's edges, crop it and straighten it by itself, and let me reorder the pages with a finger. Then it should open any PDF and edit it: merge files and split them, extract, rotate and delete pages, fill in forms and sign them, write and highlight on the page, and make the file small enough for any website. Photographed pages should become searchable text, in Arabic and English.",
@@ -248,7 +248,7 @@ def build_page(render, h, p, crumbs, app):
          f"ثم جاءت حاجات البيت اليومية: وجها الهوية في صفحة واحدة، وصورة الجواز تطبعها في البيت، ورموز QR والباركود… أُضيفت واحدة بعد واحدة، حتى صارت الفكرة الصغيرة تطبيقًا متكاملًا: {N_MAIN} خاصية رئيسية و{N_SUB} أداة داخلها.")}
     </div>
     <ol class="dm-timeline">
-      <li><span>🖼️</span><div>{two("Photos from the school", "صور من المدرسة", "b")}{two("Forms and notices arrive as WhatsApp photos.", "النماذج والتعاميم تصل صورًا على واتساب.", "small")}</div></li>
+      <li><span>🖼️</span><div>{two("Photos from the school", "صور من المدرسة", "b")}{two("Forms and homework arrive as WhatsApp photos.", "النماذج والواجبات تصل صورًا على واتساب.", "small")}</div></li>
       <li><span>💻</span><div>{two("A PDF by hand", "PDF باليد", "b")}{two("Every time: the computer, the order, the file.", "كل مرة: الكمبيوتر والترتيب والملف.", "small")}</div></li>
       <li><span>💡</span><div>{two("A simple app", "تطبيق بسيط", "b")}{two("Share the photos, get a PDF ready to print.", "شارك الصور، يصلك PDF جاهز للطباعة.", "small")}</div></li>
       <li><span>🚀</span><div>{two(f"{N_MAIN} features", f"{N_MAIN} خاصية", "b")}{two("A full PDF editor, and much more.", "محرر PDF كامل، وأكثر بكثير.", "small")}</div></li>
