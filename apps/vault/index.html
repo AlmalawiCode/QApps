@@ -149,13 +149,68 @@ html[dir="rtl"] .dm-suggest-tx b{font-family:var(--f-display-ar)}
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500..700&family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Manrope:wght@400..800&display=swap">
 <link rel="stylesheet" href="/assets/css/styles.css?v=84c67d1bba">
+<style>
+.qa-grid-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:18px}
+.qa-grid-head h1,.qa-grid-head h2{margin:0;font-size:clamp(26px,3vw,36px)}
+.qa-count{color:var(--muted);font-weight:700;font-size:15px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px 14px}
+.qa-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.qa-app{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;text-decoration:none;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px 12px 18px;transition:transform .15s,box-shadow .15s}
+.qa-app:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.qa-app img{width:96px;height:96px;border-radius:24px;box-shadow:var(--shadow-md);background:#fff;object-fit:cover;margin-bottom:6px}
+.qa-app b{font-size:17px;line-height:1.35}
+.qa-app small{color:var(--muted);font-size:13.5px;line-height:1.55}
+.qa-app .badge{margin-top:4px}
+.qa-next{border-style:dashed;background:transparent}
+.qa-plus{width:96px;height:96px;border-radius:24px;border:2px dashed var(--line);display:grid;place-items:center;font-size:44px;color:var(--muted);margin-bottom:6px}
+.qa-next b{color:var(--muted)}
+@media (max-width:760px){.qa-grid{grid-template-columns:repeat(2,1fr);gap:12px}}
+@media (max-width:560px){
+  .qa-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .qa-app{padding:16px 8px 14px;border-radius:18px;gap:4px}
+  .qa-app img,.qa-plus{width:76px;height:76px;border-radius:19px}
+  .qa-plus{font-size:34px}
+  .qa-app b{font-size:15px}
+  .qa-app small{font-size:12.5px}
+  .qa-app .badge{font-size:11.5px;padding:2px 9px}
+}
+/* home: short intro line above the grid */
+.qa-intro{padding:56px 0 18px}
+.qa-intro h1{font-size:clamp(32px,4.4vw,54px);line-height:1.15;margin:0 0 12px}
+.qa-intro h1 em{font-style:normal;color:var(--accent)}
+.qa-intro .lead{max-width:44em;margin:0}
+.qa-apps{padding:18px 0 40px}
+.qa-quote{padding:8px 0 40px}
+.qa-quote .inspire{margin:0;max-width:none}
+@media (max-width:720px){.qa-intro{padding:30px 0 8px}}
+/* app pages: the section bar */
+.qa-tabs{position:sticky;top:71px;z-index:40;background:color-mix(in srgb,var(--bg) 90%,transparent);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:0}
+.qa-tabs-row{display:flex;gap:6px;overflow-x:auto;padding:10px 0;scrollbar-width:none}
+.qa-tabs-row::-webkit-scrollbar{display:none}
+.qa-tabs-row a{flex:0 0 auto;text-decoration:none;color:var(--ink);font-weight:650;font-size:14.5px;background:var(--surface);
+  border:1px solid var(--line);border-radius:999px;padding:5px 14px}
+.qa-tabs-row a:hover{border-color:var(--accent);color:var(--accent)}
+.qa-tabs + section{padding-top:22px}
+[id="screens"],[id="features"],[id="story"],[id="video"],[id="questions"]{scroll-margin-top:140px}
+/* app pages: help cards */
+.qa-help{padding:40px 0}
+.qa-help-h{font-size:clamp(24px,3vw,32px);margin:0 0 16px}
+.qa-help-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:820px){.qa-help-grid{grid-template-columns:1fr}}
+.qa-help-card{display:flex;flex-direction:column;gap:2px;text-decoration:none;color:var(--ink);background:var(--surface);
+  border:1px solid var(--line);border-radius:18px;padding:16px 18px;transition:box-shadow .15s}
+.qa-help-card:hover{box-shadow:var(--shadow-md)}
+.qa-help-ic{font-size:24px;margin-bottom:4px}
+.qa-help-card small{color:var(--muted)}
+</style>
 </head>
 <body>
 <a class="skip" href="#main"><span data-en>Skip to content</span><span data-ar>تخطَّ إلى المحتوى</span></a>
 <header class="site-header"><div class="container"><nav class="nav" aria-label="Main">
   <a class="brand" href="/" aria-label="Q Apps"><svg class="qmark" viewBox="0 0 120 120" width="38" height="38" aria-hidden="true"><circle class="qm-ring" cx="56" cy="56" r="37" fill="none" stroke-width="19"/><rect class="qm-tile" x="72" y="72" width="40" height="40" rx="12" stroke-width="7" paint-order="stroke"/><circle class="qm-dot" cx="92" cy="92" r="5"/></svg><span data-en><b>Q</b> Apps</span><span data-ar><b>كيو</b> آبز</span></a>
   <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
-  <div class="nav-links" id="nav-links"><a href="/"><span data-en>Home</span><span data-ar>الرئيسية</span></a><a href="/#idea"><span data-en>The idea</span><span data-ar>الفكرة</span></a><a href="/apps/" aria-current="page"><span data-en>Apps</span><span data-ar>التطبيقات</span></a><a href="/tutorials/"><span data-en>Tutorials</span><span data-ar>الشروحات</span></a><a href="/suggest/"><span data-en>Suggest</span><span data-ar>اقترح</span></a><a href="/support/"><span data-en>Support</span><span data-ar>الدعم</span></a><a href="/about/"><span data-en>About</span><span data-ar>من نحن</span></a>
+  <div class="nav-links" id="nav-links"><a href="/apps/" aria-current="page"><span data-en>Apps</span><span data-ar>التطبيقات</span></a><a href="/suggest/"><span data-en>Suggest</span><span data-ar>اقترح</span></a><a href="/support/"><span data-en>Support</span><span data-ar>الدعم</span></a><a href="/about/"><span data-en>About</span><span data-ar>من نحن</span></a>
     <button class="lang-btn" data-lang-toggle type="button" aria-label="التبديل إلى العربية">العربية</button>
   </div>
 </nav></div></header>
@@ -173,81 +228,18 @@ html[dir="rtl"] .dm-suggest-tx b{font-family:var(--f-display-ar)}
     <button type="button" class="dm-phone dm-p1" data-zoom="home" aria-label="Vault home page"><img data-en src="/assets/img/apps/vault/home_en.webp" alt="Vault home page" loading="eager" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/home_ar.webp" alt="الصفحة الرئيسية في خزنة الضمانات" loading="eager" width="620" height="1341"></button>
     <button type="button" class="dm-phone dm-p2" data-zoom="status" aria-label="Warranty status with its countdown"><img data-en src="/assets/img/apps/vault/status_en.webp" alt="Warranty status with its countdown" loading="eager" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/status_ar.webp" alt="حالة الضمان مع العدّاد" loading="eager" width="620" height="1341"></button>
   </div>
-</div></section><section class="dm-stats-wrap"><div class="container"><div class="dm-stats">
+</div></section><nav class="qa-tabs" aria-label="Vault — Warranty Manager"><div class="container"><div class="qa-tabs-row"><a href="#screens"><span data-en>Screens</span><span data-ar>الصور</span></a><a href="#features"><span data-en>Features</span><span data-ar>المزايا</span></a><a href="#story"><span data-en>Story</span><span data-ar>القصة</span></a><a href="#video"><span data-en>Video</span><span data-ar>الفيديو</span></a><a href="#questions"><span data-en>Questions</span><span data-ar>أسئلة</span></a><a href="/tutorials/vault/"><span data-en>Tutorial</span><span data-ar>الشرح</span></a><a href="/privacy/vault/"><span data-en>Privacy</span><span data-ar>الخصوصية</span></a><a href="/support/vault/"><span data-en>Support</span><span data-ar>الدعم</span></a><a href="/suggest/?app=vault"><span data-en>Suggest</span><span data-ar>اقترح</span></a></div></div></nav><section class="dm-stats-wrap"><div class="container"><div class="dm-stats">
   <div><b>16</b><span data-en>main features</span><span data-ar>خاصية رئيسية</span></div>
   <div><b>66</b><span data-en>tools inside them</span><span data-ar>أداة داخلها</span></div>
   <div><b>18</b><span data-en>languages</span><span data-ar>لغة</span></div>
   <div><b dir="ltr">1×</b><span data-en>one payment, yours for life</span><span data-ar>دفعة واحدة، لك مدى الحياة</span></div>
-</div></div></section><section id="story" class="dm-story"><div class="container">
-  <div class="section-head">
-    <span class="kicker" data-en>Why Vault</span><span class="kicker" data-ar>لماذا خزنة الضمانات</span>
-    <h2 data-en>Where did the invoice go?</h2><h2 data-ar>وين راحت الفاتورة؟</h2>
-  </div>
-  <div class="dm-story-grid">
-    <div class="dm-story-text">
-      <p data-en>You buy a washing machine, a phone, an air conditioner. The invoice arrives on paper or in a WhatsApp message — and then it disappears: in a drawer, under older chats, in an email you will never find again. The day the device breaks, the same question comes back: <q>Where is the warranty?</q></p><p data-ar>تشتري غسالة، أو جوالًا، أو مكيفًا. تصلك الفاتورة ورقًا أو في رسالة واتساب — ثم تختفي: في درج، أو تحت محادثات أقدم، أو في بريد لن تجده مرة أخرى. ويوم يتعطل الجهاز يعود السؤال نفسه: <q>وين الضمان؟</q></p>
-      <p data-en>Vault was built for that day. Photograph the invoice or share it in from WhatsApp, add the products on it, and give each one its warranty. From then on the app counts the days for you, shows what is about to expire, and reminds you before it ends.</p><p data-ar>صُنعت خزنة الضمانات لذلك اليوم. صوّر الفاتورة أو شاركها من واتساب، وأضف المنتجات التي فيها، وحدّد لكل منتج ضمانه. ومن بعدها يعدّ التطبيق الأيام عنك، ويُريك ما يقترب من الانتهاء، ويذكّرك قبل أن ينتهي.</p>
-      <p data-en>Then the details that make the difference: the store's location and phone, the invoice QR that fills the store and date for you, a PDF report of all your warranties, insights, an encrypted backup — 16 main features and 66 tools inside them.</p><p data-ar>ثم التفاصيل التي تصنع الفرق: موقع المتجر وهاتفه، ورمز QR الذي يعبّئ المتجر والتاريخ لك، وتقرير PDF لكل ضماناتك، والإحصائيات، ونسخة احتياطية مشفّرة — 16 خاصية رئيسية و66 أداة داخلها.</p>
-    </div>
-    <ol class="dm-timeline">
-      <li><span>🧾</span><div><b data-en>The invoice</b><b data-ar>الفاتورة</b><small data-en>Paper, or a message on WhatsApp.</small><small data-ar>ورقة، أو رسالة على واتساب.</small></div></li>
-      <li><span>😟</span><div><b data-en>Lost</b><b data-ar>ضاعت</b><small data-en>A drawer, old chats, an email.</small><small data-ar>درج، أو محادثات قديمة، أو بريد.</small></div></li>
-      <li><span>🛡️</span><div><b data-en>Saved in Vault</b><b data-ar>محفوظة في الخزنة</b><small data-en>Invoice, products and warranty together.</small><small data-ar>الفاتورة والمنتجات والضمان معًا.</small></div></li>
-      <li><span>🔔</span><div><b data-en>Reminded in time</b><b data-ar>تذكير في الوقت</b><small data-en>Before the warranty ends.</small><small data-ar>قبل أن ينتهي الضمان.</small></div></li>
-    </ol>
-  </div>
-</div></section><section class="section-soft dm-journey"><div class="container">
+</div></div></section><section id="screens" class="section-soft"><div class="container">
   <div class="section-head center">
-    <span class="kicker" data-en>How it works</span><span class="kicker" data-ar>كيف يعمل</span>
-    <h2 data-en>From a lost invoice to a warranty you never miss.</h2><h2 data-ar>من فاتورة ضائعة إلى ضمان لا يفوتك.</h2>
+    <span class="kicker" data-en>Screens</span><span class="kicker" data-ar>الشاشات</span>
+    <h2 data-en>Real screens from the app.</h2><h2 data-ar>شاشات حقيقية من التطبيق.</h2>
+    <p data-en>Tap any screen to see it large.</p><p data-ar>اضغط أي شاشة لتراها مكبّرة.</p>
   </div>
-  <ol class="dm-steps"><li class="dm-step"><button type="button" class="dm-phone " data-zoom="home" aria-label="Add the invoice"><img data-en src="/assets/img/apps/vault/home_en.webp" alt="Add the invoice" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/home_ar.webp" alt="أضف الفاتورة" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">1</span>
-        <h3 data-en>Add the invoice</h3><h3 data-ar>أضف الفاتورة</h3><p data-en>Photograph it, share it in from WhatsApp, or scan its QR code.</p><p data-ar>صوّرها، أو شاركها من واتساب، أو امسح رمز QR فيها.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="detail" aria-label="Products and warranty"><img data-en src="/assets/img/apps/vault/detail_en.webp" alt="Products and warranty" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/detail_ar.webp" alt="المنتجات والضمان" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">2</span>
-        <h3 data-en>Products and warranty</h3><h3 data-ar>المنتجات والضمان</h3><p data-en>Each product on the invoice gets its own warranty, store and location.</p><p data-ar>لكل منتج في الفاتورة ضمانه، ومعه المتجر وموقعه.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="status" aria-label="Watch the countdown"><img data-en src="/assets/img/apps/vault/status_en.webp" alt="Watch the countdown" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/status_ar.webp" alt="تابع العدّاد" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">3</span>
-        <h3 data-en>Watch the countdown</h3><h3 data-ar>تابع العدّاد</h3><p data-en>Years, months and days left — and the time already passed.</p><p data-ar>السنوات والأشهر والأيام المتبقية — والمدة التي مضت.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="warranties" aria-label="Find it in seconds"><img data-en src="/assets/img/apps/vault/warranties_en.webp" alt="Find it in seconds" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/warranties_ar.webp" alt="اعثر عليه في ثوانٍ" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">4</span>
-        <h3 data-en>Find it in seconds</h3><h3 data-ar>اعثر عليه في ثوانٍ</h3><p data-en>Search and filter all your warranties.</p><p data-ar>ابحث وصفِّ كل ضماناتك.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="insights" aria-label="See the whole picture"><img data-en src="/assets/img/apps/vault/insights_en.webp" alt="See the whole picture" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/insights_ar.webp" alt="شاهد الصورة كاملة" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">5</span>
-        <h3 data-en>See the whole picture</h3><h3 data-ar>شاهد الصورة كاملة</h3><p data-en>What is active, what expires next, what already ended.</p><p data-ar>ما الساري، وما الذي ينتهي قريبًا، وما انتهى.</p></div></li></ol>
-  <p class="dm-swipe-hint" data-en>Swipe to see every step.</p><p class="dm-swipe-hint" data-ar>اسحب لترى كل الخطوات.</p>
-</div></section><section class="dm-spot"><div class="container dm-spot-grid">
-  <div class="dm-spot-copy">
-    <span class="kicker" data-en>Warranty tracking</span><span class="kicker" data-ar>متابعة الضمان</span>
-    <h2 data-en>Every warranty, counted to the day.</h2><h2 data-ar>كل ضمان، محسوب باليوم.</h2>
-    <p class="lead" data-en>Each product keeps its own warranty: years, months and days, lifetime, or no warranty at all. Vault shows the time left and the time passed, live.</p><p class="lead" data-ar>لكل منتج ضمانه الخاص: سنوات وأشهر وأيام، أو مدى الحياة، أو بلا ضمان. وتعرض الخزنة المدة المتبقية والمدة المنقضية، مباشرة.</p>
-    <ul class="dm-ticks"><li data-en>Active, expiring, expired or lifetime at a glance</li><li data-ar>ساري، قريب الانتهاء، منتهٍ، أو مدى الحياة بنظرة</li><li data-en>A reminder before it ends</li><li data-ar>تذكير قبل أن ينتهي</li><li data-en>The nearest expiry on the home page</li><li data-ar>أقرب ضمان ينتهي على الصفحة الرئيسية</li></ul>
-  </div>
-  <div class="dm-spot-shots dm-n2"><button type="button" class="dm-phone " data-zoom="status" aria-label="Warranty status and countdown"><img data-en src="/assets/img/apps/vault/status_en.webp" alt="Warranty status and countdown" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/status_ar.webp" alt="حالة الضمان والعدّاد" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="home" aria-label="Home: the warranties nearest to expiry"><img data-en src="/assets/img/apps/vault/home_en.webp" alt="Home: the warranties nearest to expiry" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/home_ar.webp" alt="الرئيسية: أقرب الضمانات إلى الانتهاء" loading="lazy" width="620" height="1341"></button></div>
-</div></section><section class="dm-spot dm-flip"><div class="container dm-spot-grid">
-  <div class="dm-spot-copy">
-    <span class="kicker" data-en>Invoice details</span><span class="kicker" data-ar>تفاصيل الفاتورة</span>
-    <h2 data-en>The invoice, the store, the products.</h2><h2 data-ar>الفاتورة، والمتجر، والمنتجات.</h2>
-    <p class="lead" data-en>Open a warranty and everything is there: the invoice pages, the store with its location and phone, and every product bought with it.</p><p class="lead" data-ar>افتح أي ضمان تجد كل شيء: صفحات الفاتورة، والمتجر بموقعه وهاتفه، وكل منتج اشتريته معها.</p>
-    <ul class="dm-ticks"><li data-en>Invoice QR fills the store name and purchase date</li><li data-ar>رمز QR يعبّئ اسم المتجر وتاريخ الشراء</li><li data-en>Open the store in Maps or call it</li><li data-ar>افتح المتجر في الخرائط أو اتصل به</li><li data-en>Share or print the invoice</li><li data-ar>شارك الفاتورة أو اطبعها</li></ul>
-  </div>
-  <div class="dm-spot-shots dm-n1"><button type="button" class="dm-phone " data-zoom="detail" aria-label="Warranty details with the invoice"><img data-en src="/assets/img/apps/vault/detail_en.webp" alt="Warranty details with the invoice" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/detail_ar.webp" alt="تفاصيل الضمان مع الفاتورة" loading="lazy" width="620" height="1341"></button></div>
-</div></section><section class="dm-spot"><div class="container dm-spot-grid">
-  <div class="dm-spot-copy">
-    <span class="kicker" data-en>Search &amp; filters</span><span class="kicker" data-ar>البحث والتصفية</span>
-    <h2 data-en>Find any warranty in seconds.</h2><h2 data-ar>اعثر على أي ضمان في ثوانٍ.</h2>
-    <p class="lead" data-en>Search by store, invoice or product, and filter by status, year or month.</p><p class="lead" data-ar>ابحث بالمتجر أو الفاتورة أو المنتج، وصفِّ حسب الحالة أو السنة أو الشهر.</p>
-    <ul class="dm-ticks"><li data-en>Categories with your own icons and colours</li><li data-ar>فئات بأيقوناتك وألوانك</li><li data-en>Export what you filtered as a PDF report</li><li data-ar>صدّر ما اخترته تقريرًا بصيغة PDF</li></ul>
-  </div>
-  <div class="dm-spot-shots dm-n2"><button type="button" class="dm-phone " data-zoom="warranties" aria-label="My warranties"><img data-en src="/assets/img/apps/vault/warranties_en.webp" alt="My warranties" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/warranties_ar.webp" alt="ضماناتي" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="filter" aria-label="Filter warranties"><img data-en src="/assets/img/apps/vault/filter_en.webp" alt="Filter warranties" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/filter_ar.webp" alt="تصفية الضمانات" loading="lazy" width="620" height="1341"></button></div>
-</div></section><section class="dm-spot dm-flip"><div class="container dm-spot-grid">
-  <div class="dm-spot-copy">
-    <span class="kicker" data-en>Insights</span><span class="kicker" data-ar>الإحصائيات</span>
-    <h2 data-en>Your warranties, in numbers.</h2><h2 data-ar>ضماناتك بالأرقام.</h2>
-    <p class="lead" data-en>Coverage, the rhythm of your purchases and forecasts of what expires next.</p><p class="lead" data-ar>التغطية، وإيقاع مشترياتك، وتوقعات ما ينتهي قريبًا.</p>
-    <ul class="dm-ticks"><li data-en>How many warranties are still active</li><li data-ar>كم ضمانًا ما زال ساريًا</li><li data-en>What expires in the coming months</li><li data-ar>ما الذي ينتهي في الأشهر القادمة</li></ul>
-  </div>
-  <div class="dm-spot-shots dm-n1"><button type="button" class="dm-phone " data-zoom="insights" aria-label="Insights: coverage"><img data-en src="/assets/img/apps/vault/insights_en.webp" alt="Insights: coverage" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/insights_ar.webp" alt="الإحصائيات: التغطية" loading="lazy" width="620" height="1341"></button></div>
-</div></section><section class="dm-spot"><div class="container dm-spot-grid">
-  <div class="dm-spot-copy">
-    <span class="kicker" data-en>Your way</span><span class="kicker" data-ar>على طريقتك</span>
-    <h2 data-en>Private, locked, and the way you like it.</h2><h2 data-ar>خاصة، ومقفلة، وكما تحب.</h2>
-    <p class="lead" data-en>Choose how the warranty cards look, lock the app with your face or fingerprint, and keep an encrypted backup wherever you choose.</p><p class="lead" data-ar>اختر شكل بطاقات الضمان، واقفل التطبيق ببصمة الوجه أو الإصبع، واحتفظ بنسخة احتياطية مشفّرة حيث تختار.</p>
-    <ul class="dm-ticks"><li data-en>12 card styles to choose from</li><li data-ar>12 نمطًا للبطاقة تختار منها</li><li data-en>AES-256 encrypted backup with your own password</li><li data-ar>نسخ احتياطي مشفّر AES-256 بكلمة مرورك</li><li data-en>18 languages, Hijri or Gregorian dates</li><li data-ar>18 لغة، وتاريخ هجري أو ميلادي</li></ul>
-  </div>
-  <div class="dm-spot-shots dm-n2"><button type="button" class="dm-phone " data-zoom="cardstyle" aria-label="Choose a card style"><img data-en src="/assets/img/apps/vault/cardstyle_en.webp" alt="Choose a card style" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/cardstyle_ar.webp" alt="اختر نمط البطاقة" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="settings" aria-label="Settings"><img data-en src="/assets/img/apps/vault/settings_en.webp" alt="Settings" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/settings_ar.webp" alt="الإعدادات" loading="lazy" width="620" height="1341"></button></div>
+  <div class="dm-gallery"><figure><button type="button" class="dm-phone " data-zoom="home" aria-label="Home"><img data-en src="/assets/img/apps/vault/home_en.webp" alt="Home" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/home_ar.webp" alt="الرئيسية" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Home</span><span data-ar>الرئيسية</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="warranties" aria-label="My warranties"><img data-en src="/assets/img/apps/vault/warranties_en.webp" alt="My warranties" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/warranties_ar.webp" alt="ضماناتي" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>My warranties</span><span data-ar>ضماناتي</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="filter" aria-label="Filter"><img data-en src="/assets/img/apps/vault/filter_en.webp" alt="Filter" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/filter_ar.webp" alt="التصفية" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Filter</span><span data-ar>التصفية</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="detail" aria-label="Warranty details"><img data-en src="/assets/img/apps/vault/detail_en.webp" alt="Warranty details" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/detail_ar.webp" alt="تفاصيل الضمان" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Warranty details</span><span data-ar>تفاصيل الضمان</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="status" aria-label="Warranty status"><img data-en src="/assets/img/apps/vault/status_en.webp" alt="Warranty status" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/status_ar.webp" alt="حالة الضمان" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Warranty status</span><span data-ar>حالة الضمان</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="insights" aria-label="Insights"><img data-en src="/assets/img/apps/vault/insights_en.webp" alt="Insights" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/insights_ar.webp" alt="الإحصائيات" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Insights</span><span data-ar>الإحصائيات</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="settings" aria-label="Settings"><img data-en src="/assets/img/apps/vault/settings_en.webp" alt="Settings" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/settings_ar.webp" alt="الإعدادات" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Settings</span><span data-ar>الإعدادات</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="cardstyle" aria-label="Card style"><img data-en src="/assets/img/apps/vault/cardstyle_en.webp" alt="Card style" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/cardstyle_ar.webp" alt="نمط البطاقة" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Card style</span><span data-ar>نمط البطاقة</span></figcaption></figure></div>
 </div></section><section id="features" class="section-soft"><div class="container">
   <div class="section-head center">
     <span class="kicker" data-en>Everything inside</span><span class="kicker" data-ar>كل ما في التطبيق</span>
@@ -288,16 +280,76 @@ html[dir="rtl"] .dm-suggest-tx b{font-family:var(--f-display-ar)}
       <ul><li data-en>Face ID, fingerprint or device PIN</li><li data-ar>بصمة الوجه أو الإصبع أو رمز الجهاز</li><li data-en>Your invoices stay on your phone</li><li data-ar>فواتيرك تبقى على جوالك</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🌍</span>
       <span class="dm-feat-t"><span data-en>18 languages and two calendars</span><span data-ar>18 لغة وتقويمان</span></span><span class="dm-count">3</span></summary>
       <ul><li data-en>18 languages, Arabic and Urdu right to left</li><li data-ar>18 لغة، والعربية والأردية من اليمين إلى اليسار</li><li data-en>Hijri or Gregorian dates</li><li data-ar>تاريخ هجري أو ميلادي</li><li data-en>Light and dark</li><li data-ar>فاتح وداكن</li></ul></details></div>
-</div></section><section class="dm-suggest-wrap"><div class="container">
-  <a class="dm-suggest" href="/suggest/?app=vault">
-    <span class="dm-suggest-ic" aria-hidden="true">💡</span>
-    <span class="dm-suggest-tx">
-      <b data-en>Missing something in Vault?</b><b data-ar>ينقصك شيء في خزنة الضمانات؟</b>
-      <span data-en>Suggest a feature, an improvement, or tell us about a problem — we read every message.</span>
-      <span data-ar>اقترح ميزة أو تحسينًا، أو أخبرنا بمشكلة — نقرأ كل رسالة.</span>
-    </span>
-    <span class="dm-suggest-go"><span data-en>Suggest a feature →</span><span data-ar>اقترح ميزة ←</span></span>
-  </a>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker" data-en>Warranty tracking</span><span class="kicker" data-ar>متابعة الضمان</span>
+    <h2 data-en>Every warranty, counted to the day.</h2><h2 data-ar>كل ضمان، محسوب باليوم.</h2>
+    <p class="lead" data-en>Each product keeps its own warranty: years, months and days, lifetime, or no warranty at all. Vault shows the time left and the time passed, live.</p><p class="lead" data-ar>لكل منتج ضمانه الخاص: سنوات وأشهر وأيام، أو مدى الحياة، أو بلا ضمان. وتعرض الخزنة المدة المتبقية والمدة المنقضية، مباشرة.</p>
+    <ul class="dm-ticks"><li data-en>Active, expiring, expired or lifetime at a glance</li><li data-ar>ساري، قريب الانتهاء، منتهٍ، أو مدى الحياة بنظرة</li><li data-en>A reminder before it ends</li><li data-ar>تذكير قبل أن ينتهي</li><li data-en>The nearest expiry on the home page</li><li data-ar>أقرب ضمان ينتهي على الصفحة الرئيسية</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n2"><button type="button" class="dm-phone " data-zoom="status" aria-label="Warranty status and countdown"><img data-en src="/assets/img/apps/vault/status_en.webp" alt="Warranty status and countdown" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/status_ar.webp" alt="حالة الضمان والعدّاد" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="home" aria-label="Home: the warranties nearest to expiry"><img data-en src="/assets/img/apps/vault/home_en.webp" alt="Home: the warranties nearest to expiry" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/home_ar.webp" alt="الرئيسية: أقرب الضمانات إلى الانتهاء" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot dm-flip"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker" data-en>Invoice details</span><span class="kicker" data-ar>تفاصيل الفاتورة</span>
+    <h2 data-en>The invoice, the store, the products.</h2><h2 data-ar>الفاتورة، والمتجر، والمنتجات.</h2>
+    <p class="lead" data-en>Open a warranty and everything is there: the invoice pages, the store with its location and phone, and every product bought with it.</p><p class="lead" data-ar>افتح أي ضمان تجد كل شيء: صفحات الفاتورة، والمتجر بموقعه وهاتفه، وكل منتج اشتريته معها.</p>
+    <ul class="dm-ticks"><li data-en>Invoice QR fills the store name and purchase date</li><li data-ar>رمز QR يعبّئ اسم المتجر وتاريخ الشراء</li><li data-en>Open the store in Maps or call it</li><li data-ar>افتح المتجر في الخرائط أو اتصل به</li><li data-en>Share or print the invoice</li><li data-ar>شارك الفاتورة أو اطبعها</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n1"><button type="button" class="dm-phone " data-zoom="detail" aria-label="Warranty details with the invoice"><img data-en src="/assets/img/apps/vault/detail_en.webp" alt="Warranty details with the invoice" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/detail_ar.webp" alt="تفاصيل الضمان مع الفاتورة" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker" data-en>Search &amp; filters</span><span class="kicker" data-ar>البحث والتصفية</span>
+    <h2 data-en>Find any warranty in seconds.</h2><h2 data-ar>اعثر على أي ضمان في ثوانٍ.</h2>
+    <p class="lead" data-en>Search by store, invoice or product, and filter by status, year or month.</p><p class="lead" data-ar>ابحث بالمتجر أو الفاتورة أو المنتج، وصفِّ حسب الحالة أو السنة أو الشهر.</p>
+    <ul class="dm-ticks"><li data-en>Categories with your own icons and colours</li><li data-ar>فئات بأيقوناتك وألوانك</li><li data-en>Export what you filtered as a PDF report</li><li data-ar>صدّر ما اخترته تقريرًا بصيغة PDF</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n2"><button type="button" class="dm-phone " data-zoom="warranties" aria-label="My warranties"><img data-en src="/assets/img/apps/vault/warranties_en.webp" alt="My warranties" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/warranties_ar.webp" alt="ضماناتي" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="filter" aria-label="Filter warranties"><img data-en src="/assets/img/apps/vault/filter_en.webp" alt="Filter warranties" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/filter_ar.webp" alt="تصفية الضمانات" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot dm-flip"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker" data-en>Insights</span><span class="kicker" data-ar>الإحصائيات</span>
+    <h2 data-en>Your warranties, in numbers.</h2><h2 data-ar>ضماناتك بالأرقام.</h2>
+    <p class="lead" data-en>Coverage, the rhythm of your purchases and forecasts of what expires next.</p><p class="lead" data-ar>التغطية، وإيقاع مشترياتك، وتوقعات ما ينتهي قريبًا.</p>
+    <ul class="dm-ticks"><li data-en>How many warranties are still active</li><li data-ar>كم ضمانًا ما زال ساريًا</li><li data-en>What expires in the coming months</li><li data-ar>ما الذي ينتهي في الأشهر القادمة</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n1"><button type="button" class="dm-phone " data-zoom="insights" aria-label="Insights: coverage"><img data-en src="/assets/img/apps/vault/insights_en.webp" alt="Insights: coverage" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/insights_ar.webp" alt="الإحصائيات: التغطية" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker" data-en>Your way</span><span class="kicker" data-ar>على طريقتك</span>
+    <h2 data-en>Private, locked, and the way you like it.</h2><h2 data-ar>خاصة، ومقفلة، وكما تحب.</h2>
+    <p class="lead" data-en>Choose how the warranty cards look, lock the app with your face or fingerprint, and keep an encrypted backup wherever you choose.</p><p class="lead" data-ar>اختر شكل بطاقات الضمان، واقفل التطبيق ببصمة الوجه أو الإصبع، واحتفظ بنسخة احتياطية مشفّرة حيث تختار.</p>
+    <ul class="dm-ticks"><li data-en>12 card styles to choose from</li><li data-ar>12 نمطًا للبطاقة تختار منها</li><li data-en>AES-256 encrypted backup with your own password</li><li data-ar>نسخ احتياطي مشفّر AES-256 بكلمة مرورك</li><li data-en>18 languages, Hijri or Gregorian dates</li><li data-ar>18 لغة، وتاريخ هجري أو ميلادي</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n2"><button type="button" class="dm-phone " data-zoom="cardstyle" aria-label="Choose a card style"><img data-en src="/assets/img/apps/vault/cardstyle_en.webp" alt="Choose a card style" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/cardstyle_ar.webp" alt="اختر نمط البطاقة" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="settings" aria-label="Settings"><img data-en src="/assets/img/apps/vault/settings_en.webp" alt="Settings" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/settings_ar.webp" alt="الإعدادات" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section id="story" class="dm-story"><div class="container">
+  <div class="section-head">
+    <span class="kicker" data-en>Why Vault</span><span class="kicker" data-ar>لماذا خزنة الضمانات</span>
+    <h2 data-en>Where did the invoice go?</h2><h2 data-ar>وين راحت الفاتورة؟</h2>
+  </div>
+  <div class="dm-story-grid">
+    <div class="dm-story-text">
+      <p data-en>You buy a washing machine, a phone, an air conditioner. The invoice arrives on paper or in a WhatsApp message — and then it disappears: in a drawer, under older chats, in an email you will never find again. The day the device breaks, the same question comes back: <q>Where is the warranty?</q></p><p data-ar>تشتري غسالة، أو جوالًا، أو مكيفًا. تصلك الفاتورة ورقًا أو في رسالة واتساب — ثم تختفي: في درج، أو تحت محادثات أقدم، أو في بريد لن تجده مرة أخرى. ويوم يتعطل الجهاز يعود السؤال نفسه: <q>وين الضمان؟</q></p>
+      <p data-en>Vault was built for that day. Photograph the invoice or share it in from WhatsApp, add the products on it, and give each one its warranty. From then on the app counts the days for you, shows what is about to expire, and reminds you before it ends.</p><p data-ar>صُنعت خزنة الضمانات لذلك اليوم. صوّر الفاتورة أو شاركها من واتساب، وأضف المنتجات التي فيها، وحدّد لكل منتج ضمانه. ومن بعدها يعدّ التطبيق الأيام عنك، ويُريك ما يقترب من الانتهاء، ويذكّرك قبل أن ينتهي.</p>
+      <p data-en>Then the details that make the difference: the store's location and phone, the invoice QR that fills the store and date for you, a PDF report of all your warranties, insights, an encrypted backup — 16 main features and 66 tools inside them.</p><p data-ar>ثم التفاصيل التي تصنع الفرق: موقع المتجر وهاتفه، ورمز QR الذي يعبّئ المتجر والتاريخ لك، وتقرير PDF لكل ضماناتك، والإحصائيات، ونسخة احتياطية مشفّرة — 16 خاصية رئيسية و66 أداة داخلها.</p>
+    </div>
+    <ol class="dm-timeline">
+      <li><span>🧾</span><div><b data-en>The invoice</b><b data-ar>الفاتورة</b><small data-en>Paper, or a message on WhatsApp.</small><small data-ar>ورقة، أو رسالة على واتساب.</small></div></li>
+      <li><span>😟</span><div><b data-en>Lost</b><b data-ar>ضاعت</b><small data-en>A drawer, old chats, an email.</small><small data-ar>درج، أو محادثات قديمة، أو بريد.</small></div></li>
+      <li><span>🛡️</span><div><b data-en>Saved in Vault</b><b data-ar>محفوظة في الخزنة</b><small data-en>Invoice, products and warranty together.</small><small data-ar>الفاتورة والمنتجات والضمان معًا.</small></div></li>
+      <li><span>🔔</span><div><b data-en>Reminded in time</b><b data-ar>تذكير في الوقت</b><small data-en>Before the warranty ends.</small><small data-ar>قبل أن ينتهي الضمان.</small></div></li>
+    </ol>
+  </div>
+</div></section><section class="section-soft dm-journey"><div class="container">
+  <div class="section-head center">
+    <span class="kicker" data-en>How it works</span><span class="kicker" data-ar>كيف يعمل</span>
+    <h2 data-en>From a lost invoice to a warranty you never miss.</h2><h2 data-ar>من فاتورة ضائعة إلى ضمان لا يفوتك.</h2>
+  </div>
+  <ol class="dm-steps"><li class="dm-step"><button type="button" class="dm-phone " data-zoom="home" aria-label="Add the invoice"><img data-en src="/assets/img/apps/vault/home_en.webp" alt="Add the invoice" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/home_ar.webp" alt="أضف الفاتورة" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">1</span>
+        <h3 data-en>Add the invoice</h3><h3 data-ar>أضف الفاتورة</h3><p data-en>Photograph it, share it in from WhatsApp, or scan its QR code.</p><p data-ar>صوّرها، أو شاركها من واتساب، أو امسح رمز QR فيها.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="detail" aria-label="Products and warranty"><img data-en src="/assets/img/apps/vault/detail_en.webp" alt="Products and warranty" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/detail_ar.webp" alt="المنتجات والضمان" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">2</span>
+        <h3 data-en>Products and warranty</h3><h3 data-ar>المنتجات والضمان</h3><p data-en>Each product on the invoice gets its own warranty, store and location.</p><p data-ar>لكل منتج في الفاتورة ضمانه، ومعه المتجر وموقعه.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="status" aria-label="Watch the countdown"><img data-en src="/assets/img/apps/vault/status_en.webp" alt="Watch the countdown" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/status_ar.webp" alt="تابع العدّاد" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">3</span>
+        <h3 data-en>Watch the countdown</h3><h3 data-ar>تابع العدّاد</h3><p data-en>Years, months and days left — and the time already passed.</p><p data-ar>السنوات والأشهر والأيام المتبقية — والمدة التي مضت.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="warranties" aria-label="Find it in seconds"><img data-en src="/assets/img/apps/vault/warranties_en.webp" alt="Find it in seconds" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/warranties_ar.webp" alt="اعثر عليه في ثوانٍ" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">4</span>
+        <h3 data-en>Find it in seconds</h3><h3 data-ar>اعثر عليه في ثوانٍ</h3><p data-en>Search and filter all your warranties.</p><p data-ar>ابحث وصفِّ كل ضماناتك.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="insights" aria-label="See the whole picture"><img data-en src="/assets/img/apps/vault/insights_en.webp" alt="See the whole picture" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/insights_ar.webp" alt="شاهد الصورة كاملة" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">5</span>
+        <h3 data-en>See the whole picture</h3><h3 data-ar>شاهد الصورة كاملة</h3><p data-en>What is active, what expires next, what already ended.</p><p data-ar>ما الساري، وما الذي ينتهي قريبًا، وما انتهى.</p></div></li></ol>
+  <p class="dm-swipe-hint" data-en>Swipe to see every step.</p><p class="dm-swipe-hint" data-ar>اسحب لترى كل الخطوات.</p>
 </div></section><section class="dm-price"><div class="container"><div class="dm-price-card">
   <div>
     <span class="kicker" data-en>Price</span><span class="kicker" data-ar>السعر</span>
@@ -312,23 +364,28 @@ html[dir="rtl"] .dm-suggest-tx b{font-family:var(--f-display-ar)}
     <li data-en>Your invoices stay on your phone</li><li data-ar>فواتيرك تبقى على جوالك</li>
     <li data-en>18 languages</li><li data-ar>18 لغة</li>
   </ul>
-</div></div></section><section><div class="container" style="max-width:860px">
+</div></div></section><section id="video"><div class="container" style="max-width:860px">
   <h2 class="center" data-en>Watch it in action</h2><h2 class="center" data-ar>شاهده أثناء العمل</h2>
   <div class="video-wrap" style="margin-top:22px">
     <iframe src="https://www.youtube.com/embed/SjafmkwycsA?start=167" title="Vault — Warranty Manager video" loading="lazy"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
   </div>
-</div></section><section class="section-soft"><div class="container">
-  <div class="section-head center">
-    <span class="kicker" data-en>Screens</span><span class="kicker" data-ar>الشاشات</span>
-    <h2 data-en>Real screens from the app.</h2><h2 data-ar>شاشات حقيقية من التطبيق.</h2>
-    <p data-en>Tap any screen to see it large.</p><p data-ar>اضغط أي شاشة لتراها مكبّرة.</p>
-  </div>
-  <div class="dm-gallery"><figure><button type="button" class="dm-phone " data-zoom="home" aria-label="Home"><img data-en src="/assets/img/apps/vault/home_en.webp" alt="Home" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/home_ar.webp" alt="الرئيسية" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Home</span><span data-ar>الرئيسية</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="warranties" aria-label="My warranties"><img data-en src="/assets/img/apps/vault/warranties_en.webp" alt="My warranties" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/warranties_ar.webp" alt="ضماناتي" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>My warranties</span><span data-ar>ضماناتي</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="filter" aria-label="Filter"><img data-en src="/assets/img/apps/vault/filter_en.webp" alt="Filter" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/filter_ar.webp" alt="التصفية" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Filter</span><span data-ar>التصفية</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="detail" aria-label="Warranty details"><img data-en src="/assets/img/apps/vault/detail_en.webp" alt="Warranty details" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/detail_ar.webp" alt="تفاصيل الضمان" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Warranty details</span><span data-ar>تفاصيل الضمان</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="status" aria-label="Warranty status"><img data-en src="/assets/img/apps/vault/status_en.webp" alt="Warranty status" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/status_ar.webp" alt="حالة الضمان" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Warranty status</span><span data-ar>حالة الضمان</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="insights" aria-label="Insights"><img data-en src="/assets/img/apps/vault/insights_en.webp" alt="Insights" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/insights_ar.webp" alt="الإحصائيات" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Insights</span><span data-ar>الإحصائيات</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="settings" aria-label="Settings"><img data-en src="/assets/img/apps/vault/settings_en.webp" alt="Settings" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/settings_ar.webp" alt="الإعدادات" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Settings</span><span data-ar>الإعدادات</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="cardstyle" aria-label="Card style"><img data-en src="/assets/img/apps/vault/cardstyle_en.webp" alt="Card style" loading="lazy" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/cardstyle_ar.webp" alt="نمط البطاقة" loading="lazy" width="620" height="1341"></button><figcaption><span data-en>Card style</span><span data-ar>نمط البطاقة</span></figcaption></figure></div>
-</div></section><section><div class="container" style="max-width:820px">
+</div></section><section id="questions"><div class="container" style="max-width:820px">
   <h2 class="center" data-en>Questions</h2><h2 class="center" data-ar>أسئلة</h2>
   <div class="faq" style="margin-top:28px"><details><summary><span data-en>Is Vault free?</span><span data-ar>هل خزنة الضمانات مجانية؟</span></summary><p data-en>You can start free with up to 3 invoices, one product each. Lifetime Access is a single payment that unlocks everything — no subscription.</p><p data-ar>تبدأ مجانًا بما يصل إلى 3 فواتير، بمنتج واحد لكل فاتورة. و«الوصول مدى الحياة» دفعة واحدة تفتح كل شيء — بلا اشتراك.</p></details><details><summary><span data-en>Where are my invoices kept?</span><span data-ar>أين تُحفظ فواتيري؟</span></summary><p data-en>On your phone. A backup is encrypted with your own password, and you choose where to keep it.</p><p data-ar>على جوالك. والنسخة الاحتياطية مشفّرة بكلمة مرورك أنت، وأنت تختار أين تحفظها.</p></details><details><summary><span data-en>What does the invoice QR fill in?</span><span data-ar>ماذا يعبّئ رمز QR في الفاتورة؟</span></summary><p data-en>The store name and the purchase date. You add the products and their warranties.</p><p data-ar>اسم المتجر وتاريخ الشراء. وأنت تضيف المنتجات وضماناتها.</p></details><details><summary><span data-en>What if I forget my backup password?</span><span data-ar>ماذا لو نسيت كلمة مرور النسخة الاحتياطية؟</span></summary><p data-en>It cannot be recovered — not even by us. That is what real encryption means, so keep it somewhere safe.</p><p data-ar>لا يمكن استعادتها — ولا حتى من قِبلنا. هذا معنى التشفير الحقيقي، فاحفظها في مكان آمن.</p></details></div>
-  <div class="linkrow" style="margin-top:22px;justify-content:center"><a href="/tutorials/vault/"><span data-en>Tutorial</span><span data-ar>الشرح</span></a><a href="/support/vault/"><span data-en>Support</span><span data-ar>الدعم</span></a><a href="/privacy/vault/"><span data-en>Privacy policy</span><span data-ar>سياسة الخصوصية</span></a></div>
+</div></section><section class="qa-help"><div class="container">
+  <h2 class="qa-help-h"><span data-en>Help</span><span data-ar>مساعدة</span></h2>
+  <div class="qa-help-grid"><a class="qa-help-card" href="/tutorials/vault/"><span class="qa-help-ic" aria-hidden="true">📘</span><b data-en>Tutorial</b><b data-ar>الشرح</b><small data-en>Step by step</small><small data-ar>خطوة بخطوة</small></a><a class="qa-help-card" href="/privacy/vault/"><span class="qa-help-ic" aria-hidden="true">🔒</span><b data-en>Privacy</b><b data-ar>الخصوصية</b><small data-en>What happens to your data</small><small data-ar>ماذا يحدث لبياناتك</small></a><a class="qa-help-card" href="/support/vault/"><span class="qa-help-ic" aria-hidden="true">🛟</span><b data-en>Support</b><b data-ar>الدعم</b><small data-en>Answers and contact</small><small data-ar>إجابات وتواصل</small></a></div>
+</div></section><section class="dm-suggest-wrap"><div class="container">
+  <a class="dm-suggest" href="/suggest/?app=vault">
+    <span class="dm-suggest-ic" aria-hidden="true">💡</span>
+    <span class="dm-suggest-tx">
+      <b data-en>Missing something in Vault?</b><b data-ar>ينقصك شيء في خزنة الضمانات؟</b>
+      <span data-en>Suggest a feature, an improvement, or tell us about a problem — we read every message.</span>
+      <span data-ar>اقترح ميزة أو تحسينًا، أو أخبرنا بمشكلة — نقرأ كل رسالة.</span>
+    </span>
+    <span class="dm-suggest-go"><span data-en>Suggest a feature →</span><span data-ar>اقترح ميزة ←</span></span>
+  </a>
 </div></section><section style="padding-top:0"><div class="container"><div class="cta-band">
   <div>
     <h2 data-en>Never lose a warranty again.</h2><h2 data-ar>لا تخسر ضمانًا مرة ثانية.</h2>
@@ -371,7 +428,7 @@ html[dir="rtl"] .dm-suggest-tx b{font-family:var(--f-display-ar)}
       <p style="margin-top:14px"><a href="mailto:thibantechsolutions@gmail.com"><bdi dir="ltr">thibantechsolutions@gmail.com</bdi></a></p>
       <p style="margin-top:4px"><a href="https://wa.me/966554260804" target="_blank" rel="noopener"><span data-en>WhatsApp</span><span data-ar>واتساب</span>: <bdi dir="ltr">+966 55 426 0804</bdi></a></p>
     </div>
-    <div><h4><span data-en>Apps</span><span data-ar>التطبيقات</span></h4><ul><li><a href="/apps/countdown-keeper/"><span data-en>Countdown Keeper</span><span data-ar>العدّاد</span></a></li><li><a href="/apps/vault/"><span data-en>Vault — Warranty Manager</span><span data-ar>خزنة الضمانات</span></a></li><li><a href="/apps/"><span data-en>All apps</span><span data-ar>كل التطبيقات</span></a></li></ul></div><div><h4><span data-en>Help</span><span data-ar>المساعدة</span></h4><ul><li><a href="/tutorials/"><span data-en>Tutorials</span><span data-ar>الشروحات</span></a></li><li><a href="/suggest/"><span data-en>Suggest a feature</span><span data-ar>اقترح ميزة</span></a></li><li><a href="/support/"><span data-en>Support</span><span data-ar>الدعم</span></a></li><li><a href="/contact/"><span data-en>Contact</span><span data-ar>تواصل معنا</span></a></li></ul></div><div><h4><span data-en>Company</span><span data-ar>الشركة</span></h4><ul><li><a href="/about/"><span data-en>About</span><span data-ar>من نحن</span></a></li><li><a href="/privacy/"><span data-en>Privacy</span><span data-ar>الخصوصية</span></a></li></ul></div>
+    <div><h4><span data-en>Apps</span><span data-ar>التطبيقات</span></h4><ul><li><a href="/apps/docmatic/"><span data-en>DocMatic</span><span data-ar>DocMatic</span></a></li><li><a href="/apps/vault/"><span data-en>Vault — Warranty Manager</span><span data-ar>خزنة الضمانات</span></a></li><li><a href="/apps/countdown-keeper/"><span data-en>Countdown Keeper</span><span data-ar>كم مضى وكم بقي</span></a></li><li><a href="/apps/"><span data-en>All apps</span><span data-ar>كل التطبيقات</span></a></li></ul></div><div><h4><span data-en>Help</span><span data-ar>المساعدة</span></h4><ul><li><a href="/tutorials/"><span data-en>Tutorials</span><span data-ar>الشروحات</span></a></li><li><a href="/suggest/"><span data-en>Suggest a feature</span><span data-ar>اقترح ميزة</span></a></li><li><a href="/support/"><span data-en>Support</span><span data-ar>الدعم</span></a></li><li><a href="/contact/"><span data-en>Contact</span><span data-ar>تواصل معنا</span></a></li></ul></div><div><h4><span data-en>Company</span><span data-ar>الشركة</span></h4><ul><li><a href="/about/"><span data-en>About</span><span data-ar>من نحن</span></a></li><li><a href="/privacy/"><span data-en>Privacy</span><span data-ar>الخصوصية</span></a></li></ul></div>
   </div>
   <div class="footer-bottom">
     <span>&copy; 2026 <span data-en>Q Apps. All rights reserved.</span><span data-ar>كيو آبز. جميع الحقوق محفوظة.</span></span>

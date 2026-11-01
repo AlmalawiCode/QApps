@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>دليل نظام «تواصل واقترح» — كيو آبز</title>
+<!-- docs/feedback-system-guide-ar.html — the owner's handbook for the website's
+     messages system (form, database, dashboard, daily email, Cloudflare setup).
+     Written so the system can be understood and rebuilt from GitHub alone.
+     Contains NO secrets: secret values live only in Cloudflare. -->
+<style>
+  :root{--teal:#0f766e;--teal2:#14b8a6;--ink:#1f2d2d;--mut:#5f7373;--line:#dce8e8;--bg:#f5f9f9;--warn:#b45309;--card:#fff}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Tahoma,"Noto Naskh Arabic","Noto Sans Arabic",Arial,sans-serif;line-height:1.85;font-size:17px}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 18px 80px}
+  header.top{background:linear-gradient(135deg,var(--teal),var(--teal2));color:#fff;border-radius:18px;padding:28px 26px;margin-bottom:22px}
+  header.top h1{margin:0 0 6px;font-size:30px}
+  header.top p{margin:0;opacity:.95}
+  nav.toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 20px;margin-bottom:22px}
+  nav.toc ol{margin:6px 0 0;padding-inline-start:22px;columns:2;column-gap:30px}
+  nav.toc a{color:var(--teal);text-decoration:none}
+  section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 24px;margin:0 0 18px}
+  h2{color:var(--teal);margin:0 0 10px;font-size:23px}
+  h3{margin:18px 0 6px;font-size:18px}
+  code,pre{font-family:ui-monospace,Consolas,"DejaVu Sans Mono",monospace;font-size:14px;direction:ltr;unicode-bidi:embed}
+  code{background:#eef5f5;border-radius:6px;padding:1px 6px}
+  pre{background:#0f2626;color:#d9f2ee;border-radius:12px;padding:14px 16px;overflow:auto;text-align:left;line-height:1.6}
+  table{width:100%;border-collapse:collapse;margin:8px 0 6px;font-size:15px}
+  th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:start;vertical-align:top}
+  th{background:#eef6f6;color:var(--teal)}
+  td code{white-space:nowrap}
+  .note{background:#fff8eb;border:1px solid #f3d7a6;border-radius:12px;padding:10px 14px;margin:10px 0}
+  .ok{background:#ecfdf5;border:1px solid #b7ebd3;border-radius:12px;padding:10px 14px;margin:10px 0}
+  .flow{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch;margin:12px 0}
+  .box{flex:1 1 150px;background:#f0faf8;border:2px solid var(--teal2);border-radius:14px;padding:10px 12px;font-size:15px}
+  .box b{display:block;color:var(--teal)}
+  .arrow{align-self:center;color:var(--teal);font-size:22px}
+  ol.steps>li{margin-bottom:6px}
+  .tag{display:inline-block;border-radius:999px;padding:0 10px;font-size:13px;background:#e6f4f1;color:var(--teal);border:1px solid #bfe3dc}
+  .tag.sec{background:#fdecec;color:#a11;border-color:#f2c1c1}
+  footer{color:var(--mut);font-size:14px;text-align:center;margin-top:24px}
+  pre{white-space:pre-wrap;word-break:break-word}
+  .box{min-width:0;overflow-wrap:anywhere}
+  @media (max-width:640px){
+    body{font-size:16px}.wrap{padding:16px 10px 60px}section{padding:16px 14px}
+    nav.toc ol{columns:1}.arrow{transform:rotate(-90deg);width:100%;text-align:center}
+    table{display:block;overflow-x:auto}td code{white-space:normal;overflow-wrap:anywhere}
+    code{overflow-wrap:anywhere}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <h1>دليل نظام «تواصل واقترح»</h1>
+  <p>ماذا بنينا في موقع qeuapps.com، وأين تعيش كل قطعة، وكيف تُحفظ الرسائل وتُقرأ، وكيف تعيد بناء كل شيء من الصفر.
+  كُتب في 2 نوفمبر 2026.</p>
+</header>
+
+<nav class="toc">
+  <b>المحتويات</b>
+  <ol>
+    <li><a href="#big">الصورة الكبيرة</a></li>
+    <li><a href="#pieces">القطع الأربع وأين تعيش</a></li>
+    <li><a href="#db">قاعدة البيانات: الجداول والأعمدة</a></li>
+    <li><a href="#save">رحلة الرسالة: كيف تُحفظ</a></li>
+    <li><a href="#protect">الحماية من الروبوتات والإغراق</a></li>
+    <li><a href="#admin">لوحة الرسائل: كيف تُقرأ وتُعدّل</a></li>
+    <li><a href="#email">الملخص اليومي بالبريد</a></li>
+    <li><a href="#settings">الإعدادات والمفاتيح في Cloudflare</a></li>
+    <li><a href="#files">الملفات في المستودع</a></li>
+    <li><a href="#sql">أن ترى البيانات بنفسك (أوامر جاهزة)</a></li>
+    <li><a href="#backup">النسخ الاحتياطي</a></li>
+    <li><a href="#rebuild">لو ضاع الجهاز: إعادة البناء</a></li>
+    <li><a href="#tasks">مهام شائعة مستقبلًا</a></li>
+    <li><a href="#trouble">حين يحدث خطأ</a></li>
+    <li><a href="#words">قاموس الكلمات</a></li>
+  </ol>
+</nav>
+
+<section id="big">
+  <h2>1) الصورة الكبيرة</h2>
+  <p>الزائر يكتب رسالة في صفحة <code>qeuapps.com/suggest/</code>. الرسالة تمرّ على فحوص حماية، ثم تُحفظ في
+  قاعدة بيانات عند Cloudflare. أنت تقرؤها في لوحة خاصة <code>qeuapps.com/admin/</code> لا تُفتح إلا برمز يصل إلى بريدك.
+  وكل صباح الساعة 8 بتوقيت السعودية يصلك بريد فيه رسائل آخر 24 ساعة (فقط إن وُجدت رسائل).</p>
+  <div class="flow">
+    <div class="box"><b>الزائر</b>صفحة «تواصل واقترح» <code>/suggest/</code></div>
+    <div class="arrow">←</div>
+    <div class="box"><b>فحص «لست روبوتًا»</b>Cloudflare Turnstile</div>
+    <div class="arrow">←</div>
+    <div class="box"><b>الخادم</b><code>/api/feedback</code> يفحص ثم يحفظ</div>
+    <div class="arrow">←</div>
+    <div class="box"><b>قاعدة البيانات</b>D1 باسم <code>qapps-feedback</code></div>
+  </div>
+  <div class="flow">
+    <div class="box"><b>أنت</b>لوحة الرسائل <code>/admin/</code></div>
+    <div class="arrow">←</div>
+    <div class="box"><b>البوّاب</b>Cloudflare Access: رمز إلى بريدك</div>
+    <div class="arrow">←</div>
+    <div class="box"><b>قاعدة البيانات</b>نفسها</div>
+    <div class="arrow">←</div>
+    <div class="box"><b>الملخص اليومي</b>Worker باسم <code>qapps-digest</code> ← بريدك</div>
+  </div>
+  <div class="ok">لا يوجد خادم خاص بك ولا اشتراك مدفوع: كل شيء يعمل على خطة Cloudflare المجانية
+  (Pages، D1، Turnstile، Access حتى 50 مستخدمًا، Email Routing، Workers).</div>
+  <div class="note">إن تعطّل الحفظ لأي سبب، تعرض الصفحة للزائر زرّي واتساب والبريد بدل «أرسل»، فلا تضيع رسالة.</div>
+</section>
+
+<section id="pieces">
+  <h2>2) القطع الأربع وأين تعيش</h2>
+  <p>للنظام مكانان: <b>الكود</b> في GitHub (المستودع <code>AlmalawiCode/QApps</code>)،
+  و<b>الإعدادات والبيانات</b> في حساب Cloudflare. الكود بلا أسرار؛ الأسرار في Cloudflare فقط.</p>
+  <table>
+    <tr><th>القطعة</th><th>ماذا تفعل</th><th>أين في Cloudflare</th></tr>
+    <tr><td>1. الموقع + الخادم الصغير<br><span class="tag">Pages</span></td>
+        <td>يعرض صفحات الموقع، وفيه «دوال» صغيرة تعمل على الخادم: استقبال الرسالة، وبيانات اللوحة.</td>
+        <td>Compute → Workers &amp; Pages → <code>qapps</code></td></tr>
+    <tr><td>2. قاعدة البيانات<br><span class="tag">D1</span></td>
+        <td>تحفظ الرسائل. نوعها SQLite (جداول وأعمدة مثل Excel لكن بلغة SQL).</td>
+        <td>Storage &amp; databases → D1 → <code>qapps-feedback</code></td></tr>
+    <tr><td>3. البوّاب<br><span class="tag">Zero Trust / Access</span></td>
+        <td>يقف أمام <code>/admin</code> و<code>/api/admin</code>؛ لا يدخل إلا من في قائمة البريد ويُدخل الرمز.</td>
+        <td>Zero Trust → Access controls → Applications → <code>qeuapps.com</code> (سياسة <code>Owner</code>)</td></tr>
+    <tr><td>4. الملخص اليومي<br><span class="tag">Worker + Email Routing</span></td>
+        <td>برنامج صغير يعمل وحده كل يوم 05:00 UTC، يقرأ القاعدة ويرسل لك البريد.</td>
+        <td>Workers &amp; Pages → <code>qapps-digest</code>؛ والبريد: الدومين <code>qeuapps.com</code> → Email → Email Routing</td></tr>
+    <tr><td>+ فحص الروبوت<br><span class="tag">Turnstile</span></td>
+        <td>المربّع الصغير «أنا لست روبوتًا» في النموذج.</td>
+        <td>Application security → Turnstile → الأداة <code>qeuapps.com contact &amp; suggest</code></td></tr>
+  </table>
+</section>
+
+<section id="db">
+  <h2>3) قاعدة البيانات: الجداول والأعمدة</h2>
+  <p>القاعدة اسمها <code>qapps-feedback</code> وفيها جدولان. الجداول تُنشأ تلقائيًا أول مرة تصل فيها رسالة
+  (الكود في <code>lib/feedback/common.js</code>)، ونفس الأوامر محفوظة للمرجع في <code>migrations/0001_feedback.sql</code>.</p>
+
+  <h3>الجدول الأول: <code>messages</code> — الرسائل</h3>
+  <p>كل صف = رسالة واحدة.</p>
+  <table>
+    <tr><th>العمود</th><th>النوع</th><th>المعنى</th><th>مثال</th></tr>
+    <tr><td><code>id</code></td><td>رقم</td><td>رقم تسلسلي فريد يُعطى تلقائيًا</td><td><code>17</code></td></tr>
+    <tr><td><code>created_at</code></td><td>نص (وقت)</td><td>وقت الوصول بتوقيت UTC (السعودية = UTC + 3 ساعات)</td><td><code>2026-11-01T22:05:27.472Z</code></td></tr>
+    <tr><td><code>app</code></td><td>نص</td><td>عن أي تطبيق: <code>docmatic</code> · <code>vault</code> (خزنة الضمانات) · <code>countdown-keeper</code> (كم مضى وكم بقي) · <code>new-app</code> (فكرة لتطبيق جديد) · <code>general</code> (الموقع / رأي عام)</td><td><code>docmatic</code></td></tr>
+    <tr><td><code>type</code></td><td>نص</td><td>نوع الرسالة: <code>message</code> (رسالة أو سؤال) · <code>improve</code> (اقتراح تحسين) · <code>feature</code> (فكرة ميزة جديدة) · <code>problem</code> (مشكلة واجهتني)</td><td><code>feature</code></td></tr>
+    <tr><td><code>body</code></td><td>نص</td><td>نص الرسالة (من 10 إلى 2000 حرف)</td><td>«أتمنى إضافة…»</td></tr>
+    <tr><td><code>name</code></td><td>نص أو فارغ</td><td>الاسم إن كتبه الزائر (اختياري)</td><td>—</td></tr>
+    <tr><td><code>contact</code></td><td>نص أو فارغ</td><td>بريد أو رقم للرد إن كتبه (اختياري)</td><td>—</td></tr>
+    <tr><td><code>lang</code></td><td>نص</td><td>لغة الصفحة عند الإرسال: <code>ar</code> أو <code>en</code></td><td><code>ar</code></td></tr>
+    <tr><td><code>status</code></td><td>نص</td><td>الحالة التي تختارها أنت في اللوحة: <code>new</code> جديدة · <code>review</code> قيد الدراسة · <code>done</code> نُفّذت · <code>archived</code> مؤرشفة. كل رسالة تبدأ <code>new</code>.</td><td><code>new</code></td></tr>
+    <tr><td><code>note</code></td><td>نص أو فارغ</td><td>ملاحظتك الخاصة (لا يراها الزائر)</td><td>«للإصدار القادم»</td></tr>
+    <tr><td><code>flagged</code></td><td>0 أو 1</td><td>1 = «مشبوهة»: فيها أكثر من رابطين (علامة على الدعاية)</td><td><code>0</code></td></tr>
+    <tr><td><code>updated_at</code></td><td>نص (وقت)</td><td>آخر مرة غيّرت فيها الحالة أو الملاحظة</td><td>—</td></tr>
+  </table>
+  <p>فهرسان (indexes) لتسريع البحث: على <code>created_at</code> (للترتيب بالوقت) وعلى <code>status</code> (للتصفية بالحالة).</p>
+
+  <h3>الجدول الثاني: <code>rate_hits</code> — عدّاد الإرسال لكل زائر</h3>
+  <p>يمنع شخصًا واحدًا من إرسال رسائل كثيرة. لا يحفظ عنوان الزائر (IP) نفسه أبدًا، بل «بصمة» مشفّرة تتغير كل يوم،
+  وكل صف يُحذف بعد 24 ساعة.</p>
+  <table>
+    <tr><th>العمود</th><th>المعنى</th></tr>
+    <tr><td><code>ip_hash</code></td><td>بصمة SHA-256 لـ (الملح السري <code>IP_SALT</code> + عنوان الزائر + تاريخ اليوم). لا يمكن الرجوع منها إلى العنوان.</td></tr>
+    <tr><td><code>ts</code></td><td>وقت الإرسال بالميلي ثانية</td></tr>
+  </table>
+
+  <h3>دورة حياة الرسالة</h3>
+  <div class="flow">
+    <div class="box"><b>new</b>جديدة: وصلت الآن</div><div class="arrow">←</div>
+    <div class="box"><b>review</b>قيد الدراسة</div><div class="arrow">←</div>
+    <div class="box"><b>done</b>نُفّذت</div><div class="arrow">←</div>
+    <div class="box"><b>archived</b>مؤرشفة: تختفي من القائمة العادية ولا تُحذف</div>
+  </div>
+  <div class="note">لا شيء في النظام يحذف رسالة. الأرشفة إخفاء فقط؛ تجدها باختيار «مؤرشفة» في اللوحة.</div>
+</section>
+
+<section id="save">
+  <h2>4) رحلة الرسالة: كيف تُحفظ</h2>
+  <ol class="steps">
+    <li>الزائر يفتح <code>/suggest/</code> (أو يأتي من زر في صفحة تطبيق، فيصل الرابط ومعه <code>?app=docmatic</code> فيُختار التطبيق تلقائيًا).</li>
+    <li>يختار النوع ويكتب. مربّع Turnstile يتحقق في الخلفية أنه إنسان ويعطي الصفحة «تذكرة» (token).</li>
+    <li>عند «أرسل» يرسل المتصفح (الملف <code>assets/js/suggest.js</code>) هذه البيانات إلى <code>POST /api/feedback</code>:
+      <code>app, type, message, name, contact, lang, website, t, token</code>.
+      (<code>website</code> حقل مخفي فخّ للروبوتات، و<code>t</code> كم ميلي ثانية بقي الزائر في الصفحة.)</li>
+    <li>الخادم (<code>functions/api/feedback.js</code>) يفحص بالترتيب — أي فحص يفشل يوقف كل شيء:
+      <ol>
+        <li>هل الإعدادات موجودة (القاعدة + السرّان)؟ وإلا يرد <code>not_configured</code>.</li>
+        <li>هل الطلب من موقعنا نفسه (<code>Origin</code>)؟</li>
+        <li>هل الحجم معقول (أقل من 16 ك.ب)؟</li>
+        <li>هل الحقل الفخّ ممتلئ أو أُرسل خلال أقل من ثانيتين؟ ← روبوت: يرد «تم» ولا يحفظ شيئًا (حتى لا يتعلم الروبوت).</li>
+        <li>هل التطبيق والنوع من القائمة المسموحة، والنص بين 10 و2000 حرف؟</li>
+        <li>يسأل Cloudflare: هل تذكرة Turnstile صحيحة؟</li>
+        <li>هل تجاوز هذا الزائر 5 رسائل في الساعة أو 10 في اليوم؟</li>
+        <li>هل تجاوز الموقع كله 300 رسالة اليوم؟</li>
+        <li>يعدّ الروابط: أكثر من 2 ← <code>flagged = 1</code>.</li>
+      </ol></li>
+    <li>يحفظ صفًا في <code>messages</code> (الحالة <code>new</code>) وصفًا في <code>rate_hits</code>، ويرد <code>{"ok":true}</code>.</li>
+    <li>الصفحة تعرض «شكرًا» وزر «عُد إلى صفحة التطبيق».</li>
+  </ol>
+  <h3>ردود الخادم (للفهم عند الخطأ)</h3>
+  <table>
+    <tr><th>الرد</th><th>المعنى</th><th>ماذا يرى الزائر</th></tr>
+    <tr><td><code>200 ok</code></td><td>حُفظت</td><td>صفحة الشكر</td></tr>
+    <tr><td><code>400 length</code> / <code>bad_request</code></td><td>النص قصير/طويل أو بيانات غير صحيحة</td><td>رسالة تطلب التعديل</td></tr>
+    <tr><td><code>403 bot_check</code></td><td>فحص الروبوت فشل</td><td>«حاول مرة أخرى»</td></tr>
+    <tr><td><code>403 origin</code></td><td>الطلب ليس من موقعنا</td><td>(لا يحدث لزائر عادي)</td></tr>
+    <tr><td><code>429 rate_limited</code> / <code>busy</code></td><td>تجاوز الحد الشخصي / حد الموقع اليومي</td><td>«حاول لاحقًا» أو واتساب والبريد</td></tr>
+    <tr><td><code>503 not_configured</code></td><td>إعدادات Cloudflare ناقصة</td><td>زرّا واتساب والبريد</td></tr>
+  </table>
+</section>
+
+<section id="protect">
+  <h2>5) الحماية من الروبوتات والإغراق — ملخص</h2>
+  <table>
+    <tr><th>الطبقة</th><th>تمنع ماذا</th><th>أين تُغيَّر</th></tr>
+    <tr><td>من موقعنا فقط</td><td>برامج ترسل مباشرة من خارج الموقع</td><td>المتغير <code>ALLOWED_ORIGINS</code> (اختياري)</td></tr>
+    <tr><td>الحقل الفخّ + ثانيتان على الأقل</td><td>الروبوتات البسيطة</td><td><code>LIMITS.minMillis</code> في <code>lib/feedback/common.js</code></td></tr>
+    <tr><td>Turnstile</td><td>الروبوتات الذكية</td><td>Cloudflare → Turnstile</td></tr>
+    <tr><td>5 في الساعة، 10 في اليوم لكل زائر</td><td>شخص واحد يُغرق الصندوق</td><td><code>LIMITS.perHour</code>، <code>LIMITS.perDay</code></td></tr>
+    <tr><td>300 في اليوم للموقع كله</td><td>هجوم من أجهزة كثيرة</td><td>المتغير <code>DAILY_CAP</code> أو <code>LIMITS.dailyCap</code></td></tr>
+    <tr><td>علامة «مشبوهة»</td><td>رسائل الدعاية بالروابط</td><td><code>LIMITS.maxLinks</code></td></tr>
+    <tr><td>اللوحة خلف Access + فحص التوقيع داخل الكود</td><td>أي شخص غيرك يقرأ الرسائل</td><td>Zero Trust → Access (وانظر القسم 6)</td></tr>
+  </table>
+  <p>الخصوصية مكتوبة للزوار في صفحة الخصوصية: <code>qeuapps.com/privacy/#messages</code>.</p>
+</section>
+
+<section id="admin">
+  <h2>6) لوحة الرسائل: كيف تُقرأ وتُعدّل</h2>
+  <ol class="steps">
+    <li>تفتح <code>qeuapps.com/admin/</code>. البوّاب (Cloudflare Access) يعترضك ويطلب بريدك، ثم يرسل رمزًا إليه. البريد المسموح محدد في سياسة <code>Owner</code>.</li>
+    <li>بعد الرمز يعطيك Access «بطاقة دخول موقّعة» (JWT) صالحة لمدة محدودة، ويضيفها لكل طلب.</li>
+    <li>الصفحة (<code>admin/index.html</code>) تطلب البيانات من <code>GET /api/admin/messages</code>.</li>
+    <li>الخادم (<code>functions/api/admin/messages.js</code>) لا يثق بالبوّاب وحده: يتحقق بنفسه من توقيع البطاقة
+      (الكود في <code>lib/feedback/access.js</code>) باستخدام <code>ACCESS_TEAM_DOMAIN</code> و<code>ACCESS_AUD</code>.
+      بلا بطاقة صحيحة يرد <code>401</code> ولا تخرج أي بيانات.</li>
+    <li>عند الحفظ (تغيير الحالة أو الملاحظة) ترسل الصفحة <code>POST /api/admin/messages</code> بـ <code>{id, status, note}</code>،
+      فيحدّث الخادم الصف ويضع <code>updated_at</code>.</li>
+  </ol>
+  <h3>ماذا يستطيع طلب القراءة</h3>
+  <table>
+    <tr><th>المعامل</th><th>المعنى</th></tr>
+    <tr><td><code>app</code> / <code>type</code> / <code>status</code></td><td>تصفية. بلا <code>status</code> تُعرض كل الرسائل ما عدا المؤرشفة.</td></tr>
+    <tr><td><code>q</code></td><td>بحث في النص والاسم ووسيلة التواصل والملاحظة</td></tr>
+    <tr><td><code>offset</code></td><td>الصفحات: 50 رسالة في كل مرة (زر «المزيد»)</td></tr>
+  </table>
+  <p>ويرجع أيضًا أعدادًا للبطاقات أعلى اللوحة: حسب الحالة، وحسب التطبيق، وأنواع رسائل آخر 7 أيام.</p>
+</section>
+
+<section id="email">
+  <h2>7) الملخص اليومي بالبريد</h2>
+  <ul>
+    <li>برنامج منفصل اسمه <code>qapps-digest</code> (الكود في <code>workers/digest/</code>). منفصل لأن صفحات Pages لا تستطيع العمل بجدول زمني.</li>
+    <li>الموعد في <code>workers/digest/wrangler.toml</code>: <code>crons = ["0 5 * * *"]</code> = الساعة 05:00 UTC = 08:00 بتوقيت السعودية كل يوم.</li>
+    <li>يقرأ من نفس القاعدة: الرسائل التي <code>created_at</code> لها خلال آخر 24 ساعة (حتى 30 رسالة في البريد، والباقي في اللوحة)،
+      وعدد كل الرسائل التي حالتها ما زالت <code>new</code>.</li>
+    <li>إن لم تصل رسائل: لا يرسل شيئًا.</li>
+    <li>يرسل من <code>digest@qeuapps.com</code> عبر Cloudflare Email Routing إلى البريد المحفوظ في السر <code>DIGEST_TO</code>.
+      Email Routing لا يرسل إلا إلى عنوان «موثَّق» (ضغطت رابط التوثيق مرة واحدة).</li>
+    <li>البرنامج ليس له رابط على الإنترنت؛ لا يمكن لأحد تشغيله من الخارج.</li>
+  </ul>
+  <h3>تغيير البريد أو الوقت</h3>
+  <ul>
+    <li><b>بريد آخر:</b> أضفه في الدومين → Email → Email Routing → Destination addresses، واضغط رابط التوثيق الذي يصله،
+      ثم من مجلد <code>workers/digest</code>: <code>npx wrangler secret put DIGEST_TO</code> واكتب البريد الجديد.</li>
+    <li><b>وقت آخر:</b> غيّر سطر <code>crons</code> (بتوقيت UTC: اطرح 3 ساعات من وقت السعودية)، ثم <code>npx wrangler deploy</code> من نفس المجلد.</li>
+  </ul>
+</section>
+
+<section id="settings">
+  <h2>8) الإعدادات والمفاتيح في Cloudflare</h2>
+  <p>كلها في: Workers &amp; Pages → <code>qapps</code> → Settings → Variables and Secrets (وBindings للقاعدة)،
+  لبيئتي Production وPreview. <span class="tag sec">سرّ</span> = مشفّر لا يُقرأ بعد حفظه حتى منك؛ إن احتجته من جديد أنشئ قيمة جديدة.</p>
+  <table>
+    <tr><th>الاسم</th><th>النوع</th><th>ما هو</th><th>من أين يأتي</th></tr>
+    <tr><td><code>DB</code></td><td>ربط (Binding)</td><td>يصل الموقع بقاعدة <code>qapps-feedback</code></td><td>Settings → Bindings → D1</td></tr>
+    <tr><td><code>TURNSTILE_SITE_KEY</code></td><td>نص عادي</td><td>مفتاح Turnstile العام؛ يُقرأ أثناء بناء الصفحات (<code>tools/build.py</code>)</td><td>Turnstile → الأداة → Site Key</td></tr>
+    <tr><td><code>TURNSTILE_SECRET</code></td><td><span class="tag sec">سرّ</span></td><td>مفتاح Turnstile السري؛ للتحقق في الخادم</td><td>Turnstile → الأداة → Secret Key</td></tr>
+    <tr><td><code>IP_SALT</code></td><td><span class="tag sec">سرّ</span></td><td>«ملح» عشوائي لبصمة الزائر. تغييره لا يضر شيئًا (يصفّر العدّادات فقط).</td><td>أي نص عشوائي طويل: <code>openssl rand -hex 32</code></td></tr>
+    <tr><td><code>ACCESS_AUD</code></td><td>نص عادي</td><td>رقم تطبيق Access (AUD Tag)</td><td>Zero Trust → Access → Applications → <code>qeuapps.com</code></td></tr>
+    <tr><td><code>ACCESS_TEAM_DOMAIN</code></td><td>نص عادي</td><td>نطاق فريق Zero Trust، بالشكل <code>name.cloudflareaccess.com</code></td><td>Zero Trust → Settings (Team name)</td></tr>
+    <tr><td><code>ADMIN_EMAILS</code></td><td>اختياري</td><td>طبقة إضافية: قائمة البريد المسموح في الكود أيضًا</td><td>تكتبها أنت</td></tr>
+    <tr><td><code>DAILY_CAP</code>، <code>ALLOWED_ORIGINS</code></td><td>اختياري</td><td>حد الموقع اليومي، والمواقع المسموح منها الإرسال</td><td>تكتبها أنت</td></tr>
+  </table>
+  <p>وللملخص اليومي (في Worker <code>qapps-digest</code>): الربط <code>DB</code> والربط <code>EMAIL</code> (في <code>wrangler.toml</code>)،
+  والسرّ <code>DIGEST_TO</code> (بريدك)، و<code>DIGEST_FROM</code> = <code>digest@qeuapps.com</code>.</p>
+  <div class="note"><b>مهم:</b> بعد تغيير أي متغير في Pages يجب <b>إعادة النشر</b>:
+  Workers &amp; Pages → <code>qapps</code> → Deployments → «⋯» بجانب آخر نشر → Retry deployment. (أي Push جديد يكفي أيضًا.)</div>
+</section>
+
+<section id="files">
+  <h2>9) الملفات في المستودع</h2>
+  <table>
+    <tr><th>الملف</th><th>دوره</th></tr>
+    <tr><td><code>tools/build.py</code> (الدالة <code>page_suggest</code>)</td><td>يولّد صفحة <code>/suggest/</code>: قائمة التطبيقات والأنواع ونصوصها، والنموذج، ومربع Turnstile إن وُجد المفتاح</td></tr>
+    <tr><td><code>assets/js/suggest.js</code></td><td>سلوك النموذج في المتصفح: الإرسال، رسائل الخطأ، صفحة الشكر، بديل واتساب/البريد</td></tr>
+    <tr><td><code>functions/api/feedback.js</code></td><td>استقبال الرسالة وفحصها وحفظها</td></tr>
+    <tr><td><code>functions/api/admin/messages.js</code></td><td>بيانات اللوحة (قراءة وتعديل)</td></tr>
+    <tr><td><code>lib/feedback/common.js</code></td><td>القوائم المسموحة، الحدود، إنشاء الجداول</td></tr>
+    <tr><td><code>lib/feedback/access.js</code></td><td>التحقق من بطاقة الدخول (JWT) للوحة</td></tr>
+    <tr><td><code>admin/index.html</code></td><td>صفحة اللوحة نفسها (مكتوبة يدويًا، لا يولّدها build.py)</td></tr>
+    <tr><td><code>migrations/0001_feedback.sql</code></td><td>أوامر إنشاء الجداول (للمرجع)</td></tr>
+    <tr><td><code>workers/digest/</code></td><td>الملخص اليومي: <code>src/index.js</code> والإعداد <code>wrangler.toml</code></td></tr>
+    <tr><td><code>tools/docmatic_page.py</code> (<code>suggest_card</code>)</td><td>بطاقة «اقترح» في صفحات التطبيقات الثلاثة</td></tr>
+    <tr><td><code>README.md</code> → «Contact &amp; suggest»</td><td>نفس المعلومات باختصار بالإنجليزية</td></tr>
+    <tr><td>هذا الدليل: <code>docs/feedback-system-guide-ar.html</code></td><td>الشرح الكامل</td></tr>
+  </table>
+  <div class="note">لماذا <code>lib/</code> خارج <code>functions/</code>؟ لأن كل ملف داخل <code>functions/</code> يصبح رابطًا على الموقع؛
+  الكود المشترك يوضع خارجه.</div>
+</section>
+
+<section id="sql">
+  <h2>10) أن ترى البيانات بنفسك (أوامر جاهزة)</h2>
+  <h3>الطريقة الأسهل: من لوحة Cloudflare</h3>
+  <p>Storage &amp; databases → D1 → <code>qapps-feedback</code> → <b>Console</b>، والصق أي أمر من الأوامر أدناه.</p>
+  <h3>أو من الطرفية</h3>
+  <p>مرة واحدة على أي جهاز: <code>npx wrangler login</code>. ثم:</p>
+<pre># كل الرسائل الجديدة، الأحدث أولًا
+npx wrangler d1 execute qapps-feedback --remote --command \
+  "SELECT id, created_at, app, type, body FROM messages WHERE status='new' ORDER BY created_at DESC"
+
+# كم رسالة لكل تطبيق
+npx wrangler d1 execute qapps-feedback --remote --command \
+  "SELECT app, COUNT(*) AS n FROM messages GROUP BY app"
+
+# رسائل هذا الشهر عن DocMatic
+npx wrangler d1 execute qapps-feedback --remote --command \
+  "SELECT created_at, type, body FROM messages WHERE app='docmatic' AND created_at >= '2026-11-01'"
+
+# تغيير حالة رسالة رقم 5 يدويًا
+npx wrangler d1 execute qapps-feedback --remote --command \
+  "UPDATE messages SET status='done' WHERE id=5"
+
+# شكل الجداول
+npx wrangler d1 execute qapps-feedback --remote --command "PRAGMA table_info(messages)"</pre>
+  <p>كلمات SQL الأساسية: <code>SELECT</code> اعرض · <code>FROM</code> من جدول · <code>WHERE</code> بشرط ·
+  <code>ORDER BY … DESC</code> رتّب تنازليًا · <code>GROUP BY</code> اجمع · <code>COUNT(*)</code> عُدّ · <code>UPDATE … SET</code> عدّل.</p>
+  <div class="note">احذر <code>DELETE</code> و<code>DROP</code>: الحذف من القاعدة نهائي (إلا بالاستعادة في القسم التالي).</div>
+</section>
+
+<section id="backup">
+  <h2>11) النسخ الاحتياطي</h2>
+  <ul>
+    <li><b>تلقائي:</b> D1 يحفظ تاريخ القاعدة آخر 30 يومًا (Time Travel). لو حدث خطأ، تستطيع الرجوع لأي لحظة:
+<pre>npx wrangler d1 time-travel info qapps-feedback
+npx wrangler d1 time-travel restore qapps-feedback --timestamp=2026-11-01T12:00:00Z</pre></li>
+    <li><b>نسخة على جهازك</b> (ملف واحد فيه كل شيء؛ لا ترفعه إلى GitHub لأنه فيه رسائل الناس):
+<pre>npx wrangler d1 export qapps-feedback --remote --output qapps-feedback-backup.sql</pre></li>
+    <li><b>استعادة من الملف</b> إلى قاعدة فارغة:
+<pre>npx wrangler d1 execute qapps-feedback --remote --file qapps-feedback-backup.sql</pre></li>
+  </ul>
+</section>
+
+<section id="rebuild">
+  <h2>12) لو ضاع الجهاز: إعادة البناء</h2>
+  <div class="ok">ضياع الجهاز <b>لا يمس النظام</b>: الكود في GitHub، والرسائل والإعدادات والأسرار في Cloudflare. الموقع والبريد يستمران كما هما.
+  على جهاز جديد تحتاج فقط: <code>git clone https://github.com/AlmalawiCode/QApps</code> وتثبيت Node.js ثم <code>npx wrangler login</code>.</div>
+  <p>ولو ضاع <b>حساب Cloudflare</b> نفسه أو أردت نقل النظام لحساب جديد، هذه الخطوات بالترتيب:</p>
+  <ol class="steps">
+    <li><b>الموقع:</b> Workers &amp; Pages → Create → Pages → Connect to Git → <code>AlmalawiCode/QApps</code>،
+      أمر البناء <code>python3 tools/build.py</code>، مجلد الإخراج فارغ (الجذر). ثم أضف الدومين <code>qeuapps.com</code>.</li>
+    <li><b>القاعدة:</b> <code>npx wrangler d1 create qapps-feedback</code> ثم اربطها بالموقع باسم <code>DB</code>
+      (Settings → Bindings). الجداول تُنشأ وحدها، ولإعادة الرسائل استخدم ملف النسخة الاحتياطية.</li>
+    <li><b>Turnstile:</b> Add widget للدومينين <code>qeuapps.com</code> و<code>www.qeuapps.com</code>، الوضع Managed؛ انسخ المفتاحين.</li>
+    <li><b>المتغيرات:</b> <code>TURNSTILE_SITE_KEY</code> (عادي)، <code>TURNSTILE_SECRET</code> و<code>IP_SALT</code> (سرّان) — القسم 8.</li>
+    <li><b>البوّاب:</b> Zero Trust (خطة Free) → Access controls → Applications → Create new application → Self-hosted:
+      سطران: الدومين <code>qeuapps.com</code> مع المسار <code>admin</code>، ثم <code>api/admin</code>؛
+      سياسة باسم <code>Owner</code>: Allow + Emails = بريدك. ثم أضف <code>ACCESS_AUD</code> و<code>ACCESS_TEAM_DOMAIN</code>.
+      <br>حيلة لمعرفة AUD إن لم تجده في الشاشة: افتح <code>qeuapps.com/admin/</code> في نافذة خاصة؛ الرابط الذي تُحوَّل إليه
+      فيه <code>kid=…</code> وهذا هو الـ AUD.</li>
+    <li><b>أعد النشر</b> (Retry deployment) وجرّب الإرسال واللوحة.</li>
+    <li><b>البريد اليومي:</b> الدومين → Email → Email Routing → Enable؛ أضف بريدك في Destination addresses واضغط رابط التوثيق؛
+      عدّل <code>database_id</code> في <code>workers/digest/wrangler.toml</code> إلى رقم القاعدة الجديدة؛ ثم من المجلد
+      <code>workers/digest</code>: <code>npx wrangler deploy</code> و<code>npx wrangler secret put DIGEST_TO</code>.</li>
+  </ol>
+</section>
+
+<section id="tasks">
+  <h2>13) مهام شائعة مستقبلًا</h2>
+  <h3>إضافة تطبيق جديد إلى قائمة «عن أي تطبيق؟»</h3>
+  <ol class="steps">
+    <li><code>lib/feedback/common.js</code>: أضف الاسم المختصر (slug) إلى <code>APPS</code> — بدونه يرفض الخادم الرسالة.</li>
+    <li><code>tools/build.py</code> → <code>page_suggest</code>: أضف سطرًا <code>("slug", "English name", "الاسم العربي")</code>.</li>
+    <li><code>admin/index.html</code>: أضف الاسم في القائمة <code>var APP = {…}</code> (لتظهر بالعربي في اللوحة).</li>
+    <li><code>workers/digest/src/index.js</code>: أضفه في <code>APP_AR</code> ثم <code>npx wrangler deploy</code> من مجلد الملخص.</li>
+    <li>في صفحة التطبيق: <code>docmatic_page.suggest_card("slug", "Name", "الاسم")</code> لزر «اقترح».</li>
+    <li>شغّل <code>python3 tools/build.py</code> ثم Push.</li>
+  </ol>
+  <h3>تغيير الحدود (عدد الرسائل، طول النص…)</h3>
+  <p>كلها في <code>LIMITS</code> داخل <code>lib/feedback/common.js</code>، ثم Push.</p>
+  <h3>السماح لشخص آخر بقراءة الرسائل</h3>
+  <p>Zero Trust → Access controls → Policies → <code>Owner</code> → أضف بريده (وإن كنت وضعت <code>ADMIN_EMAILS</code> فأضفه هناك أيضًا وأعد النشر).</p>
+  <h3>تجربة النظام على جهازك قبل النشر</h3>
+<pre>TURNSTILE_SITE_KEY=1x00000000000000000000AA python3 tools/build.py
+npx wrangler pages dev . --d1 DB=local \
+  --binding TURNSTILE_SECRET=1x0000000000000000000000000000000AA \
+  --binding IP_SALT=test --binding ALLOWED_ORIGINS=http://127.0.0.1:8788 --binding ADMIN_DEV_BYPASS=1
+# افتح http://127.0.0.1:8788/suggest/ و http://127.0.0.1:8788/admin/
+python3 tools/build.py   # أعد البناء بلا مفتاح التجربة قبل الـ Commit</pre>
+  <p>المفتاحان <code>1x…AA</code> مفاتيح تجربة من Cloudflare تنجح دائمًا. <code>ADMIN_DEV_BYPASS</code> يعمل على جهازك فقط، لا على الموقع.</p>
+  <h3>بعدُ لم يُبنَ</h3>
+  <p>صفحة عامة «أفكار نفّذناها»، وزر «اقترح» داخل التطبيقات نفسها.</p>
+</section>
+
+<section id="trouble">
+  <h2>14) حين يحدث خطأ</h2>
+  <table>
+    <tr><th>ما تراه</th><th>السبب المحتمل</th><th>الحل</th></tr>
+    <tr><td>الزائر يرى «الإرسال من الموقع غير جاهز بعد»</td><td>الصفحة بُنيت بلا <code>TURNSTILE_SITE_KEY</code></td><td>تأكد من المتغير ثم أعد النشر</td></tr>
+    <tr><td>«تعذّر الإرسال من الموقع الآن»</td><td>نقص <code>DB</code> أو أحد السرّين (<code>not_configured</code>)</td><td>راجع القسم 8 ثم أعد النشر</td></tr>
+    <tr><td>«تعذّر التأكد أنك لست روبوتًا» دائمًا</td><td>مفتاحا Turnstile لا يتطابقان، أو الدومين غير مضاف في الأداة</td><td>Turnstile → الأداة → Hostnames والمفاتيح</td></tr>
+    <tr><td>اللوحة تقول «غير مصرّح» (401)</td><td><code>ACCESS_AUD</code> أو <code>ACCESS_TEAM_DOMAIN</code> خطأ، أو بريدك ليس في السياسة</td><td>القسم 8 و12 (حيلة <code>kid=</code>)، ثم أعد النشر</td></tr>
+    <tr><td>لا يصل البريد اليومي</td><td>لا رسائل جديدة (طبيعي)، أو البريد في Spam، أو العنوان غير موثّق</td><td>افحص Spam؛ Email Routing → Destination addresses؛ وسجل Worker: Workers &amp; Pages → <code>qapps-digest</code> → Logs</td></tr>
+    <tr><td>رسائل دعاية كثيرة</td><td>—</td><td>خفّض <code>LIMITS</code> أو <code>DAILY_CAP</code>، وأرشف «المشبوهة»</td></tr>
+  </table>
+</section>
+
+<section id="words">
+  <h2>15) قاموس الكلمات</h2>
+  <table>
+    <tr><th>الكلمة</th><th>معناها ببساطة</th></tr>
+    <tr><td>Cloudflare Pages</td><td>استضافة الموقع؛ تبني الصفحات من GitHub عند كل Push</td></tr>
+    <tr><td>Pages Functions</td><td>ملفات JavaScript في <code>functions/</code> تعمل على خادم Cloudflare عند طلب رابط معيّن</td></tr>
+    <tr><td>Worker</td><td>برنامج صغير يعمل على Cloudflare؛ هنا يعمل بجدول زمني (Cron)</td></tr>
+    <tr><td>D1</td><td>قاعدة بيانات SQLite عند Cloudflare</td></tr>
+    <tr><td>Binding (ربط)</td><td>اسم داخل الكود (مثل <code>DB</code>) يشير إلى مورد في Cloudflare (مثل القاعدة)</td></tr>
+    <tr><td>Secret (سرّ)</td><td>متغير مشفّر؛ لا يظهر في الكود ولا في GitHub</td></tr>
+    <tr><td>Turnstile</td><td>بديل Cloudflare لـ «أنا لست روبوتًا»</td></tr>
+    <tr><td>Zero Trust / Access</td><td>بوّاب أمام روابط معيّنة؛ لا يدخل إلا من تسمح له</td></tr>
+    <tr><td>JWT / AUD</td><td>بطاقة الدخول الموقّعة التي يعطيها Access؛ و AUD رقم التطبيق المكتوب داخلها</td></tr>
+    <tr><td>Cron</td><td>جدول زمني: <code>0 5 * * *</code> = الدقيقة 0، الساعة 5، كل يوم</td></tr>
+    <tr><td>Email Routing</td><td>خدمة بريد Cloudflare للدومين؛ هنا تُستخدم للإرسال إليك فقط</td></tr>
+    <tr><td>wrangler</td><td>أداة الطرفية الرسمية لـ Cloudflare (<code>npx wrangler …</code>)</td></tr>
+    <tr><td>UTC</td><td>التوقيت العالمي؛ السعودية = UTC + 3</td></tr>
+  </table>
+</section>
+
+<footer>كيو آبز · دليل داخلي · لا يحتوي على أي مفتاح سري — الأسرار في Cloudflare فقط.</footer>
+</div>
+</body>
+</html>

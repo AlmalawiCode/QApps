@@ -15,6 +15,8 @@ The owner's rule for order: the strong PDF features come first, the small
 everyday tools last.
 """
 
+import site_layout
+
 IMG = "/assets/img/apps/docmatic"
 
 # (icon, title_en, title_ar, [(sub_en, sub_ar), ...]) — the full catalogue.
@@ -392,7 +394,7 @@ def build_page(render, h, p, crumbs, app):
            ("code_contact", "Create a code", "إنشاء رمز"), ("codes", "QR &amp; barcodes", "QR والباركود"),
            ("id_card", "ID card", "بطاقة الهوية"), ("studio", "ID photo", "صورة رسمية"),
            ("whatsapp", "WhatsApp", "واتساب"), ("tools", "Tools", "الأدوات")]
-    gallery = f'''<section class="section-soft"><div class="container">
+    gallery = f'''<section id="screens" class="section-soft"><div class="container">
   <div class="section-head center">
     <span class="kicker" data-en>Screens</span><span class="kicker" data-ar>الشاشات</span>
     {h(2, "Real screens from the app.", "شاشات حقيقية من التطبيق.")}
@@ -421,7 +423,7 @@ def build_page(render, h, p, crumbs, app):
     faq_html = "".join(
         f'<details><summary>{two(qe, qa)}</summary><p data-en>{ae}</p><p data-ar>{aa}</p></details>'
         for qe, qa, ae, aa in faqs)
-    faq = f'''<section><div class="container" style="max-width:820px">
+    faq = f'''<section id="questions"><div class="container" style="max-width:820px">
   {h(2, "Questions", "أسئلة", "center")}
   <div class="faq" style="margin-top:28px">{faq_html}</div>
 </div></section>'''
@@ -440,7 +442,8 @@ def build_page(render, h, p, crumbs, app):
   <img alt=""><button type="button" class="dm-lb-nav dm-lb-next" aria-label="Next">›</button></div>'''
 
     body = (crumbs([("Home", "الرئيسية", "/"), ("Apps", "التطبيقات", "/apps/"), ("DocMatic", "DocMatic", None)])
-            + hero + stats + story + journey + spots + catalogue + suggest_card("docmatic", "DocMatic", "DocMatic") + price + gallery + faq + cta
+            + hero + site_layout.app_tabs(app) + stats + gallery + catalogue + spots + story + journey + price + faq
+            + site_layout.help_links(app) + suggest_card("docmatic", "DocMatic", "DocMatic") + cta
             + lightbox + f"<script>{JS}</script>")
 
     return render("/apps/docmatic/",

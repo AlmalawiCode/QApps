@@ -21,6 +21,8 @@ import os
 import json
 import hashlib
 
+import site_layout  # icon grid, app section bar, help cards (redesign 2026-11-02)
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 SITE_URL = "https://qeuapps.com"
@@ -200,9 +202,8 @@ APPS = {
     "countdown-keeper": {
         "slug": "countdown-keeper",
         "name_en": "Countdown Keeper",
-        "name_ar": "العدّاد",
-        # App Store Arabic name — used on the Arabic privacy page (the
-        # store-linked document); the rest of the site keeps name_ar.
+        # One Arabic name everywhere = the App Store name (redesign, decision ح).
+        "name_ar": "كم مضى وكم بقي",
         "privacy_name_ar": "كم مضى وكم بقي",
         "icon": "/assets/img/apps/countdown/icon.png",
         "tagline_en": "Count down to what matters — and count up from what already happened.",
@@ -218,10 +219,10 @@ APPS = {
         "tutorial_langs": ["en", "ar"],
         "support_langs": ["en", "ar"],
         "screens": [
-            ("/assets/img/apps/countdown/Countdown_Home.jpg", "Countdown Keeper home screen with event counters", "الشاشة الرئيسية لتطبيق العدّاد تعرض عدّادات المناسبات"),
-            ("/assets/img/apps/countdown/event.jpg", "Creating an event in Countdown Keeper", "إنشاء مناسبة في تطبيق العدّاد"),
-            ("/assets/img/apps/countdown/tools.jpg", "Date and time tools in Countdown Keeper", "أدوات التاريخ والوقت في تطبيق العدّاد"),
-            ("/assets/img/apps/countdown/Countdown_Settings.jpg", "Countdown Keeper settings screen", "شاشة الإعدادات في تطبيق العدّاد"),
+            ("/assets/img/apps/countdown/Countdown_Home.jpg", "Countdown Keeper home screen with event counters", "الشاشة الرئيسية لتطبيق «كم مضى وكم بقي» تعرض عدّادات المناسبات"),
+            ("/assets/img/apps/countdown/event.jpg", "Creating an event in Countdown Keeper", "إنشاء مناسبة في تطبيق «كم مضى وكم بقي»"),
+            ("/assets/img/apps/countdown/tools.jpg", "Date and time tools in Countdown Keeper", "أدوات التاريخ والوقت في تطبيق «كم مضى وكم بقي»"),
+            ("/assets/img/apps/countdown/Countdown_Settings.jpg", "Countdown Keeper settings screen", "شاشة الإعدادات في تطبيق «كم مضى وكم بقي»"),
         ],
     },
     "docmatic": {
@@ -293,11 +294,10 @@ LANG_META = {
     "hi": ("हिन्दी",    "ltr"),
 }
 
+# Four links only (redesign proposal, decision ج). Tutorials live on each app's
+# page; the old /tutorials/ URLs keep working, they are just not in the menu.
 NAV = [
-    ("home", "Home", "الرئيسية", "/"),
-    ("idea", "The idea", "الفكرة", "/#idea"),
     ("apps", "Apps", "التطبيقات", "/apps/"),
-    ("tutorials", "Tutorials", "الشروحات", "/tutorials/"),
     ("suggest", "Suggest", "اقترح", "/suggest/"),
     ("support", "Support", "الدعم", "/support/"),
     ("about", "About", "من نحن", "/about/"),
@@ -348,8 +348,7 @@ def footer():
                 f'<ul>{lis}</ul></div>')
 
     apps_col = col("Apps", "التطبيقات", [
-        ("Countdown Keeper", "العدّاد", "/apps/countdown-keeper/"),
-        ("Vault — Warranty Manager", "خزنة الضمانات", "/apps/vault/"),
+        *[(APPS[s]["name_en"], APPS[s]["name_ar"], f"/apps/{s}/") for s in site_layout.APP_ORDER],
         ("All apps", "كل التطبيقات", "/apps/"),
     ])
     help_col = col("Help", "المساعدة", [
@@ -449,6 +448,7 @@ def render(path, title_en, title_ar, desc_en, desc_ar, body,
 <link rel="manifest" href="/site.webmanifest">
 {FONTS}
 <link rel="stylesheet" href="{CSS_HREF}">
+<style>{site_layout.CSS}</style>
 </head>
 <body>
 {header(active)}
@@ -467,56 +467,8 @@ def render(path, title_en, title_ar, desc_en, desc_ar, body,
 
 
 # ---------------------------------------------------------------------------
-# reusable app-card (used on home + apps overview)
+# screenshots strip (kept for app_overview_body)
 # ---------------------------------------------------------------------------
-
-def app_links(app):
-    """Learn more · Tutorial · Privacy · Support — only the pages the app has
-    (APPS[...]["pages"]; all four when not set)."""
-    slug = app["slug"]
-    have = app.get("pages", ["app", "tutorial", "privacy", "support"])
-    items = [("app", f"/apps/{slug}/", "Learn more", "اعرف المزيد"),
-             ("tutorial", f"/tutorials/{slug}/", "Tutorial", "الشرح"),
-             ("privacy", f"/privacy/{slug}/", "Privacy", "الخصوصية"),
-             ("support", f"/support/{slug}/", "Support", "الدعم")]
-    return ('<div class="linkrow">' + "".join(
-        f'<a href="{u}"><span data-en>{en}</span><span data-ar>{ar}</span></a>'
-        for k, u, en, ar in items if k in have) + '</div>')
-
-
-def app_card(app):
-    if app["status"] == "live":
-        badge = '<span class="badge badge-live"><span data-en>Available now</span><span data-ar>متاح الآن</span></span>'
-        stores = []
-        if app.get("appstore"):
-            stores.append(store_button("apple", app["appstore"]))
-        if app.get("playstore"):
-            stores.append(store_button("play", app["playstore"]))
-        stores_html = f'<div class="stores">{"".join(stores)}</div>'
-    else:
-        badge = '<span class="badge badge-soon"><span data-en>Coming soon</span><span data-ar>قريبًا</span></span>'
-        stores_html = ('<div class="chips"><span class="chip">'
-                       '<span data-en>App Store — coming soon</span><span data-ar>App Store — قريبًا</span></span>'
-                       '<span class="chip"><span data-en>Google Play — coming soon</span>'
-                       '<span data-ar>Google Play — قريبًا</span></span></div>')
-
-    slug = app["slug"]
-    links = app_links(app)
-
-    return f'''<article class="card app-card">
-  <div class="app-head">
-    <img src="{app['icon']}" alt="{esc(app['name_en'])} icon" width="66" height="66">
-    <div>
-      <h3><a href="/apps/{slug}/"><span data-en>{app['name_en']}</span><span data-ar>{app['name_ar']}</span></a></h3>
-      {badge}
-    </div>
-  </div>
-  <p data-en>{app['tagline_en']}</p>
-  <p data-ar>{app['tagline_ar']}</p>
-  {stores_html}
-  {links}
-</article>'''
-
 
 def shots(app):
     imgs = "".join(
@@ -529,72 +481,10 @@ def shots(app):
 # PAGES
 # ===========================================================================
 
-def featured_app_card(app, shot, desc_en, desc_ar):
-    slug = app["slug"]
-    if app["status"] == "live":
-        actions = []
-        if app.get("appstore"):
-            actions.append(store_button("apple", app["appstore"]))
-        if app.get("playstore"):
-            actions.append(store_button("play", app["playstore"]))
-        action_block = f'<div class="stores">{"".join(actions)}</div>'
-    else:
-        action_block = ('<div class="chips"><span class="chip">'
-                        '<span data-en>App Store &amp; Google Play — coming soon</span>'
-                        '<span data-ar>App Store وGoogle Play — قريبًا</span></span></div>')
-    links = app_links(app)
-    return f'''<article class="app-card-large">
-  <div class="app-visual"><div class="device">
-    <img class="app-icon" src="{app['icon']}" alt="{esc(app['name_en'])} icon" width="76" height="76">
-    <img class="app-shot" src="{shot}" alt="{esc(app['name_en'])} screenshot" loading="lazy">
-  </div></div>
-  <div class="app-body">
-    <h3><a href="/apps/{slug}/"><span data-en>{app['name_en']}</span><span data-ar>{app['name_ar']}</span></a></h3>
-    <p data-en>{desc_en}</p><p data-ar>{desc_ar}</p>
-    {action_block}
-    {links}
-  </div>
-</article>'''
-
-
-def page_home():
-    hero = f'''<section class="hero" id="home"><div class="container hero-grid">
-  <div class="hero-copy">
-    <span class="eyebrow" data-en>Pay once &middot; Yours for life</span><span class="eyebrow" data-ar>ادفع مرّة &middot; لك مدى الحياة</span>
-    <h1 data-en>Valuable apps. Tiny prices. <em>Yours for life.</em></h1>
-    <h1 data-ar>تطبيقات قيّمة، بأسعار زهيدة، <em>ولك مدى الحياة.</em></h1>
-    {p("Q Apps builds useful apps you buy once, at a small price, and keep for life — no monthly or yearly subscription that never ends.",
-       "تبني كيو آبز تطبيقات مفيدة تشتريها مرّة واحدة بسعر زهيد وتبقى لك مدى الحياة — بلا اشتراك شهري أو سنوي لا ينتهي.", "lead")}
-    <figure class="inspire inspire-hero">
-      <blockquote>
-        <p data-en>I drew the idea of Q Apps from Mohammed Omar's experience with “<a class="inspire-link" href="https://qeu.app/" target="_blank" rel="noopener">Q</a>”: just as he made everyday needs — groceries, fresh fruit and skincare — affordable for people, I aim to offer useful apps at prices within everyone's reach.</p>
-        <p data-ar>استلهمتُ فكرة كيو آبز من تجربة محمد عمر في «<a class="inspire-link" href="https://qeu.app/" target="_blank" rel="noopener">كيو</a>»؛ فكما أتاح للناس احتياجاتهم اليومية — من المقاضي والفواكه الطازجة إلى منتجات العناية — بأسعار ميسّرة، أسعى لتقديم تطبيقات مفيدة بأسعار في متناول الجميع.</p>
-      </blockquote>
-    </figure>
-    <div class="btn-row">
-      <a class="btn btn-primary" href="/apps/"><span data-en>Browse the apps</span><span data-ar>تصفّح التطبيقات</span>{ARROW_SVG}</a>
-      <a class="btn btn-secondary" href="/suggest/"><span data-en>Suggest a feature</span><span data-ar>اقترح ميزة</span></a>
-    </div>
-    <div class="hero-meta">
-      <span>{ICON_CHECK}<span data-en>No subscriptions</span><span data-ar>بلا اشتراكات</span></span>
-      <span>{APPLE_SVG.replace('<svg ', '<svg fill="currentColor" ')}iOS</span>
-      <span>{PLAY_SVG.replace('<svg ', '<svg fill="currentColor" ')}Android</span>
-      <span><span data-en>Arabic &amp; English</span><span data-ar>العربية والإنجليزية</span></span>
-    </div>
-  </div>
-  <div class="stage" aria-hidden="true">
-    <div class="halo"></div>
-    <svg class="big-q qmark" viewBox="0 0 120 120">
-      <circle class="qm-ring" cx="56" cy="56" r="37" fill="none" stroke-width="15" stroke-linecap="round" transform="rotate(45 56 56)"/>
-      <g class="qm-tile-g"><rect class="qm-tile" x="74" y="74" width="38" height="38" rx="11" stroke-width="6" paint-order="stroke"/></g>
-    </svg>
-    <div class="phone-frame pf-1"><img src="/assets/img/apps/countdown/Countdown_Home.jpg" alt="" loading="eager"></div>
-    <div class="phone-frame pf-2"><img src="/assets/img/apps/vault/dashboard.jpg" alt="" loading="eager"></div>
-    <div class="fbadge web"><span dir="ltr">1&times;</span><b data-en>Pay once</b><b data-ar>ادفع مرّة</b></div>
-    <div class="fbadge mobile"><span>&infin;</span><b data-en>Yours for life</b><b data-ar>لك مدى الحياة</b></div>
-  </div>
-</div></section>'''
-
+def home_sections():
+    """The sections of the former long home page. Since the redesign (decision هـ)
+    «the idea», «why Q Apps» and «we build for you» live on /about/; nothing was
+    deleted."""
     idea = f'''<section id="idea" style="padding-top:24px"><div class="container">
   <div class="section-head">
     <span class="kicker" data-en>The idea</span><span class="kicker" data-ar>الفكرة</span>
@@ -643,26 +533,6 @@ def page_home():
   </div>
 </div></section>'''
 
-    apps_section = f'''<section class="apps-section" id="apps" style="padding-top:24px"><div class="container">
-  <div class="section-head">
-    <span class="kicker" data-en>Our apps</span><span class="kicker" data-ar>تطبيقاتنا</span>
-    {h(2, "Featured applications", "التطبيقات المميّزة")}
-    {p("Our own published apps — private by design, and available in Arabic and English.",
-       "تطبيقاتنا المنشورة — خاصّة بطبيعتها، ومتوفّرة بالعربية والإنجليزية.")}
-  </div>
-  <div class="app-grid">
-    {featured_app_card(APPS['docmatic'], "/assets/img/apps/docmatic/home_en.webp",
-        "WhatsApp photos become a neat PDF ready to print. Edit and sign PDFs, hide private details, create QR codes and print ID photos — all on your phone.",
-        "صور واتساب تصير ملف PDF مرتّبًا جاهزًا للطباعة. حرّر ملفات PDF ووقّعها، وأخفِ البيانات الخاصة، وأنشئ رموز QR، واطبع الصور الرسمية — كلها على جوالك.")}
-    {featured_app_card(APPS['vault'], "/assets/img/apps/vault/dashboard.jpg",
-        "Organize invoices and warranty records, scan receipts and ZATCA QR codes, and get reminded before a warranty expires.",
-        "نظّم الفواتير وسجلّات الضمان، وامسح الإيصالات ورموز QR الضريبية، واحصل على تذكير قبل انتهاء الضمان.")}
-    {featured_app_card(APPS['countdown-keeper'], "/assets/img/apps/countdown/event.jpg",
-        "A clean way to track important dates — countdowns, elapsed time, recurring Hijri/Gregorian events, reminders, and handy date tools.",
-        "طريقة أنيقة لمتابعة التواريخ المهمة — عدّ تنازلي، ووقت منقضٍ، وأحداث متكرّرة هجرية/ميلادية، وتذكيرات، وأدوات تاريخ عملية.")}
-  </div>
-</div></section>'''
-
     why = f'''<section id="about" style="padding-top:24px"><div class="container">
   <div class="section-head">
     <span class="kicker" data-en>Why Q Apps</span><span class="kicker" data-ar>لماذا كيو آبز</span>
@@ -702,26 +572,43 @@ def page_home():
   <a class="btn btn-secondary" href="/contact/"><span data-en>Contact us</span><span data-ar>تواصل معنا</span>{ARROW_SVG}</a>
 </div></div></section>'''
 
-    return hero + idea + apps_section + why + suggest + services + cta
+    return {"idea": idea, "why": why, "suggest": suggest, "services": services, "cta": cta}
+
+
+INSPIRE = (
+    '<figure class="inspire"><blockquote>'
+    '<p data-en>I drew the idea of Q Apps from Mohammed Omar\'s experience with “<a class="inspire-link" href="https://qeu.app/" target="_blank" rel="noopener">Q</a>”: just as he made everyday needs — groceries, fresh fruit and skincare — affordable for people, I aim to offer useful apps at prices within everyone\'s reach.</p>'
+    '<p data-ar>استلهمتُ فكرة كيو آبز من تجربة محمد عمر في «<a class="inspire-link" href="https://qeu.app/" target="_blank" rel="noopener">كيو</a>»؛ فكما أتاح للناس احتياجاتهم اليومية — من المقاضي والفواكه الطازجة إلى منتجات العناية — بأسعار ميسّرة، أسعى لتقديم تطبيقات مفيدة بأسعار في متناول الجميع.</p>'
+    '</blockquote></figure>')
+
+
+def page_home():
+    """Home = one intro line, the grid of app icons, «suggest», the Qeu quote
+    (redesign proposal, decision أ)."""
+    intro = f'''<section class="qa-intro"><div class="container">
+  <h1 data-en>Useful apps at a tiny price. <em>Pay once, yours for life.</em></h1>
+  <h1 data-ar>تطبيقات مفيدة بسعر زهيد. <em>تدفع مرّة، وتبقى لك.</em></h1>
+  {p("No monthly or yearly subscription. In Arabic and English, and your data stays on your phone.",
+     "بلا اشتراك شهري ولا سنوي. بالعربية والإنجليزية، وبياناتك تبقى على جوالك.", "lead")}
+</div></section>'''
+    grid = f'''<section class="qa-apps" id="apps"><div class="container">
+  {site_layout.icon_grid(APPS)}
+</div></section>'''
+    quote = f'''<section class="qa-quote"><div class="container">{INSPIRE}</div></section>'''
+    return intro + grid + home_sections()["suggest"] + quote
 
 
 def page_apps():
+    """/apps/ shows the same icon grid as the home page (decision و)."""
     body = f'''{crumbs([("Home","الرئيسية","/"),("Apps","التطبيقات",None)])}
-<section class="section"><div class="container">
-  {h(1, "Our Apps", "تطبيقاتنا")}
-  {p("Every Q Apps app is private by design and available in Arabic and English. Choose an app to learn more, read a tutorial, or view its privacy policy.",
-     "كل تطبيق من كيو آبز خاصٌّ بطبيعته ومتوفّر بالعربية والإنجليزية. اختر تطبيقًا لتعرف المزيد، أو لقراءة شرحه، أو لمطالعة سياسة خصوصيته.", "lead")}
-  <div class="grid grid-2" style="margin-top:36px">
-    {app_card(APPS['countdown-keeper'])}
-    {app_card(APPS['vault'])}
-    {app_card(APPS['docmatic'])}
-  </div>
+<section class="qa-apps" style="padding-top:28px"><div class="container">
+  {site_layout.icon_grid(APPS, h_tag="h1")}
 </div></section>'''
     return render("/apps/",
                   "Our Apps — Q Apps",
                   "تطبيقاتنا — كيو آبز",
-                  "Explore mobile apps by Q Apps: Countdown Keeper and Vault — Warranty Manager. Private, offline-first, in Arabic and English.",
-                  "استعرض تطبيقات كيو آبز: العدّاد وخزنة الضمانات. تطبيقات خاصة تعمل دون اتصال، بالعربية والإنجليزية.",
+                  "Explore the mobile apps by Q Apps: DocMatic, Vault — Warranty Manager and Countdown Keeper. Private, offline-first, in Arabic and English.",
+                  "استعرض تطبيقات كيو آبز: DocMatic وخزنة الضمانات و«كم مضى وكم بقي». تطبيقات خاصة تعمل دون اتصال، بالعربية والإنجليزية.",
                   body, active="apps")
 
 
@@ -833,7 +720,7 @@ def page_tutorials():
                   "Tutorials — Q Apps",
                   "الشروحات — كيو آبز",
                   "Step-by-step tutorials and guides for Q Apps: Countdown Keeper and Vault — Warranty Manager.",
-                  "شروحات وأدلة خطوة بخطوة لتطبيقات كيو آبز: العدّاد وخزنة الضمانات.",
+                  "شروحات وأدلة خطوة بخطوة لتطبيقات كيو آبز: «كم مضى وكم بقي» وخزنة الضمانات.",
                   body, active="tutorials")
 
 
@@ -885,7 +772,7 @@ def page_tutorial_countdown():
     faqs = [
         ("Do I need an internet connection?", "هل أحتاج إلى اتصال بالإنترنت؟",
          "No. Countdown Keeper works fully offline; your events stay on your device.",
-         "لا. يعمل تطبيق العدّاد دون اتصال تمامًا، وتبقى مناسباتك على جهازك."),
+         "لا. يعمل تطبيق «كم مضى وكم بقي» دون اتصال تمامًا، وتبقى مناسباتك على جهازك."),
         ("How do I recover a deleted event?", "كيف أستعيد مناسبة محذوفة؟",
          "Open the Recycle bin and restore it before it is permanently purged.",
          "افتح سلة المحذوفات واستعد المناسبة قبل إزالتها نهائيًا."),
@@ -895,9 +782,9 @@ def page_tutorial_countdown():
     ]
     return tutorial_page("countdown-keeper",
                          "Countdown Keeper Tutorials",
-                         "شروحات تطبيق العدّاد",
+                         "شروحات تطبيق «كم مضى وكم بقي»",
                          "How to use Countdown Keeper: add events, set recurring Hijri/Gregorian dates, reminders, and use the built-in date tools.",
-                         "كيفية استخدام تطبيق العدّاد: إضافة المناسبات، وضبط التواريخ المتكرّرة الهجرية/الميلادية، والتذكيرات، واستخدام أدوات التاريخ.",
+                         "كيفية استخدام تطبيق «كم مضى وكم بقي»: إضافة المناسبات، وضبط التواريخ المتكرّرة الهجرية/الميلادية، والتذكيرات، واستخدام أدوات التاريخ.",
                          "Learn how to add events, use reminders, recurring dates and the built-in date tools.",
                          "تعلّم كيف تضيف المناسبات، وتستخدم التذكيرات والتواريخ المتكرّرة وأدوات التاريخ المدمجة.",
                          steps_list, tips, faqs)
@@ -1136,7 +1023,7 @@ def page_support_index():
                   "Support — Q Apps",
                   "الدعم — كيو آبز",
                   "Get help with Q Apps. Common questions, troubleshooting, and how to contact support for Countdown Keeper and Vault.",
-                  "احصل على المساعدة لتطبيقات كيو آبز. أسئلة شائعة وحلول للمشكلات وطريقة التواصل مع الدعم لتطبيقَي العدّاد وخزنة الضمانات.",
+                  "احصل على المساعدة لتطبيقات كيو آبز. أسئلة شائعة وحلول للمشكلات وطريقة التواصل مع الدعم لتطبيقَي «كم مضى وكم بقي» وخزنة الضمانات.",
                   body, active="support")
 
 
@@ -1166,7 +1053,7 @@ def support_page(slug, title_en, title_ar, desc_en, desc_ar, faqs, trouble):
 
 def page_support_countdown():
     faqs = [
-        ("Is Countdown Keeper free?", "هل تطبيق العدّاد مجاني؟",
+        ("Is Countdown Keeper free?", "هل تطبيق «كم مضى وكم بقي» مجاني؟",
          "The app is in development and will be available on the App Store and Google Play soon.",
          "التطبيق قيد التطوير وسيتوفّر قريبًا على App Store وGoogle Play."),
         ("Will my data sync between devices?", "هل تتزامن بياناتي بين الأجهزة؟",
@@ -1186,9 +1073,9 @@ def page_support_countdown():
     ]
     return support_page("countdown-keeper",
                         "Countdown Keeper Support — Q Apps",
-                        "دعم تطبيق العدّاد — كيو آبز",
+                        "دعم تطبيق «كم مضى وكم بقي» — كيو آبز",
                         "Support for Countdown Keeper: common questions, troubleshooting reminders and calendars, and how to contact us.",
-                        "دعم تطبيق العدّاد: أسئلة شائعة، وحلول لمشكلات التذكيرات والتقويم، وطريقة التواصل معنا.",
+                        "دعم تطبيق «كم مضى وكم بقي»: أسئلة شائعة، وحلول لمشكلات التذكيرات والتقويم، وطريقة التواصل معنا.",
                         faqs, trouble)
 
 
@@ -1263,6 +1150,12 @@ def page_contact():
                   body, active="")
 
 
+def _about_moved():
+    """Sections moved here from the former home page (decision هـ)."""
+    hs = home_sections()
+    return hs["idea"] + hs["why"] + hs["services"] + hs["cta"]
+
+
 def page_about():
     body = f'''{crumbs([("Home","الرئيسية","/"),("About","من نحن",None)])}
 <section class="section"><div class="container prose">
@@ -1289,16 +1182,13 @@ def page_about():
     {feature("🛠️","Craftsmanship","الإتقان","Careful engineering and attention to the details that make apps reliable.","هندسة دقيقة واهتمام بالتفاصيل التي تجعل التطبيقات موثوقة.")}
   </div>
   {h(2, "Our apps", "تطبيقاتنا")}
-  {p("Vault — Warranty Manager is available now, with Countdown Keeper and DocMatic on the way.",
-     "تطبيق خزنة الضمانات متاح الآن، ويأتي قريبًا تطبيقا العدّاد وDocMatic.")}
+  {p("Vault — Warranty Manager and Countdown Keeper are available now, and DocMatic is on the way.",
+     "خزنة الضمانات و«كم مضى وكم بقي» متاحان الآن، وDocMatic قريبًا.")}
   <p><a class="btn btn-primary" href="/apps/"><span data-en>See our apps</span><span data-ar>شاهد تطبيقاتنا</span></a></p>
-  {h(2, "We also build for others", "ونبني للآخرين أيضًا")}
-  {p("Beyond our own apps, we design and develop web and mobile applications for businesses and individuals.",
-     "إلى جانب تطبيقاتنا، نصمّم ونطوّر تطبيقات الويب والجوال للشركات والأفراد.")}
   {h(2, "Get in touch", "تواصل معنا")}
   {p(f'For anything at all, email <a href="mailto:{SUPPORT_EMAIL}">{SUPPORT_EMAIL}</a>.',
      f'لأي أمر، راسلنا على <a href="mailto:{SUPPORT_EMAIL}">{SUPPORT_EMAIL}</a>.')}
-</div></section>'''
+</div></section>{_about_moved()}'''
     return render("/about/",
                   "About — Q Apps",
                   "من نحن — كيو آبز",
