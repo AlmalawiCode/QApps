@@ -148,23 +148,25 @@ def build_page(render, h, p, crumbs, app, store_button):
 
     story = f'''<section id="story" class="dm-story"><div class="container">
   <div class="section-head">
-    <span class="kicker" data-en>Why Countdown Keeper</span><span class="kicker" data-ar>لماذا كم مضى وكم بقي</span>
-    {h(2, "One simple question, answered at once.", "سؤال واحد بسيط، وجوابه فورًا.")}
+    <span class="kicker" data-en>The story</span><span class="kicker" data-ar>القصة</span>
+    {h(2, "Our lives are made of events — and every event has a story.", "حياتنا كلها أحداث، ولكل حدث قصة.")}
   </div>
   <div class="dm-story-grid">
     <div class="dm-story-text">
-      {p("How long since you graduated? Since your wedding, since your first day at work, since you moved into your home? And how long until you retire, until the last installment, until the trip you are waiting for? We usually count it in our heads, or search old papers for the date.",
-         "كم مضى على تخرجك؟ وعلى زواجك، وأول يوم في عملك، ويوم سكنت بيتك؟ وكم بقي على تقاعدك، وعلى آخر قسط، وعلى الرحلة التي تنتظرها؟ عادةً نحسبها في أذهاننا، أو نبحث عن التاريخ في الأوراق القديمة.")}
-      {p("Countdown Keeper keeps every important date in one simple place and tells you exactly how long has passed — or how long is left — in years, months and days, on a live counter. When a date arrives, its counter turns from “remaining” to “elapsed” by itself.",
-         "يحفظ «كم مضى وكم بقي» كل تاريخ مهمّ في مكان واحد بسيط، ويخبرك بالضبط كم مضى عليه — أو كم بقي حتى موعده — بالسنوات والأشهر والأيام، في عدّاد حيّ. وحين يحلّ الموعد، يتحوّل العدّاد من «كم بقي» إلى «كم مضى» وحده.")}
-      {p(f"Then come the details: Hijri or Gregorian for each date, the story behind every date, monthly dates like salary and rent, reminders, date tools — {N_MAIN} main features and {N_SUB} tools inside them. No account, no sign-in: open the app and your counters are there.",
-         f"ثم تأتي التفاصيل: هجري أو ميلادي لكل تاريخ، وقصة وراء كل تاريخ، وتواريخ شهرية كالراتب والإيجار، وتذكيرات، وأدوات للتاريخ — {N_MAIN} خاصية رئيسية و{N_SUB} أداة داخلها. بلا حساب وبلا تسجيل دخول: تفتح التطبيق فترى عدّاداتك.")}
+      {p("One day you wonder: how long has it been since I graduated? You sit and try to remember the year, then count on your fingers… and still you are not sure. Countdown Keeper answers at once: <q>7 years, 4 months and 12 days</q> — and the counter keeps moving, to the second.",
+         "في يوم من الأيام تسأل نفسك: كم مضى على تخرجي من الجامعة؟ تجلس تتذكّر السنة، ثم تبدأ تحسب… ويبقى في نفسك شيء من الشك. أما «كم مضى وكم بقي» فيجيبك فورًا: <q>7 سنوات و4 أشهر و12 يومًا</q> — والعدّاد يمضي معك حتى الثانية.")}
+      {p("And the most beautiful part: every date can keep its story. You see that five years have passed since your graduation, then you read the story you wrote that day — and it brings back things in your life you had almost forgotten. Numbers alone do not move us; the stories behind them do.",
+         "والأجمل من ذلك أن كل تاريخ يحفظ قصته. ترى أنه مضى على تخرجك خمس سنوات، ثم تقرأ القصة التي كتبتها يومها — فتذكّرك بأشياء جميلة في حياتك كدت تنساها. الأرقام وحدها لا تحرّكنا، ولكن القصص التي وراءها تفعل.")}
+      {p("How long since you bought your car? Since you moved into your home? Since your first day at work? When you know exactly how long has passed, you value things as they deserve. Buy a product, save its date — and years later the app tells you: <q>5 years and 3 months</q>. You feel at ease with it, and you trust it. Without that, we only guess: three years, maybe four…",
+         "كم مضى على شرائك لسيارتك؟ وعلى سكنك في بيتك؟ وعلى أول يوم في عملك؟ حين تعرف بالضبط كم مضى، تقدّر الأشياء قدرها. تشتري منتجًا وتحفظ تاريخه — وبعد سنوات يخبرك التطبيق: <q>مضى عليه 5 سنوات و3 أشهر</q>، فتشعر بالارتياح له والثقة به. وبدون ذلك نرجم بالغيب: ثلاث سنوات، وربما أربع…")}
+      {p(f"And because we live with two calendars every day, Hijri and Gregorian, the app counts with both — for each date on its own. A Hijri year is shorter than a Gregorian one, so five years by the Hijri calendar can be less than five by the Gregorian. Small details like these matter in our lives — that is why we built {N_MAIN} main features and {N_SUB} tools inside them, so you always know, at a glance, how long has passed and how long is left.",
+         f"ولأننا نعيش مع التقويمين كل يوم، الهجري والميلادي، يحسب التطبيق بالاثنين — لكل تاريخ على حدة. فالسنة الهجرية أقصر من الميلادية، وقد يكون مضى على الحدث خمس سنوات بالهجري وأقل منها بالميلادي. تفاصيل صغيرة، لكنها تهمّنا في حياتنا — ولهذا صنعنا {N_MAIN} خاصية رئيسية و{N_SUB} أداة داخلها، لتعرف دائمًا وبنظرة واحدة: كم مضى، وكم بقي.")}
     </div>
     <ol class="dm-timeline">
-      <li><span>🎓</span><div>{two("What has passed", "ما مضى", "b")}{two("Graduation, marriage, first job, your home.", "التخرج، والزواج، وأول عمل، وبيتك.", "small")}</div></li>
-      <li><span>⏳</span><div>{two("Counted live", "عدّ حيّ", "b")}{two("Years, months, days — to the second.", "سنوات وأشهر وأيام — حتى الثانية.", "small")}</div></li>
-      <li><span>🗓️</span><div>{two("What is ahead", "ما بقي", "b")}{two("Retirement, the last installment, a trip.", "التقاعد، وآخر قسط، ورحلة.", "small")}</div></li>
-      <li><span>🔔</span><div>{two("Reminded in time", "تذكير في الوقت", "b")}{two("At the time, a day or a week before.", "في وقته، أو قبله بيوم أو أسبوع.", "small")}</div></li>
+      <li><span>🎓</span><div>{two("How long since I graduated?", "كم مضى على تخرجي؟", "b")}{two("No more counting on your fingers.", "بلا حساب على الأصابع.", "small")}</div></li>
+      <li><span>📖</span><div>{two("A date with its story", "تاريخ ومعه قصته", "b")}{two("The number, then the memory behind it.", "الرقم، ثم الذكرى التي وراءه.", "small")}</div></li>
+      <li><span>🚗</span><div>{two("5 years and 3 months", "5 سنوات و3 أشهر", "b")}{two("Your car, your home, a product — no guessing.", "سيارتك، بيتك، منتج — بلا تخمين.", "small")}</div></li>
+      <li><span>🌙</span><div>{two("Hijri and Gregorian", "هجري وميلادي", "b")}{two("Each calendar counts the years its own way.", "لكل تقويم حسابه للسنين.", "small")}</div></li>
     </ol>
   </div>
 </div></section>'''

@@ -481,6 +481,7 @@ CSS = """
 .dm-story-text{display:grid;gap:18px}
 .dm-story-text p{font-size:18px;line-height:1.85;color:var(--ink)}
 .dm-story-text q{color:var(--accent);font-weight:700}
+html[dir="rtl"] .dm-story-text q{quotes:"«" "»"}
 .dm-timeline{list-style:none;margin:0;padding:0;display:grid;gap:14px;position:relative}
 .dm-timeline li{display:flex;gap:14px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 16px}
 .dm-timeline li>span{font-size:26px;line-height:1}
