@@ -562,8 +562,8 @@ def page_home():
        "تبني كيو آبز تطبيقات مفيدة تشتريها مرّة واحدة بسعر زهيد وتبقى لك مدى الحياة — بلا اشتراك شهري أو سنوي لا ينتهي.", "lead")}
     <figure class="inspire inspire-hero">
       <blockquote>
-        <p data-en>I drew the idea of Q Apps from Mohammed Omar's experience with “<a class="inspire-link" href="https://qeu.app/" target="_blank" rel="noopener">Q</a>”: just as he made products affordable for people, I aim to offer useful apps at prices within everyone's reach.</p>
-        <p data-ar>استلهمتُ فكرة كيو آبز من تجربة محمد عمر في «<a class="inspire-link" href="https://qeu.app/" target="_blank" rel="noopener">كيو</a>»؛ فكما أتاح المنتجات للناس بأسعار ميسّرة، أسعى لتقديم تطبيقات مفيدة بأسعار في متناول الجميع.</p>
+        <p data-en>I drew the idea of Q Apps from Mohammed Omar's experience with “<a class="inspire-link" href="https://qeu.app/" target="_blank" rel="noopener">Q</a>”: just as he made everyday needs — groceries, fresh fruit and skincare — affordable for people, I aim to offer useful apps at prices within everyone's reach.</p>
+        <p data-ar>استلهمتُ فكرة كيو آبز من تجربة محمد عمر في «<a class="inspire-link" href="https://qeu.app/" target="_blank" rel="noopener">كيو</a>»؛ فكما أتاح للناس احتياجاتهم اليومية — من المقاضي والفواكه الطازجة إلى منتجات العناية — بأسعار ميسّرة، أسعى لتقديم تطبيقات مفيدة بأسعار في متناول الجميع.</p>
       </blockquote>
     </figure>
     <div class="btn-row">
