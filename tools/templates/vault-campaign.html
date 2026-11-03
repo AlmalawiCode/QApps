@@ -8,9 +8,11 @@
      and users who don't yet have the app read it as a charge and bail. On
      Android the promo code is step 2 (a code-first card read as "Android not
      supported").
-     The code is fetched ONLY on button click via the Apps Script v2 backend
-     behind api.thiban1.com; no code list ever reaches the browser — only the
-     single code assigned to this request.
+     The code is fetched ONLY on button click from the site's own backend
+     (POST /api/promo/claim, Cloudflare D1 — proposal qapps_free_codes, 2026-11;
+     before that: Google Sheet + Apps Script behind api.thiban1.com). No code
+     list ever reaches the browser — only the single code for this device.
+     Taps and visits go to the site's download statistic (/api/promo/e).
      ======================================================================= -->
 <html lang="ar" dir="rtl">
 <head>
@@ -430,6 +432,7 @@
       }
     }
   </style>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 </head>
 <body>
   <!-- Inline brand icons (SVG symbols) — no external requests, crisp at any
@@ -545,7 +548,9 @@
         </div>
       </div>
 
-      <!-- state: success (one code) -->
+      <div id="tsBox" style="margin-top:10px"></div>
+
+    <!-- state: success (one code) -->
       <div id="androidResult" class="hidden">
         <p class="code-label">كود العرض الخاص بك:</p>
         <div id="codeBox" class="code-box"></div>
@@ -619,34 +624,28 @@
     // goes through this link or the manual path in the instructions.
     var PLAY_REDEEM_BASE = 'https://play.google.com/redeem?code=';
 
-    // ---- Backend API via first-party proxy (api.thiban1.com -> Apps Script) -
-    // Same-site request, so iOS tracking protection / content blockers don't
-    // drop it. (The direct cross-site call to script.google.com was blocked.)
-    var API = '__API_BASE__';
+    // ---- Backend: the site's own API (same origin, Cloudflare D1) ----------
+    var APP = 'vault';
+    var TURNSTILE_KEY = '__TURNSTILE_SITE_KEY__';
 
-    function apiUrl(params) {
-      return API + '?' + Object.keys(params).map(function (k) {
-        return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
-      }).join('&');
-    }
-
-    // ---- Stable per-page requestId for idempotent code allocation ----------
+    // ---- Stable per-DEVICE request id: the same phone always gets the SAME
+    // code back (shared with the offer section on /apps/vault/). ------------
     var REQUEST_ID = getRequestId();
     var currentCode = '';
     var inFlight = false;
 
     function getRequestId() {
+      var k = 'qapps_promo_rid_' + APP;
       try {
-        var k = 'vault_promo_req';
-        var existing = sessionStorage.getItem(k);
+        var existing = localStorage.getItem(k);
         if (existing) return existing;
         var id = (self.crypto && crypto.randomUUID)
           ? crypto.randomUUID()
-          : 'r-' + Date.now() + '-' + Math.random().toString(36).slice(2);
-        sessionStorage.setItem(k, id);
+          : 'r-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 12);
+        localStorage.setItem(k, id);
         return id;
       } catch (e) {
-        return 'r-' + Date.now() + '-' + Math.random().toString(36).slice(2);
+        return 'r-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 12);
       }
     }
 
@@ -681,66 +680,37 @@
       } catch (e) { return SERVER_SOURCE || 'direct'; }
     }
 
-    // ---- Anonymous, privacy-friendly meta (no IP / name / email / phone) ---
-    var META = buildMeta();
-
-    function buildMeta() {
-      var ua = navigator.userAgent || '';
-      return { d: detectDevice(ua), b: detectBrowser(ua), c: guessCountry(), s: SOURCE };
-    }
-
-    // Device/browser as short ASCII slugs; country as the raw IANA timezone.
-    // The BACKEND translates these to Arabic before writing the sheet, so NO
-    // Arabic ever travels in the analytics URL (Arabic in the URL was breaking
-    // the beacon while the short ASCII code-request kept working).
-    function detectDevice(ua) {
-      if (/iPad/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) return 'ipad';
-      if (/iPhone|iPod/.test(ua)) return 'iphone';
-      if (/Android/.test(ua)) return /Mobile/.test(ua) ? 'android_phone' : 'android_tablet';
-      if (/Windows/.test(ua)) return 'windows';
-      if (/Macintosh|Mac OS/.test(ua)) return 'mac';
-      if (/Linux/.test(ua)) return 'linux';
-      return 'unknown';
-    }
-
-    function detectBrowser(ua) {
-      if (/SamsungBrowser/.test(ua)) return 'Samsung Internet';
-      if (/Edg\//.test(ua)) return 'Edge';
-      if (/OPR\/|Opera/.test(ua)) return 'Opera';
-      if (/Firefox\//.test(ua)) return 'Firefox';
-      if (/Chrome\//.test(ua) && !/Chromium/.test(ua)) return 'Chrome';
-      if (/CriOS/.test(ua)) return 'Chrome (iOS)';
-      if (/Safari\//.test(ua)) return 'Safari';
-      return 'unknown';
-    }
-
-    function guessCountry() {
-      try { return Intl.DateTimeFormat().resolvedOptions().timeZone || 'unknown'; }
-      catch (e) { return 'unknown'; }
-    }
-
-    // ---- Analytics: disguised so tracking-blockers don't drop it -----------
-    // A content blocker on the device was silently dropping the old
-    // "api=log&event=visit" URL (it looks like a tracking beacon) while the
-    // code request "api=claim&rid=..." passed. So we send an opaque endpoint
-    // (api=r) + short event CODES (k=v/ap/rq/...) via the SAME JSONP path the
-    // code request uses. The backend maps the codes back to the real events.
-    var EVENT_CODES = {
-      visit: 'v', apple_click: 'ap', apple_redeem: 'ar',
-      android_request: 'rq', android_issued: 'is',
-      copy_click: 'cp', play_click: 'pl', youtube_click: 'yt', empty: 'em'
+    // ---- Download statistic (site's own /api/promo/e) ---------------------
+    // No address, cookie or name: the server keeps app, platform, kind, page,
+    // device/browser (from the User-Agent), source and language. The short
+    // opaque path keeps content blockers from dropping it.
+    var EVENTS = {
+      visit: ['visit', ''], apple_click: ['download', 'ios'], apple_redeem: ['redeem', 'ios'],
+      play_click: ['download', 'android'], play_redeem: ['redeem', 'android'],
+      copy_click: ['copy', 'android']
     };
-    // NOTE: we deliberately do NOT send a "c" param — Google's web-app
-    // infrastructure reserves a query param literally named "c" and rejects the
-    // request ("cannot open the file"), which silently broke ALL analytics.
-    // Country isn't needed, so we omit it entirely. (device/browser/source only)
     function track(event) {
-      try {
-        fetch(apiUrl({ api: 'r', k: (EVENT_CODES[event] || event),
-                       d: META.d, b: META.b, s: META.s }),
-              { keepalive: true, cache: 'no-store' });
-      } catch (e) { /* ignore */ }
+      var e = EVENTS[event];
+      if (!e) return;   // android_request / issued / empty: the server counts codes itself
+      var body = JSON.stringify({ app: APP, kind: e[0], platform: e[1] || undefined,
+                                  page: location.pathname, src: SOURCE, lang: 'ar' });
+      try { if (navigator.sendBeacon && navigator.sendBeacon('/api/promo/e', body)) return; } catch (x) {}
+      try { fetch('/api/promo/e', { method: 'POST', body: body, keepalive: true, headers: { 'content-type': 'text/plain' } }); } catch (x) {}
     }
+
+    // ---- Offer status: the App Store link (and on/off) from the dashboard --
+    fetch('/api/promo/status?app=' + APP, { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (st) { if (st && st.ok && st.apple && st.apple.url) APPLE_REDEEM_URL = st.apple.url; })
+      .catch(function () {});
+
+    // A code this device already got is shown again straight away.
+    (function showSavedCode() {
+      try {
+        var saved = localStorage.getItem('qapps_promo_code_' + APP);
+        if (saved) { currentCode = saved; document.getElementById('codeBox').textContent = saved; showAndroid('androidResult'); }
+      } catch (e) {}
+    })();
 
     // ---- Platform-aware card order: reorder, never hide/redirect ----------
     // On Android the Android card moves ABOVE the Apple card: with Apple
@@ -814,22 +784,50 @@
       btn.disabled = true;
       btn.innerHTML = '<span class="spinner"></span> جارٍ الحصول على الكود...';
 
-      fetch(apiUrl({ api: 'claim', rid: REQUEST_ID }), { cache: 'no-store' })
-        .then(function (r) { return r.json(); })
-        .then(onResult)
-        .catch(onFailure);
+      withTurnstile(function (token) {
+        fetch('/api/promo/claim', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ app: APP, rid: REQUEST_ID, token: token, src: SOURCE, lang: 'ar', page: location.pathname }),
+          cache: 'no-store'
+        })
+          .then(function (r) { return r.json(); })
+          .then(onResult)
+          .catch(onFailure);
+      });
+    }
+
+    // Cloudflare Turnstile ("not a robot"): invisible unless Cloudflare needs
+    // the visitor to tap once. Without a site key the server does not ask.
+    var tsWidget = null;
+    function withTurnstile(go) {
+      if (!TURNSTILE_KEY || !window.turnstile) return go('');
+      try {
+        if (tsWidget === null) {
+          tsWidget = window.turnstile.render('#tsBox', {
+            sitekey: TURNSTILE_KEY, execution: 'execute', appearance: 'interaction-only', language: 'ar',
+            callback: function (t) { go(t); },
+            'error-callback': function () { onFailure(); },
+            'expired-callback': function () { window.turnstile.reset(tsWidget); }
+          });
+        } else {
+          window.turnstile.reset(tsWidget);
+        }
+        window.turnstile.execute(tsWidget);
+      } catch (e) { go(''); }
     }
 
     function onResult(res) {
       inFlight = false;
-      if (!res || res.status === 'busy') { return onFailure(); }
+      if (!res || res.status === 'busy' || res.status === 'limit' || res.status === 'bot') { return onFailure(); }
 
       if (res.status === 'ok') {
         currentCode = res.code;
+        try { localStorage.setItem('qapps_promo_code_' + APP, res.code); } catch (e) {}
         document.getElementById('codeBox').textContent = res.code;
         track('android_issued');
         showAndroid('androidResult');
-      } else if (res.status === 'empty') {
+      } else if (res.status === 'empty' || res.status === 'ended') {
         track('empty');
         showAndroid('androidEmpty');
       } else {
@@ -864,7 +862,7 @@
     // ---- Redeem / Copy / Video ---------------------------------------------
     function redeemOnPlay() {
       if (!currentCode) return;
-      track('play_click');
+      track('play_redeem');
       window.open(PLAY_REDEEM_BASE + encodeURIComponent(currentCode), '_blank');
     }
 

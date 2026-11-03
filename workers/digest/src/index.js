@@ -5,7 +5,10 @@
 // the same D1 database as /functions/api/feedback.js, and emails a summary of the
 // last 24 hours through Cloudflare Email Routing (send_email binding).
 //
-// Nothing is sent on a day with no new messages. The recipient comes from the
+// Since 2026-11 it also reports the free-codes offer and the download taps
+// (tables of lib/promo/common.js): codes given in the last 24 hours, codes
+// left, store-button taps, and a warning when fewer than 50 codes are left.
+// Nothing is sent on a day with no new messages and no code/tap activity. The recipient comes from the
 // DIGEST_TO secret (never in this public file); it must be a verified destination
 // address in Email Routing, or Cloudflare refuses to deliver.
 
@@ -55,21 +58,82 @@ export async function sendDigest(env, now = new Date()) {
   const list = rows.results;
   const count = total.results[0]?.n || 0;
   const waiting = open.results[0]?.n || 0;
-  if (!count) {
+  const promo = await promoSummary(env.DB, since);
+  const promoBusy = promo.some((a) => a.given || a.taps || a.low);
+  if (!count && !promoBusy) {
     console.log("digest: nothing new");
     return { sent: false, reason: "nothing_new" };
   }
 
-  const subject = `كيو آبز: ${countAr(count)} من الموقع`;
+  const subject = count
+    ? `كيو آبز: ${countAr(count)} من الموقع`
+    : "كيو آبز: ملخص الأكواد والتحميل";
   const from = env.DIGEST_FROM || "digest@qeuapps.com";
   const raw = buildMime({
     from, fromName: "Q Apps", to: env.DIGEST_TO, subject,
-    text: renderText(list, count, waiting),
-    html: renderHtml(list, count, waiting),
+    text: renderText(list, count, waiting) + promoText(promo),
+    html: renderHtml(list, count, waiting, promoHtml(promo)),
   });
   await env.EMAIL.send(new EmailMessage(from, env.DIGEST_TO, raw));
   console.log(`digest: sent ${count} message(s)`);
   return { sent: true, count };
+}
+
+// ---------- free codes & downloads ----------
+
+const LOW_CODES = 50;
+
+/** One line per app that has the offer on or had activity. Never throws:
+ *  before the promo tables exist the digest is just the messages. */
+export async function promoSummary(db, since) {
+  try {
+    const [apps, codes, taps] = await db.batch([
+      db.prepare("SELECT id, slug, name_ar, offer_active FROM apps ORDER BY id"),
+      db.prepare("SELECT app_id, SUM(status = 'available') AS left, SUM(status = 'issued' AND issued_at >= ?) AS given FROM promo_codes WHERE platform = 'android' GROUP BY app_id").bind(since),
+      db.prepare("SELECT app_id, platform, COUNT(*) AS n FROM store_clicks WHERE kind = 'download' AND created_at >= ? GROUP BY app_id, platform").bind(since),
+    ]);
+    return apps.results.map((a) => {
+      const c = codes.results.find((r) => r.app_id === a.id) || {};
+      const t = taps.results.filter((r) => r.app_id === a.id);
+      const ios = t.filter((r) => r.platform === "ios").reduce((n, r) => n + r.n, 0);
+      const android = t.filter((r) => r.platform === "android").reduce((n, r) => n + r.n, 0);
+      const hasCodes = c.left !== undefined && c.left !== null;
+      return {
+        name: a.name_ar || a.slug, active: !!a.offer_active, hasCodes,
+        given: c.given || 0, left: c.left || 0, ios, android, taps: ios + android,
+        low: !!a.offer_active && hasCodes && (c.left || 0) < LOW_CODES,
+      };
+    }).filter((a) => a.active || a.given || a.taps);
+  } catch (e) {
+    console.log("digest: no promo tables yet");
+    return [];
+  }
+}
+
+function promoLine(a) {
+  const parts = [];
+  if (a.hasCodes) parts.push(`أكواد أُعطيت ${a.given} · الباقي ${a.left}`);
+  parts.push(`نقرات التحميل ${a.taps} (App Store ${a.ios} · Google Play ${a.android})`);
+  return `${a.name}: ${parts.join(" · ")}`;
+}
+
+function promoText(promo) {
+  if (!promo.length) return "";
+  const lines = ["", "", "الأكواد والتحميل (آخر 24 ساعة):"];
+  for (const a of promo) {
+    lines.push("— " + promoLine(a));
+    if (a.low) lines.push(`  ⚠ بقي أقل من ${LOW_CODES} كودًا لأندرويد.`);
+  }
+  lines.push(`افتح لوحة الأكواد: ${SITE}/admin/promo/`);
+  return lines.join("\n");
+}
+
+function promoHtml(promo) {
+  if (!promo.length) return "";
+  const items = promo.map((a) => `<li style="margin:4px 0">${esc(promoLine(a))}${a.low ? `<br><span style="color:#b45309">⚠ بقي أقل من ${LOW_CODES} كودًا لأندرويد.</span>` : ""}</li>`).join("");
+  return `<h2 style="font-size:17px;color:#0f766e;margin:22px 0 6px">الأكواد والتحميل (آخر 24 ساعة)</h2>
+    <ul style="margin:0;padding-inline-start:20px;color:#1f2d2d;line-height:1.7">${items}</ul>
+    <p style="margin:10px 0 0"><a href="${SITE}/admin/promo/" style="color:#0f766e">افتح لوحة الأكواد والتحميل</a></p>`;
 }
 
 // ---------- content ----------
@@ -108,6 +172,7 @@ function cut(s) {
 }
 
 function renderText(list, count, waiting) {
+  if (!count) return `لا رسائل جديدة خلال آخر 24 ساعة. رسائل بحالة «جديدة» تنتظرك: ${waiting}`;
   const lines = [`وصلت ${countAr(count)} خلال آخر 24 ساعة.`, ""];
   for (const m of list) {
     lines.push(`— ${fromAppAr(m)}${APP_AR[m.app] || m.app} · ${TYPE_AR[m.type] || m.type} · ${riyadhTime(m.created_at)}${m.flagged ? " · ⚠ مشبوهة" : ""}`);
@@ -125,7 +190,7 @@ function esc(s) {
   return String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 }
 
-function renderHtml(list, count, waiting) {
+function renderHtml(list, count, waiting, promoBlock = "") {
   const items = list.map((m) => `
     <tr><td style="padding:14px 16px;border-bottom:1px solid #e3ecec">
       <div style="font-size:13px;color:#0f766e;font-weight:bold">${m.source === "app" ? `<span style="background:#FFF1CC;color:#8A5A00;border-radius:6px;padding:0 6px">${esc(fromAppAr(m).replace(/ · $/, ""))}</span> ` : ""}${esc(APP_AR[m.app] || m.app)} · ${esc(TYPE_AR[m.type] || m.type)}
@@ -138,13 +203,14 @@ function renderHtml(list, count, waiting) {
     ? `<p style="margin:12px 0 0;color:#6b7f7f">${moreAr(count - list.length)} في لوحة الرسائل.</p>` : "";
   return `<!DOCTYPE html><html lang="ar" dir="rtl"><body style="margin:0;background:#f4f8f8;font-family:Tahoma,Arial,sans-serif">
   <div style="max-width:640px;margin:0 auto;padding:24px 16px" dir="rtl">
-    <h1 style="font-size:20px;color:#0f766e;margin:0 0 6px">رسائل جديدة من الموقع</h1>
-    <p style="margin:0 0 16px;color:#1f2d2d">وصلت <b>${countAr(count)}</b> خلال آخر 24 ساعة.</p>
+    <h1 style="font-size:20px;color:#0f766e;margin:0 0 6px">${count ? "رسائل جديدة من الموقع" : "ملخص الموقع اليومي"}</h1>
+    ${count ? `<p style="margin:0 0 16px;color:#1f2d2d">وصلت <b>${countAr(count)}</b> خلال آخر 24 ساعة.</p>
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#fff;border:1px solid #e3ecec;border-radius:12px;border-collapse:separate">${items}</table>
-    ${more}
+    ${more}` : `<p style="margin:0;color:#1f2d2d">لا رسائل جديدة خلال آخر 24 ساعة.</p>`}
+    ${promoBlock}
     <p style="margin:18px 0 0;color:#1f2d2d">رسائل بحالة «جديدة» تنتظرك: <b>${waiting}</b></p>
     <p style="margin:18px 0 0"><a href="${SITE}/admin/" style="display:inline-block;background:#0f766e;color:#fff;text-decoration:none;padding:10px 18px;border-radius:10px">افتح لوحة الرسائل</a></p>
-    <p style="margin:24px 0 0;font-size:12px;color:#8a9b9b">ملخص يومي آلي من qeuapps.com — يُرسل فقط في الأيام التي فيها رسائل جديدة.</p>
+    <p style="margin:24px 0 0;font-size:12px;color:#8a9b9b">ملخص يومي آلي من qeuapps.com — يُرسل فقط في الأيام التي فيها رسائل جديدة أو أكواد أو نقرات تحميل.</p>
   </div></body></html>`;
 }
 

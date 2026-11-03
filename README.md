@@ -10,7 +10,9 @@ and **Vault — Warranty Manager**).
   dependency-free Python script and the generated output is committed.
 - **Languages:** English (default) and Modern Standard **Arabic** with full RTL.
   Privacy policies are additionally published in up to 18 languages.
-- **Privacy:** no cookies, no analytics, no third-party trackers.
+- **Privacy:** no cookies and no third-party trackers. The only counting is our
+  own: taps on the store buttons and free-code requests (see "Free-version codes"
+  below and `/privacy/#free`).
 - **Origin:** migrated from the Thiban Tech Solutions site
   ([AlmalawiCode/thiban1.com](https://github.com/AlmalawiCode/thiban1.com) @ `947ffda`).
   All URL paths (including every `/privacy/<app>/<lang>/` policy URL) are unchanged.
@@ -228,6 +230,41 @@ database and emails the owner the messages of the last 24 hours, with a link to
   `.dev.vars`, then open `/__scheduled` — the email is written to a local `.eml` file.
 
 Not built yet: the public «ideas we built» page (proposal phase 2).
+
+## Free-version codes & download statistic (2026-11)
+
+Approved proposal: `proposals/qapps_free_codes_proposal_ar.html`. The website
+itself hands out the free full version (moved off the Google Sheet / Apps Script
+behind `api.thiban1.com`):
+
+- **Where:** a «🎁 free full version» section at the bottom of `/apps/vault/`
+  (plus a badge in the hero), and the campaign links `/vault/` and `/vault-new/`.
+  The section stays hidden unless `/api/promo/status` says the offer is on.
+- **Android:** one Google Play promo code per device. **Apple:** one shared offer
+  link (`FREE500`, limit 500 — Apple enforces it; we only count taps).
+- **Tables** (same D1 database `qapps-feedback`, `migrations/0003_promo.sql`,
+  also created on first use by `lib/promo/common.js`):
+  `apps` (store links, App Store offer link, on/off, end date) ·
+  `promo_codes` (each code mapped to its app; `issued` = given, with time,
+  device, browser, source, language, page and the device's random request id) ·
+  `store_clicks` (one row per tap on a store / activate / copy button, or a
+  campaign-page visit) · `promo_hits` (rate limit, deleted after 24 h).
+
+| Path | What |
+|---|---|
+| `functions/api/promo/claim.js` | `POST` — one code per device; atomic `UPDATE … RETURNING`; Turnstile; 3 codes/day per address |
+| `functions/api/promo/status.js` | `GET ?app=` — offer on/off, codes left, App Store offer link |
+| `functions/api/promo/e.js` | `POST` — one row of the download statistic |
+| `functions/api/admin/promo.js` | dashboard API (Cloudflare Access only): summary, codes, CSV, add/void codes, offer settings |
+| `admin/promo/index.html` | dashboard «الأكواد والتحميل» (linked from `/admin/`) |
+| `assets/js/promo.js`, `tools/promo_section.py` | the section on the app page |
+| `assets/js/site.js` | counts taps on every `.store-btn` on every page; keeps `?utm_source` for the visit |
+
+**The codes are never in this repo.** Add them on `/admin/promo/` (paste the
+Play Console list; duplicates are ignored), or by hand:
+`npx wrangler d1 execute qapps-feedback --remote --file <codes.sql outside the repo>`.
+The daily digest adds codes given / left / store taps, and warns under 50 codes.
+A tap is not an install: installs are in Play Console / App Store Connect.
 
 ## License / assets
 

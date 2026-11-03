@@ -37,6 +37,7 @@ def asset_ver(rel):
 
 CSS_HREF = f"/assets/css/styles.css?v={asset_ver('assets/css/styles.css')}"
 JS_SRC = f"/assets/js/site.js?v={asset_ver('assets/js/site.js')}"
+PROMO_JS_SRC = f"/assets/js/promo.js?v={asset_ver('assets/js/promo.js')}"
 SUPPORT_EMAIL = "qeuapps@gmail.com"
 # Cloudflare Turnstile site key for the "Contact & suggest" form (public; the
 # secret lives only in the Pages environment). Set it as a build environment
@@ -65,11 +66,13 @@ VAULTNEW_EXEC_URL = ("https://script.google.com/macros/s/"
 # "Access-Control-Allow-Origin: *". (On thiban1.com it was also same-site, which
 # kept iOS tracking-protection / content blockers from dropping the call; a
 # future api.qeuapps.com route on the same Worker would restore that.)
+# No longer used (2026-11): /vault/ now uses /api/promo/* on this site. Kept for rollback.
 VAULTNEW_API_BASE = "https://api.thiban1.com/"
 
 # Full campaign page for /vault and /vault-new. Lives in its own file (the live,
-# hand-tuned page) so the builder never rolls it back. __API_BASE__ is replaced
-# with VAULTNEW_API_BASE at build time.
+# hand-tuned page) so the builder never rolls it back. Since 2026-11 it talks to
+# the site's own /api/promo/* (Cloudflare D1) instead of VAULTNEW_API_BASE;
+# __TURNSTILE_SITE_KEY__ is replaced with TURNSTILE_SITE_KEY at build time.
 with open(os.path.join(HERE, "templates", "vault-campaign.html"), encoding="utf-8") as _f:
     _VAULTNEW_HTML = _f.read()
 
@@ -674,7 +677,15 @@ def page_app_docmatic():
 def page_app_vault():
     """/apps/vault/ — long hand-tuned page kept in tools/vault_page.py."""
     import vault_page
-    return vault_page.build_page(render, h, p, crumbs, APPS["vault"], store_button)
+    import promo_section
+    a = APPS["vault"]
+    promo = (promo_section.badge(),
+             promo_section.section("vault", a["appstore"], a["playstore"],
+                                   "After the offer ends, the app stays free with up to 3 invoices.",
+                                   "بعد انتهاء العرض يبقى التطبيق مجانيًا حتى 3 فواتير.",
+                                   TURNSTILE_SITE_KEY, PROMO_JS_SRC),
+             promo_section.CSS)
+    return vault_page.build_page(render, h, p, crumbs, a, store_button, promo)
 
 
 # ---------------------------- tutorials ------------------------------------
@@ -838,6 +849,13 @@ def page_privacy_index():
      "حين ترسل رسالة أو اقتراحًا أو فكرة أو مشكلة من صفحة «تواصل واقترح»، نحفظ ما كتبته: التطبيق الذي اخترته، ونوع الرسالة، ونصّها، ولغة الصفحة، واسمك وطريقة الرد فقط إن كتبتهما. نستخدمها فقط لنقرأ رسالتك ونرد عليها ولنحسّن تطبيقاتنا، ولا نبيعها ولا نشاركها مع أحد ولا نستخدمها للإعلان.")}
   {p("To stop robots and floods of messages, the page uses Cloudflare Turnstile (from Cloudflare, which hosts this website), and we keep a fingerprint of your connection's address — salted and one-way, so it cannot be turned back into the address — for no more than 24 hours. Messages are stored in our database on Cloudflare and only we can read them. To have a message deleted, write to us from the same page or by email.",
      "ولمنع الروبوتات وسيل الرسائل، تستخدم الصفحة Cloudflare Turnstile (من Cloudflare التي تستضيف هذا الموقع)، ونحفظ بصمة مشفّرة لعنوان اتصالك — باتجاه واحد لا يمكن إعادتها إلى العنوان — مدة لا تزيد على 24 ساعة. وتُحفظ الرسائل في قاعدة بياناتنا على Cloudflare، ولا يقرؤها أحد غيرنا. ولحذف رسالة أرسلتها، راسلنا من الصفحة نفسها أو بالبريد.")}
+</div>
+<div class="container prose" id="free" style="margin-top:44px">
+  {h(2, "Free-version codes and download taps", "أكواد النسخة المجانية ونقرات التحميل")}
+  {p("When you ask for a free-version code on this website, we give you one code and note that it was given: the time, the kind of device and browser (for example «Samsung · Chrome»), the link that brought you (for example a campaign on X), and the page language. Your device keeps a random number so that asking again shows you the same code. We do not ask for your name, number or email.",
+     "حين تطلب كود النسخة المجانية من هذا الموقع، نعطيك كودًا واحدًا ونسجّل أنه أُعطي: الوقت، ونوع الجهاز والمتصفح (مثل «سامسونج · Chrome»)، والرابط الذي جاء بك (مثل حملة على X)، ولغة الصفحة. ويحفظ جهازك رقمًا عشوائيًا حتى يُظهر لك الكود نفسه إن طلبته مرة ثانية. ولا نطلب اسمك ولا رقمك ولا بريدك.")}
+  {p("To stop robots from taking all the codes, the request uses Cloudflare Turnstile, and we keep a salted one-way fingerprint of your connection's address for no more than 24 hours. When you tap «App Store» or «Google Play» on this website we count the tap — the app, the page, the device type and the link that brought you — with no cookie and no address. This is how we know how many people reached the stores from our website.",
+     "ولمنع الروبوتات من أخذ الأكواد كلها، يمرّ الطلب عبر Cloudflare Turnstile، ونحفظ بصمة مشفّرة باتجاه واحد لعنوان اتصالك مدة لا تزيد على 24 ساعة. وحين تضغط «App Store» أو «Google Play» في هذا الموقع نعدّ الضغطة — التطبيق والصفحة ونوع الجهاز والرابط الذي جاء بك — بلا كوكيز ولا عنوان. هكذا نعرف كم شخصًا وصل إلى المتاجر من موقعنا.")}
   {p("Our apps do not send anything themselves; this applies only to what you send from this website.",
      "تطبيقاتنا لا ترسل شيئًا بنفسها؛ هذا يخص فقط ما ترسله من هذا الموقع.", "fineprint")}
 </div>
@@ -1362,7 +1380,7 @@ def page_vault_redirect():
     our own domain — no Google "created by an Apps Script user" banner. All
     previously distributed /vault?utm_source=... links keep working unchanged.
     Rollback = git revert of this cutover commit + rebuild."""
-    html = _VAULTNEW_HTML.replace("__API_BASE__", VAULTNEW_API_BASE)
+    html = _VAULTNEW_HTML.replace("__TURNSTILE_SITE_KEY__", TURNSTILE_SITE_KEY)
     out_dir = os.path.join(ROOT, "vault")
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(out_dir, "index.html"), "w", encoding="utf-8") as f:
@@ -1378,7 +1396,7 @@ def page_vaultnew():
       2. The two google.script.run calls (which only work inside Apps-Script HTML)
          become JSONP calls to VAULTNEW_EXEC_URL — no CORS issues, no Google banner.
     Marked noindex and kept out of the sitemap while it's the staging route."""
-    html = _VAULTNEW_HTML.replace("__API_BASE__", VAULTNEW_API_BASE)
+    html = _VAULTNEW_HTML.replace("__TURNSTILE_SITE_KEY__", TURNSTILE_SITE_KEY)
     out_dir = os.path.join(ROOT, "vault-new")
     os.makedirs(out_dir, exist_ok=True)
     with open(os.path.join(out_dir, "index.html"), "w", encoding="utf-8") as f:
