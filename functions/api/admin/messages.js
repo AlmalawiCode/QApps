@@ -4,7 +4,7 @@
 // Every request must pass Cloudflare Access (lib/feedback/access.js); without
 // a valid Access token the answer is 401 and no data leaves the database.
 
-import { APPS, TYPES, STATUSES, json, ensureSchema, nowIso } from "../../../lib/feedback/common.js";
+import { APPS, TYPES, STATUSES, SOURCES, json, ensureSchema, nowIso } from "../../../lib/feedback/common.js";
 import { adminEmail } from "../../../lib/feedback/access.js";
 
 const PAGE = 50;
@@ -30,6 +30,7 @@ export async function onRequestGet({ request, env }) {
   const app = u.searchParams.get("app") || "";
   const type = u.searchParams.get("type") || "";
   const status = u.searchParams.get("status") || "";
+  const source = u.searchParams.get("source") || "";
   const q = (u.searchParams.get("q") || "").trim().slice(0, 100);
   const offset = Math.max(0, Number(u.searchParams.get("offset")) || 0);
 
@@ -37,6 +38,8 @@ export async function onRequestGet({ request, env }) {
   const args = [];
   if (APPS.includes(app)) { where.push("app = ?"); args.push(app); }
   if (TYPES.includes(type)) { where.push("type = ?"); args.push(type); }
+  if (source === "app") where.push("source = 'app'");
+  else if (source === "web") where.push("(source IS NULL OR source != 'app')");
   if (STATUSES.includes(status)) { where.push("status = ?"); args.push(status); }
   else { where.push("status != 'archived'"); }
   if (q) {
@@ -47,12 +50,13 @@ export async function onRequestGet({ request, env }) {
   const w = where.length ? "WHERE " + where.join(" AND ") : "";
 
   const weekAgo = new Date(Date.now() - 7 * 86_400_000).toISOString();
-  const [rows, total, byStatus, byApp, week] = await db.batch([
-    db.prepare(`SELECT * FROM messages ${w} ORDER BY created_at DESC LIMIT ${PAGE} OFFSET ?`).bind(...args, offset),
+  const [rows, total, byStatus, byApp, week, bySource] = await db.batch([
+    db.prepare(`SELECT * FROM messages ${w} ORDER BY CASE WHEN source = 'app' AND status = 'new' THEN 0 ELSE 1 END, created_at DESC LIMIT ${PAGE} OFFSET ?`).bind(...args, offset),
     db.prepare(`SELECT COUNT(*) AS n FROM messages ${w}`).bind(...args),
     db.prepare("SELECT status, COUNT(*) AS n FROM messages GROUP BY status"),
     db.prepare("SELECT app, COUNT(*) AS n FROM messages WHERE status != 'archived' GROUP BY app"),
     db.prepare("SELECT type, COUNT(*) AS n FROM messages WHERE created_at >= ? GROUP BY type").bind(weekAgo),
+    db.prepare("SELECT CASE WHEN source = 'app' THEN 'app' ELSE 'web' END AS s, COUNT(*) AS n FROM messages WHERE status != 'archived' GROUP BY s"),
   ]);
   return json({
     ok: true,
@@ -64,6 +68,7 @@ export async function onRequestGet({ request, env }) {
       status: Object.fromEntries(byStatus.results.map((r) => [r.status, r.n])),
       app: Object.fromEntries(byApp.results.map((r) => [r.app, r.n])),
       week: Object.fromEntries(week.results.map((r) => [r.type, r.n])),
+      source: Object.fromEntries(bySource.results.map((r) => [r.s, r.n])),
     },
   });
 }

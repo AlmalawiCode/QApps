@@ -21,8 +21,15 @@
   }
   function T(en, ar) { return lang() === "ar" ? ar : en; }
 
-  // App from the link.
-  var want = new URLSearchParams(location.search).get("app");
+  // App from the link. Apps also send their context:
+  //   ?app=…&lang=<app language>&src=app&platform=ios|android&v=<version>
+  // so a message sent from inside an app is marked (and gets priority).
+  var P = new URLSearchParams(location.search);
+  var fromApp = P.get("src") === "app";
+  var platform = /^(ios|android)$/.test(P.get("platform") || "") ? P.get("platform") : "";
+  var appVersion = (P.get("v") || "").replace(/[^0-9A-Za-z.+-]/g, "").slice(0, 20);
+  var userLang = /^[a-z]{2}$/.test(P.get("lang") || "") ? P.get("lang") : "";
+  var want = P.get("app");
   if (want && form.elements.app.querySelector('option[value="' + want + '"]')) form.elements.app.value = want;
 
   // The question and hint change with the type.
@@ -58,7 +65,10 @@
   function composed() {
     var name = form.elements.name.value.trim();
     var contact = form.elements.contact.value.trim();
-    return "[" + appLabel() + " · " + typeLabel() + "]\n\n" + form.elements.message.value.trim() +
+    var tag = fromApp
+      ? "📱 " + T("From the app", "من التطبيق") + (platform ? " · " + platform : "") + (appVersion ? " · " + appVersion : "") + (userLang ? " · " + userLang : "") + "\n"
+      : "";
+    return tag + "[" + appLabel() + " · " + typeLabel() + "]\n\n" + form.elements.message.value.trim() +
       (name || contact ? "\n\n—" : "") +
       (name ? "\n" + T("Name: ", "الاسم: ") + name : "") +
       (contact ? "\n" + T("Reply to: ", "للرد: ") + contact : "");
@@ -122,6 +132,10 @@
         name: form.elements.name.value,
         contact: form.elements.contact.value,
         lang: lang(),
+        source: fromApp ? "app" : "web",
+        platform: platform,
+        appVersion: appVersion,
+        userLang: userLang || lang(),
         website: form.elements.website.value,
         t: Date.now() - t0,
         token: token

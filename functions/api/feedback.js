@@ -10,7 +10,7 @@
 // Env (Pages → Settings): DB (D1 binding), TURNSTILE_SECRET, IP_SALT,
 // optional ALLOWED_ORIGINS (comma list), DAILY_CAP.
 
-import { APPS, TYPES, LANGS, LIMITS, json, sha256hex, ensureSchema, nowIso } from "../../lib/feedback/common.js";
+import { APPS, TYPES, LANGS, SOURCES, PLATFORMS, LIMITS, json, sha256hex, ensureSchema, nowIso } from "../../lib/feedback/common.js";
 
 const DEFAULT_ORIGINS = ["https://qeuapps.com", "https://www.qeuapps.com"];
 
@@ -50,6 +50,11 @@ export async function onRequestPost({ request, env }) {
   const name = clean(data.name, LIMITS.maxName);
   const contact = clean(data.contact, LIMITS.maxContact);
   const lang = LANGS.includes(data.lang) ? data.lang : "en";
+  // From inside an app? (see SOURCES in common.js)
+  const source = SOURCES.includes(data.source) ? data.source : "web";
+  const platform = source === "app" && PLATFORMS.includes(data.platform) ? data.platform : null;
+  const appVersion = source === "app" ? clean(data.appVersion, 20).replace(/[^0-9A-Za-z.+-]/g, "") || null : null;
+  const userLang = /^[a-z]{2}$/.test(data.userLang || "") ? data.userLang : lang;
   if (!APPS.includes(app) || !TYPES.includes(type)) return json({ ok: false, error: "bad_request" }, 400);
   if (body.length < LIMITS.minText || body.length > LIMITS.maxText) {
     return json({ ok: false, error: "length" }, 400);
@@ -100,8 +105,9 @@ export async function onRequestPost({ request, env }) {
 
   await db.batch([
     db.prepare(
-      "INSERT INTO messages (created_at, app, type, body, name, contact, lang, status, flagged) VALUES (?, ?, ?, ?, ?, ?, ?, 'new', ?)"
-    ).bind(nowIso(), app, type, body, name || null, contact || null, lang, flagged),
+      "INSERT INTO messages (created_at, app, type, body, name, contact, lang, status, flagged, source, platform, app_version, user_lang) " +
+      "VALUES (?, ?, ?, ?, ?, ?, ?, 'new', ?, ?, ?, ?, ?)"
+    ).bind(nowIso(), app, type, body, name || null, contact || null, lang, flagged, source, platform, appVersion, userLang),
     db.prepare("INSERT INTO rate_hits (ip_hash, ts) VALUES (?, ?)").bind(ipHash, now),
   ]);
   return json({ ok: true });

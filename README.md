@@ -55,6 +55,18 @@ Every translatable string is emitted twice — `<... data-en>` and
 language based on `html[data-lang]`; `assets/js/site.js` toggles the language
 (persisted in `localStorage`) and sets `dir="rtl"` for Arabic.
 
+### Messages from inside the apps (priority) — 2026-11
+
+The apps' "We'd love to hear from you" button opens
+`/suggest/?app=<slug>&lang=<app language>&src=app&platform=ios|android&v=<version>`.
+`suggest.js` sends `source/platform/appVersion/userLang` with the message;
+`functions/api/feedback.js` stores them (additive columns, see
+`migrations/0002_message_source.sql` — created automatically on first use);
+`/admin/` shows a 📱 badge + a "Source" filter and lists new app messages
+first; the daily digest lists them first too. `?lang=` opens the page in that
+language when the site has it (`SITE_LANGS` in `tools/build.py`); add a code
+there when the site is translated into a new language.
+
 ## Folder structure
 
 ```
