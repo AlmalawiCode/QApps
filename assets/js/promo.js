@@ -17,6 +17,11 @@
   var apple = box.querySelector("[data-pf-apple]");
   var android = box.querySelector("[data-pf-android]");
   var PLAY_REDEEM = "https://play.google.com/redeem?code=";
+  // Testing: ?promo-reset forgets this device's code (the owner first puts
+  // the code back with «↩ إرجاع» in /admin/promo/).
+  if (/[?&]promo-reset\b/.test(location.search)) {
+    try { localStorage.removeItem("qapps_promo_rid_" + app); localStorage.removeItem("qapps_promo_code_" + app); } catch (e) {}
+  }
   var code = "";
   var busy = false;
   var widget = null;

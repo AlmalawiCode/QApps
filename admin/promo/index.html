@@ -223,7 +223,8 @@ a.btnl,button.lnk{border:1px solid var(--line);background:var(--surface);border-
       if (!body) return;
       body.innerHTML = s.rows.length ? s.rows.map(function (r) {
         var act = r.status === "available" ? '<button class="lnk" data-void="' + r.id + '">ألغِ</button>' :
-          r.status === "void" && !r.issued_at ? '<button class="lnk" data-restore="' + r.id + '">أعِد</button>' : "";
+          r.status === "void" && !r.issued_at ? '<button class="lnk" data-restore="' + r.id + '">أعِد</button>' :
+          r.status === "issued" ? '<button class="lnk" data-release="' + r.id + '" title="لكود تجربة أو كود لم يُفعَّل في Google Play">↩ إرجاع</button>' : "";
         return '<tr><td class="code">' + esc(r.code) + '</td><td class="st-' + r.status + '">' + ST[r.status] + "</td><td>" + when(r.issued_at) +
           "</td><td>" + esc(DEV[r.device] || r.device || "") + "</td><td>" + esc(BR[r.browser] || r.browser || "") + "</td><td>" + esc(r.issued_at ? src(r.source) : "") +
           "</td><td>" + esc(r.page || "") + "</td><td>" + act + "</td></tr>";
@@ -239,6 +240,11 @@ a.btnl,button.lnk{border:1px solid var(--line);background:var(--surface);border-
     if (t.dataset.cst) { s.codeStatus = t.dataset.cst; render(); loadCodes(true); return; }
     if (t.dataset.days) { s.days = Number(t.dataset.days); loadSummary(); return; }
     if (t.id === "more") { loadCodes(false); return; }
+    if (t.dataset.release) {
+      if (!confirm("إرجاع هذا الكود إلى المتاح؟\n\nفقط إذا لم يُفعَّل في Google Play (مثل كود تجربة). الكود المُفعَّل لا يعمل مرة أخرى، وسيصل لزائر آخر معطّلًا.")) return;
+      api("/api/admin/promo", {action: "release", id: Number(t.dataset.release)}).then(loadSummary);
+      return;
+    }
     if (t.dataset.void || t.dataset.restore) {
       api("/api/admin/promo", {action: t.dataset.void ? "void" : "restore", id: Number(t.dataset.void || t.dataset.restore)}).then(loadSummary);
       return;

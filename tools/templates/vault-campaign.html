@@ -630,6 +630,11 @@
 
     // ---- Stable per-DEVICE request id: the same phone always gets the SAME
     // code back (shared with the offer section on /apps/vault/). ------------
+    // Testing: ?promo-reset forgets this device's code (the owner first puts
+    // the code back with «↩ إرجاع» in /admin/promo/).
+    if (/[?&]promo-reset\b/.test(location.search)) {
+      try { localStorage.removeItem('qapps_promo_rid_' + APP); localStorage.removeItem('qapps_promo_code_' + APP); } catch (e) {}
+    }
     var REQUEST_ID = getRequestId();
     var currentCode = '';
     var inFlight = false;

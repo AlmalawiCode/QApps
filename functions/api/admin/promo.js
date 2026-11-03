@@ -7,6 +7,7 @@
 // GET  ?view=csv&app=                    every code of one app as CSV
 // POST {action:"add", app, codes}        paste codes (any separators); duplicates ignored
 // POST {action:"void"|"restore", id}     take a never-issued code out / back
+// POST {action:"release", id}            put an issued (test / unused) code back
 // POST {action:"offer", app, offer_active, apple_offer_on, apple_offer_url,
 //       apple_offer_limit, offer_ends_at} switch the offer, edit the App Store link
 
@@ -131,6 +132,31 @@ export async function onRequestPost({ request, env }) {
     const r = data.action === "void"
       ? await db.prepare("UPDATE promo_codes SET status = 'void' WHERE id = ? AND status = 'available'").bind(id).run()
       : await db.prepare("UPDATE promo_codes SET status = 'available' WHERE id = ? AND status = 'void' AND issued_at IS NULL").bind(id).run();
+    return jsonOut({ ok: true, changed: r.meta?.changes ?? 0 });
+  }
+
+  if (data.action === "release") {
+    // Give an issued code back (the owner's own test, or a code that was
+    // never used). Only for codes NOT redeemed in Google Play: a redeemed
+    // code put back would reach the next visitor dead.
+    const id = Number(data.id);
+    if (!Number.isInteger(id) || id <= 0) return jsonOut({ ok: false, error: "bad_request" }, 400);
+    const row = await db.prepare("SELECT app_id, issued_at FROM promo_codes WHERE id = ? AND status = 'issued'").bind(id).first();
+    if (!row) return jsonOut({ ok: true, changed: 0 });
+    const ms = Date.parse(row.issued_at);
+    const [r] = await db.batch([
+      db.prepare(
+        "UPDATE promo_codes SET status = 'available', issued_at = NULL, request_id = NULL, device = NULL, browser = NULL, source = NULL, lang = NULL, page = NULL WHERE id = ? AND status = 'issued'"
+      ).bind(id),
+      // The claim row in the download statistic (same timestamp as issued_at).
+      db.prepare(
+        "DELETE FROM store_clicks WHERE id = (SELECT id FROM store_clicks WHERE app_id = ? AND kind = 'code' AND created_at = ? LIMIT 1)"
+      ).bind(row.app_id, row.issued_at),
+      // The matching use of the 3-a-day limit (written in the same instant).
+      db.prepare(
+        "DELETE FROM promo_hits WHERE rowid = (SELECT rowid FROM promo_hits WHERE ABS(ts - ?) < 5000 ORDER BY ABS(ts - ?) LIMIT 1)"
+      ).bind(ms || 0, ms || 0),
+    ]);
     return jsonOut({ ok: true, changed: r.meta?.changes ?? 0 });
   }
 
