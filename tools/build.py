@@ -37,7 +37,7 @@ def asset_ver(rel):
 
 CSS_HREF = f"/assets/css/styles.css?v={asset_ver('assets/css/styles.css')}"
 JS_SRC = f"/assets/js/site.js?v={asset_ver('assets/js/site.js')}"
-SUPPORT_EMAIL = "thibantechsolutions@gmail.com"
+SUPPORT_EMAIL = "qeuapps@gmail.com"
 # Cloudflare Turnstile site key for the "Contact & suggest" form (public; the
 # secret lives only in the Pages environment). Set it as a build environment
 # variable in Cloudflare Pages. Empty = the form offers WhatsApp/email only.
