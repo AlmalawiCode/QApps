@@ -544,6 +544,9 @@ def home_sections():
     return {"idea": idea, "why": why, "suggest": suggest, "services": services, "cta": cta}
 
 
+# Set to True to show the Qeu inspiration quote on the home page again.
+SHOW_INSPIRE = False
+
 INSPIRE = (
     '<figure class="inspire"><blockquote>'
     '<p data-en>I drew the idea of Q Apps from Mohammed Omar\'s experience with “<a class="inspire-link" href="https://qeu.app/" target="_blank" rel="noopener">Q</a>”: just as he made everyday needs — groceries, fresh fruit and skincare — affordable for people, I aim to offer useful apps at prices within everyone\'s reach.</p>'
@@ -563,7 +566,8 @@ def page_home():
     grid = f'''<section class="qa-apps" id="apps"><div class="container">
   {site_layout.icon_grid(APPS)}
 </div></section>'''
-    quote = f'''<section class="qa-quote"><div class="container">{INSPIRE}</div></section>'''
+    quote = (f'''<section class="qa-quote"><div class="container">{INSPIRE}</div></section>'''
+             if SHOW_INSPIRE else "")
     return intro + grid + home_sections()["suggest"] + quote
 
 
