@@ -304,12 +304,20 @@ NAV = [
 ]
 
 # pre-paint language script (kept as a plain string to avoid f-string braces)
+# Languages the site UI is written in. The apps open pages with
+# ?lang=<app language>: a listed language opens directly; any other falls
+# back to the visitor's saved/browser choice. Translating the site into a new
+# language = add its code here (+ its data-xx strings); RTL ones also below.
+SITE_LANGS = ["en", "ar"]
+RTL_LANGS = ["ar", "ur"]
 PREPAINT = (
-    "<script>(function(){try{var l=localStorage.getItem('qapps-lang');"
-    "if(!l){l=((navigator.language||navigator.userLanguage||'en')"
-    ".slice(0,2)==='ar')?'ar':'en';}var d=document.documentElement;"
+    "<script>(function(){try{var S=" + json.dumps(SITE_LANGS) + ",R=" + json.dumps(RTL_LANGS) + ";"
+    "var q=new URLSearchParams(location.search).get('lang');"
+    "var l=(q&&S.indexOf(q)>=0)?q:localStorage.getItem('qapps-lang');"
+    "if(!l||S.indexOf(l)<0){var n=(navigator.language||navigator.userLanguage||'en').slice(0,2);"
+    "l=S.indexOf(n)>=0?n:'en';}var d=document.documentElement;"
     "d.setAttribute('data-lang',l);d.setAttribute('lang',l);"
-    "d.setAttribute('dir',l==='ar'?'rtl':'ltr');"
+    "d.setAttribute('dir',R.indexOf(l)>=0?'rtl':'ltr');"
     "var m={en:d.getAttribute('data-title-en'),ar:d.getAttribute('data-title-ar')};"
     "if(m[l]){document.title=m[l];}}catch(e){}})();</script>"
 )

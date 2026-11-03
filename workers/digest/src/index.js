@@ -44,8 +44,10 @@ export async function sendDigest(env, now = new Date()) {
   const since = new Date(now.getTime() - LOOKBACK_MS).toISOString();
   const [rows, total, open] = await env.DB.batch([
     env.DB.prepare(
-      "SELECT id, created_at, app, type, body, name, contact, flagged FROM messages " +
-      "WHERE created_at >= ? ORDER BY created_at ASC LIMIT ?"
+      // SELECT * — works before and after the additive source columns exist.
+      // Messages sent from inside an app come first (priority).
+      "SELECT * FROM messages WHERE created_at >= ? " +
+      "ORDER BY CASE WHEN source = 'app' THEN 0 ELSE 1 END, created_at ASC LIMIT ?"
     ).bind(since, MAX_LISTED),
     env.DB.prepare("SELECT COUNT(*) AS n FROM messages WHERE created_at >= ?").bind(since),
     env.DB.prepare("SELECT COUNT(*) AS n FROM messages WHERE status = 'new'"),
@@ -93,6 +95,13 @@ function moreAr(n) {
   return n === 1 ? "ورسالة أخرى" : n === 2 ? "ورسالتان أخريان" : n <= 10 ? `و${n} رسائل أخرى` : `و${n} رسالة أخرى`;
 }
 
+// "📱 من التطبيق · آيفون · 1.0.4 · ja · " for messages sent from an app.
+function fromAppAr(m) {
+  if (m.source !== "app") return "";
+  const dev = { ios: "آيفون", android: "أندرويد" }[m.platform] || "";
+  return ["📱 من التطبيق", dev, m.app_version, m.user_lang].filter(Boolean).join(" · ") + " · ";
+}
+
 function cut(s) {
   s = String(s || "").trim();
   return s.length > SNIPPET ? s.slice(0, SNIPPET) + "…" : s;
@@ -101,7 +110,7 @@ function cut(s) {
 function renderText(list, count, waiting) {
   const lines = [`وصلت ${countAr(count)} خلال آخر 24 ساعة.`, ""];
   for (const m of list) {
-    lines.push(`— ${APP_AR[m.app] || m.app} · ${TYPE_AR[m.type] || m.type} · ${riyadhTime(m.created_at)}${m.flagged ? " · ⚠ مشبوهة" : ""}`);
+    lines.push(`— ${fromAppAr(m)}${APP_AR[m.app] || m.app} · ${TYPE_AR[m.type] || m.type} · ${riyadhTime(m.created_at)}${m.flagged ? " · ⚠ مشبوهة" : ""}`);
     lines.push(cut(m.body));
     if (m.name || m.contact) lines.push([m.name, m.contact].filter(Boolean).join(" · "));
     lines.push("");
@@ -119,7 +128,7 @@ function esc(s) {
 function renderHtml(list, count, waiting) {
   const items = list.map((m) => `
     <tr><td style="padding:14px 16px;border-bottom:1px solid #e3ecec">
-      <div style="font-size:13px;color:#0f766e;font-weight:bold">${esc(APP_AR[m.app] || m.app)} · ${esc(TYPE_AR[m.type] || m.type)}
+      <div style="font-size:13px;color:#0f766e;font-weight:bold">${m.source === "app" ? `<span style="background:#FFF1CC;color:#8A5A00;border-radius:6px;padding:0 6px">${esc(fromAppAr(m).replace(/ · $/, ""))}</span> ` : ""}${esc(APP_AR[m.app] || m.app)} · ${esc(TYPE_AR[m.type] || m.type)}
         <span style="color:#6b7f7f;font-weight:normal"> · ${esc(riyadhTime(m.created_at))}</span>
         ${m.flagged ? '<span style="color:#b45309"> · ⚠ مشبوهة</span>' : ""}</div>
       <div dir="auto" style="margin-top:6px;font-size:15px;line-height:1.7;color:#1f2d2d;white-space:pre-wrap">${esc(cut(m.body))}</div>

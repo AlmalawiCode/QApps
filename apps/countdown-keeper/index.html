@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>(function(){try{var l=localStorage.getItem('qapps-lang');if(!l){l=((navigator.language||navigator.userLanguage||'en').slice(0,2)==='ar')?'ar':'en';}var d=document.documentElement;d.setAttribute('data-lang',l);d.setAttribute('lang',l);d.setAttribute('dir',l==='ar'?'rtl':'ltr');var m={en:d.getAttribute('data-title-en'),ar:d.getAttribute('data-title-ar')};if(m[l]){document.title=m[l];}}catch(e){}})();</script>
+<script>(function(){try{var S=["en", "ar"],R=["ar", "ur"];var q=new URLSearchParams(location.search).get('lang');var l=(q&&S.indexOf(q)>=0)?q:localStorage.getItem('qapps-lang');if(!l||S.indexOf(l)<0){var n=(navigator.language||navigator.userLanguage||'en').slice(0,2);l=S.indexOf(n)>=0?n:'en';}var d=document.documentElement;d.setAttribute('data-lang',l);d.setAttribute('lang',l);d.setAttribute('dir',R.indexOf(l)>=0?'rtl':'ltr');var m={en:d.getAttribute('data-title-en'),ar:d.getAttribute('data-title-ar')};if(m[l]){document.title=m[l];}}catch(e){}})();</script>
 <title>Countdown Keeper — How long since, how long until | Q Apps</title>
 <meta name="description" content="Countdown Keeper shows how long has passed since your important dates and how long is left until the next ones — live counters in Hijri and Gregorian, reminders and date tools. 14 features.">
 <link rel="canonical" href="https://qeuapps.com/apps/countdown-keeper/">
