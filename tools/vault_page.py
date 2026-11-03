@@ -115,8 +115,12 @@ N_MAIN = len(FEATURES)
 N_SUB = sum(len(f[3]) for f in FEATURES)
 
 
-def build_page(render, h, p, crumbs, app, store_button):
-    """Writes /apps/vault/ and returns its canonical URL."""
+def build_page(render, h, p, crumbs, app, store_button, promo=None):
+    """Writes /apps/vault/ and returns its canonical URL.
+
+    promo = (badge_html, section_html, css) from tools/promo_section.py: the
+    «free full version» offer (hidden until /api/promo/status says it is on)."""
+    promo_badge, promo_section, promo_css = promo or ("", "", "")
 
     def img(name, alt_en, alt_ar, eager=False):
         load = "eager" if eager else "lazy"
@@ -144,6 +148,7 @@ def build_page(render, h, p, crumbs, app, store_button):
        "احفظ كل فاتورة وكل منتج وكل ضمان في مكان واحد، واعرف بالضبط كم يومًا بقي، واحصل على تذكير قبل أن ينتهي — "
        f"{N_MAIN} خاصية رئيسية و{N_SUB} أداة داخلها.", "lead")}
     <div class="stores">{stores}</div>
+    {promo_badge}
   </div>
   <div class="dm-hero-stage">
     {phone("home", "Vault home page", "الصفحة الرئيسية في خزنة الضمانات", "dm-p1", eager=True)}
@@ -361,7 +366,7 @@ def build_page(render, h, p, crumbs, app, store_button):
     js = docmatic_page.JS.replace("/assets/img/apps/docmatic/", f"{IMG}/")
     body = (crumbs([("Home", "الرئيسية", "/"), ("Apps", "التطبيقات", "/apps/"), (app["name_en"], app["name_ar"], None)])
             + hero + site_layout.app_tabs(app, has_video=True) + stats + gallery + catalogue + spots + story + journey + price + video + faq
-            + site_layout.help_links(app) + docmatic_page.suggest_card("vault", "Vault", "خزنة الضمانات") + cta
+            + site_layout.help_links(app) + docmatic_page.suggest_card("vault", "Vault", "خزنة الضمانات") + promo_section + cta
             + lightbox + f"<script>{js}</script>")
 
     return render("/apps/vault/",
@@ -369,4 +374,4 @@ def build_page(render, h, p, crumbs, app, store_button):
                   "خزنة الضمانات — إدارة الفواتير والضمانات | كيو آبز",
                   f"Vault keeps your invoices, products and warranties in one place, counts the days left and reminds you before a warranty ends — {N_MAIN} features in 18 languages.",
                   f"خزنة الضمانات تحفظ فواتيرك ومنتجاتك وضماناتك في مكان واحد، وتعدّ الأيام المتبقية، وتذكّرك قبل انتهاء الضمان — {N_MAIN} خاصية بـ 18 لغة.",
-                  body, active="apps", head_extra=f"<style>{docmatic_page.CSS}</style>")
+                  body, active="apps", head_extra=f"<style>{docmatic_page.CSS}{promo_css}</style>")

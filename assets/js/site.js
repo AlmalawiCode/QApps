@@ -63,6 +63,26 @@
     }
   }
 
+  // Campaign source (?utm_source=…) for the download statistic, kept for the
+  // visit so a tap on a later page still counts for the link that brought you.
+  function source() {
+    try {
+      var m = (location.search || "").match(/[?&]utm_source=([^&#]*)/);
+      if (m) sessionStorage.setItem("qapps_src", decodeURIComponent(m[1].replace(/\+/g, " ")).slice(0, 40));
+      return sessionStorage.getItem("qapps_src") || "";
+    } catch (e) { return ""; }
+  }
+  source();
+
+  // Download statistic: a tap on an App Store / Google Play button is one row
+  // (/api/promo/e — no cookie, no address; see /privacy/#free). A tap is not
+  // an install; installs are in the store consoles.
+  function countStoreTap(a) {
+    var body = JSON.stringify({ href: a.href, kind: "download", page: location.pathname, src: source(), lang: current() });
+    try { if (navigator.sendBeacon && navigator.sendBeacon("/api/promo/e", body)) return; } catch (e) {}
+    try { fetch("/api/promo/e", { method: "POST", body: body, keepalive: true, headers: { "content-type": "text/plain" } }); } catch (e) {}
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     // Sync button labels with whatever the head script already applied.
     apply(current());
@@ -74,6 +94,8 @@
         setLang(current() === "ar" ? "en" : "ar");
         return;
       }
+      var storeLink = e.target.closest && e.target.closest("a.store-btn");
+      if (storeLink && /apps\.apple\.com|play\.google\.com/.test(storeLink.href)) countStoreTap(storeLink);
       var send = e.target.closest && e.target.closest("[data-suggest-send]");
       if (send) {
         e.preventDefault();

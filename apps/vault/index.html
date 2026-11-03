@@ -139,6 +139,37 @@ html[dir="rtl"] .dm-suggest-tx b{font-family:var(--f-display-ar)}
   .dm-n3 .dm-phone:nth-child(2){margin-top:0}
   .dm-story-text p{font-size:17px}
 }
+
+.pf-wrap[hidden],.pf-wrap [hidden],.pf-badge[hidden]{display:none!important}
+.pf-badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent-soft);color:var(--ink);border:1.5px dashed var(--accent);border-radius:999px;padding:6px 14px;font-weight:700;font-size:14.5px;text-decoration:none;width:max-content;max-width:100%}
+.pf-badge:hover{color:var(--ink);text-decoration:none;transform:translateY(-1px)}
+.pf-wrap{padding-top:0}
+.pf{background:var(--night);color:var(--on-night);border-radius:var(--radius);padding:36px;display:grid;gap:22px}
+.pf-head{display:flex;gap:16px;align-items:flex-start}
+.pf-gift{font-size:44px;line-height:1}
+.pf h2{color:#fff;font-size:clamp(26px,3.4vw,40px);margin:0 0 6px}
+.pf-head p{color:var(--on-night-muted);margin:0;font-size:17px}
+.pf-left{display:inline-block;margin-inline-start:8px;background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:0 10px;font-size:14px}
+.pf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.pf-card{background:var(--night-2);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius-sm);padding:20px;display:grid;gap:10px;align-content:start}
+.pf-card h3{color:#fff;font-size:19px;margin:0 0 4px}
+.pf-card [data-pf-state]{display:grid;gap:10px}
+.pf-card [data-pf-state][hidden]{display:none}
+.pf-btn{display:flex;align-items:center;justify-content:center;gap:10px;border-radius:14px;padding:13px 16px;font:inherit;font-weight:700;font-size:16px;text-decoration:none;cursor:pointer;border:1.5px solid transparent;transition:transform .2s;width:100%}
+.pf-btn:hover{transform:translateY(-1px);text-decoration:none}
+.pf-btn i{font-style:normal;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;font-size:13px;background:rgba(0,0,0,.18)}
+.pf-btn-1{background:var(--accent);color:var(--accent-ink)}
+.pf-btn-1:hover{color:var(--accent-ink)}
+.pf-btn-2{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.pf-btn-2:hover{color:#fff;border-color:#fff}
+.pf-btn[disabled]{opacity:.6;cursor:wait}
+.pf-note{color:var(--on-night-muted);font-size:14px;margin:0}
+.pf-msg{color:#fff;margin:0}
+.pf-code{border:2px dashed var(--accent);border-radius:14px;text-align:center;font-family:var(--f-mono);font-size:clamp(16px,4.6vw,22px);font-weight:700;letter-spacing:1px;padding:12px 8px;color:#fff;word-break:break-all;user-select:all}
+.pf-fine{color:var(--on-night-muted);font-size:14px;margin:0}
+.pf-fine a{color:var(--on-night);margin-inline-start:6px}
+.pf-ts:empty{display:none}
+@media (max-width:620px){.pf{padding:22px}.pf-gift{font-size:34px}}
 </style>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
@@ -226,6 +257,7 @@ html[dir="rtl"] .dm-suggest-tx b{font-family:var(--f-display-ar)}
     <h1 data-en>Never lose a warranty <em>again.</em></h1><h1 data-ar>لا تخسر ضمانًا <em>مرة ثانية.</em></h1>
     <p class="lead" data-en>Keep every invoice, every product and every warranty in one place, see exactly how many days are left, and get a reminder before it ends — 16 main features and 66 tools inside them.</p><p class="lead" data-ar>احفظ كل فاتورة وكل منتج وكل ضمان في مكان واحد، واعرف بالضبط كم يومًا بقي، واحصل على تذكير قبل أن ينتهي — 16 خاصية رئيسية و66 أداة داخلها.</p>
     <div class="stores"><a class="store-btn" href="https://apps.apple.com/app/id6773164894" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 1.6c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.9 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.9-1.4zM19 17.3c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.3-1.5 0-1.9-1-4-1-2 0-2.5 1-4 1-1.6 0-2.9-1.6-3.9-3.1-2.7-4.2-3-9.1-1.3-11.7 1.2-1.8 3-2.9 4.8-2.9 1.8 0 2.9 1 4.4 1 1.4 0 2.3-1 4.4-1 1.6 0 3.2.9 4.4 2.4-3.9 2.1-3.2 7.6.2 9.1z"/></svg><span><small data-en>Download on the</small><small data-ar>حمّله من</small><strong>App Store</strong></span></a><a class="store-btn" href="https://play.google.com/store/apps/details?id=com.vault.warranty" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.2c-.3.3-.5.7-.5 1.3v17c0 .6.2 1 .5 1.3l.1.1L13 12.6v-.2L3.7 2.1l-.1.1zm11.9 8.5L5.9 1.4l11.7 6.7-2.1 2.6zM5.9 22.6l9.6-9.3 2.1 2.6-11.7 6.7zM19.6 9.3l-2.5 1.4 2.4 3-2.4 3 2.5 1.4c.9-.5 1.5-1.3 1.5-2.4v-4c0-1.1-.6-1.9-1.5-2.4l-.5.6.5-.6z"/></svg><span><small data-en>Get it on</small><small data-ar>احصل عليه من</small><strong>Google Play</strong></span></a></div>
+    <a class="pf-badge" href="#free" data-pf-badge hidden><span data-en>🎁 Full version free for a limited time ↓</span><span data-ar>🎁 النسخة الكاملة مجانًا لفترة محدودة ↓</span></a>
   </div>
   <div class="dm-hero-stage">
     <button type="button" class="dm-phone dm-p1" data-zoom="home" aria-label="Vault home page"><img data-en src="/assets/img/apps/vault/home_en.webp" alt="Vault home page" loading="eager" width="620" height="1341"><img data-ar src="/assets/img/apps/vault/home_ar.webp" alt="الصفحة الرئيسية في خزنة الضمانات" loading="eager" width="620" height="1341"></button>
@@ -389,7 +421,61 @@ html[dir="rtl"] .dm-suggest-tx b{font-family:var(--f-display-ar)}
     </span>
     <span class="dm-suggest-go"><span data-en>Suggest a feature →</span><span data-ar>اقترح ميزة ←</span></span>
   </a>
-</div></section><section style="padding-top:0"><div class="container"><div class="cta-band">
+</div></section><section id="free" class="pf-wrap" data-promo-app="vault" data-sitekey="" hidden><div class="container">
+<div class="pf">
+  <div class="pf-head">
+    <span class="pf-gift" aria-hidden="true">🎁</span>
+    <div>
+      <h2 data-en>The full version free, for life</h2><h2 data-ar>النسخة الكاملة مجانًا مدى الحياة</h2>
+      <p><span data-en>Limited number, for a limited time. Download first, then activate the offer.</span><span data-ar>العدد محدود والمدة محدودة. نزّل التطبيق أولًا، ثم فعّل العرض.</span>
+      <b class="pf-left" data-pf-left hidden></b></p>
+    </div>
+  </div>
+  <div class="pf-grid" data-pf-grid>
+    <div class="pf-card" data-pf-apple hidden>
+      <h3 data-en>🍎 iPhone &amp; iPad</h3><h3 data-ar>🍎 آيفون وآيباد</h3>
+      <a class="pf-btn pf-btn-2" href="https://apps.apple.com/app/id6773164894" target="_blank" rel="noopener" data-pf-kind="download" data-pf-platform="ios">
+        <i>1</i><span data-en>Download from the App Store</span><span data-ar>نزّل من App Store</span></a>
+      <a class="pf-btn pf-btn-1" href="#" target="_blank" rel="noopener" data-pf-kind="redeem" data-pf-platform="ios" data-pf-apple-redeem>
+        <i>2</i><span data-en>Activate the free offer</span><span data-ar>فعّل العرض المجاني</span></a>
+      <p class="pf-note"><span data-en>Step 2 opens the App Store with the offer code already filled in.</span><span data-ar>الخطوة 2 تفتح App Store وكود العرض مكتوب فيه.</span></p>
+    </div>
+    <div class="pf-card" data-pf-android hidden>
+      <h3 data-en>🤖 Android</h3><h3 data-ar>🤖 أندرويد</h3>
+      <div data-pf-state="intro">
+        <a class="pf-btn pf-btn-2" href="https://play.google.com/store/apps/details?id=com.vault.warranty" target="_blank" rel="noopener" data-pf-kind="download" data-pf-platform="android">
+          <i>1</i><span data-en>Download from Google Play</span><span data-ar>نزّل من Google Play</span></a>
+        <button type="button" class="pf-btn pf-btn-1" data-pf-claim>
+          <i>2</i><span data-en>Get your offer code</span><span data-ar>احصل على كود العرض</span></button>
+        <p class="pf-note"><span data-en>One code for you, used once.</span><span data-ar>كود واحد لك، يُستخدم مرة واحدة.</span></p>
+      </div>
+      <div data-pf-state="code" hidden>
+        <p class="pf-note"><span data-en>Your offer code:</span><span data-ar>كود العرض الخاص بك:</span></p>
+        <div class="pf-code" data-pf-code dir="ltr"></div>
+        <a class="pf-btn pf-btn-1" href="#" target="_blank" rel="noopener" data-pf-kind="redeem" data-pf-platform="android" data-pf-play-redeem>
+          <span data-en>Activate the code in Google Play ›</span><span data-ar>فعّل الكود في Google Play ›</span></a>
+        <button type="button" class="pf-btn pf-btn-2" data-pf-copy><span data-en>Copy the code</span><span data-ar>انسخ الكود</span></button>
+        <p class="pf-note" data-pf-copied hidden><span data-en>Copied ✓</span><span data-ar>تم النسخ ✓</span></p>
+      </div>
+      <div data-pf-state="empty" hidden>
+        <p class="pf-msg">💛 <span data-en>The free codes have all been taken.</span><span data-ar>نفدت الأكواد المجانية لاكتمال العدد.</span></p>
+        <a class="pf-btn pf-btn-2" href="https://play.google.com/store/apps/details?id=com.vault.warranty" target="_blank" rel="noopener" data-pf-kind="download" data-pf-platform="android"><span data-en>Download from Google Play</span><span data-ar>حمّل من Google Play</span></a>
+      </div>
+      <div data-pf-state="limit" hidden>
+        <p class="pf-msg"><span data-en>Codes from this connection have reached today's limit. Please try again tomorrow.</span><span data-ar>وصلت الأكواد من هذه الشبكة إلى حدّ اليوم. حاول مرة أخرى غدًا.</span></p>
+      </div>
+      <div data-pf-state="error" hidden>
+        <p class="pf-msg"><span data-en>We could not get a code. Please try again.</span><span data-ar>تعذّر الحصول على الكود. حاول مرة أخرى.</span></p>
+        <button type="button" class="pf-btn pf-btn-2" data-pf-retry><span data-en>Try again</span><span data-ar>أعد المحاولة</span></button>
+      </div>
+      <div class="pf-ts" data-pf-ts></div>
+    </div>
+  </div>
+  <p class="pf-fine"><span data-en>After the offer ends, the app stays free with up to 3 invoices.</span><span data-ar>بعد انتهاء العرض يبقى التطبيق مجانيًا حتى 3 فواتير.</span>
+    <a href="/privacy/#free"><span data-en>What we keep</span><span data-ar>ماذا نحفظ</span></a></p>
+</div>
+</div></section>
+<script src="/assets/js/promo.js?v=4ecdea8db6" defer></script><section style="padding-top:0"><div class="container"><div class="cta-band">
   <div>
     <h2 data-en>Never lose a warranty again.</h2><h2 data-ar>لا تخسر ضمانًا مرة ثانية.</h2>
     <p data-en>Download Vault and keep every invoice and warranty in one place.</p><p data-ar>حمّل خزنة الضمانات واحفظ كل فاتورة وكل ضمان في مكان واحد.</p>
@@ -427,7 +513,7 @@ html[dir="rtl"] .dm-suggest-tx b{font-family:var(--f-display-ar)}
     <span>&copy; 2026 <span data-en>Q Apps. All rights reserved.</span><span data-ar>كيو آبز. جميع الحقوق محفوظة.</span></span>
   </div>
 </div></footer>
-<script src="/assets/js/site.js?v=fe561f2f3e" defer></script>
+<script src="/assets/js/site.js?v=0fee4de333" defer></script>
 <script>document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-lang-toggle]');if(!b)return;setTimeout(function(){var d=document.documentElement,l=d.getAttribute('data-lang');var m={en:d.getAttribute('data-title-en'),ar:d.getAttribute('data-title-ar')};if(m[l]){document.title=m[l];}},0);});</script>
 </body>
 </html>
