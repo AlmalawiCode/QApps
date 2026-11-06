@@ -688,8 +688,8 @@ def page_app_vault():
     a = APPS["vault"]
     promo = (promo_section.badge(),
              promo_section.section("vault", a["appstore"], a["playstore"],
-                                   "After the offer ends, the app stays free with up to 3 invoices.",
-                                   "بعد انتهاء العرض يبقى التطبيق مجانيًا حتى 3 فواتير.",
+                                   "Activate the offer and the full version is yours for life — no subscription, nothing to pay later. Without the offer, the app is free for up to 3 invoices.",
+                                   "فعّل العرض وتصبح النسخة الكاملة لك مدى الحياة — بلا اشتراك وبلا رسوم لاحقًا. وبدون العرض، التطبيق مجاني حتى 3 فواتير.",
                                    TURNSTILE_SITE_KEY, PROMO_JS_SRC),
              promo_section.CSS)
     return vault_page.build_page(render, h, p, crumbs, a, store_button, promo)
