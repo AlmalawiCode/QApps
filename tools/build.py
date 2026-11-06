@@ -194,7 +194,7 @@ def store_button(kind, url):
                 f'<strong>Google Play</strong></span></a>')
     if kind == "youtube":
         return (f'<a class="store-btn" style="background:#c4302b" href="{url}" target="_blank" rel="noopener">{YT_SVG}'
-                f'<span><small data-en>Watch on</small><small data-ar>شاهده على</small>'
+                f'<span><small data-en>Tutorials on</small><small data-ar>شرح التطبيق على</small>'
                 f'<strong>YouTube</strong></span></a>')
     return ""
 
@@ -263,8 +263,10 @@ APPS = {
         "status": "live",
         "appstore": "https://apps.apple.com/app/id6773164894",
         "playstore": "https://play.google.com/store/apps/details?id=com.vault.warranty",
-        "youtube": "https://www.youtube.com/watch?v=SjafmkwycsA&t=167s",
-        "youtube_embed": "https://www.youtube.com/embed/SjafmkwycsA?start=167",
+        # The owner's own Arabic tutorial playlist «شرح تطبيق خزنة الضمانات» on
+        # the @qeuapps-ar channel (replaced a third-party review video, 2026-11-06).
+        "youtube": "https://www.youtube.com/playlist?list=PLVw-KHF4Mj74",
+        "youtube_embed": "https://www.youtube.com/embed/videoseries?list=PLVw-KHF4Mj74",
         # Vault ships its privacy policy in 8 languages (real, authoritative
         # translations preserved from the app project); other content is EN/AR.
         "overview_langs": ["en", "ar"],

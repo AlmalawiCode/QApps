@@ -96,6 +96,8 @@ def help_links(app):
     slug = app["slug"]
     have = app.get("pages", ["app", "tutorial", "privacy", "support"])
     cards = []
+    if app.get("youtube"):
+        cards.append((app["youtube"], "▶️", "Video tutorials", "شرح بالفيديو", "Our YouTube playlist", "قائمتنا على YouTube"))
     if "tutorial" in have:
         cards.append((f"/tutorials/{slug}/", "📘", "Tutorial", "الشرح", "Step by step", "خطوة بخطوة"))
     if "privacy" in have:
@@ -103,7 +105,7 @@ def help_links(app):
     if "support" in have:
         cards.append((f"/support/{slug}/", "🛟", "Support", "الدعم", "Answers and contact", "إجابات وتواصل"))
     html = "".join(
-        f'<a class="qa-help-card" href="{u}"><span class="qa-help-ic" aria-hidden="true">{ic}</span>'
+        f'<a class="qa-help-card" href="{u}"{" target=_blank rel=noopener" if u.startswith("http") else ""}><span class="qa-help-ic" aria-hidden="true">{ic}</span>'
         f'{_two(te, ta, "b")}{_two(de, da, "small")}</a>'
         for u, ic, te, ta, de, da in cards)
     return f'''<section class="qa-help"><div class="container">
