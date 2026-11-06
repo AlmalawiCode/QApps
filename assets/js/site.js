@@ -77,8 +77,16 @@
   // Download statistic: a tap on an App Store / Google Play button is one row
   // (/api/promo/e — no cookie, no address; see /privacy/#free). A tap is not
   // an install; installs are in the store consoles.
-  function countStoreTap(a) {
-    var body = JSON.stringify({ href: a.href, kind: "download", page: location.pathname, src: source(), lang: current() });
+  // The app whose page we are on (/apps/<slug>/, /tutorials/<slug>/, /vault/…),
+  // so a YouTube tap — which has no store link — is counted for the right app.
+  function pageApp() {
+    var m = location.pathname.match(/^\/(?:apps|tutorials|support|privacy)\/([a-z0-9-]+)\//);
+    if (m) return m[1];
+    if (/^\/vault(-new)?\//.test(location.pathname)) return "vault";
+    return "";
+  }
+  function countStoreTap(a, kind) {
+    var body = JSON.stringify({ href: a.href, app: pageApp(), kind: kind || "download", page: location.pathname, src: source(), lang: current() });
     try { if (navigator.sendBeacon && navigator.sendBeacon("/api/promo/e", body)) return; } catch (e) {}
     try { fetch("/api/promo/e", { method: "POST", body: body, keepalive: true, headers: { "content-type": "text/plain" } }); } catch (e) {}
   }
@@ -96,6 +104,7 @@
       }
       var storeLink = e.target.closest && e.target.closest("a.store-btn");
       if (storeLink && /apps\.apple\.com|play\.google\.com/.test(storeLink.href)) countStoreTap(storeLink);
+      else if (storeLink && /youtube\.com|youtu\.be/.test(storeLink.href)) countStoreTap(storeLink, "youtube");
       var send = e.target.closest && e.target.closest("[data-suggest-send]");
       if (send) {
         e.preventDefault();

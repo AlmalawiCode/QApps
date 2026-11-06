@@ -260,7 +260,8 @@ behind `api.thiban1.com`):
 | `functions/api/admin/promo.js` | dashboard API (Cloudflare Access only): summary, codes, CSV, add/void codes, offer settings |
 | `admin/promo/index.html` | dashboard «الأكواد والتحميل» (linked from `/admin/`) |
 | `assets/js/promo.js`, `tools/promo_section.py` | the section on the app page |
-| `assets/js/site.js` | counts taps on every `.store-btn` on every page; keeps `?utm_source` for the visit |
+| `assets/js/site.js` | counts taps on every `.store-btn` on every page (store links → kind `download`, YouTube links → kind `youtube`, app from the page path); keeps `?utm_source` for the visit |
+| `admin/promo/` «إحصائية بسيطة» | first table on the dashboard: per day and app, taps on the app's store buttons vs its YouTube button (owner's request, 2026-11-06) |
 
 **The codes are never in this repo.** Add them on `/admin/promo/` (paste the
 Play Console list; duplicates are ignored), or by hand:

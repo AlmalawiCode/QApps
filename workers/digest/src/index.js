@@ -90,20 +90,21 @@ export async function promoSummary(db, since) {
     const [apps, codes, taps] = await db.batch([
       db.prepare("SELECT id, slug, name_ar, offer_active FROM apps ORDER BY id"),
       db.prepare("SELECT app_id, SUM(status = 'available') AS left, SUM(status = 'issued' AND issued_at >= ?) AS given FROM promo_codes WHERE platform = 'android' GROUP BY app_id").bind(since),
-      db.prepare("SELECT app_id, platform, COUNT(*) AS n FROM store_clicks WHERE kind = 'download' AND created_at >= ? GROUP BY app_id, platform").bind(since),
+      db.prepare("SELECT app_id, platform, kind, COUNT(*) AS n FROM store_clicks WHERE kind IN ('download', 'youtube') AND created_at >= ? GROUP BY app_id, platform, kind").bind(since),
     ]);
     return apps.results.map((a) => {
       const c = codes.results.find((r) => r.app_id === a.id) || {};
       const t = taps.results.filter((r) => r.app_id === a.id);
-      const ios = t.filter((r) => r.platform === "ios").reduce((n, r) => n + r.n, 0);
-      const android = t.filter((r) => r.platform === "android").reduce((n, r) => n + r.n, 0);
+      const ios = t.filter((r) => r.kind === "download" && r.platform === "ios").reduce((n, r) => n + r.n, 0);
+      const android = t.filter((r) => r.kind === "download" && r.platform === "android").reduce((n, r) => n + r.n, 0);
+      const youtube = t.filter((r) => r.kind === "youtube").reduce((n, r) => n + r.n, 0);
       const hasCodes = c.left !== undefined && c.left !== null;
       return {
         name: a.name_ar || a.slug, active: !!a.offer_active, hasCodes,
-        given: c.given || 0, left: c.left || 0, ios, android, taps: ios + android,
+        given: c.given || 0, left: c.left || 0, ios, android, youtube, taps: ios + android,
         low: !!a.offer_active && hasCodes && (c.left || 0) < LOW_CODES,
       };
-    }).filter((a) => a.active || a.given || a.taps);
+    }).filter((a) => a.active || a.given || a.taps || a.youtube);
   } catch (e) {
     console.log("digest: no promo tables yet");
     return [];
@@ -113,7 +114,7 @@ export async function promoSummary(db, since) {
 function promoLine(a) {
   const parts = [];
   if (a.hasCodes) parts.push(`أكواد أُعطيت ${a.given} · الباقي ${a.left}`);
-  parts.push(`نقرات التحميل ${a.taps} (App Store ${a.ios} · Google Play ${a.android})`);
+  parts.push(`نقرات التحميل ${a.taps} (App Store ${a.ios} · Google Play ${a.android}) · نقرات YouTube ${a.youtube}`);
   return `${a.name}: ${parts.join(" · ")}`;
 }
 

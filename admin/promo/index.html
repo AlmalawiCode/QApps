@@ -82,7 +82,7 @@ a.btnl,button.lnk{border:1px solid var(--line);background:var(--surface);border-
   "use strict";
   var DEV = {iphone: "آيفون", ipad: "آيباد", samsung: "سامسونج", android: "أندرويد", android_tablet: "تابلت أندرويد", mac: "ماك", windows: "ويندوز", linux: "لينكس", other: "أخرى"};
   var BR = {safari: "Safari", chrome: "Chrome", samsung: "Samsung Internet", firefox: "Firefox", edge: "Edge", opera: "Opera", instagram: "داخل إنستغرام", snapchat: "داخل سناب", tiktok: "داخل تيك توك", facebook: "داخل فيسبوك", x: "داخل X", whatsapp: "داخل واتساب", other: "أخرى"};
-  var KIND = {download: "تحميل", redeem: "تفعيل العرض", code: "كود أُعطي", copy: "نسخ الكود", visit: "زيارة صفحة الحملة"};
+  var KIND = {download: "تحميل", youtube: "▶️ YouTube", redeem: "تفعيل العرض", code: "كود أُعطي", copy: "نسخ الكود", visit: "زيارة صفحة الحملة"};
   var ST = {issued: "أُعطيت ✗", available: "متاحة", void: "ملغاة"};
   var s = {app: "vault", days: 30, codeStatus: "issued", offset: 0, rows: [], sum: null};
   var $ = function (id) { return document.getElementById(id); };
@@ -135,6 +135,22 @@ a.btnl,button.lnk{border:1px solid var(--line);background:var(--surface);border-
     var appleRedeem = tot("ios", "redeem", "all_time");
     var html = "";
 
+    // The simple statistic the owner asked for (2026-11-06): one row per day
+    // and app — taps on the app's store buttons, and taps on its YouTube button.
+    var simple = {};
+    (d.clicks.byDay || []).forEach(function (r) {
+      if (r.kind !== "download" && r.kind !== "youtube") return;
+      var k = r.day + "|" + r.app_id;
+      var x = simple[k] || (simple[k] = {day: r.day, app_id: r.app_id, app: 0, youtube: 0});
+      x[r.kind === "youtube" ? "youtube" : "app"] += r.n;
+    });
+    var sk = Object.keys(simple).sort().reverse();
+    var appName = function (id) { var x = d.apps.filter(function (a) { return a.id === id; })[0]; return x ? (x.name_ar || x.slug) : id; };
+    html += '<h2>إحصائية بسيطة — كل التطبيقات</h2><p class="note">لكل يوم: كم نقرة على زر التطبيق (App Store / Google Play) وكم نقرة على زر YouTube، لكل تطبيق. (آخر ' + s.days + ' يومًا)</p>';
+    html += '<div class="tbl-wrap"><table><thead><tr><th>اليوم</th><th>التطبيق</th><th>نقرات التطبيق</th><th>نقرات YouTube</th></tr></thead><tbody>' +
+      (sk.length ? sk.map(function (k) { var x = simple[k]; return "<tr><td>" + x.day + "</td><td>" + esc(appName(x.app_id)) + "</td><td>" + x.app + "</td><td>" + x.youtube + "</td></tr>"; }).join("")
+                 : '<tr><td colspan="4">لا نقرات بعد.</td></tr>') + "</tbody></table></div>";
+
     html += '<h2>العرض المجاني</h2><div class="stats">' +
       '<div class="stat"><b>' + total + '</b><span>أكواد أندرويد</span></div>' +
       '<div class="stat"><b>' + c.issued + '</b><span>أُعطيت ✗ (اليوم ' + (rec.d1 || 0) + ' · الأسبوع ' + (rec.d7 || 0) + ')</span></div>' +
@@ -166,7 +182,7 @@ a.btnl,button.lnk{border:1px solid var(--line);background:var(--surface);border-
       return '<button class="chip' + (s.days === n ? " on" : "") + '" data-days="' + n + '">آخر ' + n + " يومًا</button>";
     }).join("") + "</div>";
     html += '<p class="note">نقرة على زر المتجر من موقعنا، لا تثبيت فعلي؛ التثبيت الحقيقي في Play Console وApp Store Connect.</p>';
-    var rows = [["ios", "download"], ["android", "download"], ["ios", "redeem"], ["android", "redeem"], ["android", "code"], ["android", "copy"], [null, "visit"]];
+    var rows = [["ios", "download"], ["android", "download"], [null, "youtube"], ["ios", "redeem"], ["android", "redeem"], ["android", "code"], ["android", "copy"], [null, "visit"]];
     html += '<div class="tbl-wrap"><table><thead><tr><th></th><th>آخر 24 ساعة</th><th>آخر 7 أيام</th><th>الكل</th></tr></thead><tbody>' +
       rows.map(function (r) {
         var lbl = (r[0] === "ios" ? "🍎 App Store · " : r[0] === "android" ? "🤖 Google Play · " : "") + KIND[r[1]];
