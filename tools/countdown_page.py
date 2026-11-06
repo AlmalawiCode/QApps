@@ -120,7 +120,9 @@ def build_page(render, h, p, crumbs, app, store_button):
     apple = store_button("apple", app["appstore"]) if app.get("appstore") else ""
     play = (store_button("play", app["playstore"]) if app.get("playstore") else
             '<span class="chip"><span data-en>Google Play — coming soon</span><span data-ar>Google Play — قريبًا</span></span>')
-    stores = f'<div class="stores" style="align-items:center">{apple}{play}</div>'
+    # + the YouTube playlist (promo + tutorials) beside the store buttons (owner, 2026-11-06).
+    tube = store_button("youtube", app["youtube"]) if app.get("youtube") else ""
+    stores = f'<div class="stores" style="align-items:center">{apple}{play}{tube}</div>'
 
     hero = f'''<section class="dm-hero"><div class="container dm-hero-grid">
   <div class="dm-hero-copy">
@@ -333,13 +335,25 @@ def build_page(render, h, p, crumbs, app, store_button):
   {stores}
 </div></div></section>'''
 
+    embed = app.get("youtube_embed")
+    video = f'''<section id="video"><div class="container" style="max-width:860px">
+  {h(2, "The app explained, step by step", "شرح التطبيق خطوة بخطوة", "center")}
+  {p("Short episodes on our YouTube channel: your first event, counters, reminders, the Hijri calendar and more.",
+     "حلقات قصيرة على قناتنا في YouTube: حدثك الأول، والعدّادات، والتذكيرات، والتاريخ الهجري وغيرها.", "center")}
+  <div class="video-wrap" style="margin-top:22px">
+    <iframe src="{embed}" title="Countdown Keeper tutorials on YouTube" loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <p style="text-align:center;margin-top:16px"><a class="btn btn-primary" href="{app['youtube']}" target="_blank" rel="noopener"><span data-en>Open the playlist on YouTube</span><span data-ar>افتح قائمة الشرح على YouTube</span></a></p>
+</div></section>''' if embed else ""
+
     lightbox = '''<div class="dm-lb" hidden><button type="button" class="dm-lb-x" aria-label="Close">✕</button>
   <button type="button" class="dm-lb-nav dm-lb-prev" aria-label="Previous">‹</button>
   <img alt=""><button type="button" class="dm-lb-nav dm-lb-next" aria-label="Next">›</button></div>'''
 
     js = docmatic_page.JS.replace("/assets/img/apps/docmatic/", f"{IMG}/")
     body = (crumbs([("Home", "الرئيسية", "/"), ("Apps", "التطبيقات", "/apps/"), (app["name_en"], app["name_ar"], None)])
-            + hero + site_layout.app_tabs(app) + stats + gallery + catalogue + spots + story + journey + price + faq
+            + hero + site_layout.app_tabs(app, has_video=bool(embed)) + stats + gallery + catalogue + spots + story + journey + price + video + faq
             + site_layout.help_links(app) + docmatic_page.suggest_card("countdown-keeper", "Countdown Keeper", "كم مضى وكم بقي") + cta
             + lightbox + f"<script>{js}</script>")
 

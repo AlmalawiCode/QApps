@@ -213,6 +213,9 @@ APPS = {
         "tagline_ar": "عُدّ تنازليًا لما يهمّك، وتصاعديًا لما مضى من أحداثك.",
         "status": "live",   # App Store (2026-11); Google Play not yet
         "appstore": "https://apps.apple.com/app/id6806348941",
+        # The owner's Arabic playlist «شرح تطبيق كم مضى وكم بقي» on @qeuapps-ar (promo + 7 tutorials, 2026-11-06).
+        "youtube": "https://www.youtube.com/playlist?list=PLcZVEfdjz66U",
+        "youtube_embed": "https://www.youtube.com/embed/videoseries?list=PLcZVEfdjz66U",
         # Language availability is tracked per CONTENT TYPE — an app may ship
         # its privacy policy in more languages than its other content.
         "overview_langs": ["en", "ar"],
@@ -788,7 +791,8 @@ def page_tutorial_countdown():
                          "كيفية استخدام تطبيق «كم مضى وكم بقي»: إضافة المناسبات، وضبط التواريخ المتكرّرة الهجرية/الميلادية، والتذكيرات، واستخدام أدوات التاريخ.",
                          "Learn how to add events, use reminders, recurring dates and the built-in date tools.",
                          "تعلّم كيف تضيف المناسبات، وتستخدم التذكيرات والتواريخ المتكرّرة وأدوات التاريخ المدمجة.",
-                         steps_list, tips, faqs)
+                         steps_list, tips, faqs,
+                         video_embed=APPS["countdown-keeper"]["youtube_embed"])
 
 
 def page_tutorial_vault():
