@@ -40,7 +40,10 @@ def count_label(n):
 def icon_grid(apps, heading=True, h_tag="h2"):
     """The grid of app icons + the dotted «your next app?» tile (decision ب)."""
     tiles = []
-    for slug in APP_ORDER:
+    # Apps flagged "hidden" in build.APPS (e.g. DocMatic while unavailable) get
+    # no tile and are not counted.
+    shown = [s for s in APP_ORDER if not apps[s].get("hidden")]
+    for slug in shown:
         app = apps[slug]
         live = app["status"] == "live"
         badge = (f'<span class="badge badge-live">{_two("Available", "متوفر")}</span>' if live else
@@ -60,7 +63,7 @@ def icon_grid(apps, heading=True, h_tag="h2"):
     head = ""
     if heading:
         head = (f'<div class="qa-grid-head"><{h_tag}>{_two("Our apps", "تطبيقاتنا")}</{h_tag}>'
-                f'<span class="qa-count">{count_label(len(APP_ORDER))}</span></div>')
+                f'<span class="qa-count">{count_label(len(shown))}</span></div>')
     return f'{head}<div class="qa-grid">{"".join(tiles)}</div>'
 
 

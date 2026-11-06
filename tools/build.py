@@ -237,6 +237,13 @@ APPS = {
         "tagline_en": "Scan, sign and send clean PDFs — all on your phone.",
         "tagline_ar": "امسح ووقّع وأرسل ملفات PDF نظيفة — على جوالك.",
         "status": "soon",   # internal testing on Google Play
+        # HIDDEN (owner, 2026-11-06): the app is not available, so it must not
+        # appear anywhere on the site — no tile on the home page or /apps/, no
+        # /apps/docmatic/ page, not in the suggest form, not in the sitemap.
+        # Only the privacy-policy URLs (/privacy/docmatic/<lang>/) are still
+        # generated because the store listing points at them. To bring the
+        # app back, delete this flag and rebuild.
+        "hidden": True,
         # App page (tools/docmatic_page.py) + privacy policy; no tutorial or
         # support page yet, so cards link only to these.
         "pages": ["app", "privacy"],
@@ -591,8 +598,8 @@ def page_apps():
     return render("/apps/",
                   "Our Apps — Q Apps",
                   "تطبيقاتنا — كيو آبز",
-                  "Explore the mobile apps by Q Apps: DocMatic, Vault — Warranty Manager and Countdown Keeper. Private, offline-first, in Arabic and English.",
-                  "استعرض تطبيقات كيو آبز: DocMatic وخزنة الضمانات و«كم مضى وكم بقي». تطبيقات خاصة تعمل دون اتصال، بالعربية والإنجليزية.",
+                  "Explore the mobile apps by Q Apps: Vault — Warranty Manager and Countdown Keeper. Private, offline-first, in Arabic and English.",
+                  "استعرض تطبيقات كيو آبز: خزنة الضمانات و«كم مضى وكم بقي». تطبيقات خاصة تعمل دون اتصال، بالعربية والإنجليزية.",
                   body, active="apps")
 
 
@@ -1181,8 +1188,8 @@ def page_about():
     {feature("🛠️","Craftsmanship","الإتقان","Careful engineering and attention to the details that make apps reliable.","هندسة دقيقة واهتمام بالتفاصيل التي تجعل التطبيقات موثوقة.")}
   </div>
   {h(2, "Our apps", "تطبيقاتنا")}
-  {p("Vault — Warranty Manager and Countdown Keeper are available now, and DocMatic is on the way.",
-     "خزنة الضمانات و«كم مضى وكم بقي» متاحان الآن، وDocMatic قريبًا.")}
+  {p("Vault — Warranty Manager and Countdown Keeper are available now, and more apps are on the way.",
+     "خزنة الضمانات و«كم مضى وكم بقي» متاحان الآن، والمزيد من التطبيقات قريبًا.")}
   <p><a class="btn btn-primary" href="/apps/"><span data-en>See our apps</span><span data-ar>شاهد تطبيقاتنا</span></a></p>
   {h(2, "Get in touch", "تواصل معنا")}
   {p(f'For anything at all, email <a href="mailto:{SUPPORT_EMAIL}">{SUPPORT_EMAIL}</a>.',
@@ -1207,6 +1214,9 @@ def page_suggest():
             ("countdown-keeper", "Countdown Keeper", "كم مضى وكم بقي"),
             ("new-app", "An idea for a new app", "فكرة لتطبيق جديد"),
             ("general", "The website / in general", "الموقع / رأي عام")]
+    # Hidden apps (APPS[slug]["hidden"]) are not offered; the API still accepts
+    # their slug so messages from an installed copy of the app are not lost.
+    apps = [a for a in apps if not APPS.get(a[0], {}).get("hidden")]
     options = "".join(
         f'<option value="{k}" data-en="{esc(en)}" data-ar="{esc(ar)}">{esc(en)} — {esc(ar)}</option>'
         for k, en, ar in apps)
@@ -1406,17 +1416,26 @@ def page_vaultnew():
 def main():
     urls = []
     urls.append(render_home_and_collect())
-    for fn in (page_apps, page_app_countdown, page_app_vault, page_app_docmatic,
-               page_tutorials, page_tutorial_countdown, page_tutorial_vault,
-               page_privacy_index,
-               page_support_index, page_support_countdown, page_support_vault,
-               page_contact, page_about, page_suggest):
+    pages = [page_apps, page_app_countdown, page_app_vault, page_app_docmatic,
+             page_tutorials, page_tutorial_countdown, page_tutorial_vault,
+             page_privacy_index,
+             page_support_index, page_support_countdown, page_support_vault,
+             page_contact, page_about, page_suggest]
+    if APPS["docmatic"].get("hidden"):
+        # No /apps/docmatic/ page at all while the app is hidden (and remove a
+        # previously generated one so it does not stay on the site).
+        pages.remove(page_app_docmatic)
+        stale = os.path.join(ROOT, "apps", "docmatic", "index.html")
+        if os.path.exists(stale):
+            os.remove(stale)
+    for fn in pages:
         urls.append(fn())
     # Localized privacy policies (one direct URL per language, per app).
     priv_count = 0
     for slug in APPS:
         localized = gen_privacy(slug)   # also writes the /privacy/<slug>/ entry
-        urls.extend(localized)          # /privacy/<slug>/<lang>/ in sitemap
+        if not APPS[slug].get("hidden"):
+            urls.extend(localized)      # /privacy/<slug>/<lang>/ in sitemap
         priv_count += len(localized)
     page_vault_redirect()  # branded /vault redirect, not in sitemap
     page_vaultnew()  # v2 campaign frontend (staging), not in sitemap
