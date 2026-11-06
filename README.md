@@ -10,9 +10,11 @@ and **Vault — Warranty Manager**).
   dependency-free Python script and the generated output is committed.
 - **Languages:** English (default) and Modern Standard **Arabic** with full RTL.
   Privacy policies are additionally published in up to 18 languages.
-- **Privacy:** no cookies and no third-party trackers. The only counting is our
-  own: taps on the store buttons and free-code requests (see "Free-version codes"
-  below and `/privacy/#free`).
+- **Privacy:** no cookies and no advertising trackers. Counting only: taps on the
+  store buttons and free-code requests in our own database (see "Free-version
+  codes" below and `/privacy/#free`), plus **Cloudflare Web Analytics** (cookie-less
+  page-view totals; enabled by the owner in the Cloudflare dashboard on 6 Nov 2026,
+  Pages project → Metrics; disclosed at `/privacy/#visits`).
 - **Origin:** migrated from the Thiban Tech Solutions site
   ([AlmalawiCode/thiban1.com](https://github.com/AlmalawiCode/thiban1.com) @ `947ffda`).
   All URL paths (including every `/privacy/<app>/<lang>/` policy URL) are unchanged.

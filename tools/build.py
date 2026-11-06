@@ -846,8 +846,8 @@ def page_privacy_index():
     body = f'''{crumbs([("Home","الرئيسية","/"),("Privacy","الخصوصية",None)])}
 <section class="section"><div class="container prose">
   {h(1, "Privacy", "الخصوصية")}
-  {p("We build privacy-first apps. Our apps are local-first: your data stays on your device, we do not run accounts or servers for your content, and we do not use ads, analytics, or third-party trackers.",
-     "نحن نبني تطبيقات تضع الخصوصية أولًا. تطبيقاتنا تعمل محليًا: بياناتك تبقى على جهازك، ولا نُشغّل حسابات أو خوادم لمحتواك، ولا نستخدم إعلانات أو تحليلات أو أدوات تتبّع من طرف ثالث.", "lead")}
+  {p("We build privacy-first apps. Our apps are local-first: your data stays on your device, we do not run accounts or servers for your content, and we do not use ads, analytics, or third-party trackers. This website only counts: taps on the store buttons and, without cookies, how many people visit it (see below).",
+     "نحن نبني تطبيقات تضع الخصوصية أولًا. تطبيقاتنا تعمل محليًا: بياناتك تبقى على جهازك، ولا نُشغّل حسابات أو خوادم لمحتواك، ولا نستخدم إعلانات أو تحليلات أو أدوات تتبّع من طرف ثالث. وهذا الموقع لا يفعل سوى العدّ: نقرات أزرار المتاجر، وعدد زوّاره بلا كوكيز (انظر أدناه).", "lead")}
   {h(2, "Per-app privacy policies", "سياسات الخصوصية لكل تطبيق")}
   {p("Each app has its own policy describing exactly what it handles:", "لكل تطبيق سياسته الخاصة التي تصف بدقّة ما يتعامل معه:")}
 </div>
@@ -865,8 +865,15 @@ def page_privacy_index():
      "حين تطلب كود النسخة المجانية من هذا الموقع، نعطيك كودًا واحدًا ونسجّل أنه أُعطي: الوقت، ونوع الجهاز والمتصفح (مثل «سامسونج · Chrome»)، والرابط الذي جاء بك (مثل حملة على X)، ولغة الصفحة. ويحفظ جهازك رقمًا عشوائيًا حتى يُظهر لك الكود نفسه إن طلبته مرة ثانية. ولا نطلب اسمك ولا رقمك ولا بريدك.")}
   {p("To stop robots from taking all the codes, the request uses Cloudflare Turnstile, and we keep a salted one-way fingerprint of your connection's address for no more than 24 hours. When you tap «App Store» or «Google Play» on this website we count the tap — the app, the page, the device type and the link that brought you — with no cookie and no address. This is how we know how many people reached the stores from our website.",
      "ولمنع الروبوتات من أخذ الأكواد كلها، يمرّ الطلب عبر Cloudflare Turnstile، ونحفظ بصمة مشفّرة باتجاه واحد لعنوان اتصالك مدة لا تزيد على 24 ساعة. وحين تضغط «App Store» أو «Google Play» في هذا الموقع نعدّ الضغطة — التطبيق والصفحة ونوع الجهاز والرابط الذي جاء بك — بلا كوكيز ولا عنوان. هكذا نعرف كم شخصًا وصل إلى المتاجر من موقعنا.")}
-  {p("Our apps do not send anything themselves; this applies only to what you send from this website.",
-     "تطبيقاتنا لا ترسل شيئًا بنفسها؛ هذا يخص فقط ما ترسله من هذا الموقع.", "fineprint")}
+</div>
+<div class="container prose" id="visits" style="margin-top:44px">
+  {h(2, "Visit counts on this website", "عدّ الزيارات في هذا الموقع")}
+  {p("To know how many people visit this website, we use Cloudflare Web Analytics (from Cloudflare, which hosts the site). It counts page views without cookies, without storing your address, and without building a profile or following you to other sites: we see only totals — which pages were opened, from which country, with which kind of browser, and which site or video brought you. It cannot tell us who you are.",
+     "لنعرف كم شخصًا يزور هذا الموقع، نستخدم Cloudflare Web Analytics (من Cloudflare التي تستضيف الموقع). تعدّ مشاهدات الصفحات بلا كوكيز، وبلا حفظ عنوانك، وبلا بناء ملف عنك أو تتبّعك في مواقع أخرى: لا نرى إلا مجاميع — أي الصفحات فُتحت، ومن أي بلد، وبأي نوع متصفح، وأي موقع أو فيديو جاء بك. ولا يمكنها أن تخبرنا من أنت.")}
+  {p('How Cloudflare handles this is described in its privacy policy: <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a>. We do not use Google Analytics or any advertising tracker.',
+     'وطريقة تعامل Cloudflare مع ذلك موصوفة في سياسة خصوصيتها: <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a>. ولا نستخدم Google Analytics ولا أي أداة تتبّع إعلانية.')}
+  {p("Our apps do not send anything themselves; everything above applies only to this website.",
+     "تطبيقاتنا لا ترسل شيئًا بنفسها؛ كل ما سبق يخص هذا الموقع فقط.", "fineprint")}
 </div>
 </section>'''
     return render("/privacy/",
