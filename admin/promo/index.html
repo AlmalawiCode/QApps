@@ -197,7 +197,7 @@ details.offer[open]>summary{color:var(--ink)}
       return Object.keys(m).sort(function (p, q) { return m[q] - m[p]; }).map(function (k) { return esc(k) + " <b>" + m[k] + "</b>"; }).join(" · ") || "—";
     };
     var cells = function (n, tag) { return COLS.map(function (c) { return "<" + tag + ">" + (n[c[0]] || "·") + "</" + tag + ">"; }).join(""); };
-    var total = function (n) { return CLICKS.reduce(function (t, c) { return t + n[c]; }, 0); };
+    var clicksTotal = function (n) { return CLICKS.reduce(function (t, c) { return t + n[c]; }, 0); };
     // every date in the range, newest first, including the quiet ones
     var allDays = [];
     for (var day = d.to; day >= d.from; day = shift(day, -1)) allDays.push(day);
@@ -211,18 +211,18 @@ details.offer[open]>summary{color:var(--ink)}
       '<span class="sep"></span><button class="chip" id="open-all">افتح الكل</button><button class="chip" id="close-all">أغلق الكل</button></div>';
     html += '<p class="note">كل سطر يوم (بتوقيت السعودية). «الزوار» = كم شخصًا فتح الموقع (أول صفحة في الجلسة، بلا كوكيز)، و«الصفحات المفتوحة» = كل الصفحات التي فُتحت. اضغط اليوم لتفتح تفاصيله: كل تطبيق، ومن أين جاء الزوار، وبأي جهاز، ومن أي صفحة. النقرات من موقعنا، لا تثبيت فعلي. عدّ الزوار بدأ 2026-11-07.</p>';
     html += '<div class="tbl-wrap"><table class="daily"><thead><tr><th>التاريخ</th>' + COLS.map(function (c) { return "<th>" + c[1] + "</th>"; }).join("") + '<th>مجموع النقرات</th></tr>' +
-      '<tr class="sum"><th>المجموع ' + (d.from === d.to ? "" : "من " + d.from + " إلى " + d.to) + '</th>' + cells(sum, "th") + "<th>" + total(sum) + "</th></tr></thead></table></div>";
+      '<tr class="sum"><th>المجموع ' + (d.from === d.to ? "" : "من " + d.from + " إلى " + d.to) + '</th>' + cells(sum, "th") + "<th>" + clicksTotal(sum) + "</th></tr></thead></table></div>";
     html += '<div class="days">' + allDays.map(function (day) {
       var D = byDay[day];
       if (!D) return '<div class="dayrow quiet"><span class="dt">' + dayLabel(day) + '</span><span class="muted">لا نقرات</span></div>';
       var inner = Object.keys(D.apps).sort().map(function (id) {
         var A = D.apps[id];
-        return '<tr><td><b>' + esc(appName(Number(id))) + '</b></td>' + cells(A.n, "td") + "<td>" + total(A.n) + "</td></tr>" +
+        return '<tr><td><b>' + esc(appName(Number(id))) + '</b></td>' + cells(A.n, "td") + "<td>" + clicksTotal(A.n) + "</td></tr>" +
           '<tr class="det"><td colspan="9"><span>الزوار جاؤوا من: ' + lst(A.from) + '</span><span>مصدر النقرات: ' + lst(A.source) + '</span><span>الجهاز: ' + lst(A.device) + '</span><span>الصفحة: ' + lst(A.page) + "</span></td></tr>";
       }).join("");
       return '<details class="dayrow" data-day="' + day + '"' + (s.open[day] ? " open" : "") + '><summary><span class="dt">' + dayLabel(day) + "</span>" +
         COLS.map(function (c) { return D.n[c[0]] ? '<span class="pill">' + c[1] + " <b>" + D.n[c[0]] + "</b></span>" : ""; }).join("") +
-        '<span class="tot">' + total(D.n) + '</span></summary>' +
+        '<span class="tot">' + clicksTotal(D.n) + '</span></summary>' +
         '<div class="tbl-wrap"><table><thead><tr><th>التطبيق</th>' + COLS.map(function (c) { return "<th>" + c[1] + "</th>"; }).join("") + '<th>مجموع النقرات</th></tr></thead><tbody>' + inner + "</tbody></table></div></details>";
     }).join("") + "</div>";
 
