@@ -91,6 +91,35 @@
     try { fetch("/api/promo/e", { method: "POST", body: body, keepalive: true, headers: { "content-type": "text/plain" } }); } catch (e) {}
   }
 
+  // Visitor count (/privacy/#visits): one row per page opened. The first page
+  // of a browser session is a "visit" (= one visitor), later pages are
+  // "view"s; a flag in sessionStorage tells them apart — no cookie, no address.
+  // The source is the campaign tag or, failing that, the site that sent the
+  // visitor (its host name only). Reloads and back/forward are not counted.
+  function countPageLoad() {
+    if (/^\/(admin|api)\//.test(location.pathname)) return;
+    try {
+      var nav = performance.getEntriesByType && performance.getEntriesByType("navigation");
+      if (nav && nav.length && (nav[0].type === "reload" || nav[0].type === "back_forward")) return;
+    } catch (e) {}
+    var first = true;
+    try {
+      first = !sessionStorage.getItem("qapps_visited") && !sessionStorage.getItem("vault_visited");
+      sessionStorage.setItem("qapps_visited", "1");
+    } catch (e) {}
+    var src = source();
+    if (!src && first) {
+      try {
+        var ref = document.referrer ? new URL(document.referrer) : null;
+        if (ref && ref.host !== location.host) src = ref.hostname.replace(/^www\./, "");
+      } catch (e) {}
+    }
+    var body = JSON.stringify({ app: pageApp(), kind: first ? "visit" : "view", page: location.pathname, src: first ? src : (src || "internal"), lang: current() });
+    try { if (navigator.sendBeacon && navigator.sendBeacon("/api/promo/e", body)) return; } catch (e) {}
+    try { fetch("/api/promo/e", { method: "POST", body: body, keepalive: true, headers: { "content-type": "text/plain" } }); } catch (e) {}
+  }
+  countPageLoad();
+
   document.addEventListener("DOMContentLoaded", function () {
     // Sync button labels with whatever the head script already applied.
     apply(current());

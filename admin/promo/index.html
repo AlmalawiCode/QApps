@@ -99,7 +99,7 @@ details.offer[open]>summary{color:var(--ink)}
   "use strict";
   var DEV = {iphone: "آيفون", ipad: "آيباد", samsung: "سامسونج", android: "أندرويد", android_tablet: "تابلت أندرويد", mac: "ماك", windows: "ويندوز", linux: "لينكس", other: "أخرى"};
   var BR = {safari: "Safari", chrome: "Chrome", samsung: "Samsung Internet", firefox: "Firefox", edge: "Edge", opera: "Opera", instagram: "داخل إنستغرام", snapchat: "داخل سناب", tiktok: "داخل تيك توك", facebook: "داخل فيسبوك", x: "داخل X", whatsapp: "داخل واتساب", other: "أخرى"};
-  var KIND = {download: "تحميل", youtube: "▶️ YouTube", redeem: "تفعيل العرض", code: "كود أُعطي", copy: "نسخ الكود", visit: "زيارة صفحة الحملة"};
+  var KIND = {visit: "👥 زائر", view: "صفحة أخرى فُتحت", download: "تحميل", youtube: "▶️ YouTube", redeem: "تفعيل العرض", code: "كود أُعطي", copy: "نسخ الكود"};
   var ST = {issued: "أُعطيت ✗", available: "متاحة", void: "ملغاة"};
   // Date filter: Saudi dates, inclusive. Default = the last 7 days.
   var todayKsa = function () { return new Date(Date.now() + 3 * 3600000).toISOString().slice(0, 10); };
@@ -163,24 +163,30 @@ details.offer[open]>summary{color:var(--ink)}
     // the chosen dates, so the page stays light however long the history.
     var WD = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
     var dayLabel = function (day) { return WD[new Date(day + "T12:00:00+03:00").getDay()] + " " + day; };
-    var COLS = [["ios", "🍎 App Store"], ["android", "🤖 Google Play"], ["youtube", "▶️ YouTube"], ["redeem", "تفعيل العرض"], ["code", "أكواد"]];
+    // visit = one visitor (first page of a browser session); pages = every page
+    // opened (visit + view). The site's own counter, no cookie (/privacy/#visits).
+    var COLS = [["visit", "👥 الزوار"], ["pages", "الصفحات المفتوحة"], ["ios", "🍎 App Store"], ["android", "🤖 Google Play"], ["youtube", "▶️ YouTube"], ["redeem", "تفعيل العرض"], ["code", "أكواد"]];
+    var CLICKS = ["ios", "android", "youtube", "redeem", "code"];
     var cell = function (r) { return r.kind === "download" ? (r.platform === "ios" ? "ios" : "android") : r.kind; };
-    var blank = function () { return {ios: 0, android: 0, youtube: 0, redeem: 0, code: 0}; };
-    var appName = function (id) { var x = d.apps.filter(function (a) { return a.id === id; })[0]; return x ? (x.name_ar || x.slug) : id; };
+    var blank = function () { return {visit: 0, pages: 0, ios: 0, android: 0, youtube: 0, redeem: 0, code: 0}; };
+    var appName = function (id) { if (!id) return "الموقع (الرئيسية وصفحات عامة)"; var x = d.apps.filter(function (a) { return a.id === id; })[0]; return x ? (x.name_ar || x.slug) : id; };
     var byDay = {}, sum = blank();
     (d.clicks.byDay || []).forEach(function (r) {
-      var c = cell(r);
-      if (sum[c] === undefined) return;
+      var c = cell(r), id = r.app_id || 0;
       var D = byDay[r.day] || (byDay[r.day] = {n: blank(), apps: {}});
-      var A = D.apps[r.app_id] || (D.apps[r.app_id] = {n: blank(), source: {}, device: {}, page: {}});
+      var A = D.apps[id] || (D.apps[id] = {n: blank(), source: {}, device: {}, page: {}, from: {}});
+      if (c === "visit" || c === "view") { D.n.pages += r.n; A.n.pages += r.n; sum.pages += r.n; }
+      if (c === "view") return;
+      if (sum[c] === undefined) return;
       D.n[c] += r.n; A.n[c] += r.n; sum[c] += r.n;
     });
     var addDetail = function (list, field, fmt) {
       list.forEach(function (r) {
-        if (r.kind === "visit") return;
-        var D = byDay[r.day]; var A = D && D.apps[r.app_id];
+        var D = byDay[r.day]; var A = D && D.apps[r.app_id || 0];
         if (!A) return;
         var k = fmt(r[field] || "—");
+        if (r.kind === "visit") { if (field === "source") A.from[k] = (A.from[k] || 0) + r.n; return; }
+        if (r.kind === "view") return;
         A[field][k] = (A[field][k] || 0) + r.n;
       });
     };
@@ -191,7 +197,7 @@ details.offer[open]>summary{color:var(--ink)}
       return Object.keys(m).sort(function (p, q) { return m[q] - m[p]; }).map(function (k) { return esc(k) + " <b>" + m[k] + "</b>"; }).join(" · ") || "—";
     };
     var cells = function (n, tag) { return COLS.map(function (c) { return "<" + tag + ">" + (n[c[0]] || "·") + "</" + tag + ">"; }).join(""); };
-    var total = function (n) { return n.ios + n.android + n.youtube + n.redeem + n.code; };
+    var total = function (n) { return CLICKS.reduce(function (t, c) { return t + n[c]; }, 0); };
     // every date in the range, newest first, including the quiet ones
     var allDays = [];
     for (var day = d.to; day >= d.from; day = shift(day, -1)) allDays.push(day);
@@ -203,8 +209,8 @@ details.offer[open]>summary{color:var(--ink)}
       '<span class="sep"></span>' +
       '<button class="chip" data-range="0">اليوم</button><button class="chip" data-range="6">آخر 7 أيام</button><button class="chip" data-range="29">آخر 30 يومًا</button><button class="chip" data-range="month">هذا الشهر</button>' +
       '<span class="sep"></span><button class="chip" id="open-all">افتح الكل</button><button class="chip" id="close-all">أغلق الكل</button></div>';
-    html += '<p class="note">كل سطر يوم (بتوقيت السعودية). اضغط اليوم لتفتح تفاصيله: كل تطبيق، ومن أين جاء الزائر، وبأي جهاز، ومن أي صفحة. نقرة من موقعنا، لا تثبيت فعلي.</p>';
-    html += '<div class="tbl-wrap"><table class="daily"><thead><tr><th>التاريخ</th>' + COLS.map(function (c) { return "<th>" + c[1] + "</th>"; }).join("") + '<th>المجموع</th></tr>' +
+    html += '<p class="note">كل سطر يوم (بتوقيت السعودية). «الزوار» = كم شخصًا فتح الموقع (أول صفحة في الجلسة، بلا كوكيز)، و«الصفحات المفتوحة» = كل الصفحات التي فُتحت. اضغط اليوم لتفتح تفاصيله: كل تطبيق، ومن أين جاء الزوار، وبأي جهاز، ومن أي صفحة. النقرات من موقعنا، لا تثبيت فعلي. عدّ الزوار بدأ 2026-11-07.</p>';
+    html += '<div class="tbl-wrap"><table class="daily"><thead><tr><th>التاريخ</th>' + COLS.map(function (c) { return "<th>" + c[1] + "</th>"; }).join("") + '<th>مجموع النقرات</th></tr>' +
       '<tr class="sum"><th>المجموع ' + (d.from === d.to ? "" : "من " + d.from + " إلى " + d.to) + '</th>' + cells(sum, "th") + "<th>" + total(sum) + "</th></tr></thead></table></div>";
     html += '<div class="days">' + allDays.map(function (day) {
       var D = byDay[day];
@@ -212,12 +218,12 @@ details.offer[open]>summary{color:var(--ink)}
       var inner = Object.keys(D.apps).sort().map(function (id) {
         var A = D.apps[id];
         return '<tr><td><b>' + esc(appName(Number(id))) + '</b></td>' + cells(A.n, "td") + "<td>" + total(A.n) + "</td></tr>" +
-          '<tr class="det"><td colspan="7"><span>المصدر: ' + lst(A.source) + '</span><span>الجهاز: ' + lst(A.device) + '</span><span>الصفحة: ' + lst(A.page) + "</span></td></tr>";
+          '<tr class="det"><td colspan="9"><span>الزوار جاؤوا من: ' + lst(A.from) + '</span><span>مصدر النقرات: ' + lst(A.source) + '</span><span>الجهاز: ' + lst(A.device) + '</span><span>الصفحة: ' + lst(A.page) + "</span></td></tr>";
       }).join("");
       return '<details class="dayrow" data-day="' + day + '"' + (s.open[day] ? " open" : "") + '><summary><span class="dt">' + dayLabel(day) + "</span>" +
         COLS.map(function (c) { return D.n[c[0]] ? '<span class="pill">' + c[1] + " <b>" + D.n[c[0]] + "</b></span>" : ""; }).join("") +
         '<span class="tot">' + total(D.n) + '</span></summary>' +
-        '<div class="tbl-wrap"><table><thead><tr><th>التطبيق</th>' + COLS.map(function (c) { return "<th>" + c[1] + "</th>"; }).join("") + '<th>المجموع</th></tr></thead><tbody>' + inner + "</tbody></table></div></details>";
+        '<div class="tbl-wrap"><table><thead><tr><th>التطبيق</th>' + COLS.map(function (c) { return "<th>" + c[1] + "</th>"; }).join("") + '<th>مجموع النقرات</th></tr></thead><tbody>' + inner + "</tbody></table></div></details>";
     }).join("") + "</div>";
 
     // Everything about the free offer and its codes lives collapsed at the
@@ -253,7 +259,7 @@ details.offer[open]>summary{color:var(--ink)}
     // downloads
     html += '<h2>مجاميع ' + esc(a.name_ar || a.slug) + '</h2>';
     html += '<p class="note">مجاميع سريعة فقط؛ التفصيل بالتاريخ في الإحصائية اليومية أعلاه. التثبيت الحقيقي في Play Console وApp Store Connect.</p>';
-    var rows = [["ios", "download"], ["android", "download"], [null, "youtube"], ["ios", "redeem"], ["android", "redeem"], ["android", "code"], ["android", "copy"], [null, "visit"]];
+    var rows = [[null, "visit"], [null, "view"], ["ios", "download"], ["android", "download"], [null, "youtube"], ["ios", "redeem"], ["android", "redeem"], ["android", "code"], ["android", "copy"]];
     html += '<div class="tbl-wrap"><table><thead><tr><th></th><th>آخر 24 ساعة</th><th>آخر 7 أيام</th><th>الكل</th></tr></thead><tbody>' +
       rows.map(function (r) {
         var lbl = (r[0] === "ios" ? "🍎 App Store · " : r[0] === "android" ? "🤖 Google Play · " : "") + KIND[r[1]];

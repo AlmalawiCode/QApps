@@ -876,6 +876,8 @@ def page_privacy_index():
      "لنعرف كم شخصًا يزور هذا الموقع، نستخدم Cloudflare Web Analytics (من Cloudflare التي تستضيف الموقع). تعدّ مشاهدات الصفحات بلا كوكيز، وبلا حفظ عنوانك، وبلا بناء ملف عنك أو تتبّعك في مواقع أخرى: لا نرى إلا مجاميع — أي الصفحات فُتحت، ومن أي بلد، وبأي نوع متصفح، وأي موقع أو فيديو جاء بك. ولا يمكنها أن تخبرنا من أنت.")}
   {p('How Cloudflare handles this is described in its privacy policy: <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a>. We do not use Google Analytics or any advertising tracker.',
      'وطريقة تعامل Cloudflare مع ذلك موصوفة في سياسة خصوصيتها: <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a>. ولا نستخدم Google Analytics ولا أي أداة تتبّع إعلانية.')}
+  {p("The website itself also keeps a simple daily count of the pages opened: the page, the day, the kind of device and browser, the language, and which site or campaign link brought you. No address and no cookie are stored; a small flag in your browser tab only prevents one visit from being counted twice and disappears when you close the tab.",
+     "ويحتفظ الموقع نفسه أيضًا بعدّ يومي بسيط للصفحات التي فُتحت: الصفحة، واليوم، ونوع الجهاز والمتصفح، واللغة، وأي موقع أو رابط حملة جاء بك. لا يُحفظ عنوان ولا كوكيز؛ وعلامة صغيرة في تبويب متصفحك تمنع فقط عدّ الزيارة الواحدة مرتين وتزول عند إغلاق التبويب.")}
   {p("Our apps do not send anything themselves; everything above applies only to this website.",
      "تطبيقاتنا لا ترسل شيئًا بنفسها؛ كل ما سبق يخص هذا الموقع فقط.", "fineprint")}
 </div>

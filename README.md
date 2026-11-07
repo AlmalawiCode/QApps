@@ -260,7 +260,7 @@ behind `api.thiban1.com`):
 | `functions/api/admin/promo.js` | dashboard API (Cloudflare Access only): summary, codes, CSV, add/void codes, offer settings |
 | `admin/promo/index.html` | dashboard «الأكواد والتحميل» (linked from `/admin/`) |
 | `assets/js/promo.js`, `tools/promo_section.py` | the section on the app page |
-| `assets/js/site.js` | counts taps on every `.store-btn` on every page (store links → kind `download`, YouTube links → kind `youtube`, app from the page path); keeps `?utm_source` for the visit |
+| `assets/js/site.js` | counts taps on every `.store-btn` on every page (store links → kind `download`, YouTube links → kind `youtube`, app from the page path); keeps `?utm_source` for the visit. Since 2026-11-07 also every page opened: first page of a browser session → kind `visit` (= one visitor, source = utm or referrer host), later pages → kind `view`; reloads/back-forward and bots skipped; `/admin/` not counted |
 | `admin/promo/` «الإحصائية اليومية» | first block on the dashboard: a date filter (from/to, Saudi dates; chips today / 7 / 30 days / this month) and one collapsible row per date — App Store, Google Play, YouTube taps, offer activations, codes given; opened, a day shows each app plus source / device / page. Only the chosen dates are loaded (`?from&to`, ≤ 366 days). Owner's request, 2026-11-06/07. The free-offer block (stock, settings, codes, totals) is collapsed at the bottom under «إدارة العرض المجاني والأكواد» |
 
 **The codes are never in this repo.** Add them on `/admin/promo/` (paste the

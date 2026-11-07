@@ -1,6 +1,7 @@
 // functions/api/promo/e.js — POST /api/promo/e: one row of the download
 // statistic (proposal qapps_free_codes, decision ه): a tap on "App Store" /
-// "Google Play" / "activate the offer" / "copy", or a campaign-page visit.
+// "Google Play" / "YouTube" / "activate the offer" / "copy", or a page opened
+// (visit = first page of a browser session = one visitor; view = a further page).
 //
 //   body (JSON, sent as text/plain by sendBeacon):
 //     {app?, href?, platform?, kind, page, src, lang}
@@ -13,7 +14,7 @@
 
 import {
   jsonOut, nowIso, fromOurSite, cleanSource, cleanPage, cleanLang, deviceOf, browserOf,
-  appBySlug, appByStoreLink, ensurePromoSchema, CLICK_KINDS, PLATFORMS, PROMO_LIMITS,
+  appBySlug, appByStoreLink, ensurePromoSchema, CLICK_KINDS, PLATFORMS, PROMO_LIMITS, isBot,
 } from "../../../lib/promo/common.js";
 
 const done = () => new Response(null, { status: 204, headers: { "cache-control": "no-store" } });
@@ -32,6 +33,10 @@ export async function onRequestPost({ request, env }) {
   const kind = CLICK_KINDS.includes(data.kind) ? data.kind : null;
   if (!kind) return done();
 
+  const ua = request.headers.get("User-Agent") || "";
+  const pageLoad = kind === "visit" || kind === "view";
+  if (pageLoad && isBot(ua)) return done();
+
   const db = env.DB;
   await ensurePromoSchema(db);
   let app = null;
@@ -41,7 +46,8 @@ export async function onRequestPost({ request, env }) {
     if (hit) { app = hit.app; platform = platform || hit.platform; }
   }
   if (!app && data.app) app = await appBySlug(db, data.app);
-  if (!app) return done();
+  // A page without an app (home, /apps/, /privacy/…) still counts as a visit.
+  if (!app && !pageLoad) return done();
 
   const now = nowIso();
   const cap = Number(env.CLICK_CAP) || PROMO_LIMITS.clicksPerDay;
@@ -49,10 +55,9 @@ export async function onRequestPost({ request, env }) {
     .bind(now.slice(0, 10) + "T00:00:00.000Z").first();
   if ((today?.n || 0) >= cap) return done();
 
-  const ua = request.headers.get("User-Agent") || "";
   await db.prepare(
     "INSERT INTO store_clicks (created_at, app_id, platform, kind, page, device, browser, source, lang) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
-  ).bind(now, app.id, platform, kind, cleanPage(data.page), deviceOf(ua), browserOf(ua), cleanSource(data.src), cleanLang(data.lang)).run();
+  ).bind(now, app ? app.id : null, platform, kind, cleanPage(data.page), deviceOf(ua), browserOf(ua), cleanSource(data.src), cleanLang(data.lang)).run();
   return done();
 }
 
