@@ -58,12 +58,6 @@ td.code{font-family:monospace;direction:ltr;text-align:left}
 .tbl-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}
 a.btnl,button.lnk{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:5px 12px;font:inherit;font-size:14px;cursor:pointer;color:var(--ink);text-decoration:none}
 .more{display:block;margin:12px auto 0}
-.days{display:grid;gap:3px}
-.day{display:grid;grid-template-columns:70px 1fr 90px;gap:8px;align-items:center;font-size:13px}
-.day .bars{display:flex;height:14px;border-radius:5px;overflow:hidden;background:var(--soft)}
-.day .bars i{display:block;height:100%}
-.legend{font-size:13px;color:var(--muted)}
-.legend b{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:middle;margin:0 4px}
 .note{font-size:13.5px;color:var(--muted)}
 .err{text-align:center;color:var(--bad);padding:30px 10px;background:var(--bad-soft);border:1px dashed #F3C6C1;border-radius:16px}
 </style>
@@ -135,21 +129,33 @@ a.btnl,button.lnk{border:1px solid var(--line);background:var(--surface);border-
     var appleRedeem = tot("ios", "redeem", "all_time");
     var html = "";
 
-    // The simple statistic the owner asked for (2026-11-06): one row per day
-    // and app — taps on the app's store buttons, and taps on its YouTube button.
-    var simple = {};
+    // The daily statistic the owner asked for (2026-11-06/07): one row per
+    // Saudi date and app — App Store taps, Google Play taps, YouTube taps,
+    // offer activations and codes given — never a counter without its date.
+    var WD = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
+    var dayLabel = function (day) { return WD[new Date(day + "T12:00:00+03:00").getDay()] + " " + day; };
+    var COLS = ["ios", "android", "youtube", "redeem", "code"];
+    var cell = function (r) { return r.kind === "download" ? (r.platform === "ios" ? "ios" : "android") : r.kind; };
+    var blank = function () { return {ios: 0, android: 0, youtube: 0, redeem: 0, code: 0}; };
+    var daily = {}, sum = blank();
     (d.clicks.byDay || []).forEach(function (r) {
-      if (r.kind !== "download" && r.kind !== "youtube") return;
+      var c = cell(r);
+      if (sum[c] === undefined) return;
       var k = r.day + "|" + r.app_id;
-      var x = simple[k] || (simple[k] = {day: r.day, app_id: r.app_id, app: 0, youtube: 0});
-      x[r.kind === "youtube" ? "youtube" : "app"] += r.n;
+      var x = daily[k] || (daily[k] = {day: r.day, app_id: r.app_id, n: blank()});
+      x.n[c] += r.n; sum[c] += r.n;
     });
-    var sk = Object.keys(simple).sort().reverse();
+    var dk = Object.keys(daily).sort(function (p, q) { return daily[q].day.localeCompare(daily[p].day) || daily[p].app_id - daily[q].app_id; });
     var appName = function (id) { var x = d.apps.filter(function (a) { return a.id === id; })[0]; return x ? (x.name_ar || x.slug) : id; };
-    html += '<h2>إحصائية بسيطة — كل التطبيقات</h2><p class="note">لكل يوم: كم نقرة على زر التطبيق (App Store / Google Play) وكم نقرة على زر YouTube، لكل تطبيق. (آخر ' + s.days + ' يومًا)</p>';
-    html += '<div class="tbl-wrap"><table><thead><tr><th>اليوم</th><th>التطبيق</th><th>نقرات التطبيق</th><th>نقرات YouTube</th></tr></thead><tbody>' +
-      (sk.length ? sk.map(function (k) { var x = simple[k]; return "<tr><td>" + x.day + "</td><td>" + esc(appName(x.app_id)) + "</td><td>" + x.app + "</td><td>" + x.youtube + "</td></tr>"; }).join("")
-                 : '<tr><td colspan="4">لا نقرات بعد.</td></tr>') + "</tbody></table></div>";
+    var cells = function (n) { return COLS.map(function (c) { return "<td>" + (n[c] || "·") + "</td>"; }).join(""); };
+    html += '<h2>الإحصائية اليومية — كل التطبيقات</h2><div class="bar" id="days">' + [7, 30, 90, 365].map(function (n) {
+      return '<button class="chip' + (s.days === n ? " on" : "") + '" data-days="' + n + '">آخر ' + n + " يومًا</button>";
+    }).join("") + "</div>";
+    html += '<p class="note">لكل يوم (بتوقيت السعودية) ولكل تطبيق: نقرات زر App Store، زر Google Play، زر YouTube، «فعّل العرض»، والأكواد التي أُعطيت. نقرة من موقعنا، لا تثبيت فعلي.</p>';
+    html += '<div class="tbl-wrap"><table><thead><tr><th>التاريخ</th><th>التطبيق</th><th>🍎 App Store</th><th>🤖 Google Play</th><th>▶️ YouTube</th><th>تفعيل العرض</th><th>أكواد</th></tr></thead><tbody>' +
+      (dk.length ? dk.map(function (k) { var x = daily[k]; return "<tr><td>" + dayLabel(x.day) + "</td><td>" + esc(appName(x.app_id)) + "</td>" + cells(x.n) + "</tr>"; }).join("") +
+                   '<tr><th>المجموع (آخر ' + s.days + ' يومًا)</th><th></th>' + COLS.map(function (c) { return "<th>" + sum[c] + "</th>"; }).join("") + "</tr>"
+                 : '<tr><td colspan="7">لا نقرات في هذه الفترة.</td></tr>') + "</tbody></table></div>";
 
     html += '<h2>العرض المجاني</h2><div class="stats">' +
       '<div class="stat"><b>' + total + '</b><span>أكواد أندرويد</span></div>' +
@@ -178,10 +184,8 @@ a.btnl,button.lnk{border:1px solid var(--line);background:var(--surface);border-
       '<button class="lnk more" id="more" hidden>المزيد</button>';
 
     // downloads
-    html += '<h2>نقرات التحميل</h2><div class="bar" id="days">' + [7, 30, 90].map(function (n) {
-      return '<button class="chip' + (s.days === n ? " on" : "") + '" data-days="' + n + '">آخر ' + n + " يومًا</button>";
-    }).join("") + "</div>";
-    html += '<p class="note">نقرة على زر المتجر من موقعنا، لا تثبيت فعلي؛ التثبيت الحقيقي في Play Console وApp Store Connect.</p>';
+    html += '<h2>مجاميع ' + esc(a.name_ar || a.slug) + '</h2>';
+    html += '<p class="note">مجاميع سريعة فقط؛ التفصيل بالتاريخ في الجدولين أعلاه وأدناه. التثبيت الحقيقي في Play Console وApp Store Connect.</p>';
     var rows = [["ios", "download"], ["android", "download"], [null, "youtube"], ["ios", "redeem"], ["android", "redeem"], ["android", "code"], ["android", "copy"], [null, "visit"]];
     html += '<div class="tbl-wrap"><table><thead><tr><th></th><th>آخر 24 ساعة</th><th>آخر 7 أيام</th><th>الكل</th></tr></thead><tbody>' +
       rows.map(function (r) {
@@ -189,40 +193,31 @@ a.btnl,button.lnk{border:1px solid var(--line);background:var(--surface);border-
         return "<tr><td>" + lbl + "</td><td>" + tot(r[0], r[1], "d1") + "</td><td>" + tot(r[0], r[1], "d7") + "</td><td>" + tot(r[0], r[1], "all_time") + "</td></tr>";
       }).join("") + "</tbody></table></div>";
 
-    // by day (downloads only, iOS + Android)
-    var days = {};
-    (d.clicks.byDay || []).forEach(function (r) {
-      if (r.app_id !== a.id || r.kind !== "download") return;
-      var x = days[r.day] || (days[r.day] = {ios: 0, android: 0});
-      x[r.platform === "ios" ? "ios" : "android"] += r.n;
-    });
-    var keys = Object.keys(days).sort().reverse();
-    var max = keys.reduce(function (m, k) { return Math.max(m, days[k].ios + days[k].android); }, 1);
-    html += '<h2 style="font-size:16px">تحميل بالأيام</h2><p class="legend"><b style="background:var(--ios)"></b>App Store <b style="background:var(--and)"></b>Google Play</p>';
-    html += keys.length ? '<div class="card days">' + keys.map(function (k) {
-      var x = days[k];
-      return '<div class="day"><span>' + k.slice(5) + '</span><span class="bars"><i style="width:' + (x.ios / max * 100) + '%;background:var(--ios)"></i><i style="width:' + (x.android / max * 100) + '%;background:var(--and)"></i></span><span>' + x.ios + " · " + x.android + "</span></div>";
-    }).join("") + "</div>" : '<p class="note">لا نقرات في هذه الفترة.</p>';
-
-    // breakdowns
-    function breakdown(list, field, label, fmt) {
-      var m = {};
+    // Details per day for the selected app: where the taps came from, on
+    // which devices and from which pages — every row carries its date.
+    var det = {};
+    var add = function (list, field, fmt) {
       list.forEach(function (r) {
-        if (r.app_id !== a.id) return;
-        var k = r[field] || "—";
-        var x = m[k] || (m[k] = {download: 0, redeem: 0, code: 0});
-        if (x[r.kind] !== undefined) x[r.kind] += r.n;
+        if (r.app_id !== a.id || r.kind === "visit") return;
+        var x = det[r.day] || (det[r.day] = {source: {}, device: {}, page: {}});
+        var k = fmt(r[field] || "—");
+        x[field][k] = (x[field][k] || 0) + r.n;
       });
-      var ks = Object.keys(m).sort(function (p, q) { return (m[q].download + m[q].code) - (m[p].download + m[p].code); });
-      if (!ks.length) return "";
-      return '<div class="tbl-wrap"><table><thead><tr><th>' + label + "</th><th>تحميل</th><th>تفعيل</th><th>أكواد</th></tr></thead><tbody>" +
-        ks.map(function (k) { return "<tr><td>" + esc(fmt ? fmt(k) : k) + "</td><td>" + m[k].download + "</td><td>" + m[k].redeem + "</td><td>" + m[k].code + "</td></tr>"; }).join("") +
-        "</tbody></table></div>";
-    }
-    html += '<div class="grid2" style="margin-top:12px">' +
-      breakdown(d.clicks.bySource || [], "source", "المصدر", src) +
-      breakdown(d.clicks.byDevice || [], "device", "الجهاز", function (k) { return DEV[k] || k; }) +
-      breakdown(d.clicks.byPage || [], "page", "الصفحة") + "</div>";
+    };
+    add(d.clicks.bySource || [], "source", src);
+    add(d.clicks.byDevice || [], "device", function (k) { return DEV[k] || k; });
+    add(d.clicks.byPage || [], "page", function (k) { return k; });
+    var lst = function (m) {
+      return Object.keys(m).sort(function (p, q) { return m[q] - m[p]; }).map(function (k) { return esc(k) + " <b>" + m[k] + "</b>"; }).join(" · ") || "—";
+    };
+    var dks = Object.keys(det).sort().reverse();
+    html += '<h2 style="font-size:16px">تفاصيل ' + esc(a.name_ar || a.slug) + ' بالأيام</h2>';
+    html += '<p class="note">لكل يوم: نقرات التطبيق (App Store + Google Play)، وYouTube، ومن أين جاء الزائر وبأي جهاز ومن أي صفحة. الأرقام في الخلايا الثلاث الأخيرة تشمل كل النقرات (تحميل، تفعيل، أكواد، YouTube).</p>';
+    html += dks.length ? '<div class="tbl-wrap"><table><thead><tr><th>التاريخ</th><th>نقرات التطبيق</th><th>▶️ YouTube</th><th>المصدر</th><th>الجهاز</th><th>الصفحة</th></tr></thead><tbody>' +
+      dks.map(function (day) {
+        var n = (daily[day + "|" + a.id] || {n: blank()}).n, x = det[day];
+        return "<tr><td>" + dayLabel(day) + "</td><td>" + (n.ios + n.android || "·") + "</td><td>" + (n.youtube || "·") + "</td><td>" + lst(x.source) + "</td><td>" + lst(x.device) + "</td><td>" + lst(x.page) + "</td></tr>";
+      }).join("") + "</tbody></table></div>" : '<p class="note">لا نقرات في هذه الفترة.</p>';
 
     $("main").innerHTML = html;
   }

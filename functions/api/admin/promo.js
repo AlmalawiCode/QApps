@@ -2,7 +2,7 @@
 // API (/admin/promo/; proposal qapps_free_codes, decision و). Cloudflare
 // Access only (lib/feedback/access.js): no valid token → 401, no data.
 //
-// GET  ?view=summary[&days=30]           apps + code counts + download statistic
+// GET  ?view=summary[&days=30]           apps + code counts + click statistic per Saudi day (days ≤ 365)
 // GET  ?view=codes&app=&status=&offset=  the codes of one app (newest issued first)
 // GET  ?view=csv&app=                    every code of one app as CSV
 // POST {action:"add", app, codes}        paste codes (any separators); duplicates ignored
@@ -70,7 +70,10 @@ export async function onRequestGet({ request, env }) {
   }
 
   // summary
-  const days = Math.min(90, Math.max(1, Number(u.searchParams.get("days")) || 30));
+  const days = Math.min(365, Math.max(1, Number(u.searchParams.get("days")) || 30));
+  // Days are Saudi days (UTC+3): a tap at 22:30 UTC belongs to the next Saudi
+  // date, which is what the owner reads on the dashboard.
+  const DAY = "substr(datetime(created_at, '+3 hours'), 1, 10)";
   const since = new Date(Date.now() - days * 86_400_000).toISOString();
   const day1 = new Date(Date.now() - 86_400_000).toISOString();
   const day7 = new Date(Date.now() - 7 * 86_400_000).toISOString();
@@ -78,10 +81,10 @@ export async function onRequestGet({ request, env }) {
     db.prepare("SELECT * FROM apps ORDER BY id"),
     db.prepare("SELECT app_id, platform, status, COUNT(*) AS n FROM promo_codes GROUP BY app_id, platform, status"),
     db.prepare("SELECT app_id, SUM(issued_at >= ?) AS d1, SUM(issued_at >= ?) AS d7 FROM promo_codes WHERE status = 'issued' GROUP BY app_id").bind(day1, day7),
-    db.prepare("SELECT substr(created_at, 1, 10) AS day, app_id, platform, kind, COUNT(*) AS n FROM store_clicks WHERE created_at >= ? GROUP BY day, app_id, platform, kind ORDER BY day").bind(since),
-    db.prepare("SELECT app_id, source, kind, COUNT(*) AS n FROM store_clicks WHERE created_at >= ? GROUP BY app_id, source, kind").bind(since),
-    db.prepare("SELECT app_id, device, kind, COUNT(*) AS n FROM store_clicks WHERE created_at >= ? GROUP BY app_id, device, kind").bind(since),
-    db.prepare("SELECT app_id, page, kind, COUNT(*) AS n FROM store_clicks WHERE created_at >= ? GROUP BY app_id, page, kind").bind(since),
+    db.prepare(`SELECT ${DAY} AS day, app_id, platform, kind, COUNT(*) AS n FROM store_clicks WHERE created_at >= ? GROUP BY day, app_id, platform, kind ORDER BY day`).bind(since),
+    db.prepare(`SELECT ${DAY} AS day, app_id, source, kind, COUNT(*) AS n FROM store_clicks WHERE created_at >= ? GROUP BY day, app_id, source, kind`).bind(since),
+    db.prepare(`SELECT ${DAY} AS day, app_id, device, kind, COUNT(*) AS n FROM store_clicks WHERE created_at >= ? GROUP BY day, app_id, device, kind`).bind(since),
+    db.prepare(`SELECT ${DAY} AS day, app_id, page, kind, COUNT(*) AS n FROM store_clicks WHERE created_at >= ? GROUP BY day, app_id, page, kind`).bind(since),
     db.prepare("SELECT app_id, platform, kind, SUM(created_at >= ?) AS d1, SUM(created_at >= ?) AS d7, COUNT(*) AS all_time FROM store_clicks GROUP BY app_id, platform, kind").bind(day1, day7),
   ]);
   return jsonOut({
