@@ -261,7 +261,7 @@ behind `api.thiban1.com`):
 | `admin/promo/index.html` | dashboard «الأكواد والتحميل» (linked from `/admin/`) |
 | `assets/js/promo.js`, `tools/promo_section.py` | the section on the app page |
 | `assets/js/site.js` | counts taps on every `.store-btn` on every page (store links → kind `download`, YouTube links → kind `youtube`, app from the page path); keeps `?utm_source` for the visit |
-| `admin/promo/` «الإحصائية اليومية» | first block on the dashboard: a date filter (from/to, Saudi dates; chips today / 7 / 30 days / this month) and one collapsible row per date — App Store, Google Play, YouTube taps, offer activations, codes given; opened, a day shows each app plus source / device / page. Only the chosen dates are loaded (`?from&to`, ≤ 366 days). Owner's request, 2026-11-06/07 |
+| `admin/promo/` «الإحصائية اليومية» | first block on the dashboard: a date filter (from/to, Saudi dates; chips today / 7 / 30 days / this month) and one collapsible row per date — App Store, Google Play, YouTube taps, offer activations, codes given; opened, a day shows each app plus source / device / page. Only the chosen dates are loaded (`?from&to`, ≤ 366 days). Owner's request, 2026-11-06/07. The free-offer block (stock, settings, codes, totals) is collapsed at the bottom under «إدارة العرض المجاني والأكواد» |
 
 **The codes are never in this repo.** Add them on `/admin/promo/` (paste the
 Play Console list; duplicates are ignored), or by hand:
