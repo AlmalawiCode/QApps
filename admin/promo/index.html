@@ -59,6 +59,26 @@ td.code{font-family:monospace;direction:ltr;text-align:left}
 a.btnl,button.lnk{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:5px 12px;font:inherit;font-size:14px;cursor:pointer;color:var(--ink);text-decoration:none}
 .more{display:block;margin:12px auto 0}
 .note{font-size:13.5px;color:var(--muted)}
+.filter label{display:inline-flex;align-items:center;gap:6px;margin:0;font-size:14px}
+.filter input[type=date]{width:auto;padding:4px 8px}
+.filter .save{margin-top:0;padding:6px 14px}
+.filter .sep{width:1px;height:22px;background:var(--line);margin:0 4px}
+table.daily thead tr.sum th{background:var(--surface);font-family:"Alexandria",sans-serif;font-size:16px;color:var(--accent)}
+.days{display:grid;gap:6px;margin-top:8px}
+.dayrow{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.dayrow.quiet{display:flex;gap:12px;padding:7px 14px;color:var(--muted);font-size:14px}
+.dayrow summary{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:8px 14px;cursor:pointer;list-style:none;font-size:14px}
+.dayrow summary::-webkit-details-marker{display:none}
+.dayrow summary::before{content:"▸";color:var(--muted);transition:transform .15s}
+.dayrow[open] summary::before{transform:rotate(90deg)}
+.dayrow .dt{font-weight:700;min-width:150px}
+.dayrow .pill{background:var(--soft);border-radius:999px;padding:1px 10px;font-size:13px}
+.dayrow .pill b{color:var(--accent)}
+.dayrow .tot{margin-inline-start:auto;font-family:"Alexandria",sans-serif;font-size:18px;color:var(--accent)}
+.dayrow .tbl-wrap{margin:0 10px 10px;border-radius:10px}
+.dayrow tr.det td{color:var(--muted);font-size:13px;padding-top:0;border-bottom:1px solid var(--line)}
+.dayrow tr.det span{display:inline-block;margin-inline-end:16px}
+.dayrow .muted{color:var(--muted)}
 .err{text-align:center;color:var(--bad);padding:30px 10px;background:var(--bad-soft);border:1px dashed #F3C6C1;border-radius:16px}
 </style>
 </head>
@@ -78,7 +98,11 @@ a.btnl,button.lnk{border:1px solid var(--line);background:var(--surface);border-
   var BR = {safari: "Safari", chrome: "Chrome", samsung: "Samsung Internet", firefox: "Firefox", edge: "Edge", opera: "Opera", instagram: "داخل إنستغرام", snapchat: "داخل سناب", tiktok: "داخل تيك توك", facebook: "داخل فيسبوك", x: "داخل X", whatsapp: "داخل واتساب", other: "أخرى"};
   var KIND = {download: "تحميل", youtube: "▶️ YouTube", redeem: "تفعيل العرض", code: "كود أُعطي", copy: "نسخ الكود", visit: "زيارة صفحة الحملة"};
   var ST = {issued: "أُعطيت ✗", available: "متاحة", void: "ملغاة"};
-  var s = {app: "vault", days: 30, codeStatus: "issued", offset: 0, rows: [], sum: null};
+  // Date filter: Saudi dates, inclusive. Default = the last 7 days.
+  var todayKsa = function () { return new Date(Date.now() + 3 * 3600000).toISOString().slice(0, 10); };
+  var shift = function (day, n) { return new Date(new Date(day + "T12:00:00+03:00").getTime() + n * 86400000).toISOString().slice(0, 10); };
+  var s = {app: "vault", from: "", to: "", codeStatus: "issued", offset: 0, rows: [], sum: null, open: {}};
+  s.to = todayKsa(); s.from = shift(s.to, -6);
   var $ = function (id) { return document.getElementById(id); };
   function esc(v) { return String(v == null ? "" : v).replace(/[&<>"]/g, function (c) { return {"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]; }); }
   function when(iso) {
@@ -102,7 +126,7 @@ a.btnl,button.lnk{border:1px solid var(--line);background:var(--surface);border-
   }
 
   function loadSummary() {
-    api("/api/admin/promo?view=summary&days=" + s.days).then(function (d) {
+    api("/api/admin/promo?view=summary&from=" + s.from + "&to=" + s.to).then(function (d) {
       if (!d.ok) return fail(d);
       s.sum = d;
       render();
@@ -129,33 +153,69 @@ a.btnl,button.lnk{border:1px solid var(--line);background:var(--surface);border-
     var appleRedeem = tot("ios", "redeem", "all_time");
     var html = "";
 
-    // The daily statistic the owner asked for (2026-11-06/07): one row per
-    // Saudi date and app — App Store taps, Google Play taps, YouTube taps,
-    // offer activations and codes given — never a counter without its date.
+    // The daily statistic the owner asked for (2026-11-06/07): one collapsed
+    // row per Saudi date — App Store taps, Google Play taps, YouTube taps,
+    // offer activations and codes given — opened, it shows each app and where
+    // the taps came from (source, device, page). The date filter loads only
+    // the chosen dates, so the page stays light however long the history.
     var WD = ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"];
     var dayLabel = function (day) { return WD[new Date(day + "T12:00:00+03:00").getDay()] + " " + day; };
-    var COLS = ["ios", "android", "youtube", "redeem", "code"];
+    var COLS = [["ios", "🍎 App Store"], ["android", "🤖 Google Play"], ["youtube", "▶️ YouTube"], ["redeem", "تفعيل العرض"], ["code", "أكواد"]];
     var cell = function (r) { return r.kind === "download" ? (r.platform === "ios" ? "ios" : "android") : r.kind; };
     var blank = function () { return {ios: 0, android: 0, youtube: 0, redeem: 0, code: 0}; };
-    var daily = {}, sum = blank();
+    var appName = function (id) { var x = d.apps.filter(function (a) { return a.id === id; })[0]; return x ? (x.name_ar || x.slug) : id; };
+    var byDay = {}, sum = blank();
     (d.clicks.byDay || []).forEach(function (r) {
       var c = cell(r);
       if (sum[c] === undefined) return;
-      var k = r.day + "|" + r.app_id;
-      var x = daily[k] || (daily[k] = {day: r.day, app_id: r.app_id, n: blank()});
-      x.n[c] += r.n; sum[c] += r.n;
+      var D = byDay[r.day] || (byDay[r.day] = {n: blank(), apps: {}});
+      var A = D.apps[r.app_id] || (D.apps[r.app_id] = {n: blank(), source: {}, device: {}, page: {}});
+      D.n[c] += r.n; A.n[c] += r.n; sum[c] += r.n;
     });
-    var dk = Object.keys(daily).sort(function (p, q) { return daily[q].day.localeCompare(daily[p].day) || daily[p].app_id - daily[q].app_id; });
-    var appName = function (id) { var x = d.apps.filter(function (a) { return a.id === id; })[0]; return x ? (x.name_ar || x.slug) : id; };
-    var cells = function (n) { return COLS.map(function (c) { return "<td>" + (n[c] || "·") + "</td>"; }).join(""); };
-    html += '<h2>الإحصائية اليومية — كل التطبيقات</h2><div class="bar" id="days">' + [7, 30, 90, 365].map(function (n) {
-      return '<button class="chip' + (s.days === n ? " on" : "") + '" data-days="' + n + '">آخر ' + n + " يومًا</button>";
+    var addDetail = function (list, field, fmt) {
+      list.forEach(function (r) {
+        if (r.kind === "visit") return;
+        var D = byDay[r.day]; var A = D && D.apps[r.app_id];
+        if (!A) return;
+        var k = fmt(r[field] || "—");
+        A[field][k] = (A[field][k] || 0) + r.n;
+      });
+    };
+    addDetail(d.clicks.bySource || [], "source", src);
+    addDetail(d.clicks.byDevice || [], "device", function (k) { return DEV[k] || k; });
+    addDetail(d.clicks.byPage || [], "page", function (k) { return k; });
+    var lst = function (m) {
+      return Object.keys(m).sort(function (p, q) { return m[q] - m[p]; }).map(function (k) { return esc(k) + " <b>" + m[k] + "</b>"; }).join(" · ") || "—";
+    };
+    var cells = function (n, tag) { return COLS.map(function (c) { return "<" + tag + ">" + (n[c[0]] || "·") + "</" + tag + ">"; }).join(""); };
+    var total = function (n) { return n.ios + n.android + n.youtube + n.redeem + n.code; };
+    // every date in the range, newest first, including the quiet ones
+    var allDays = [];
+    for (var day = d.to; day >= d.from; day = shift(day, -1)) allDays.push(day);
+
+    html += '<h2>الإحصائية اليومية</h2>';
+    html += '<div class="bar filter"><label>من <input type="date" id="f-from" value="' + esc(s.from) + '" max="' + todayKsa() + '"></label>' +
+      '<label>إلى <input type="date" id="f-to" value="' + esc(s.to) + '" max="' + todayKsa() + '"></label>' +
+      '<button class="save" id="f-go">اعرض</button>' +
+      '<span class="sep"></span>' +
+      '<button class="chip" data-range="0">اليوم</button><button class="chip" data-range="6">آخر 7 أيام</button><button class="chip" data-range="29">آخر 30 يومًا</button><button class="chip" data-range="month">هذا الشهر</button>' +
+      '<span class="sep"></span><button class="chip" id="open-all">افتح الكل</button><button class="chip" id="close-all">أغلق الكل</button></div>';
+    html += '<p class="note">كل سطر يوم (بتوقيت السعودية). اضغط اليوم لتفتح تفاصيله: كل تطبيق، ومن أين جاء الزائر، وبأي جهاز، ومن أي صفحة. نقرة من موقعنا، لا تثبيت فعلي.</p>';
+    html += '<div class="tbl-wrap"><table class="daily"><thead><tr><th>التاريخ</th>' + COLS.map(function (c) { return "<th>" + c[1] + "</th>"; }).join("") + '<th>المجموع</th></tr>' +
+      '<tr class="sum"><th>المجموع ' + (d.from === d.to ? "" : "من " + d.from + " إلى " + d.to) + '</th>' + cells(sum, "th") + "<th>" + total(sum) + "</th></tr></thead></table></div>";
+    html += '<div class="days">' + allDays.map(function (day) {
+      var D = byDay[day];
+      if (!D) return '<div class="dayrow quiet"><span class="dt">' + dayLabel(day) + '</span><span class="muted">لا نقرات</span></div>';
+      var inner = Object.keys(D.apps).sort().map(function (id) {
+        var A = D.apps[id];
+        return '<tr><td><b>' + esc(appName(Number(id))) + '</b></td>' + cells(A.n, "td") + "<td>" + total(A.n) + "</td></tr>" +
+          '<tr class="det"><td colspan="7"><span>المصدر: ' + lst(A.source) + '</span><span>الجهاز: ' + lst(A.device) + '</span><span>الصفحة: ' + lst(A.page) + "</span></td></tr>";
+      }).join("");
+      return '<details class="dayrow" data-day="' + day + '"' + (s.open[day] ? " open" : "") + '><summary><span class="dt">' + dayLabel(day) + "</span>" +
+        COLS.map(function (c) { return D.n[c[0]] ? '<span class="pill">' + c[1] + " <b>" + D.n[c[0]] + "</b></span>" : ""; }).join("") +
+        '<span class="tot">' + total(D.n) + '</span></summary>' +
+        '<div class="tbl-wrap"><table><thead><tr><th>التطبيق</th>' + COLS.map(function (c) { return "<th>" + c[1] + "</th>"; }).join("") + '<th>المجموع</th></tr></thead><tbody>' + inner + "</tbody></table></div></details>";
     }).join("") + "</div>";
-    html += '<p class="note">لكل يوم (بتوقيت السعودية) ولكل تطبيق: نقرات زر App Store، زر Google Play، زر YouTube، «فعّل العرض»، والأكواد التي أُعطيت. نقرة من موقعنا، لا تثبيت فعلي.</p>';
-    html += '<div class="tbl-wrap"><table><thead><tr><th>التاريخ</th><th>التطبيق</th><th>🍎 App Store</th><th>🤖 Google Play</th><th>▶️ YouTube</th><th>تفعيل العرض</th><th>أكواد</th></tr></thead><tbody>' +
-      (dk.length ? dk.map(function (k) { var x = daily[k]; return "<tr><td>" + dayLabel(x.day) + "</td><td>" + esc(appName(x.app_id)) + "</td>" + cells(x.n) + "</tr>"; }).join("") +
-                   '<tr><th>المجموع (آخر ' + s.days + ' يومًا)</th><th></th>' + COLS.map(function (c) { return "<th>" + sum[c] + "</th>"; }).join("") + "</tr>"
-                 : '<tr><td colspan="7">لا نقرات في هذه الفترة.</td></tr>') + "</tbody></table></div>";
 
     html += '<h2>العرض المجاني</h2><div class="stats">' +
       '<div class="stat"><b>' + total + '</b><span>أكواد أندرويد</span></div>' +
@@ -185,39 +245,13 @@ a.btnl,button.lnk{border:1px solid var(--line);background:var(--surface);border-
 
     // downloads
     html += '<h2>مجاميع ' + esc(a.name_ar || a.slug) + '</h2>';
-    html += '<p class="note">مجاميع سريعة فقط؛ التفصيل بالتاريخ في الجدولين أعلاه وأدناه. التثبيت الحقيقي في Play Console وApp Store Connect.</p>';
+    html += '<p class="note">مجاميع سريعة فقط؛ التفصيل بالتاريخ في الإحصائية اليومية أعلاه. التثبيت الحقيقي في Play Console وApp Store Connect.</p>';
     var rows = [["ios", "download"], ["android", "download"], [null, "youtube"], ["ios", "redeem"], ["android", "redeem"], ["android", "code"], ["android", "copy"], [null, "visit"]];
     html += '<div class="tbl-wrap"><table><thead><tr><th></th><th>آخر 24 ساعة</th><th>آخر 7 أيام</th><th>الكل</th></tr></thead><tbody>' +
       rows.map(function (r) {
         var lbl = (r[0] === "ios" ? "🍎 App Store · " : r[0] === "android" ? "🤖 Google Play · " : "") + KIND[r[1]];
         return "<tr><td>" + lbl + "</td><td>" + tot(r[0], r[1], "d1") + "</td><td>" + tot(r[0], r[1], "d7") + "</td><td>" + tot(r[0], r[1], "all_time") + "</td></tr>";
       }).join("") + "</tbody></table></div>";
-
-    // Details per day for the selected app: where the taps came from, on
-    // which devices and from which pages — every row carries its date.
-    var det = {};
-    var add = function (list, field, fmt) {
-      list.forEach(function (r) {
-        if (r.app_id !== a.id || r.kind === "visit") return;
-        var x = det[r.day] || (det[r.day] = {source: {}, device: {}, page: {}});
-        var k = fmt(r[field] || "—");
-        x[field][k] = (x[field][k] || 0) + r.n;
-      });
-    };
-    add(d.clicks.bySource || [], "source", src);
-    add(d.clicks.byDevice || [], "device", function (k) { return DEV[k] || k; });
-    add(d.clicks.byPage || [], "page", function (k) { return k; });
-    var lst = function (m) {
-      return Object.keys(m).sort(function (p, q) { return m[q] - m[p]; }).map(function (k) { return esc(k) + " <b>" + m[k] + "</b>"; }).join(" · ") || "—";
-    };
-    var dks = Object.keys(det).sort().reverse();
-    html += '<h2 style="font-size:16px">تفاصيل ' + esc(a.name_ar || a.slug) + ' بالأيام</h2>';
-    html += '<p class="note">لكل يوم: نقرات التطبيق (App Store + Google Play)، وYouTube، ومن أين جاء الزائر وبأي جهاز ومن أي صفحة. الأرقام في الخلايا الثلاث الأخيرة تشمل كل النقرات (تحميل، تفعيل، أكواد، YouTube).</p>';
-    html += dks.length ? '<div class="tbl-wrap"><table><thead><tr><th>التاريخ</th><th>نقرات التطبيق</th><th>▶️ YouTube</th><th>المصدر</th><th>الجهاز</th><th>الصفحة</th></tr></thead><tbody>' +
-      dks.map(function (day) {
-        var n = (daily[day + "|" + a.id] || {n: blank()}).n, x = det[day];
-        return "<tr><td>" + dayLabel(day) + "</td><td>" + (n.ios + n.android || "·") + "</td><td>" + (n.youtube || "·") + "</td><td>" + lst(x.source) + "</td><td>" + lst(x.device) + "</td><td>" + lst(x.page) + "</td></tr>";
-      }).join("") + "</tbody></table></div>" : '<p class="note">لا نقرات في هذه الفترة.</p>';
 
     $("main").innerHTML = html;
   }
@@ -249,7 +283,22 @@ a.btnl,button.lnk{border:1px solid var(--line);background:var(--surface);border-
     if (!t) return;
     if (t.dataset.app) { s.app = t.dataset.app; s.codeStatus = "issued"; render(); loadCodes(true); return; }
     if (t.dataset.cst) { s.codeStatus = t.dataset.cst; render(); loadCodes(true); return; }
-    if (t.dataset.days) { s.days = Number(t.dataset.days); loadSummary(); return; }
+    if (t.id === "f-go") {
+      var f = $("f-from").value, to = $("f-to").value;
+      if (!f || !to) return;
+      if (f > to) { var w = f; f = to; to = w; }
+      s.from = f; s.to = to; loadSummary(); return;
+    }
+    if (t.dataset.range !== undefined) {
+      s.to = todayKsa();
+      s.from = t.dataset.range === "month" ? s.to.slice(0, 8) + "01" : shift(s.to, -Number(t.dataset.range));
+      loadSummary(); return;
+    }
+    if (t.id === "open-all" || t.id === "close-all") {
+      var open = t.id === "open-all";
+      Array.prototype.forEach.call(document.querySelectorAll("details.dayrow"), function (el) { el.open = open; s.open[el.dataset.day] = open; });
+      return;
+    }
     if (t.id === "more") { loadCodes(false); return; }
     if (t.dataset.release) {
       if (!confirm("إرجاع هذا الكود إلى المتاح؟\n\nفقط إذا لم يُفعَّل في Google Play (مثل كود تجربة). الكود المُفعَّل لا يعمل مرة أخرى، وسيصل لزائر آخر معطّلًا.")) return;
@@ -287,6 +336,11 @@ a.btnl,button.lnk{border:1px solid var(--line);background:var(--surface);border-
       });
     }
   });
+  // remember which days are open across re-renders
+  document.addEventListener("toggle", function (e) {
+    var el = e.target;
+    if (el && el.classList && el.classList.contains("dayrow")) s.open[el.dataset.day] = el.open;
+  }, true);
   loadSummary();
 })();
 </script>

@@ -2,7 +2,7 @@
 // API (/admin/promo/; proposal qapps_free_codes, decision و). Cloudflare
 // Access only (lib/feedback/access.js): no valid token → 401, no data.
 //
-// GET  ?view=summary[&days=30]           apps + code counts + click statistic per Saudi day (days ≤ 365)
+// GET  ?view=summary[&from=&to=|&days=]   apps + code counts + click statistic per Saudi day (≤ 366 days)
 // GET  ?view=codes&app=&status=&offset=  the codes of one app (newest issued first)
 // GET  ?view=csv&app=                    every code of one app as CSV
 // POST {action:"add", app, codes}        paste codes (any separators); duplicates ignored
@@ -70,26 +70,41 @@ export async function onRequestGet({ request, env }) {
   }
 
   // summary
-  const days = Math.min(365, Math.max(1, Number(u.searchParams.get("days")) || 30));
-  // Days are Saudi days (UTC+3): a tap at 22:30 UTC belongs to the next Saudi
-  // date, which is what the owner reads on the dashboard.
+  // Date filter: ?from=YYYY-MM-DD&to=YYYY-MM-DD (Saudi dates, inclusive,
+  // at most 366 days) or the older ?days=N. Days are Saudi days (UTC+3): a
+  // tap at 22:30 UTC belongs to the next Saudi date, the one the owner reads.
   const DAY = "substr(datetime(created_at, '+3 hours'), 1, 10)";
-  const since = new Date(Date.now() - days * 86_400_000).toISOString();
+  const isDate = (v) => /^\d{4}-\d{2}-\d{2}$/.test(v || "") && !isNaN(new Date(v + "T00:00:00+03:00"));
+  const ksaStart = (d) => new Date(d + "T00:00:00+03:00");
+  let from = u.searchParams.get("from"), to = u.searchParams.get("to");
+  let days;
+  if (isDate(from) && isDate(to) && ksaStart(from) <= ksaStart(to)) {
+    days = Math.min(366, Math.round((ksaStart(to) - ksaStart(from)) / 86_400_000) + 1);
+    from = new Date(ksaStart(to) - (days - 1) * 86_400_000).toISOString().slice(0, 10);
+  } else {
+    days = Math.min(366, Math.max(1, Number(u.searchParams.get("days")) || 7));
+    to = new Date(Date.now() + 3 * 3_600_000).toISOString().slice(0, 10);
+    from = new Date(ksaStart(to) - (days - 1) * 86_400_000).toISOString().slice(0, 10);
+  }
+  const since = ksaStart(from).toISOString();
+  const until = new Date(ksaStart(to).getTime() + 86_400_000).toISOString();
   const day1 = new Date(Date.now() - 86_400_000).toISOString();
   const day7 = new Date(Date.now() - 7 * 86_400_000).toISOString();
   const [apps, codes, recent, byDay, bySource, byDevice, byPage, totals] = await db.batch([
     db.prepare("SELECT * FROM apps ORDER BY id"),
     db.prepare("SELECT app_id, platform, status, COUNT(*) AS n FROM promo_codes GROUP BY app_id, platform, status"),
     db.prepare("SELECT app_id, SUM(issued_at >= ?) AS d1, SUM(issued_at >= ?) AS d7 FROM promo_codes WHERE status = 'issued' GROUP BY app_id").bind(day1, day7),
-    db.prepare(`SELECT ${DAY} AS day, app_id, platform, kind, COUNT(*) AS n FROM store_clicks WHERE created_at >= ? GROUP BY day, app_id, platform, kind ORDER BY day`).bind(since),
-    db.prepare(`SELECT ${DAY} AS day, app_id, source, kind, COUNT(*) AS n FROM store_clicks WHERE created_at >= ? GROUP BY day, app_id, source, kind`).bind(since),
-    db.prepare(`SELECT ${DAY} AS day, app_id, device, kind, COUNT(*) AS n FROM store_clicks WHERE created_at >= ? GROUP BY day, app_id, device, kind`).bind(since),
-    db.prepare(`SELECT ${DAY} AS day, app_id, page, kind, COUNT(*) AS n FROM store_clicks WHERE created_at >= ? GROUP BY day, app_id, page, kind`).bind(since),
+    db.prepare(`SELECT ${DAY} AS day, app_id, platform, kind, COUNT(*) AS n FROM store_clicks WHERE created_at >= ? AND created_at < ? GROUP BY day, app_id, platform, kind ORDER BY day`).bind(since, until),
+    db.prepare(`SELECT ${DAY} AS day, app_id, source, kind, COUNT(*) AS n FROM store_clicks WHERE created_at >= ? AND created_at < ? GROUP BY day, app_id, source, kind`).bind(since, until),
+    db.prepare(`SELECT ${DAY} AS day, app_id, device, kind, COUNT(*) AS n FROM store_clicks WHERE created_at >= ? AND created_at < ? GROUP BY day, app_id, device, kind`).bind(since, until),
+    db.prepare(`SELECT ${DAY} AS day, app_id, page, kind, COUNT(*) AS n FROM store_clicks WHERE created_at >= ? AND created_at < ? GROUP BY day, app_id, page, kind`).bind(since, until),
     db.prepare("SELECT app_id, platform, kind, SUM(created_at >= ?) AS d1, SUM(created_at >= ?) AS d7, COUNT(*) AS all_time FROM store_clicks GROUP BY app_id, platform, kind").bind(day1, day7),
   ]);
   return jsonOut({
     ok: true,
     days,
+    from,
+    to,
     apps: apps.results,
     codes: codes.results,
     recent: recent.results,
