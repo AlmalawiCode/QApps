@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ru" dir="ltr" data-lang="ru" data-fixed-lang>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Vault — Warranty Manager | Q Apps</title>
+<meta name="description" content="Vault хранит ваши чеки, товары и гарантии в одном месте, считает оставшиеся дни и напоминает до окончания гарантии — 16 функций на 18 языках.">
+<link rel="canonical" href="https://qeuapps.com/ru/apps/vault/">
+<meta name="theme-color" content="#0F1B2D">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Q Apps">
+<meta property="og:title" content="Vault — Warranty Manager | Q Apps">
+<meta property="og:description" content="Vault хранит ваши чеки, товары и гарантии в одном месте, считает оставшиеся дни и напоминает до окончания гарантии — 16 функций на 18 языках.">
+<meta property="og:url" content="https://qeuapps.com/ru/apps/vault/">
+<meta property="og:image" content="https://qeuapps.com/assets/img/brand/og-default.png">
+<meta property="og:locale" content="ru_RU">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vault — Warranty Manager | Q Apps">
+<meta name="twitter:description" content="Vault хранит ваши чеки, товары и гарантии в одном месте, считает оставшиеся дни и напоминает до окончания гарантии — 16 функций на 18 языках.">
+<meta name="twitter:image" content="https://qeuapps.com/assets/img/brand/og-default.png">
+<style>
+.dm-hero{padding:56px 0 40px;overflow:hidden}
+.dm-hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.dm-hero-copy{display:grid;gap:18px}
+.dm-hero h1{font-size:clamp(36px,5.2vw,64px)}
+.dm-hero h1 em{font-style:normal;color:var(--accent)}
+.dm-brand{display:flex;gap:14px;align-items:center}
+.dm-brand img{border-radius:16px;box-shadow:var(--shadow-md)}
+.dm-brand strong{display:block;font-family:var(--f-display);font-size:24px;color:var(--ink)}
+.dm-brand small{color:var(--muted);font-size:14px}
+.dm-dev{justify-self:start;font-size:13.5px;font-weight:700;color:var(--mint);background:var(--mint-soft);padding:6px 12px;border-radius:999px}
+.dm-hero-stage{position:relative;height:620px}
+.dm-phone{all:unset;cursor:zoom-in;display:block;border-radius:30px;border:7px solid #0F1B2D;background:#0F1B2D;overflow:hidden;box-shadow:var(--shadow-lg);transition:transform .25s}
+.dm-phone:hover{transform:translateY(-4px)}
+.dm-phone:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.dm-phone img{width:100%;height:auto;display:block}
+.dm-hero-stage .dm-phone{position:absolute;width:250px}
+.dm-p1{inset-inline-start:6%;top:0;transform:rotate(-4deg)}
+.dm-p2{inset-inline-end:4%;top:70px;transform:rotate(4deg)}
+.dm-p1:hover{transform:rotate(-4deg) translateY(-4px)}.dm-p2:hover{transform:rotate(4deg) translateY(-4px)}
+.dm-stats-wrap{padding:0 0 24px}
+.dm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.dm-stats div{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:18px;display:grid;gap:4px;text-align:center}
+.dm-stats b{font-family:var(--f-display);font-size:clamp(30px,4vw,44px);color:var(--accent);line-height:1}
+.dm-stats span{color:var(--muted);font-weight:600;font-size:14.5px}
+.dm-story-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:44px;align-items:start}
+.dm-story-text{display:grid;gap:18px}
+.dm-story-text p{font-size:18px;line-height:1.85;color:var(--ink)}
+.dm-story-text q{color:var(--accent);font-weight:700}
+html[dir="rtl"] .dm-story-text q{quotes:"«" "»"}
+.dm-timeline{list-style:none;margin:0;padding:0;display:grid;gap:14px;position:relative}
+.dm-timeline li{display:flex;gap:14px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 16px}
+.dm-timeline li>span{font-size:26px;line-height:1}
+.dm-timeline b{display:block;color:var(--ink)}
+.dm-timeline small{color:var(--muted);font-size:14.5px}
+.dm-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.dm-step{display:grid;gap:14px;align-content:start}
+.dm-step-txt{display:grid;gap:6px}
+.dm-step h3{font-size:19px}
+.dm-step p{font-size:15px}
+.dm-num{width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:800}
+.dm-swipe-hint{display:none;text-align:center;font-size:14px;margin-top:10px}
+.dm-spot{padding:72px 0}
+.dm-spot-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.dm-flip .dm-spot-copy{order:2}
+.dm-spot-copy{display:grid;gap:14px}
+.dm-spot h2{font-size:clamp(28px,3.6vw,44px)}
+.dm-ticks{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:10px}
+.dm-ticks li{position:relative;padding-inline-start:30px;color:var(--ink);font-weight:600}
+.dm-ticks li::before{content:"✓";position:absolute;inset-inline-start:0;top:0;width:22px;height:22px;border-radius:50%;background:var(--mint-soft);color:var(--mint);display:grid;place-items:center;font-size:13px;font-weight:800}
+.dm-spot-shots{display:flex;gap:18px;justify-content:center;align-items:flex-start}
+.dm-spot-shots .dm-phone{width:min(260px,46%)}
+.dm-n3 .dm-phone{width:min(210px,31%)}
+.dm-n2 .dm-phone:nth-child(2),.dm-n3 .dm-phone:nth-child(2){margin-top:44px}
+.dm-feats{columns:3;column-gap:14px}
+.dm-feat{break-inside:avoid;margin:0 0 14px;background:var(--bg);border:1px solid var(--line);border-radius:var(--radius-sm);padding:0;transition:box-shadow .2s}
+.dm-feat[open]{box-shadow:var(--shadow-md);background:var(--surface)}
+.dm-feat summary{list-style:none;cursor:pointer;display:flex;gap:12px;align-items:center;padding:16px 18px}
+.dm-feat summary::-webkit-details-marker{display:none}
+.dm-ico{font-size:24px;line-height:1}
+.dm-feat-t{flex:1;font-weight:750;color:var(--ink)}
+.dm-count{min-width:30px;height:30px;padding:0 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:800;font-size:14px}
+.dm-feat ul{margin:0;padding:0 20px 16px;padding-inline-start:44px;display:grid;gap:6px;color:var(--muted);font-size:15.5px}
+.dm-openall{margin-top:6px}
+.dm-suggest-wrap{padding:36px 0}
+.dm-suggest{display:flex;align-items:center;gap:18px;background:var(--accent-soft);border:1.5px dashed var(--accent);border-radius:var(--radius);padding:22px 26px;text-decoration:none;color:var(--ink);transition:transform .2s}
+.dm-suggest:hover{transform:translateY(-2px);color:var(--ink)}
+.dm-suggest-ic{font-size:34px;line-height:1}
+.dm-suggest-tx{flex:1;display:grid;gap:4px}
+.dm-suggest-tx b{font-family:var(--f-display);font-size:20px}
+html[dir="rtl"] .dm-suggest-tx b{font-family:var(--f-display-ar)}
+.dm-suggest-tx span{color:var(--muted)}
+.dm-suggest-go{background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:10px 18px;font-weight:750;white-space:nowrap}
+@media (max-width:620px){.dm-suggest{flex-wrap:wrap;padding:18px}.dm-suggest-go{width:100%;text-align:center}}
+.dm-price-card{display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:center;background:var(--night);border-radius:var(--radius);padding:44px;color:var(--on-night)}
+.dm-price-card h2{color:#fff;font-size:clamp(28px,3.6vw,44px);margin:8px 0 12px}
+.dm-price-card p{color:var(--on-night-muted);font-size:17px}
+.dm-price-card .dm-ticks li{color:#fff}
+.dm-gallery{display:grid;grid-template-columns:repeat(8,1fr);gap:16px}
+.dm-gallery figure{margin:0;display:grid;gap:8px}
+.dm-gallery .dm-phone{border-width:5px;border-radius:20px;box-shadow:var(--shadow-md)}
+.dm-gallery figcaption{text-align:center;font-size:13.5px;font-weight:650;color:var(--muted)}
+.dm-lb{position:fixed;inset:0;z-index:100;background:rgba(6,12,22,.92);display:flex;align-items:center;justify-content:center;padding:20px}
+.dm-lb[hidden]{display:none}
+.dm-lb img{max-height:92vh;max-width:min(94vw,520px);width:auto;border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.dm-lb-x{position:absolute;top:14px;inset-inline-end:14px;width:46px;height:46px;border-radius:50%;border:0;background:#fff;color:#0F1B2D;font-size:22px;cursor:pointer}
+.dm-lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;border:0;background:rgba(255,255,255,.15);color:#fff;font-size:34px;cursor:pointer}
+.dm-lb-prev{left:14px}.dm-lb-next{right:14px}
+@media (max-width:1100px){
+  .dm-gallery{grid-template-columns:repeat(4,1fr)}
+  .dm-feats{columns:2}
+}
+@media (max-width:900px){
+  .dm-hero-grid,.dm-story-grid,.dm-spot-grid,.dm-price-card{grid-template-columns:1fr}
+  .dm-hero{padding-top:28px}
+  .dm-hero-stage{height:470px;max-width:440px;width:100%;margin-inline:auto}
+  .dm-hero-stage .dm-phone{width:200px}
+  .dm-flip .dm-spot-copy{order:0}
+  .dm-spot{padding:52px 0}
+  .dm-stats{grid-template-columns:repeat(2,1fr)}
+  .dm-steps{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;padding-bottom:10px;margin-inline:-16px;padding-inline:16px;scrollbar-width:none}
+  .dm-steps::-webkit-scrollbar{display:none}
+  .dm-step{flex:0 0 68%;scroll-snap-align:center}
+  .dm-swipe-hint{display:block}
+  .dm-price-card{padding:30px 22px}
+}
+@media (max-width:620px){
+  .dm-feats{columns:1}
+  .dm-gallery{grid-template-columns:repeat(2,1fr)}
+  .dm-hero-stage{height:400px}
+  .dm-hero-stage .dm-phone{width:170px}
+  .dm-spot-shots .dm-phone{width:min(220px,47%)}
+  .dm-n3{justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-16px;padding:4px 16px 12px;scrollbar-width:none}
+  .dm-n3::-webkit-scrollbar{display:none}
+  .dm-n3 .dm-phone{flex:0 0 58%;width:auto;scroll-snap-align:center}
+  .dm-n3 .dm-phone:nth-child(2){margin-top:0}
+  .dm-story-text p{font-size:17px}
+}
+
+.pf-wrap[hidden],.pf-wrap [hidden],.pf-badge[hidden]{display:none!important}
+.pf-badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent-soft);color:var(--ink);border:1.5px dashed var(--accent);border-radius:999px;padding:6px 14px;font-weight:700;font-size:14.5px;text-decoration:none;width:max-content;max-width:100%}
+.pf-badge:hover{color:var(--ink);text-decoration:none;transform:translateY(-1px)}
+.pf-wrap{padding-top:0}
+.pf{background:var(--night);color:var(--on-night);border-radius:var(--radius);padding:36px;display:grid;gap:22px}
+.pf-head{display:flex;gap:16px;align-items:flex-start}
+.pf-gift{font-size:44px;line-height:1}
+.pf h2{color:#fff;font-size:clamp(26px,3.4vw,40px);margin:0 0 6px}
+.pf-head p{color:var(--on-night-muted);margin:0;font-size:17px}
+.pf-left{display:inline-block;margin-inline-start:8px;background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:0 10px;font-size:14px}
+.pf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.pf-card{background:var(--night-2);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius-sm);padding:20px;display:grid;gap:10px;align-content:start}
+.pf-card h3{color:#fff;font-size:19px;margin:0 0 4px}
+.pf-card [data-pf-state]{display:grid;gap:10px}
+.pf-card [data-pf-state][hidden]{display:none}
+.pf-btn{display:flex;align-items:center;justify-content:center;gap:10px;border-radius:14px;padding:13px 16px;font:inherit;font-weight:700;font-size:16px;text-decoration:none;cursor:pointer;border:1.5px solid transparent;transition:transform .2s;width:100%}
+.pf-btn:hover{transform:translateY(-1px);text-decoration:none}
+.pf-btn i{font-style:normal;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;font-size:13px;background:rgba(0,0,0,.18)}
+.pf-btn-1{background:var(--accent);color:var(--accent-ink)}
+.pf-btn-1:hover{color:var(--accent-ink)}
+.pf-btn-2{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.pf-btn-2:hover{color:#fff;border-color:#fff}
+.pf-btn[disabled]{opacity:.6;cursor:wait}
+.pf-note{color:var(--on-night-muted);font-size:14px;margin:0}
+.pf-msg{color:#fff;margin:0}
+.pf-code{border:2px dashed var(--accent);border-radius:14px;text-align:center;font-family:var(--f-mono);font-size:clamp(16px,4.6vw,22px);font-weight:700;letter-spacing:1px;padding:12px 8px;color:#fff;word-break:break-all;user-select:all}
+.pf-fine{color:var(--on-night-muted);font-size:14px;margin:0}
+.pf-fine a{color:var(--on-night);margin-inline-start:6px}
+.pf-ts:empty{display:none}
+@media (max-width:620px){.pf{padding:22px}.pf-gift{font-size:34px}}
+</style>
+<link rel="alternate" hreflang="en" href="https://qeuapps.com/apps/vault/">
+<link rel="alternate" hreflang="ar" href="https://qeuapps.com/apps/vault/">
+<link rel="alternate" hreflang="x-default" href="https://qeuapps.com/apps/vault/">
+<link rel="alternate" hreflang="fr" href="https://qeuapps.com/fr/apps/vault/">
+<link rel="alternate" hreflang="de" href="https://qeuapps.com/de/apps/vault/">
+<link rel="alternate" hreflang="es" href="https://qeuapps.com/es/apps/vault/">
+<link rel="alternate" hreflang="tr" href="https://qeuapps.com/tr/apps/vault/">
+<link rel="alternate" hreflang="ja" href="https://qeuapps.com/ja/apps/vault/">
+<link rel="alternate" hreflang="ko" href="https://qeuapps.com/ko/apps/vault/">
+<link rel="alternate" hreflang="id" href="https://qeuapps.com/id/apps/vault/">
+<link rel="alternate" hreflang="ms" href="https://qeuapps.com/ms/apps/vault/">
+<link rel="alternate" hreflang="zh" href="https://qeuapps.com/zh/apps/vault/">
+<link rel="alternate" hreflang="pt" href="https://qeuapps.com/pt/apps/vault/">
+<link rel="alternate" hreflang="it" href="https://qeuapps.com/it/apps/vault/">
+<link rel="alternate" hreflang="ru" href="https://qeuapps.com/ru/apps/vault/">
+<link rel="alternate" hreflang="nl" href="https://qeuapps.com/nl/apps/vault/">
+<link rel="alternate" hreflang="ur" href="https://qeuapps.com/ur/apps/vault/">
+<link rel="alternate" hreflang="bn" href="https://qeuapps.com/bn/apps/vault/">
+<link rel="alternate" hreflang="hi" href="https://qeuapps.com/hi/apps/vault/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500..700&family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Manrope:wght@400..800&display=swap">
+<link rel="stylesheet" href="/assets/css/styles.css?v=c5714c0bf7">
+<style>
+.qa-grid-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:18px}
+.qa-grid-head h1,.qa-grid-head h2{margin:0;font-size:clamp(26px,3vw,36px)}
+.qa-count{color:var(--muted);font-weight:700;font-size:15px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px 14px}
+.qa-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.qa-app{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;text-decoration:none;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px 12px 18px;transition:transform .15s,box-shadow .15s}
+.qa-app:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.qa-app img{width:96px;height:96px;border-radius:24px;box-shadow:var(--shadow-md);background:#fff;object-fit:cover;margin-bottom:6px}
+.qa-app b{font-size:17px;line-height:1.35}
+.qa-app small{color:var(--muted);font-size:13.5px;line-height:1.55}
+.qa-app .badge{margin-top:4px}
+.qa-next{border-style:dashed;background:transparent}
+.qa-plus{width:96px;height:96px;border-radius:24px;border:2px dashed var(--line);display:grid;place-items:center;font-size:44px;color:var(--muted);margin-bottom:6px}
+.qa-next b{color:var(--muted)}
+@media (max-width:760px){.qa-grid{grid-template-columns:repeat(2,1fr);gap:12px}}
+@media (max-width:560px){
+  .qa-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .qa-app{padding:16px 8px 14px;border-radius:18px;gap:4px}
+  .qa-app img,.qa-plus{width:76px;height:76px;border-radius:19px}
+  .qa-plus{font-size:34px}
+  .qa-app b{font-size:15px}
+  .qa-app small{font-size:12.5px}
+  .qa-app .badge{font-size:11.5px;padding:2px 9px}
+}
+/* home: short intro line above the grid */
+.qa-intro{padding:56px 0 18px}
+.qa-intro h1{font-size:clamp(32px,4.4vw,54px);line-height:1.15;margin:0 0 12px}
+.qa-intro h1 em{font-style:normal;color:var(--accent)}
+.qa-intro .lead{max-width:44em;margin:0}
+.qa-apps{padding:18px 0 40px}
+.qa-quote{padding:8px 0 40px}
+.qa-quote .inspire{margin:0;max-width:none}
+@media (max-width:720px){.qa-intro{padding:30px 0 8px}}
+/* app pages: the section bar */
+.qa-tabs{position:sticky;top:71px;z-index:40;background:color-mix(in srgb,var(--bg) 90%,transparent);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:0}
+.qa-tabs-row{display:flex;gap:6px;overflow-x:auto;padding:10px 0;scrollbar-width:none}
+.qa-tabs-row::-webkit-scrollbar{display:none}
+.qa-tabs-row a{flex:0 0 auto;text-decoration:none;color:var(--ink);font-weight:650;font-size:14.5px;background:var(--surface);
+  border:1px solid var(--line);border-radius:999px;padding:5px 14px}
+.qa-tabs-row a:hover{border-color:var(--accent);color:var(--accent)}
+.qa-tabs + section{padding-top:22px}
+[id="screens"],[id="features"],[id="story"],[id="video"],[id="questions"]{scroll-margin-top:140px}
+/* app pages: help cards */
+.qa-help{padding:40px 0}
+.qa-help-h{font-size:clamp(24px,3vw,32px);margin:0 0 16px}
+.qa-help-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:820px){.qa-help-grid{grid-template-columns:1fr}}
+.qa-help-card{display:flex;flex-direction:column;gap:2px;text-decoration:none;color:var(--ink);background:var(--surface);
+  border:1px solid var(--line);border-radius:18px;padding:16px 18px;transition:box-shadow .15s}
+.qa-help-card:hover{box-shadow:var(--shadow-md)}
+.qa-help-ic{font-size:24px;margin-bottom:4px}
+.qa-help-card small{color:var(--muted)}
+/* footer: copyright line only */
+.site-footer-min{padding:22px 0;margin-top:40px}
+.site-footer-min .footer-bottom{margin:0;padding:0;border:0;justify-content:center;text-align:center}
+</style>
+<script>window.QAPPS_T={"Please write a little more (at least 10 letters).": "Пожалуйста, напишите чуть подробнее (не менее 10 букв).", "Sending from the website is not ready yet — send it by WhatsApp or email below.": "Отправка с сайта пока не готова — отправьте сообщение через WhatsApp или по эл. почте ниже.", "One moment — we are checking you are not a robot…": "Минутку — проверяем, что вы не робот…", "Sending…": "Отправка…", "You have sent several messages already — please try again later.": "Вы уже отправили несколько сообщений — пожалуйста, попробуйте позже.", "We could not confirm you are not a robot. Please try again.": "Не удалось подтвердить, что вы не робот. Пожалуйста, попробуйте снова.", "Your message is too short or too long.": "Ваше сообщение слишком короткое или слишком длинное.", "We could not send it from the website right now — send it by WhatsApp or email below.": "Сейчас не удалось отправить сообщение с сайта — отправьте его через WhatsApp или по эл. почте ниже.", "No connection to the website right now — send it by WhatsApp or email below.": "Сейчас нет связи с сайтом — отправьте сообщение через WhatsApp или по эл. почте ниже.", "Open all": "Открыть все", "Close all": "Закрыть все"};</script>
+</head>
+<body>
+<a class="skip" href="#main"><span>Перейти к содержимому</span></a>
+<header class="site-header"><div class="container"><nav class="nav" aria-label="Главное меню">
+  <a class="brand" href="/ru/" aria-label="Q Apps"><svg class="qmark" viewBox="0 0 120 120" width="38" height="38" aria-hidden="true"><circle class="qm-ring" cx="56" cy="56" r="37" fill="none" stroke-width="19"/><rect class="qm-tile" x="72" y="72" width="40" height="40" rx="12" stroke-width="7" paint-order="stroke"/><circle class="qm-dot" cx="92" cy="92" r="5"/></svg><span><b>Q</b> Apps</span></a>
+  <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Меню">☰</button>
+  <div class="nav-links" id="nav-links"><a href="/ru/apps/" aria-current="page"><span>Приложения</span></a><a href="/ru/suggest/"><span>Предложить</span></a><a href="/ru/support/"><span>Поддержка</span></a><a href="/ru/about/"><span>О нас</span></a>
+    <details class="lang-menu"><summary class="lang-sum">🌐 Русский</summary><div class="lang-list"><a href="/apps/vault/?lang=en" data-set-lang="en" lang="en">English</a><a href="/apps/vault/?lang=ar" data-set-lang="ar" lang="ar" dir="rtl">العربية</a><a href="/fr/apps/vault/" data-set-lang="fr" lang="fr">Français</a><a href="/de/apps/vault/" data-set-lang="de" lang="de">Deutsch</a><a href="/es/apps/vault/" data-set-lang="es" lang="es">Español</a><a href="/it/apps/vault/" data-set-lang="it" lang="it">Italiano</a><a href="/pt/apps/vault/" data-set-lang="pt" lang="pt">Português</a><a href="/nl/apps/vault/" data-set-lang="nl" lang="nl">Nederlands</a><a href="/ru/apps/vault/" data-set-lang="ru" lang="ru" aria-current="true">Русский</a><a href="/tr/apps/vault/" data-set-lang="tr" lang="tr">Türkçe</a><a href="/ur/apps/vault/" data-set-lang="ur" lang="ur" dir="rtl">اردو</a><a href="/hi/apps/vault/" data-set-lang="hi" lang="hi">हिन्दी</a><a href="/bn/apps/vault/" data-set-lang="bn" lang="bn">বাংলা</a><a href="/id/apps/vault/" data-set-lang="id" lang="id">Bahasa Indonesia</a><a href="/ms/apps/vault/" data-set-lang="ms" lang="ms">Bahasa Melayu</a><a href="/zh/apps/vault/" data-set-lang="zh" lang="zh">简体中文</a><a href="/ja/apps/vault/" data-set-lang="ja" lang="ja">日本語</a><a href="/ko/apps/vault/" data-set-lang="ko" lang="ko">한국어</a></div></details>
+  </div>
+</nav></div></header>
+<main id="main">
+<div class="container"><nav class="crumbs" aria-label="Навигационная цепочка"><a href="/ru/"><span>Главная</span></a><span aria-hidden="true">/</span><a href="/ru/apps/"><span>Приложения</span></a><span aria-hidden="true">/</span><span>Vault — Warranty Manager</span></nav></div><section class="dm-hero"><div class="container dm-hero-grid">
+  <div class="dm-hero-copy">
+    <div class="dm-brand"><img src="/assets/img/apps/vault/icon.png" alt="Значок Vault" width="64" height="64">
+      <div><strong>Vault</strong><small>Менеджер гарантий и чеков</small></div></div>
+    <span class="dm-dev"><span>Уже доступно в App Store и Google Play</span></span>
+    <h1>Больше никогда не теряйте <em>гарантию.</em></h1>
+    <p class="lead">Храните все чеки, все товары и все гарантии в одном месте, точно знайте, сколько дней осталось, и получайте напоминание до окончания гарантии — 16 основных функций и 66 инструментов внутри них.</p>
+    <div class="stores"><a class="store-btn" href="https://apps.apple.com/app/id6773164894" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 1.6c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.9 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.9-1.4zM19 17.3c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.3-1.5 0-1.9-1-4-1-2 0-2.5 1-4 1-1.6 0-2.9-1.6-3.9-3.1-2.7-4.2-3-9.1-1.3-11.7 1.2-1.8 3-2.9 4.8-2.9 1.8 0 2.9 1 4.4 1 1.4 0 2.3-1 4.4-1 1.6 0 3.2.9 4.4 2.4-3.9 2.1-3.2 7.6.2 9.1z"/></svg><span><small>Загрузите в</small><strong>App Store</strong></span></a><a class="store-btn" href="https://play.google.com/store/apps/details?id=com.vault.warranty" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.2c-.3.3-.5.7-.5 1.3v17c0 .6.2 1 .5 1.3l.1.1L13 12.6v-.2L3.7 2.1l-.1.1zm11.9 8.5L5.9 1.4l11.7 6.7-2.1 2.6zM5.9 22.6l9.6-9.3 2.1 2.6-11.7 6.7zM19.6 9.3l-2.5 1.4 2.4 3-2.4 3 2.5 1.4c.9-.5 1.5-1.3 1.5-2.4v-4c0-1.1-.6-1.9-1.5-2.4l-.5.6.5-.6z"/></svg><span><small>Доступно в</small><strong>Google Play</strong></span></a><a class="store-btn" style="background:#c4302b" href="https://www.youtube.com/playlist?list=PLVw-KHF4Mj74" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C16.6 4 12 4 12 4s-4.6 0-7.8.2c-.5.1-1.4.1-2.3 1C1.2 5.9 1 7.5 1 7.5S.8 9.4.8 11.3v1.4C.8 14.6 1 16.5 1 16.5s.2 1.6.9 2.3c.9.9 2 .9 2.6 1 1.9.2 7.5.2 7.5.2s4.6 0 7.8-.3c.5-.1 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.8v-1.4c0-1.9-.2-3.7-.2-3.7zM9.8 15.1V8.9l6 3.1-6 3.1z"/></svg><span><small>Уроки на</small><strong>YouTube</strong></span></a></div>
+    <a class="pf-badge" href="#free" data-pf-badge hidden><span>🎁 Полная версия бесплатно на ограниченное время ↓</span></a>
+  </div>
+  <div class="dm-hero-stage">
+    <button type="button" class="dm-phone dm-p1" data-zoom="home" aria-label="Главный экран Vault"><img src="/assets/img/apps/vault/home_en.webp" alt="Главный экран Vault" loading="eager" width="620" height="1341"></button>
+    <button type="button" class="dm-phone dm-p2" data-zoom="status" aria-label="Статус гарантии с обратным отсчётом"><img src="/assets/img/apps/vault/status_en.webp" alt="Статус гарантии с обратным отсчётом" loading="eager" width="620" height="1341"></button>
+  </div>
+</div></section><nav class="qa-tabs" aria-label="Vault — Warranty Manager"><div class="container"><div class="qa-tabs-row"><a href="#screens"><span>Экраны</span></a><a href="#features"><span>Функции</span></a><a href="#story"><span>История</span></a><a href="#video"><span>Видео</span></a><a href="#questions"><span>Вопросы</span></a><a href="/ru/tutorials/vault/"><span>Обучение</span></a><a href="/privacy/vault/en/"><span>Конфиденциальность</span></a><a href="/ru/support/vault/"><span>Поддержка</span></a><a href="/ru/suggest/?app=vault"><span>Предложить</span></a></div></div></nav><section class="dm-stats-wrap"><div class="container"><div class="dm-stats">
+  <div><b>16</b><span>основных функций</span></div>
+  <div><b>66</b><span>инструмента внутри них</span></div>
+  <div><b>18</b><span>языков</span></div>
+  <div><b dir="ltr">1×</b><span>один платёж — ваше навсегда</span></div>
+</div></div></section><section id="screens" class="section-soft"><div class="container">
+  <div class="section-head center">
+    <span class="kicker">Экраны</span>
+    <h2>Настоящие экраны приложения.</h2>
+    <p>Нажмите на любой экран, чтобы увеличить его.</p>
+  </div>
+  <div class="dm-gallery"><figure><button type="button" class="dm-phone " data-zoom="home" aria-label="Главная"><img src="/assets/img/apps/vault/home_en.webp" alt="Главная" loading="lazy" width="620" height="1341"></button><figcaption><span>Главная</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="warranties" aria-label="Мои гарантии"><img src="/assets/img/apps/vault/warranties_en.webp" alt="Мои гарантии" loading="lazy" width="620" height="1341"></button><figcaption><span>Мои гарантии</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="filter" aria-label="Фильтр"><img src="/assets/img/apps/vault/filter_en.webp" alt="Фильтр" loading="lazy" width="620" height="1341"></button><figcaption><span>Фильтр</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="detail" aria-label="Сведения о гарантии"><img src="/assets/img/apps/vault/detail_en.webp" alt="Сведения о гарантии" loading="lazy" width="620" height="1341"></button><figcaption><span>Сведения о гарантии</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="status" aria-label="Статус гарантии"><img src="/assets/img/apps/vault/status_en.webp" alt="Статус гарантии" loading="lazy" width="620" height="1341"></button><figcaption><span>Статус гарантии</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="insights" aria-label="Аналитика"><img src="/assets/img/apps/vault/insights_en.webp" alt="Аналитика" loading="lazy" width="620" height="1341"></button><figcaption><span>Аналитика</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="settings" aria-label="Настройки"><img src="/assets/img/apps/vault/settings_en.webp" alt="Настройки" loading="lazy" width="620" height="1341"></button><figcaption><span>Настройки</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="cardstyle" aria-label="Стиль карточки"><img src="/assets/img/apps/vault/cardstyle_en.webp" alt="Стиль карточки" loading="lazy" width="620" height="1341"></button><figcaption><span>Стиль карточки</span></figcaption></figure></div>
+</div></section><section id="features" class="section-soft"><div class="container">
+  <div class="section-head center">
+    <span class="kicker">Всё, что внутри</span>
+    <h2>16 основных функций. 66 инструментов внутри них.</h2>
+    <p>Нажмите на функцию, чтобы увидеть, что в ней есть.</p>
+    <button type="button" class="btn btn-secondary dm-openall" aria-pressed="false"><span>Открыть все</span></button>
+  </div>
+  <div class="dm-feats"><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🧾</span>
+      <span class="dm-feat-t"><span>Все чеки в одном месте</span></span><span class="dm-count">5</span></summary>
+      <ul><li>Бумажные и электронные чеки вместе</li><li>Сфотографируйте бумажный чек по направляющей рамке</li><li>Отправьте чек в приложение из WhatsApp, «Файлов», Диска или почты</li><li>Нет чека? Введите его вручную</li><li>Фото магазина, если хотите</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔳</span>
+      <span class="dm-feat-t"><span>QR-код чека</span></span><span class="dm-count">4</span></summary>
+      <ul><li>Сканируйте QR-код на саудовском чеке</li><li>Сам заполняет название магазина и дату покупки</li><li>Фонарик для тёмных чеков</li><li>Нет QR-кода? Продолжите вручную</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">📦</span>
+      <span class="dm-feat-t"><span>Товары в каждом чеке</span></span><span class="dm-count">4</span></summary>
+      <ul><li>Несколько товаров в одном чеке</li><li>У каждого товара своя гарантия</li><li>Фото для каждого товара</li><li>Категория для каждого товара</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🛡️</span>
+      <span class="dm-feat-t"><span>Отслеживание гарантий</span></span><span class="dm-count">6</span></summary>
+      <ul><li>Срок в годах, месяцах и днях</li><li>Пожизненная гарантия</li><li>Или просто отметьте: без гарантии</li><li>Живой обратный отсчёт оставшегося времени</li><li>Время, прошедшее с покупки</li><li>Статус с первого взгляда: действует, скоро истекает, истекла, пожизненная</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔔</span>
+      <span class="dm-feat-t"><span>Напоминания</span></span><span class="dm-count">3</span></summary>
+      <ul><li>Напоминание до окончания гарантии</li><li>В день окончания или за несколько дней</li><li>Ближайшее окончание — прямо на главном экране</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🏠</span>
+      <span class="dm-feat-t"><span>Главный экран с первого взгляда</span></span><span class="dm-count">3</span></summary>
+      <ul><li>Всего, скоро истекают и истекли</li><li>10 гарантий, ближайших к окончанию</li><li>Новый чек — одной кнопкой</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔎</span>
+      <span class="dm-feat-t"><span>Поиск и фильтры</span></span><span class="dm-count">3</span></summary>
+      <ul><li>Поиск по магазину, чеку или товару</li><li>Фильтр по статусу</li><li>Фильтр по году и месяцу</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🗂️</span>
+      <span class="dm-feat-t"><span>Категории</span></span><span class="dm-count">3</span></summary>
+      <ul><li>Готовые категории: электроника, дом, уход за собой…</li><li>Ваши собственные категории</li><li>Значок и цвет для каждой</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">📍</span>
+      <span class="dm-feat-t"><span>Сведения о магазине</span></span><span class="dm-count">4</span></summary>
+      <ul><li>Местоположение магазина по GPS или из приложения карт</li><li>Откройте его позже в Картах</li><li>Телефон магазина — звонок одним касанием</li><li>Название филиала</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">📤</span>
+      <span class="dm-feat-t"><span>Поделиться и распечатать</span></span><span class="dm-count">3</span></summary>
+      <ul><li>Поделитесь чеком, когда нужно</li><li>Распечатайте его</li><li>Открывайте и просматривайте страницы чека</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">📄</span>
+      <span class="dm-feat-t"><span>Отчёт о гарантиях в PDF</span></span><span class="dm-count">3</span></summary>
+      <ul><li>Экспорт отфильтрованных гарантий</li><li>Титульная страница и все страницы чеков</li><li>Большие отчёты делятся на тома</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">📊</span>
+      <span class="dm-feat-t"><span>Аналитика</span></span><span class="dm-count">4</span></summary>
+      <ul><li>Покрытие: сколько гарантий ещё действует</li><li>Ритм ваших покупок</li><li>Прогнозы: что истекает следующим</li><li>Действующие и истёкшие с первого взгляда</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🎨</span>
+      <span class="dm-feat-t"><span>12 стилей карточек</span></span><span class="dm-count">12</span></summary>
+      <ul><li>Классический</li><li>В одну строку</li><li>Крупные счётчики</li><li>Только дни</li><li>Круговой</li><li>Индикатор выполнения</li><li>Большое фото</li><li>Минимализм</li><li>Хронология</li><li>Панель</li><li>Современный премиум</li><li>Крупное число</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔐</span>
+      <span class="dm-feat-t"><span>Зашифрованная резервная копия</span></span><span class="dm-count">4</span></summary>
+      <ul><li>Шифрование AES-256 с вашим собственным паролем</li><li>Вы сами выбираете, где хранить каждую копию</li><li>Восстановление на новом телефоне</li><li>Напоминание, когда резервная копия устарела</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔒</span>
+      <span class="dm-feat-t"><span>Блокировка приложения</span></span><span class="dm-count">2</span></summary>
+      <ul><li>Face ID, отпечаток пальца или PIN-код устройства</li><li>Ваши чеки остаются на телефоне</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🌍</span>
+      <span class="dm-feat-t"><span>18 языков и два календаря</span></span><span class="dm-count">3</span></summary>
+      <ul><li>18 языков, арабский и урду — справа налево</li><li>Даты по хиджре или по григорианскому календарю</li><li>Светлая и тёмная тема</li></ul></details></div>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker">Отслеживание гарантий</span>
+    <h2>Каждая гарантия — с точностью до дня.</h2>
+    <p class="lead">У каждого товара своя гарантия: годы, месяцы и дни, пожизненная или вовсе без гарантии. Vault в реальном времени показывает, сколько осталось и сколько прошло.</p>
+    <ul class="dm-ticks"><li>Действует, скоро истекает, истекла или пожизненная — с первого взгляда</li><li>Напоминание до окончания</li><li>Ближайшее окончание на главном экране</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n2"><button type="button" class="dm-phone " data-zoom="status" aria-label="Статус гарантии и обратный отсчёт"><img src="/assets/img/apps/vault/status_en.webp" alt="Статус гарантии и обратный отсчёт" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="home" aria-label="Главный экран: гарантии, ближайшие к окончанию"><img src="/assets/img/apps/vault/home_en.webp" alt="Главный экран: гарантии, ближайшие к окончанию" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot dm-flip"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker">Сведения о чеке</span>
+    <h2>Чек, магазин, товары.</h2>
+    <p class="lead">Откройте гарантию — и всё под рукой: страницы чека, магазин с его местоположением и телефоном и все товары, купленные по этому чеку.</p>
+    <ul class="dm-ticks"><li>QR-код чека заполняет название магазина и дату покупки</li><li>Откройте магазин в Картах или позвоните туда</li><li>Поделитесь чеком или распечатайте его</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n1"><button type="button" class="dm-phone " data-zoom="detail" aria-label="Сведения о гарантии с чеком"><img src="/assets/img/apps/vault/detail_en.webp" alt="Сведения о гарантии с чеком" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker">Поиск и фильтры</span>
+    <h2>Найдите любую гарантию за секунды.</h2>
+    <p class="lead">Ищите по магазину, чеку или товару и фильтруйте по статусу, году или месяцу.</p>
+    <ul class="dm-ticks"><li>Категории с вашими значками и цветами</li><li>Экспорт отфильтрованного в отчёт PDF</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n2"><button type="button" class="dm-phone " data-zoom="warranties" aria-label="Мои гарантии"><img src="/assets/img/apps/vault/warranties_en.webp" alt="Мои гарантии" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="filter" aria-label="Фильтр гарантий"><img src="/assets/img/apps/vault/filter_en.webp" alt="Фильтр гарантий" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot dm-flip"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker">Аналитика</span>
+    <h2>Ваши гарантии в цифрах.</h2>
+    <p class="lead">Покрытие, ритм ваших покупок и прогнозы того, что истекает следующим.</p>
+    <ul class="dm-ticks"><li>Сколько гарантий ещё действует</li><li>Что истекает в ближайшие месяцы</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n1"><button type="button" class="dm-phone " data-zoom="insights" aria-label="Аналитика: покрытие"><img src="/assets/img/apps/vault/insights_en.webp" alt="Аналитика: покрытие" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker">По-вашему</span>
+    <h2>Конфиденциально, под замком и так, как вам нравится.</h2>
+    <p class="lead">Выберите вид карточек гарантий, заблокируйте приложение по лицу или отпечатку пальца и храните зашифрованную резервную копию там, где захотите.</p>
+    <ul class="dm-ticks"><li>12 стилей карточек на выбор</li><li>Резервная копия с шифрованием AES-256 и вашим паролем</li><li>18 языков, даты по хиджре или григорианскому календарю</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n2"><button type="button" class="dm-phone " data-zoom="cardstyle" aria-label="Выбор стиля карточки"><img src="/assets/img/apps/vault/cardstyle_en.webp" alt="Выбор стиля карточки" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="settings" aria-label="Настройки"><img src="/assets/img/apps/vault/settings_en.webp" alt="Настройки" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section id="story" class="dm-story"><div class="container">
+  <div class="section-head">
+    <span class="kicker">Почему Vault</span>
+    <h2>Куда пропал чек?</h2>
+  </div>
+  <div class="dm-story-grid">
+    <div class="dm-story-text">
+      <p>Вы покупаете стиральную машину, телефон, кондиционер. Чек приходит на бумаге или сообщением в WhatsApp — а потом исчезает: в ящике стола, под старыми переписками, в письме, которое вы больше никогда не найдёте. В день, когда устройство ломается, снова возникает тот же вопрос: <q>Где гарантия?</q></p>
+      <p>Vault создан именно для этого дня. Сфотографируйте чек или отправьте его из WhatsApp, добавьте указанные в нём товары и задайте каждому гарантию. Дальше приложение считает дни за вас, показывает, что скоро истекает, и напоминает до окончания гарантии.</p>
+      <p>А затем — детали, которые всё меняют: местоположение и телефон магазина, QR-код чека, который сам заполняет магазин и дату, отчёт PDF по всем гарантиям, аналитика, зашифрованная резервная копия — 16 основных функций и 66 инструментов внутри них.</p>
+    </div>
+    <ol class="dm-timeline">
+      <li><span>🧾</span><div><b>Чек</b><small>На бумаге или сообщением в WhatsApp.</small></div></li>
+      <li><span>😟</span><div><b>Потерян</b><small>Ящик стола, старые переписки, письмо.</small></div></li>
+      <li><span>🛡️</span><div><b>Сохранён в Vault</b><small>Чек, товары и гарантия — вместе.</small></div></li>
+      <li><span>🔔</span><div><b>Напоминание вовремя</b><small>До окончания гарантии.</small></div></li>
+    </ol>
+  </div>
+</div></section><section class="section-soft dm-journey"><div class="container">
+  <div class="section-head center">
+    <span class="kicker">Как это работает</span>
+    <h2>От потерянного чека — к гарантии, которую вы не упустите.</h2>
+  </div>
+  <ol class="dm-steps"><li class="dm-step"><button type="button" class="dm-phone " data-zoom="home" aria-label="Добавьте чек"><img src="/assets/img/apps/vault/home_en.webp" alt="Добавьте чек" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">1</span>
+        <h3>Добавьте чек</h3><p>Сфотографируйте его, отправьте из WhatsApp или отсканируйте QR-код.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="detail" aria-label="Товары и гарантия"><img src="/assets/img/apps/vault/detail_en.webp" alt="Товары и гарантия" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">2</span>
+        <h3>Товары и гарантия</h3><p>Каждый товар из чека получает свою гарантию, магазин и местоположение.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="status" aria-label="Следите за отсчётом"><img src="/assets/img/apps/vault/status_en.webp" alt="Следите за отсчётом" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">3</span>
+        <h3>Следите за отсчётом</h3><p>Сколько осталось лет, месяцев и дней — и сколько уже прошло.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="warranties" aria-label="Найдите за секунды"><img src="/assets/img/apps/vault/warranties_en.webp" alt="Найдите за секунды" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">4</span>
+        <h3>Найдите за секунды</h3><p>Поиск и фильтры по всем вашим гарантиям.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="insights" aria-label="Вся картина целиком"><img src="/assets/img/apps/vault/insights_en.webp" alt="Вся картина целиком" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">5</span>
+        <h3>Вся картина целиком</h3><p>Что действует, что истекает следующим, что уже закончилось.</p></div></li></ol>
+  <p class="dm-swipe-hint">Листайте, чтобы увидеть каждый шаг.</p>
+</div></section><section class="dm-price"><div class="container"><div class="dm-price-card">
+  <div>
+    <span class="kicker">Цена</span>
+    <h2>Начните бесплатно. Один платёж — навсегда.</h2>
+    <p>Начните бесплатно — до 3 чеков, по одному товару в каждом. Пожизненный доступ открывает неограниченное число чеков и товаров одним платежом — без подписки, никогда.</p>
+    <div class="stores" style="margin-top:18px"><a class="store-btn" href="https://apps.apple.com/app/id6773164894" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 1.6c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.9 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.9-1.4zM19 17.3c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.3-1.5 0-1.9-1-4-1-2 0-2.5 1-4 1-1.6 0-2.9-1.6-3.9-3.1-2.7-4.2-3-9.1-1.3-11.7 1.2-1.8 3-2.9 4.8-2.9 1.8 0 2.9 1 4.4 1 1.4 0 2.3-1 4.4-1 1.6 0 3.2.9 4.4 2.4-3.9 2.1-3.2 7.6.2 9.1z"/></svg><span><small>Загрузите в</small><strong>App Store</strong></span></a><a class="store-btn" href="https://play.google.com/store/apps/details?id=com.vault.warranty" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.2c-.3.3-.5.7-.5 1.3v17c0 .6.2 1 .5 1.3l.1.1L13 12.6v-.2L3.7 2.1l-.1.1zm11.9 8.5L5.9 1.4l11.7 6.7-2.1 2.6zM5.9 22.6l9.6-9.3 2.1 2.6-11.7 6.7zM19.6 9.3l-2.5 1.4 2.4 3-2.4 3 2.5 1.4c.9-.5 1.5-1.3 1.5-2.4v-4c0-1.1-.6-1.9-1.5-2.4l-.5.6.5-.6z"/></svg><span><small>Доступно в</small><strong>Google Play</strong></span></a><a class="store-btn" style="background:#c4302b" href="https://www.youtube.com/playlist?list=PLVw-KHF4Mj74" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C16.6 4 12 4 12 4s-4.6 0-7.8.2c-.5.1-1.4.1-2.3 1C1.2 5.9 1 7.5 1 7.5S.8 9.4.8 11.3v1.4C.8 14.6 1 16.5 1 16.5s.2 1.6.9 2.3c.9.9 2 .9 2.6 1 1.9.2 7.5.2 7.5.2s4.6 0 7.8-.3c.5-.1 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.8v-1.4c0-1.9-.2-3.7-.2-3.7zM9.8 15.1V8.9l6 3.1-6 3.1z"/></svg><span><small>Уроки на</small><strong>YouTube</strong></span></a></div>
+  </div>
+  <ul class="dm-ticks dm-ticks-big">
+    <li>Бесплатно: 3 чека для начала</li>
+    <li>Пожизненный доступ: один платёж</li>
+    <li>Без подписки, без рекламы</li>
+    <li>Ваши чеки остаются на телефоне</li>
+    <li>18 языков</li>
+  </ul>
+</div></div></section><section id="video"><div class="container" style="max-width:860px">
+  <h2 class="center">Приложение шаг за шагом</h2>
+  <p class="center">Короткие выпуски на нашем канале YouTube: первый чек, гарантии, резервные копии и многое другое.</p>
+  <div class="video-wrap" style="margin-top:22px">
+    <iframe src="https://www.youtube.com/embed/videoseries?list=PLVw-KHF4Mj74" title="Уроки по Vault — Warranty Manager на YouTube" loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <p style="text-align:center;margin-top:16px"><a class="btn btn-primary" href="https://www.youtube.com/playlist?list=PLVw-KHF4Mj74" target="_blank" rel="noopener"><span>Открыть плейлист на YouTube</span></a></p>
+</div></section><section id="questions"><div class="container" style="max-width:820px">
+  <h2 class="center">Вопросы</h2>
+  <div class="faq" style="margin-top:28px"><details><summary><span>Vault бесплатный?</span></summary><p>Вы можете начать бесплатно — до 3 чеков, по одному товару в каждом. Пожизненный доступ — это единоразовый платёж, который открывает всё, без подписки.</p></details><details><summary><span>Где хранятся мои чеки?</span></summary><p>На вашем телефоне. Резервная копия шифруется вашим собственным паролем, и вы сами выбираете, где её хранить.</p></details><details><summary><span>Что заполняет QR-код чека?</span></summary><p>Название магазина и дату покупки. Товары и их гарантии вы добавляете сами.</p></details><details><summary><span>Что, если я забуду пароль резервной копии?</span></summary><p>Его невозможно восстановить — даже нам. Именно это и означает настоящее шифрование, поэтому храните пароль в надёжном месте.</p></details></div>
+</div></section><section class="qa-help"><div class="container">
+  <h2 class="qa-help-h"><span>Помощь</span></h2>
+  <div class="qa-help-grid"><a class="qa-help-card" href="https://www.youtube.com/playlist?list=PLVw-KHF4Mj74" target=_blank rel=noopener><span class="qa-help-ic" aria-hidden="true">▶️</span><b>Видеоуроки</b><small>Наш плейлист на YouTube</small></a><a class="qa-help-card" href="/ru/tutorials/vault/"><span class="qa-help-ic" aria-hidden="true">📘</span><b>Обучение</b><small>Шаг за шагом</small></a><a class="qa-help-card" href="/privacy/vault/en/"><span class="qa-help-ic" aria-hidden="true">🔒</span><b>Конфиденциальность</b><small>Что происходит с вашими данными</small></a><a class="qa-help-card" href="/ru/support/vault/"><span class="qa-help-ic" aria-hidden="true">🛟</span><b>Поддержка</b><small>Ответы и контакты</small></a></div>
+</div></section><section class="dm-suggest-wrap"><div class="container">
+  <a class="dm-suggest" href="/ru/suggest/?app=vault">
+    <span class="dm-suggest-ic" aria-hidden="true">💡</span>
+    <span class="dm-suggest-tx">
+      <b>Чего-то не хватает в Vault?</b>
+      <span>Предложите функцию или улучшение либо расскажите о проблеме — мы читаем каждое сообщение.</span>
+      
+    </span>
+    <span class="dm-suggest-go"><span>Предложить функцию →</span></span>
+  </a>
+</div></section><section id="free" class="pf-wrap" data-promo-app="vault" data-sitekey="" hidden><div class="container">
+<div class="pf">
+  <div class="pf-head">
+    <span class="pf-gift" aria-hidden="true">🎁</span>
+    <div>
+      <h2>Полная версия бесплатно — навсегда</h2>
+      <p><span>Ограниченное количество, на ограниченное время. Сначала загрузите приложение, затем активируйте предложение.</span>
+      <b class="pf-left" data-pf-left hidden></b></p>
+    </div>
+  </div>
+  <div class="pf-grid" data-pf-grid>
+    <div class="pf-card" data-pf-apple hidden>
+      <h3>🍎 iPhone и iPad</h3>
+      <a class="pf-btn pf-btn-2" href="https://apps.apple.com/app/id6773164894" target="_blank" rel="noopener" data-pf-kind="download" data-pf-platform="ios">
+        <i>1</i><span>Загрузить из App Store</span></a>
+      <a class="pf-btn pf-btn-1" href="#" target="_blank" rel="noopener" data-pf-kind="redeem" data-pf-platform="ios" data-pf-apple-redeem>
+        <i>2</i><span>Активировать бесплатное предложение</span></a>
+      <p class="pf-note"><span>Шаг 2 откроет App Store с уже введённым кодом предложения.</span></p>
+    </div>
+    <div class="pf-card" data-pf-android hidden>
+      <h3>🤖 Android</h3>
+      <div data-pf-state="intro">
+        <a class="pf-btn pf-btn-2" href="https://play.google.com/store/apps/details?id=com.vault.warranty" target="_blank" rel="noopener" data-pf-kind="download" data-pf-platform="android">
+          <i>1</i><span>Загрузить из Google Play</span></a>
+        <button type="button" class="pf-btn pf-btn-1" data-pf-claim>
+          <i>2</i><span>Получить код предложения</span></button>
+        <p class="pf-note"><span>Один код для вас, используется один раз.</span></p>
+      </div>
+      <div data-pf-state="code" hidden>
+        <p class="pf-note"><span>Ваш код предложения:</span></p>
+        <div class="pf-code" data-pf-code dir="ltr"></div>
+        <a class="pf-btn pf-btn-1" href="#" target="_blank" rel="noopener" data-pf-kind="redeem" data-pf-platform="android" data-pf-play-redeem>
+          <span>Активировать код в Google Play ›</span></a>
+        <button type="button" class="pf-btn pf-btn-2" data-pf-copy><span>Скопировать код</span></button>
+        <p class="pf-note" data-pf-copied hidden><span>Скопировано ✓</span></p>
+      </div>
+      <div data-pf-state="empty" hidden>
+        <p class="pf-msg">💛 <span>Все бесплатные коды уже разобраны.</span></p>
+        <a class="pf-btn pf-btn-2" href="https://play.google.com/store/apps/details?id=com.vault.warranty" target="_blank" rel="noopener" data-pf-kind="download" data-pf-platform="android"><span>Загрузить из Google Play</span></a>
+      </div>
+      <div data-pf-state="limit" hidden>
+        <p class="pf-msg"><span>Коды с этого подключения достигли сегодняшнего лимита. Пожалуйста, попробуйте снова завтра.</span></p>
+      </div>
+      <div data-pf-state="error" hidden>
+        <p class="pf-msg"><span>Не удалось получить код. Пожалуйста, попробуйте снова.</span></p>
+        <button type="button" class="pf-btn pf-btn-2" data-pf-retry><span>Попробовать снова</span></button>
+      </div>
+      <div class="pf-ts" data-pf-ts></div>
+    </div>
+  </div>
+  <p class="pf-fine"><span>Активируйте предложение — и полная версия станет вашей навсегда: без подписки и без последующих платежей. Без предложения приложение бесплатно для 3 чеков.</span>
+    <a href="/ru/privacy/#free"><span>Что мы храним</span></a></p>
+</div>
+</div></section>
+<script src="/assets/js/promo.js?v=2166568650" defer></script><section style="padding-top:0"><div class="container"><div class="cta-band">
+  <div>
+    <h2>Больше никогда не теряйте гарантию.</h2>
+    <p>Загрузите Vault и храните все чеки и гарантии в одном месте.</p>
+  </div>
+  <div class="stores"><a class="store-btn" href="https://apps.apple.com/app/id6773164894" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 1.6c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.9 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.9-1.4zM19 17.3c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.3-1.5 0-1.9-1-4-1-2 0-2.5 1-4 1-1.6 0-2.9-1.6-3.9-3.1-2.7-4.2-3-9.1-1.3-11.7 1.2-1.8 3-2.9 4.8-2.9 1.8 0 2.9 1 4.4 1 1.4 0 2.3-1 4.4-1 1.6 0 3.2.9 4.4 2.4-3.9 2.1-3.2 7.6.2 9.1z"/></svg><span><small>Загрузите в</small><strong>App Store</strong></span></a><a class="store-btn" href="https://play.google.com/store/apps/details?id=com.vault.warranty" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.2c-.3.3-.5.7-.5 1.3v17c0 .6.2 1 .5 1.3l.1.1L13 12.6v-.2L3.7 2.1l-.1.1zm11.9 8.5L5.9 1.4l11.7 6.7-2.1 2.6zM5.9 22.6l9.6-9.3 2.1 2.6-11.7 6.7zM19.6 9.3l-2.5 1.4 2.4 3-2.4 3 2.5 1.4c.9-.5 1.5-1.3 1.5-2.4v-4c0-1.1-.6-1.9-1.5-2.4l-.5.6.5-.6z"/></svg><span><small>Доступно в</small><strong>Google Play</strong></span></a><a class="store-btn" style="background:#c4302b" href="https://www.youtube.com/playlist?list=PLVw-KHF4Mj74" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C16.6 4 12 4 12 4s-4.6 0-7.8.2c-.5.1-1.4.1-2.3 1C1.2 5.9 1 7.5 1 7.5S.8 9.4.8 11.3v1.4C.8 14.6 1 16.5 1 16.5s.2 1.6.9 2.3c.9.9 2 .9 2.6 1 1.9.2 7.5.2 7.5.2s4.6 0 7.8-.3c.5-.1 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.8v-1.4c0-1.9-.2-3.7-.2-3.7zM9.8 15.1V8.9l6 3.1-6 3.1z"/></svg><span><small>Уроки на</small><strong>YouTube</strong></span></a></div>
+</div></div></section><div class="dm-lb" hidden><button type="button" class="dm-lb-x" aria-label="Закрыть">✕</button>
+  <button type="button" class="dm-lb-nav dm-lb-prev" aria-label="Назад">‹</button>
+  <img alt=""><button type="button" class="dm-lb-nav dm-lb-next" aria-label="Далее">›</button></div><script>
+(function(){
+  var lb=document.querySelector('.dm-lb'),im=lb.querySelector('img'),list=[],i=0;
+  function lang(){return document.documentElement.getAttribute('data-lang')==='ar'?'ar':'en';}
+  function names(){var s=[];document.querySelectorAll('.dm-gallery [data-zoom]').forEach(function(b){s.push(b.dataset.zoom);});return s;}
+  function show(){im.src='/assets/img/apps/vault/'+list[i]+'_'+lang()+'.webp';}
+  function open(n){list=names();i=Math.max(0,list.indexOf(n));show();lb.hidden=false;document.body.style.overflow='hidden';}
+  function close(){lb.hidden=true;document.body.style.overflow='';}
+  function step(d){i=(i+d+list.length)%list.length;show();}
+  document.querySelectorAll('[data-zoom]').forEach(function(b){b.addEventListener('click',function(){open(b.dataset.zoom);});});
+  lb.querySelector('.dm-lb-x').addEventListener('click',close);
+  lb.querySelector('.dm-lb-prev').addEventListener('click',function(e){e.stopPropagation();step(-1);});
+  lb.querySelector('.dm-lb-next').addEventListener('click',function(e){e.stopPropagation();step(1);});
+  lb.addEventListener('click',function(e){if(e.target===lb)close();});
+  document.addEventListener('keydown',function(e){if(lb.hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1);});
+  var x0=null;lb.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+  lb.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)step(dx<0?1:-1);x0=null;});
+  var btn=document.querySelector('.dm-openall');
+  if(btn)btn.addEventListener('click',function(){var on=btn.getAttribute('aria-pressed')!=='true';
+    document.querySelectorAll('.dm-feat').forEach(function(d){d.open=on;});btn.setAttribute('aria-pressed',on);
+    btn.querySelectorAll('span').forEach(function(s){var Q=window.QAPPS_T||{};s.textContent=on?(s.hasAttribute('data-ar')?'أغلق الكل':(Q['Close all']||'Close all')):(s.hasAttribute('data-ar')?'افتح الكل':(Q['Open all']||'Open all'));});});
+  if(window.matchMedia('(min-width:901px)').matches&&btn)btn.click();
+})();
+</script>
+</main>
+<footer class="site-footer site-footer-min"><div class="container">
+  <div class="footer-bottom">
+    <span>&copy; 2026 <span>Q Apps. Все права защищены.</span></span>
+  </div>
+</div></footer>
+<script src="/assets/js/site.js?v=a9f8460cbf" defer></script>
+
+</body>
+</html>

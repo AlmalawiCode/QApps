@@ -1,0 +1,19 @@
+{
+ "_about": "Rules for translating the website (content/site/<lang>.json). Read by translators and by `python3 tools/site_i18n.py check`.",
+ "keep_as_is": ["Q Apps", "qeuapps", "Countdown Keeper", "Vault — Warranty Manager", "DocMatic", "App Store", "Google Play", "YouTube", "WhatsApp", "Cloudflare", "iPhone", "Android"],
+ "app_names": {
+  "_note": "App names are the same in every store language (App Store / Google Play listings). Arabic names that appear inside English texts, e.g. «خزنة الضمانات», «كم مضى وكم بقي», stay in Arabic.",
+  "vault": "Vault — Warranty Manager",
+  "countdown-keeper": "Countdown Keeper",
+  "docmatic": "DocMatic"
+ },
+ "style": [
+  "Warm, simple, friendly; short sentences; the reader is an ordinary phone user, not a technician.",
+  "Same meaning as the English: never add or drop facts, prices, numbers, dates or promises.",
+  "Keep every HTML tag exactly (<b>, <em>, <q>, <a href=…>); translate only the text between tags; never change an href.",
+  "Keep «…» quotes around button names as the English has them, or the language's normal quotation marks.",
+  "Use the formal-polite register that app stores use in that language (vous, Sie, usted, вы, Anda, आप, …).",
+  "Store button lines: translate like the official badges (e.g. FR «Télécharger dans l'App Store», DE «Laden im App Store») but keep «App Store» / «Google Play» / «YouTube».",
+  "Brand: «Q Apps» stays in Latin letters in every language except Arabic."
+ ]
+}

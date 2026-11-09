@@ -21,7 +21,8 @@ import os
 import json
 import hashlib
 
-import site_layout  # icon grid, app section bar, help cards (redesign 2026-11-02)
+import site_layout
+import site_i18n  # icon grid, app section bar, help cards (redesign 2026-11-02)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -328,9 +329,12 @@ RTL_LANGS = ["ar", "ur"]
 PREPAINT = (
     "<script>(function(){try{var S=" + json.dumps(SITE_LANGS) + ",R=" + json.dumps(RTL_LANGS) + ";"
     "var q=new URLSearchParams(location.search).get('lang');"
-    "var l=(q&&S.indexOf(q)>=0)?q:localStorage.getItem('qapps-lang');"
-    "if(!l||S.indexOf(l)<0){var n=(navigator.language||navigator.userLanguage||'en').slice(0,2);"
-    "l=S.indexOf(n)>=0?n:'en';}var d=document.documentElement;"
+    "var X=" + json.dumps(site_i18n.live_langs()) + ",P=location.pathname;"
+    "if(q){try{localStorage.setItem('qapps-lang',q)}catch(e){}}"
+    "var l=q||localStorage.getItem('qapps-lang');"
+    "if(!l){l=(navigator.language||navigator.userLanguage||'en').slice(0,2).toLowerCase();}"
+    "if(X.indexOf(l)>=0&&!/^\\/(privacy\\/[a-z0-9-]+\\/|vault|admin)/.test(P)){location.replace('/'+l+P+location.search.replace(/[?&]lang=[^&]*/,'').replace(/^&/,'?')+location.hash);return;}"
+    "if(S.indexOf(l)<0){l='en';}var d=document.documentElement;"
     "d.setAttribute('data-lang',l);d.setAttribute('lang',l);"
     "d.setAttribute('dir',R.indexOf(l)>=0?'rtl':'ltr');"
     "var m={en:d.getAttribute('data-title-en'),ar:d.getAttribute('data-title-ar')};"
@@ -346,7 +350,7 @@ TITLE_SYNC = (
 )
 
 
-def header(active):
+def header(active, url="/"):
     links = []
     for key, en, ar, href in NAV:
         cur = ' aria-current="page"' if key == active else ""
@@ -357,7 +361,7 @@ def header(active):
   <a class="brand" href="/" aria-label="Q Apps">{qmark()}<span data-en><b>Q</b> Apps</span><span data-ar><b>كيو</b> آبز</span></a>
   <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
   <div class="nav-links" id="nav-links">{links_html}
-    <button class="lang-btn" data-lang-toggle type="button" aria-label="التبديل إلى العربية">العربية</button>
+    {site_i18n.lang_menu(url)}
   </div>
 </nav></div></header>'''
 
@@ -404,6 +408,7 @@ def render(path, title_en, title_ar, desc_en, desc_ar, body,
         os.makedirs(out_dir, exist_ok=True)
         out_file = os.path.join(out_dir, "index.html")
 
+    url_for_lang = "/404" if is404 else url
     canonical_href = canonical_override or canonical
     og_abs = SITE_URL + og_image
     canonical_tag = f'<link rel="canonical" href="{canonical_href}">' if canonical_href else ''
@@ -433,6 +438,7 @@ def render(path, title_en, title_ar, desc_en, desc_ar, body,
 <meta name="twitter:description" content="{esc(desc_en)}">
 <meta name="twitter:image" content="{og_abs}">
 {head_extra}
+{site_i18n.hreflang(url_for_lang)}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
@@ -443,7 +449,7 @@ def render(path, title_en, title_ar, desc_en, desc_ar, body,
 <style>{site_layout.CSS}</style>
 </head>
 <body>
-{header(active)}
+{header(active, url_for_lang)}
 <main id="main">
 {body}
 </main>
@@ -1455,6 +1461,9 @@ def main():
     page_vault_redirect()  # branded /vault redirect, not in sitemap
     page_vaultnew()  # v2 campaign frontend (staging), not in sitemap
     page_404()  # not in sitemap
+    # The other 16 languages: /<lang>/… copies of the pages above
+    # (tools/site_i18n.py, texts in content/site/<lang>.json).
+    urls.extend(site_i18n.build_all())
     write_sitemap([u for u in urls if u])
     write_robots()
     write_manifest()

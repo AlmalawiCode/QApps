@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="nl" dir="ltr" data-lang="nl" data-fixed-lang>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Countdown Keeper — Hoe lang geleden, hoe lang nog | Q Apps</title>
+<meta name="description" content="Countdown Keeper toont hoeveel tijd er voorbij is sinds uw belangrijke data en hoe lang het nog duurt tot de volgende — live tellers in Hijri en Gregoriaans, herinneringen en datumhulpmiddelen. 14 functies.">
+<link rel="canonical" href="https://qeuapps.com/nl/apps/countdown-keeper/">
+<meta name="theme-color" content="#0F1B2D">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Q Apps">
+<meta property="og:title" content="Countdown Keeper — Hoe lang geleden, hoe lang nog | Q Apps">
+<meta property="og:description" content="Countdown Keeper toont hoeveel tijd er voorbij is sinds uw belangrijke data en hoe lang het nog duurt tot de volgende — live tellers in Hijri en Gregoriaans, herinneringen en datumhulpmiddelen. 14 functies.">
+<meta property="og:url" content="https://qeuapps.com/nl/apps/countdown-keeper/">
+<meta property="og:image" content="https://qeuapps.com/assets/img/brand/og-default.png">
+<meta property="og:locale" content="nl_NL">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Countdown Keeper — Hoe lang geleden, hoe lang nog | Q Apps">
+<meta name="twitter:description" content="Countdown Keeper toont hoeveel tijd er voorbij is sinds uw belangrijke data en hoe lang het nog duurt tot de volgende — live tellers in Hijri en Gregoriaans, herinneringen en datumhulpmiddelen. 14 functies.">
+<meta name="twitter:image" content="https://qeuapps.com/assets/img/brand/og-default.png">
+<style>
+.dm-hero{padding:56px 0 40px;overflow:hidden}
+.dm-hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.dm-hero-copy{display:grid;gap:18px}
+.dm-hero h1{font-size:clamp(36px,5.2vw,64px)}
+.dm-hero h1 em{font-style:normal;color:var(--accent)}
+.dm-brand{display:flex;gap:14px;align-items:center}
+.dm-brand img{border-radius:16px;box-shadow:var(--shadow-md)}
+.dm-brand strong{display:block;font-family:var(--f-display);font-size:24px;color:var(--ink)}
+.dm-brand small{color:var(--muted);font-size:14px}
+.dm-dev{justify-self:start;font-size:13.5px;font-weight:700;color:var(--mint);background:var(--mint-soft);padding:6px 12px;border-radius:999px}
+.dm-hero-stage{position:relative;height:620px}
+.dm-phone{all:unset;cursor:zoom-in;display:block;border-radius:30px;border:7px solid #0F1B2D;background:#0F1B2D;overflow:hidden;box-shadow:var(--shadow-lg);transition:transform .25s}
+.dm-phone:hover{transform:translateY(-4px)}
+.dm-phone:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.dm-phone img{width:100%;height:auto;display:block}
+.dm-hero-stage .dm-phone{position:absolute;width:250px}
+.dm-p1{inset-inline-start:6%;top:0;transform:rotate(-4deg)}
+.dm-p2{inset-inline-end:4%;top:70px;transform:rotate(4deg)}
+.dm-p1:hover{transform:rotate(-4deg) translateY(-4px)}.dm-p2:hover{transform:rotate(4deg) translateY(-4px)}
+.dm-stats-wrap{padding:0 0 24px}
+.dm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.dm-stats div{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:18px;display:grid;gap:4px;text-align:center}
+.dm-stats b{font-family:var(--f-display);font-size:clamp(30px,4vw,44px);color:var(--accent);line-height:1}
+.dm-stats span{color:var(--muted);font-weight:600;font-size:14.5px}
+.dm-story-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:44px;align-items:start}
+.dm-story-text{display:grid;gap:18px}
+.dm-story-text p{font-size:18px;line-height:1.85;color:var(--ink)}
+.dm-story-text q{color:var(--accent);font-weight:700}
+html[dir="rtl"] .dm-story-text q{quotes:"«" "»"}
+.dm-timeline{list-style:none;margin:0;padding:0;display:grid;gap:14px;position:relative}
+.dm-timeline li{display:flex;gap:14px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 16px}
+.dm-timeline li>span{font-size:26px;line-height:1}
+.dm-timeline b{display:block;color:var(--ink)}
+.dm-timeline small{color:var(--muted);font-size:14.5px}
+.dm-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.dm-step{display:grid;gap:14px;align-content:start}
+.dm-step-txt{display:grid;gap:6px}
+.dm-step h3{font-size:19px}
+.dm-step p{font-size:15px}
+.dm-num{width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:800}
+.dm-swipe-hint{display:none;text-align:center;font-size:14px;margin-top:10px}
+.dm-spot{padding:72px 0}
+.dm-spot-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.dm-flip .dm-spot-copy{order:2}
+.dm-spot-copy{display:grid;gap:14px}
+.dm-spot h2{font-size:clamp(28px,3.6vw,44px)}
+.dm-ticks{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:10px}
+.dm-ticks li{position:relative;padding-inline-start:30px;color:var(--ink);font-weight:600}
+.dm-ticks li::before{content:"✓";position:absolute;inset-inline-start:0;top:0;width:22px;height:22px;border-radius:50%;background:var(--mint-soft);color:var(--mint);display:grid;place-items:center;font-size:13px;font-weight:800}
+.dm-spot-shots{display:flex;gap:18px;justify-content:center;align-items:flex-start}
+.dm-spot-shots .dm-phone{width:min(260px,46%)}
+.dm-n3 .dm-phone{width:min(210px,31%)}
+.dm-n2 .dm-phone:nth-child(2),.dm-n3 .dm-phone:nth-child(2){margin-top:44px}
+.dm-feats{columns:3;column-gap:14px}
+.dm-feat{break-inside:avoid;margin:0 0 14px;background:var(--bg);border:1px solid var(--line);border-radius:var(--radius-sm);padding:0;transition:box-shadow .2s}
+.dm-feat[open]{box-shadow:var(--shadow-md);background:var(--surface)}
+.dm-feat summary{list-style:none;cursor:pointer;display:flex;gap:12px;align-items:center;padding:16px 18px}
+.dm-feat summary::-webkit-details-marker{display:none}
+.dm-ico{font-size:24px;line-height:1}
+.dm-feat-t{flex:1;font-weight:750;color:var(--ink)}
+.dm-count{min-width:30px;height:30px;padding:0 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:800;font-size:14px}
+.dm-feat ul{margin:0;padding:0 20px 16px;padding-inline-start:44px;display:grid;gap:6px;color:var(--muted);font-size:15.5px}
+.dm-openall{margin-top:6px}
+.dm-suggest-wrap{padding:36px 0}
+.dm-suggest{display:flex;align-items:center;gap:18px;background:var(--accent-soft);border:1.5px dashed var(--accent);border-radius:var(--radius);padding:22px 26px;text-decoration:none;color:var(--ink);transition:transform .2s}
+.dm-suggest:hover{transform:translateY(-2px);color:var(--ink)}
+.dm-suggest-ic{font-size:34px;line-height:1}
+.dm-suggest-tx{flex:1;display:grid;gap:4px}
+.dm-suggest-tx b{font-family:var(--f-display);font-size:20px}
+html[dir="rtl"] .dm-suggest-tx b{font-family:var(--f-display-ar)}
+.dm-suggest-tx span{color:var(--muted)}
+.dm-suggest-go{background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:10px 18px;font-weight:750;white-space:nowrap}
+@media (max-width:620px){.dm-suggest{flex-wrap:wrap;padding:18px}.dm-suggest-go{width:100%;text-align:center}}
+.dm-price-card{display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:center;background:var(--night);border-radius:var(--radius);padding:44px;color:var(--on-night)}
+.dm-price-card h2{color:#fff;font-size:clamp(28px,3.6vw,44px);margin:8px 0 12px}
+.dm-price-card p{color:var(--on-night-muted);font-size:17px}
+.dm-price-card .dm-ticks li{color:#fff}
+.dm-gallery{display:grid;grid-template-columns:repeat(8,1fr);gap:16px}
+.dm-gallery figure{margin:0;display:grid;gap:8px}
+.dm-gallery .dm-phone{border-width:5px;border-radius:20px;box-shadow:var(--shadow-md)}
+.dm-gallery figcaption{text-align:center;font-size:13.5px;font-weight:650;color:var(--muted)}
+.dm-lb{position:fixed;inset:0;z-index:100;background:rgba(6,12,22,.92);display:flex;align-items:center;justify-content:center;padding:20px}
+.dm-lb[hidden]{display:none}
+.dm-lb img{max-height:92vh;max-width:min(94vw,520px);width:auto;border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.dm-lb-x{position:absolute;top:14px;inset-inline-end:14px;width:46px;height:46px;border-radius:50%;border:0;background:#fff;color:#0F1B2D;font-size:22px;cursor:pointer}
+.dm-lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;border:0;background:rgba(255,255,255,.15);color:#fff;font-size:34px;cursor:pointer}
+.dm-lb-prev{left:14px}.dm-lb-next{right:14px}
+@media (max-width:1100px){
+  .dm-gallery{grid-template-columns:repeat(4,1fr)}
+  .dm-feats{columns:2}
+}
+@media (max-width:900px){
+  .dm-hero-grid,.dm-story-grid,.dm-spot-grid,.dm-price-card{grid-template-columns:1fr}
+  .dm-hero{padding-top:28px}
+  .dm-hero-stage{height:470px;max-width:440px;width:100%;margin-inline:auto}
+  .dm-hero-stage .dm-phone{width:200px}
+  .dm-flip .dm-spot-copy{order:0}
+  .dm-spot{padding:52px 0}
+  .dm-stats{grid-template-columns:repeat(2,1fr)}
+  .dm-steps{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;padding-bottom:10px;margin-inline:-16px;padding-inline:16px;scrollbar-width:none}
+  .dm-steps::-webkit-scrollbar{display:none}
+  .dm-step{flex:0 0 68%;scroll-snap-align:center}
+  .dm-swipe-hint{display:block}
+  .dm-price-card{padding:30px 22px}
+}
+@media (max-width:620px){
+  .dm-feats{columns:1}
+  .dm-gallery{grid-template-columns:repeat(2,1fr)}
+  .dm-hero-stage{height:400px}
+  .dm-hero-stage .dm-phone{width:170px}
+  .dm-spot-shots .dm-phone{width:min(220px,47%)}
+  .dm-n3{justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-16px;padding:4px 16px 12px;scrollbar-width:none}
+  .dm-n3::-webkit-scrollbar{display:none}
+  .dm-n3 .dm-phone{flex:0 0 58%;width:auto;scroll-snap-align:center}
+  .dm-n3 .dm-phone:nth-child(2){margin-top:0}
+  .dm-story-text p{font-size:17px}
+}
+</style>
+<link rel="alternate" hreflang="en" href="https://qeuapps.com/apps/countdown-keeper/">
+<link rel="alternate" hreflang="ar" href="https://qeuapps.com/apps/countdown-keeper/">
+<link rel="alternate" hreflang="x-default" href="https://qeuapps.com/apps/countdown-keeper/">
+<link rel="alternate" hreflang="fr" href="https://qeuapps.com/fr/apps/countdown-keeper/">
+<link rel="alternate" hreflang="de" href="https://qeuapps.com/de/apps/countdown-keeper/">
+<link rel="alternate" hreflang="es" href="https://qeuapps.com/es/apps/countdown-keeper/">
+<link rel="alternate" hreflang="tr" href="https://qeuapps.com/tr/apps/countdown-keeper/">
+<link rel="alternate" hreflang="ja" href="https://qeuapps.com/ja/apps/countdown-keeper/">
+<link rel="alternate" hreflang="ko" href="https://qeuapps.com/ko/apps/countdown-keeper/">
+<link rel="alternate" hreflang="id" href="https://qeuapps.com/id/apps/countdown-keeper/">
+<link rel="alternate" hreflang="ms" href="https://qeuapps.com/ms/apps/countdown-keeper/">
+<link rel="alternate" hreflang="zh" href="https://qeuapps.com/zh/apps/countdown-keeper/">
+<link rel="alternate" hreflang="pt" href="https://qeuapps.com/pt/apps/countdown-keeper/">
+<link rel="alternate" hreflang="it" href="https://qeuapps.com/it/apps/countdown-keeper/">
+<link rel="alternate" hreflang="ru" href="https://qeuapps.com/ru/apps/countdown-keeper/">
+<link rel="alternate" hreflang="nl" href="https://qeuapps.com/nl/apps/countdown-keeper/">
+<link rel="alternate" hreflang="ur" href="https://qeuapps.com/ur/apps/countdown-keeper/">
+<link rel="alternate" hreflang="bn" href="https://qeuapps.com/bn/apps/countdown-keeper/">
+<link rel="alternate" hreflang="hi" href="https://qeuapps.com/hi/apps/countdown-keeper/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500..700&family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Manrope:wght@400..800&display=swap">
+<link rel="stylesheet" href="/assets/css/styles.css?v=c5714c0bf7">
+<style>
+.qa-grid-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:18px}
+.qa-grid-head h1,.qa-grid-head h2{margin:0;font-size:clamp(26px,3vw,36px)}
+.qa-count{color:var(--muted);font-weight:700;font-size:15px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px 14px}
+.qa-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.qa-app{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;text-decoration:none;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px 12px 18px;transition:transform .15s,box-shadow .15s}
+.qa-app:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.qa-app img{width:96px;height:96px;border-radius:24px;box-shadow:var(--shadow-md);background:#fff;object-fit:cover;margin-bottom:6px}
+.qa-app b{font-size:17px;line-height:1.35}
+.qa-app small{color:var(--muted);font-size:13.5px;line-height:1.55}
+.qa-app .badge{margin-top:4px}
+.qa-next{border-style:dashed;background:transparent}
+.qa-plus{width:96px;height:96px;border-radius:24px;border:2px dashed var(--line);display:grid;place-items:center;font-size:44px;color:var(--muted);margin-bottom:6px}
+.qa-next b{color:var(--muted)}
+@media (max-width:760px){.qa-grid{grid-template-columns:repeat(2,1fr);gap:12px}}
+@media (max-width:560px){
+  .qa-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .qa-app{padding:16px 8px 14px;border-radius:18px;gap:4px}
+  .qa-app img,.qa-plus{width:76px;height:76px;border-radius:19px}
+  .qa-plus{font-size:34px}
+  .qa-app b{font-size:15px}
+  .qa-app small{font-size:12.5px}
+  .qa-app .badge{font-size:11.5px;padding:2px 9px}
+}
+/* home: short intro line above the grid */
+.qa-intro{padding:56px 0 18px}
+.qa-intro h1{font-size:clamp(32px,4.4vw,54px);line-height:1.15;margin:0 0 12px}
+.qa-intro h1 em{font-style:normal;color:var(--accent)}
+.qa-intro .lead{max-width:44em;margin:0}
+.qa-apps{padding:18px 0 40px}
+.qa-quote{padding:8px 0 40px}
+.qa-quote .inspire{margin:0;max-width:none}
+@media (max-width:720px){.qa-intro{padding:30px 0 8px}}
+/* app pages: the section bar */
+.qa-tabs{position:sticky;top:71px;z-index:40;background:color-mix(in srgb,var(--bg) 90%,transparent);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:0}
+.qa-tabs-row{display:flex;gap:6px;overflow-x:auto;padding:10px 0;scrollbar-width:none}
+.qa-tabs-row::-webkit-scrollbar{display:none}
+.qa-tabs-row a{flex:0 0 auto;text-decoration:none;color:var(--ink);font-weight:650;font-size:14.5px;background:var(--surface);
+  border:1px solid var(--line);border-radius:999px;padding:5px 14px}
+.qa-tabs-row a:hover{border-color:var(--accent);color:var(--accent)}
+.qa-tabs + section{padding-top:22px}
+[id="screens"],[id="features"],[id="story"],[id="video"],[id="questions"]{scroll-margin-top:140px}
+/* app pages: help cards */
+.qa-help{padding:40px 0}
+.qa-help-h{font-size:clamp(24px,3vw,32px);margin:0 0 16px}
+.qa-help-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:820px){.qa-help-grid{grid-template-columns:1fr}}
+.qa-help-card{display:flex;flex-direction:column;gap:2px;text-decoration:none;color:var(--ink);background:var(--surface);
+  border:1px solid var(--line);border-radius:18px;padding:16px 18px;transition:box-shadow .15s}
+.qa-help-card:hover{box-shadow:var(--shadow-md)}
+.qa-help-ic{font-size:24px;margin-bottom:4px}
+.qa-help-card small{color:var(--muted)}
+/* footer: copyright line only */
+.site-footer-min{padding:22px 0;margin-top:40px}
+.site-footer-min .footer-bottom{margin:0;padding:0;border:0;justify-content:center;text-align:center}
+</style>
+<script>window.QAPPS_T={"Please write a little more (at least 10 letters).": "Schrijf alstublieft iets meer (minstens 10 letters).", "Sending from the website is not ready yet — send it by WhatsApp or email below.": "Versturen via de website is nog niet klaar — stuur het hieronder via WhatsApp of e-mail.", "One moment — we are checking you are not a robot…": "Een ogenblik — we controleren of u geen robot bent…", "Sending…": "Bezig met versturen…", "You have sent several messages already — please try again later.": "U hebt al meerdere berichten gestuurd — probeer het later opnieuw.", "We could not confirm you are not a robot. Please try again.": "We konden niet bevestigen dat u geen robot bent. Probeer het opnieuw.", "Your message is too short or too long.": "Uw bericht is te kort of te lang.", "We could not send it from the website right now — send it by WhatsApp or email below.": "We konden het nu niet via de website versturen — stuur het hieronder via WhatsApp of e-mail.", "No connection to the website right now — send it by WhatsApp or email below.": "Op dit moment geen verbinding met de website — stuur het hieronder via WhatsApp of e-mail.", "Open all": "Alles openen", "Close all": "Alles sluiten"};</script>
+</head>
+<body>
+<a class="skip" href="#main"><span>Naar de inhoud</span></a>
+<header class="site-header"><div class="container"><nav class="nav" aria-label="Hoofdmenu">
+  <a class="brand" href="/nl/" aria-label="Q Apps"><svg class="qmark" viewBox="0 0 120 120" width="38" height="38" aria-hidden="true"><circle class="qm-ring" cx="56" cy="56" r="37" fill="none" stroke-width="19"/><rect class="qm-tile" x="72" y="72" width="40" height="40" rx="12" stroke-width="7" paint-order="stroke"/><circle class="qm-dot" cx="92" cy="92" r="5"/></svg><span><b>Q</b> Apps</span></a>
+  <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
+  <div class="nav-links" id="nav-links"><a href="/nl/apps/" aria-current="page"><span>Apps</span></a><a href="/nl/suggest/"><span>Voorstellen</span></a><a href="/nl/support/"><span>Ondersteuning</span></a><a href="/nl/about/"><span>Over ons</span></a>
+    <details class="lang-menu"><summary class="lang-sum">🌐 Nederlands</summary><div class="lang-list"><a href="/apps/countdown-keeper/?lang=en" data-set-lang="en" lang="en">English</a><a href="/apps/countdown-keeper/?lang=ar" data-set-lang="ar" lang="ar" dir="rtl">العربية</a><a href="/fr/apps/countdown-keeper/" data-set-lang="fr" lang="fr">Français</a><a href="/de/apps/countdown-keeper/" data-set-lang="de" lang="de">Deutsch</a><a href="/es/apps/countdown-keeper/" data-set-lang="es" lang="es">Español</a><a href="/it/apps/countdown-keeper/" data-set-lang="it" lang="it">Italiano</a><a href="/pt/apps/countdown-keeper/" data-set-lang="pt" lang="pt">Português</a><a href="/nl/apps/countdown-keeper/" data-set-lang="nl" lang="nl" aria-current="true">Nederlands</a><a href="/ru/apps/countdown-keeper/" data-set-lang="ru" lang="ru">Русский</a><a href="/tr/apps/countdown-keeper/" data-set-lang="tr" lang="tr">Türkçe</a><a href="/ur/apps/countdown-keeper/" data-set-lang="ur" lang="ur" dir="rtl">اردو</a><a href="/hi/apps/countdown-keeper/" data-set-lang="hi" lang="hi">हिन्दी</a><a href="/bn/apps/countdown-keeper/" data-set-lang="bn" lang="bn">বাংলা</a><a href="/id/apps/countdown-keeper/" data-set-lang="id" lang="id">Bahasa Indonesia</a><a href="/ms/apps/countdown-keeper/" data-set-lang="ms" lang="ms">Bahasa Melayu</a><a href="/zh/apps/countdown-keeper/" data-set-lang="zh" lang="zh">简体中文</a><a href="/ja/apps/countdown-keeper/" data-set-lang="ja" lang="ja">日本語</a><a href="/ko/apps/countdown-keeper/" data-set-lang="ko" lang="ko">한국어</a></div></details>
+  </div>
+</nav></div></header>
+<main id="main">
+<div class="container"><nav class="crumbs" aria-label="Kruimelpad"><a href="/nl/"><span>Home</span></a><span aria-hidden="true">/</span><a href="/nl/apps/"><span>Apps</span></a><span aria-hidden="true">/</span><span>Countdown Keeper</span></nav></div><section class="dm-hero"><div class="container dm-hero-grid">
+  <div class="dm-hero-copy">
+    <div class="dm-brand"><img src="/assets/img/apps/countdown/icon.png" alt="Pictogram van Countdown Keeper" width="64" height="64">
+      <div><strong>Countdown Keeper</strong><small>Hoe lang geleden, hoe lang nog</small></div></div>
+    <span class="dm-dev"><span>Nu in de App Store · binnenkort op Google Play</span></span>
+    <h1>Hoe lang is het geleden? <em>Hoe lang duurt het nog?</em></h1>
+    <p class="lead">Uw diploma-uitreiking, uw huwelijk, uw eerste werkdag, de dag dat u in uw huis trok — en het pensioen of de reis die nog komt. Live tellers voor de data die uw verhaal maakten, in de Hijri- en Gregoriaanse kalender — 14 hoofdfuncties en 53 hulpmiddelen daarin.</p>
+    <div class="stores" style="align-items:center"><a class="store-btn" href="https://apps.apple.com/app/id6806348941" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 1.6c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.9 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.9-1.4zM19 17.3c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.3-1.5 0-1.9-1-4-1-2 0-2.5 1-4 1-1.6 0-2.9-1.6-3.9-3.1-2.7-4.2-3-9.1-1.3-11.7 1.2-1.8 3-2.9 4.8-2.9 1.8 0 2.9 1 4.4 1 1.4 0 2.3-1 4.4-1 1.6 0 3.2.9 4.4 2.4-3.9 2.1-3.2 7.6.2 9.1z"/></svg><span><small>Download in de</small><strong>App Store</strong></span></a><span class="chip"><span>Google Play — binnenkort</span></span><a class="store-btn" style="background:#c4302b" href="https://www.youtube.com/playlist?list=PLcZVEfdjz66U" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C16.6 4 12 4 12 4s-4.6 0-7.8.2c-.5.1-1.4.1-2.3 1C1.2 5.9 1 7.5 1 7.5S.8 9.4.8 11.3v1.4C.8 14.6 1 16.5 1 16.5s.2 1.6.9 2.3c.9.9 2 .9 2.6 1 1.9.2 7.5.2 7.5.2s4.6 0 7.8-.3c.5-.1 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.8v-1.4c0-1.9-.2-3.7-.2-3.7zM9.8 15.1V8.9l6 3.1-6 3.1z"/></svg><span><small>Uitleg op</small><strong>YouTube</strong></span></a></div>
+  </div>
+  <div class="dm-hero-stage">
+    <button type="button" class="dm-phone dm-p1" data-zoom="home" aria-label="Startpagina van Countdown Keeper"><img src="/assets/img/apps/countdown/home_en.webp" alt="Startpagina van Countdown Keeper" loading="eager" width="620" height="1341"></button>
+    <button type="button" class="dm-phone dm-p2" data-zoom="detail" aria-label="Een datum met zijn live teller"><img src="/assets/img/apps/countdown/detail_en.webp" alt="Een datum met zijn live teller" loading="eager" width="620" height="1341"></button>
+  </div>
+</div></section><nav class="qa-tabs" aria-label="Countdown Keeper"><div class="container"><div class="qa-tabs-row"><a href="#screens"><span>Schermen</span></a><a href="#features"><span>Functies</span></a><a href="#story"><span>Verhaal</span></a><a href="#video"><span>Video</span></a><a href="#questions"><span>Vragen</span></a><a href="/nl/tutorials/countdown-keeper/"><span>Uitleg</span></a><a href="/privacy/countdown-keeper/nl/"><span>Privacy</span></a><a href="/nl/support/countdown-keeper/"><span>Ondersteuning</span></a><a href="/nl/suggest/?app=countdown-keeper"><span>Voorstellen</span></a></div></div></nav><section class="dm-stats-wrap"><div class="container"><div class="dm-stats">
+  <div><b>14</b><span>hoofdfuncties</span></div>
+  <div><b>53</b><span>hulpmiddelen daarin</span></div>
+  <div><b>2</b><span>kalenders: Hijri &amp; Gregoriaans</span></div>
+  <div><b>18</b><span>talen</span></div>
+</div></div></section><section id="screens" class="section-soft"><div class="container">
+  <div class="section-head center">
+    <span class="kicker">Schermen</span>
+    <h2>Echte schermen uit de app.</h2>
+    <p>Tik op een scherm om het groot te zien.</p>
+  </div>
+  <div class="dm-gallery"><figure><button type="button" class="dm-phone " data-zoom="home" aria-label="Home"><img src="/assets/img/apps/countdown/home_en.webp" alt="Home" loading="lazy" width="620" height="1341"></button><figcaption><span>Home</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="story" aria-label="Verhaal van een gebeurtenis"><img src="/assets/img/apps/countdown/story_en.webp" alt="Verhaal van een gebeurtenis" loading="lazy" width="620" height="1341"></button><figcaption><span>Verhaal van een gebeurtenis</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="list" aria-label="Gebeurtenissen"><img src="/assets/img/apps/countdown/list_en.webp" alt="Gebeurtenissen" loading="lazy" width="620" height="1341"></button><figcaption><span>Gebeurtenissen</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="detail" aria-label="Een datum"><img src="/assets/img/apps/countdown/detail_en.webp" alt="Een datum" loading="lazy" width="620" height="1341"></button><figcaption><span>Een datum</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="add" aria-label="Nieuwe datum"><img src="/assets/img/apps/countdown/add_en.webp" alt="Nieuwe datum" loading="lazy" width="620" height="1341"></button><figcaption><span>Nieuwe datum</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="tools" aria-label="Hulpmiddelen"><img src="/assets/img/apps/countdown/tools_en.webp" alt="Hulpmiddelen" loading="lazy" width="620" height="1341"></button><figcaption><span>Hulpmiddelen</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="settings" aria-label="Instellingen"><img src="/assets/img/apps/countdown/settings_en.webp" alt="Instellingen" loading="lazy" width="620" height="1341"></button><figcaption><span>Instellingen</span></figcaption></figure></div>
+</div></section><section id="features" class="section-soft"><div class="container">
+  <div class="section-head center">
+    <span class="kicker">Alles wat erin zit</span>
+    <h2>14 hoofdfuncties. 53 hulpmiddelen daarin.</h2>
+    <p>Tik op een functie om te zien wat erin zit.</p>
+    <button type="button" class="btn btn-secondary dm-openall" aria-pressed="false"><span>Alles openen</span></button>
+  </div>
+  <div class="dm-feats"><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">⏳</span>
+      <span class="dm-feat-t"><span>Live tellers</span></span><span class="dm-count">6</span></summary>
+      <ul><li>Hoe lang geleden een datum was, of hoe lang het nog duurt</li><li>Elke seconde bijgewerkt</li><li>Wisselt vanzelf van „resterend” naar „verstreken” als de dag komt</li><li>Toont „Vandaag” op de dag zelf</li><li>Kies de eenheden: jaren, maanden, dagen, uren, minuten, seconden</li><li>Een tijdstip, als u dat wilt</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🌙</span>
+      <span class="dm-feat-t"><span>Hijri en Gregoriaans</span></span><span class="dm-count">3</span></summary>
+      <ul><li>Gregoriaans of Hijri (Umm al-Qura)</li><li>Een eigen kalender voor elke datum</li><li>Hebt u een datum in de andere kalender? Zet hem om en sla hem op</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">📖</span>
+      <span class="dm-feat-t"><span>Verhaal van een gebeurtenis</span></span><span class="dm-count">2</span></summary>
+      <ul><li>Schrijf het verhaal van elke datum</li><li>Toon het met één tik onder de kaart</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔁</span>
+      <span class="dm-feat-t"><span>Maandelijkse data</span></span><span class="dm-count">2</span></summary>
+      <ul><li>Salaris, huur, afbetalingen</li><li>Gaat vanzelf naar de volgende datum</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔔</span>
+      <span class="dm-feat-t"><span>Herinneringen</span></span><span class="dm-count">3</span></summary>
+      <ul><li>Op het moment zelf, een dag ervoor of een week ervoor</li><li>Herhalen na 5 of 10 minuten</li><li>„Herinner me opnieuw” vanuit het herinneringslogboek</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🎨</span>
+      <span class="dm-feat-t"><span>Maak het van u</span></span><span class="dm-count">3</span></summary>
+      <ul><li>Een emoji of uw eigen foto voor elke datum</li><li>Een kleur voor elke kaart</li><li>Zet uw belangrijkste data vast bovenaan</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🃏</span>
+      <span class="dm-feat-t"><span>9 kaartstijlen</span></span><span class="dm-count">9</span></summary>
+      <ul><li>Klassiek</li><li>Eén regel</li><li>Grote tellers</li><li>Alleen dagen</li><li>Grote emoji</li><li>Minimaal</li><li>Dashboard</li><li>Modern premium</li><li>Groot getal</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔎</span>
+      <span class="dm-feat-t"><span>Zoeken en 8 manieren om te sorteren</span></span><span class="dm-count">6</span></summary>
+      <ul><li>Doorzoek uw data</li><li>Mijn volgorde: sleep om te ordenen</li><li>Komende eerst, of voorbije eerst</li><li>Vastgezette eerst</li><li>Op datum of op naam</li><li>Laatst toegevoegd, of eerst toegevoegd</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🏠</span>
+      <span class="dm-feat-t"><span>Startscherm in één oogopslag</span></span><span class="dm-count">3</span></summary>
+      <ul><li>Totaal, komend en voorbij</li><li>Uw dichtstbijzijnde data eerst</li><li>Open de app en zie meteen uw tellers</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🧮</span>
+      <span class="dm-feat-t"><span>5 datumhulpmiddelen</span></span><span class="dm-count">5</span></summary>
+      <ul><li>Hijri ⇄ Gregoriaans omrekenen</li><li>Leeftijdscalculator</li><li>Verschil tussen twee data</li><li>Dagen optellen of aftrekken</li><li>Pensioenschatting</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">♻️</span>
+      <span class="dm-feat-t"><span>Prullenbak</span></span><span class="dm-count">3</span></summary>
+      <ul><li>Verwijderde data worden 30 dagen bewaard</li><li>Met één tik terugzetten</li><li>Meerdere tegelijk selecteren</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔐</span>
+      <span class="dm-feat-t"><span>Back-up en uw gegevens</span></span><span class="dm-count">3</span></summary>
+      <ul><li>Versleutelde back-up van al uw gegevens</li><li>Terugzetten wanneer u het nodig hebt</li><li>Exporteer en importeer uw data als JSON-bestand</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔒</span>
+      <span class="dm-feat-t"><span>Privé en vergrendeld</span></span><span class="dm-count">3</span></summary>
+      <ul><li>Geen account, niet inloggen</li><li>Werkt offline; uw gegevens blijven op uw telefoon</li><li>Optionele vergrendeling met vingerafdruk of gezicht</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🌍</span>
+      <span class="dm-feat-t"><span>18 talen</span></span><span class="dm-count">2</span></summary>
+      <ul><li>Arabisch en Urdu van rechts naar links</li><li>Licht en donker</li></ul></details></div>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker">Live tellers</span>
+    <h2>Elke datum, tot op de seconde geteld.</h2>
+    <p class="lead">Jaren, maanden en dagen sinds een datum — of tot een datum — op een teller die elke seconde verspringt en vanzelf van „resterend” naar „verstreken” wisselt.</p>
+    <ul class="dm-ticks"><li>Kies welke eenheden de teller toont</li><li>„Vandaag” op de dag zelf</li><li>Maandelijkse data gaan vanzelf naar de volgende</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n2"><button type="button" class="dm-phone " data-zoom="detail" aria-label="Een datum met zijn live teller"><img src="/assets/img/apps/countdown/detail_en.webp" alt="Een datum met zijn live teller" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="home" aria-label="Startscherm: uw dichtstbijzijnde data"><img src="/assets/img/apps/countdown/home_en.webp" alt="Startscherm: uw dichtstbijzijnde data" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot dm-flip"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker">Verhaal van een gebeurtenis</span>
+    <h2>Elke datum heeft een verhaal.</h2>
+    <p class="lead">Schrijf op wat er die dag gebeurde, en toon het met één tik onder de kaart.</p>
+    <ul class="dm-ticks"><li>Een emoji of uw eigen foto voor elke datum</li><li>Een kleur en 9 kaartstijlen</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n1"><button type="button" class="dm-phone " data-zoom="story" aria-label="Een datum met zijn verhaal"><img src="/assets/img/apps/countdown/story_en.webp" alt="Een datum met zijn verhaal" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker">Hijri &amp; Gregoriaans</span>
+    <h2>Beide kalenders, datum per datum.</h2>
+    <p class="lead">Kies voor elke datum apart Gregoriaans of Hijri (Umm al-Qura) — en hebt u een datum in de andere kalender, zet hem dan om en sla hem meteen op.</p>
+    <ul class="dm-ticks"><li>Herinneringen op het moment zelf, een dag of een week ervoor</li><li>Herhalen na 5 of 10 minuten</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n1"><button type="button" class="dm-phone " data-zoom="add" aria-label="Een nieuwe datum toevoegen"><img src="/assets/img/apps/countdown/add_en.webp" alt="Een nieuwe datum toevoegen" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot dm-flip"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker">Zoeken &amp; sorteren</span>
+    <h2>Vind elke datum, in elke volgorde.</h2>
+    <p class="lead">Doorzoek uw data en sorteer ze op acht manieren — of sleep ze in uw eigen volgorde. Zet de belangrijkste vast bovenaan.</p>
+    <ul class="dm-ticks"><li>Komende eerst, voorbije eerst, vastgezette eerst</li><li>Verwijderde data 30 dagen bewaard in de prullenbak</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n1"><button type="button" class="dm-phone " data-zoom="list" aria-label="Uw data sorteren"><img src="/assets/img/apps/countdown/list_en.webp" alt="Uw data sorteren" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker">Datumhulpmiddelen</span>
+    <h2>Vijf datumhulpmiddelen, ingebouwd.</h2>
+    <p class="lead">Reken Hijri en Gregoriaans om, bereken een exacte leeftijd en het verschil tussen twee data, tel dagen op of trek ze af, en schat uw pensioendatum.</p>
+    <ul class="dm-ticks"><li>Versleutelde back-up en terugzetten</li><li>Optionele vergrendeling met vingerafdruk of gezicht</li><li>18 talen</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n2"><button type="button" class="dm-phone " data-zoom="tools" aria-label="Datumhulpmiddelen"><img src="/assets/img/apps/countdown/tools_en.webp" alt="Datumhulpmiddelen" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="settings" aria-label="Instellingen"><img src="/assets/img/apps/countdown/settings_en.webp" alt="Instellingen" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section id="story" class="dm-story"><div class="container">
+  <div class="section-head">
+    <span class="kicker">Het verhaal</span>
+    <h2>Ons leven bestaat uit gebeurtenissen — en elke gebeurtenis heeft een verhaal.</h2>
+  </div>
+  <div class="dm-story-grid">
+    <div class="dm-story-text">
+      <p>Op een dag vraagt u zich af: hoe lang is het geleden dat ik afstudeerde? U probeert het jaar te herinneren, telt op uw vingers… en weet het nog steeds niet zeker. Countdown Keeper antwoordt meteen: <q>7 jaar, 4 maanden en 12 dagen</q> — en de teller loopt door, tot op de seconde.</p>
+      <p>En het mooiste: elke datum kan zijn verhaal bewaren. U ziet dat er vijf jaar voorbij zijn sinds uw diploma-uitreiking, en dan leest u het verhaal dat u die dag schreef — en het brengt dingen uit uw leven terug die u bijna was vergeten. Getallen alleen raken ons niet; de verhalen erachter wel.</p>
+      <p>Hoe lang geleden kocht u uw auto? Trok u in uw huis? Was uw eerste werkdag? Als u precies weet hoeveel tijd er voorbij is, waardeert u dingen zoals ze verdienen. Koop een product, bewaar de datum — en jaren later zegt de app: <q>5 jaar en 3 maanden</q>. Dat geeft rust, en u kunt erop vertrouwen. Zonder dat gokken we maar: drie jaar, misschien vier…</p>
+      <p>En omdat we elke dag met twee kalenders leven, Hijri en Gregoriaans, telt de app met allebei — voor elke datum apart. Een Hijri-jaar is korter dan een Gregoriaans jaar, dus vijf jaar volgens de Hijri-kalender kan minder zijn dan vijf volgens de Gregoriaanse. Zulke kleine details doen ertoe in ons leven — daarom bouwden we 14 hoofdfuncties en 53 hulpmiddelen daarin, zodat u altijd in één oogopslag weet hoeveel tijd voorbij is en hoeveel er nog over is.</p>
+    </div>
+    <ol class="dm-timeline">
+      <li><span>🎓</span><div><b>Hoe lang geleden ben ik afgestudeerd?</b><small>Nooit meer op uw vingers tellen.</small></div></li>
+      <li><span>📖</span><div><b>Een datum met zijn verhaal</b><small>Het getal, en dan de herinnering erachter.</small></div></li>
+      <li><span>🚗</span><div><b>5 jaar en 3 maanden</b><small>Uw auto, uw huis, een product — niet meer gokken.</small></div></li>
+      <li><span>🌙</span><div><b>Hijri en Gregoriaans</b><small>Elke kalender telt de jaren op zijn eigen manier.</small></div></li>
+    </ol>
+  </div>
+</div></section><section class="section-soft dm-journey"><div class="container">
+  <div class="section-head center">
+    <span class="kicker">Hoe het werkt</span>
+    <h2>Uw belangrijke data, voor u geteld.</h2>
+  </div>
+  <ol class="dm-steps"><li class="dm-step"><button type="button" class="dm-phone " data-zoom="add" aria-label="Voeg een datum toe"><img src="/assets/img/apps/countdown/add_en.webp" alt="Voeg een datum toe" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">1</span>
+        <h3>Voeg een datum toe</h3><p>Geef hem een naam, kies de datum in Hijri of Gregoriaans, en kies wat de teller toont.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="home" aria-label="Bekijk uw tellers"><img src="/assets/img/apps/countdown/home_en.webp" alt="Bekijk uw tellers" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">2</span>
+        <h3>Bekijk uw tellers</h3><p>Open de app: totaal, komend en voorbij, dichtstbijzijnde eerst.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="story" aria-label="Vertel het verhaal"><img src="/assets/img/apps/countdown/story_en.webp" alt="Vertel het verhaal" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">3</span>
+        <h3>Vertel het verhaal</h3><p>Elke datum kan het verhaal erachter bewaren, onder de kaart.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="list" aria-label="Zoeken en sorteren"><img src="/assets/img/apps/countdown/list_en.webp" alt="Zoeken en sorteren" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">4</span>
+        <h3>Zoeken en sorteren</h3><p>Acht manieren om te sorteren, of sleep ze in uw eigen volgorde.</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="tools" aria-label="Gebruik de datumhulpmiddelen"><img src="/assets/img/apps/countdown/tools_en.webp" alt="Gebruik de datumhulpmiddelen" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">5</span>
+        <h3>Gebruik de datumhulpmiddelen</h3><p>Omrekenen, leeftijd, verschil, optellen of aftrekken, pensioen.</p></div></li></ol>
+  <p class="dm-swipe-hint">Veeg om elke stap te zien.</p>
+</div></section><section class="dm-price"><div class="container"><div class="dm-price-card">
+  <div>
+    <span class="kicker">Prijs</span>
+    <h2>Gratis om te beginnen. Eén betaling voor altijd.</h2>
+    <p>Begin gratis met maximaal 5 data. Hebt u meer nodig, dan heft Levenslange toegang de limiet op met één betaling — geen abonnement.</p>
+    <div style="margin-top:18px"><div class="stores" style="align-items:center"><a class="store-btn" href="https://apps.apple.com/app/id6806348941" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 1.6c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.9 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.9-1.4zM19 17.3c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.3-1.5 0-1.9-1-4-1-2 0-2.5 1-4 1-1.6 0-2.9-1.6-3.9-3.1-2.7-4.2-3-9.1-1.3-11.7 1.2-1.8 3-2.9 4.8-2.9 1.8 0 2.9 1 4.4 1 1.4 0 2.3-1 4.4-1 1.6 0 3.2.9 4.4 2.4-3.9 2.1-3.2 7.6.2 9.1z"/></svg><span><small>Download in de</small><strong>App Store</strong></span></a><span class="chip"><span>Google Play — binnenkort</span></span><a class="store-btn" style="background:#c4302b" href="https://www.youtube.com/playlist?list=PLcZVEfdjz66U" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C16.6 4 12 4 12 4s-4.6 0-7.8.2c-.5.1-1.4.1-2.3 1C1.2 5.9 1 7.5 1 7.5S.8 9.4.8 11.3v1.4C.8 14.6 1 16.5 1 16.5s.2 1.6.9 2.3c.9.9 2 .9 2.6 1 1.9.2 7.5.2 7.5.2s4.6 0 7.8-.3c.5-.1 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.8v-1.4c0-1.9-.2-3.7-.2-3.7zM9.8 15.1V8.9l6 3.1-6 3.1z"/></svg><span><small>Uitleg op</small><strong>YouTube</strong></span></a></div></div>
+  </div>
+  <ul class="dm-ticks dm-ticks-big">
+    <li>Gratis: maximaal 5 data</li>
+    <li>Levenslange toegang: één keer betalen</li>
+    <li>Geen account, werkt offline</li>
+    <li>Uw gegevens blijven op uw telefoon</li>
+    <li>18 talen</li>
+  </ul>
+</div></div></section><section id="video"><div class="container" style="max-width:860px">
+  <h2 class="center">De app uitgelegd, stap voor stap</h2>
+  <p class="center">Korte afleveringen op ons YouTube-kanaal: uw eerste gebeurtenis, tellers, herinneringen, de Hijri-kalender en meer.</p>
+  <div class="video-wrap" style="margin-top:22px">
+    <iframe src="https://www.youtube.com/embed/videoseries?list=PLcZVEfdjz66U" title="Uitleg van Countdown Keeper op YouTube" loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <p style="text-align:center;margin-top:16px"><a class="btn btn-primary" href="https://www.youtube.com/playlist?list=PLcZVEfdjz66U" target="_blank" rel="noopener"><span>Open de afspeellijst op YouTube</span></a></p>
+</div></section><section id="questions"><div class="container" style="max-width:820px">
+  <h2 class="center">Vragen</h2>
+  <div class="faq" style="margin-top:28px"><details><summary><span>Is het gratis?</span></summary><p>U kunt gratis beginnen met maximaal 5 data. Levenslange toegang is één betaling die de limiet opheft — geen abonnement.</p></details><details><summary><span>Ondersteunt de app de Hijri-kalender?</span></summary><p>Ja — Hijri (Umm al-Qura) en Gregoriaans, voor elke datum apart te kiezen.</p></details><details><summary><span>Heb ik een account of internet nodig?</span></summary><p>Geen van beide. De app werkt offline en uw gegevens blijven op uw telefoon.</p></details><details><summary><span>Is de app op Google Play?</span></summary><p>De app staat nu in de App Store en komt binnenkort op Google Play.</p></details></div>
+</div></section><section class="qa-help"><div class="container">
+  <h2 class="qa-help-h"><span>Hulp</span></h2>
+  <div class="qa-help-grid"><a class="qa-help-card" href="https://www.youtube.com/playlist?list=PLcZVEfdjz66U" target=_blank rel=noopener><span class="qa-help-ic" aria-hidden="true">▶️</span><b>Video-uitleg</b><small>Onze YouTube-afspeellijst</small></a><a class="qa-help-card" href="/nl/tutorials/countdown-keeper/"><span class="qa-help-ic" aria-hidden="true">📘</span><b>Uitleg</b><small>Stap voor stap</small></a><a class="qa-help-card" href="/privacy/countdown-keeper/nl/"><span class="qa-help-ic" aria-hidden="true">🔒</span><b>Privacy</b><small>Wat er met uw gegevens gebeurt</small></a><a class="qa-help-card" href="/nl/support/countdown-keeper/"><span class="qa-help-ic" aria-hidden="true">🛟</span><b>Ondersteuning</b><small>Antwoorden en contact</small></a></div>
+</div></section><section class="dm-suggest-wrap"><div class="container">
+  <a class="dm-suggest" href="/nl/suggest/?app=countdown-keeper">
+    <span class="dm-suggest-ic" aria-hidden="true">💡</span>
+    <span class="dm-suggest-tx">
+      <b>Mist u iets in Countdown Keeper?</b>
+      <span>Stel een functie of verbetering voor, of meld een probleem — we lezen elk bericht.</span>
+      
+    </span>
+    <span class="dm-suggest-go"><span>Stel een functie voor →</span></span>
+  </a>
+</div></section><section style="padding-top:0"><div class="container"><div class="cta-band">
+  <div>
+    <h2>Hoe lang is het geleden? Hoe lang duurt het nog?</h2>
+    <p>Bewaar elke belangrijke datum op één plek, en weet het altijd in één oogopslag.</p>
+  </div>
+  <div class="stores" style="align-items:center"><a class="store-btn" href="https://apps.apple.com/app/id6806348941" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 1.6c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.9 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.9-1.4zM19 17.3c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.3-1.5 0-1.9-1-4-1-2 0-2.5 1-4 1-1.6 0-2.9-1.6-3.9-3.1-2.7-4.2-3-9.1-1.3-11.7 1.2-1.8 3-2.9 4.8-2.9 1.8 0 2.9 1 4.4 1 1.4 0 2.3-1 4.4-1 1.6 0 3.2.9 4.4 2.4-3.9 2.1-3.2 7.6.2 9.1z"/></svg><span><small>Download in de</small><strong>App Store</strong></span></a><span class="chip"><span>Google Play — binnenkort</span></span><a class="store-btn" style="background:#c4302b" href="https://www.youtube.com/playlist?list=PLcZVEfdjz66U" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C16.6 4 12 4 12 4s-4.6 0-7.8.2c-.5.1-1.4.1-2.3 1C1.2 5.9 1 7.5 1 7.5S.8 9.4.8 11.3v1.4C.8 14.6 1 16.5 1 16.5s.2 1.6.9 2.3c.9.9 2 .9 2.6 1 1.9.2 7.5.2 7.5.2s4.6 0 7.8-.3c.5-.1 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.8v-1.4c0-1.9-.2-3.7-.2-3.7zM9.8 15.1V8.9l6 3.1-6 3.1z"/></svg><span><small>Uitleg op</small><strong>YouTube</strong></span></a></div>
+</div></div></section><div class="dm-lb" hidden><button type="button" class="dm-lb-x" aria-label="Sluiten">✕</button>
+  <button type="button" class="dm-lb-nav dm-lb-prev" aria-label="Vorige">‹</button>
+  <img alt=""><button type="button" class="dm-lb-nav dm-lb-next" aria-label="Volgende">›</button></div><script>
+(function(){
+  var lb=document.querySelector('.dm-lb'),im=lb.querySelector('img'),list=[],i=0;
+  function lang(){return document.documentElement.getAttribute('data-lang')==='ar'?'ar':'en';}
+  function names(){var s=[];document.querySelectorAll('.dm-gallery [data-zoom]').forEach(function(b){s.push(b.dataset.zoom);});return s;}
+  function show(){im.src='/assets/img/apps/countdown/'+list[i]+'_'+lang()+'.webp';}
+  function open(n){list=names();i=Math.max(0,list.indexOf(n));show();lb.hidden=false;document.body.style.overflow='hidden';}
+  function close(){lb.hidden=true;document.body.style.overflow='';}
+  function step(d){i=(i+d+list.length)%list.length;show();}
+  document.querySelectorAll('[data-zoom]').forEach(function(b){b.addEventListener('click',function(){open(b.dataset.zoom);});});
+  lb.querySelector('.dm-lb-x').addEventListener('click',close);
+  lb.querySelector('.dm-lb-prev').addEventListener('click',function(e){e.stopPropagation();step(-1);});
+  lb.querySelector('.dm-lb-next').addEventListener('click',function(e){e.stopPropagation();step(1);});
+  lb.addEventListener('click',function(e){if(e.target===lb)close();});
+  document.addEventListener('keydown',function(e){if(lb.hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1);});
+  var x0=null;lb.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+  lb.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)step(dx<0?1:-1);x0=null;});
+  var btn=document.querySelector('.dm-openall');
+  if(btn)btn.addEventListener('click',function(){var on=btn.getAttribute('aria-pressed')!=='true';
+    document.querySelectorAll('.dm-feat').forEach(function(d){d.open=on;});btn.setAttribute('aria-pressed',on);
+    btn.querySelectorAll('span').forEach(function(s){var Q=window.QAPPS_T||{};s.textContent=on?(s.hasAttribute('data-ar')?'أغلق الكل':(Q['Close all']||'Close all')):(s.hasAttribute('data-ar')?'افتح الكل':(Q['Open all']||'Open all'));});});
+  if(window.matchMedia('(min-width:901px)').matches&&btn)btn.click();
+})();
+</script>
+</main>
+<footer class="site-footer site-footer-min"><div class="container">
+  <div class="footer-bottom">
+    <span>&copy; 2026 <span>Q Apps. Alle rechten voorbehouden.</span></span>
+  </div>
+</div></footer>
+<script src="/assets/js/site.js?v=a9f8460cbf" defer></script>
+
+</body>
+</html>

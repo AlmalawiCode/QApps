@@ -19,7 +19,11 @@
   function lang() {
     return document.documentElement.getAttribute("data-lang") === "ar" ? "ar" : "en";
   }
-  function T(en, ar) { return lang() === "ar" ? ar : en; }
+  // On the /<lang>/ pages (French, Urdu, …) the visitor's texts come from
+  // window.QAPPS_T (written by tools/site_i18n.py); missing ones stay English.
+  function T(en, ar) { return lang() === "ar" ? ar : ((window.QAPPS_T || {})[en] || en); }
+  // The message itself goes to the owner: English or Arabic only.
+  function TA(en, ar) { return lang() === "ar" ? ar : en; }
 
   // App from the link. Apps also send their context:
   //   ?app=…&lang=<app language>&src=app&platform=ios|android&v=<version>
@@ -66,12 +70,12 @@
     var name = form.elements.name.value.trim();
     var contact = form.elements.contact.value.trim();
     var tag = fromApp
-      ? "📱 " + T("From the app", "من التطبيق") + (platform ? " · " + platform : "") + (appVersion ? " · " + appVersion : "") + (userLang ? " · " + userLang : "") + "\n"
+      ? "📱 " + TA("From the app", "من التطبيق") + (platform ? " · " + platform : "") + (appVersion ? " · " + appVersion : "") + (userLang ? " · " + userLang : "") + "\n"
       : "";
     return tag + "[" + appLabel() + " · " + typeLabel() + "]\n\n" + form.elements.message.value.trim() +
       (name || contact ? "\n\n—" : "") +
-      (name ? "\n" + T("Name: ", "الاسم: ") + name : "") +
-      (contact ? "\n" + T("Reply to: ", "للرد: ") + contact : "");
+      (name ? "\n" + TA("Name: ", "الاسم: ") + name : "") +
+      (contact ? "\n" + TA("Reply to: ", "للرد: ") + contact : "");
   }
 
   function openFallback(reason) {
@@ -91,9 +95,12 @@
     var app = form.elements.app.value;
     var back = sent.querySelector("[data-fb-back]");
     if (["docmatic", "vault", "countdown-keeper"].indexOf(app) >= 0) {
-      back.href = "/apps/" + app + "/";
-      back.querySelector("[data-en]").textContent = "Back to " + (form.elements.app.selectedOptions[0].getAttribute("data-en"));
-      back.querySelector("[data-ar]").textContent = "عُد إلى صفحة " + (form.elements.app.selectedOptions[0].getAttribute("data-ar"));
+      var fixed = document.documentElement.hasAttribute("data-fixed-lang");
+      back.href = (fixed ? "/" + document.documentElement.getAttribute("lang") : "") + "/apps/" + app + "/";
+      var be = back.querySelector("[data-en]"), ba = back.querySelector("[data-ar]");
+      if (be) be.textContent = "Back to " + (form.elements.app.selectedOptions[0].getAttribute("data-en"));
+      if (ba) ba.textContent = "عُد إلى صفحة " + (form.elements.app.selectedOptions[0].getAttribute("data-ar"));
+      if (fixed) back.textContent = "← " + form.elements.app.selectedOptions[0].textContent;
     }
     form.hidden = true;
     sent.hidden = false;

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>(function(){try{var S=["en", "ar"],R=["ar", "ur"];var q=new URLSearchParams(location.search).get('lang');var l=(q&&S.indexOf(q)>=0)?q:localStorage.getItem('qapps-lang');if(!l||S.indexOf(l)<0){var n=(navigator.language||navigator.userLanguage||'en').slice(0,2);l=S.indexOf(n)>=0?n:'en';}var d=document.documentElement;d.setAttribute('data-lang',l);d.setAttribute('lang',l);d.setAttribute('dir',R.indexOf(l)>=0?'rtl':'ltr');var m={en:d.getAttribute('data-title-en'),ar:d.getAttribute('data-title-ar')};if(m[l]){document.title=m[l];}}catch(e){}})();</script>
+<script>(function(){try{var S=["en", "ar"],R=["ar", "ur"];var q=new URLSearchParams(location.search).get('lang');var X=["fr", "de", "es", "tr", "ja", "ko", "id", "ms", "zh", "pt", "it", "ru", "nl", "ur", "bn", "hi"],P=location.pathname;if(q){try{localStorage.setItem('qapps-lang',q)}catch(e){}}var l=q||localStorage.getItem('qapps-lang');if(!l){l=(navigator.language||navigator.userLanguage||'en').slice(0,2).toLowerCase();}if(X.indexOf(l)>=0&&!/^\/(privacy\/[a-z0-9-]+\/|vault|admin)/.test(P)){location.replace('/'+l+P+location.search.replace(/[?&]lang=[^&]*/,'').replace(/^&/,'?')+location.hash);return;}if(S.indexOf(l)<0){l='en';}var d=document.documentElement;d.setAttribute('data-lang',l);d.setAttribute('lang',l);d.setAttribute('dir',R.indexOf(l)>=0?'rtl':'ltr');var m={en:d.getAttribute('data-title-en'),ar:d.getAttribute('data-title-ar')};if(m[l]){document.title=m[l];}}catch(e){}})();</script>
 <title>About — Q Apps</title>
 <meta name="description" content="Q Apps makes valuable apps at tiny prices: pay once, yours for life — no subscriptions. In Arabic and English.">
 <link rel="canonical" href="https://qeuapps.com/about/">
@@ -22,6 +22,25 @@
 <meta name="twitter:description" content="Q Apps makes valuable apps at tiny prices: pay once, yours for life — no subscriptions. In Arabic and English.">
 <meta name="twitter:image" content="https://qeuapps.com/assets/img/brand/og-default.png">
 
+<link rel="alternate" hreflang="en" href="https://qeuapps.com/about/">
+<link rel="alternate" hreflang="ar" href="https://qeuapps.com/about/">
+<link rel="alternate" hreflang="x-default" href="https://qeuapps.com/about/">
+<link rel="alternate" hreflang="fr" href="https://qeuapps.com/fr/about/">
+<link rel="alternate" hreflang="de" href="https://qeuapps.com/de/about/">
+<link rel="alternate" hreflang="es" href="https://qeuapps.com/es/about/">
+<link rel="alternate" hreflang="tr" href="https://qeuapps.com/tr/about/">
+<link rel="alternate" hreflang="ja" href="https://qeuapps.com/ja/about/">
+<link rel="alternate" hreflang="ko" href="https://qeuapps.com/ko/about/">
+<link rel="alternate" hreflang="id" href="https://qeuapps.com/id/about/">
+<link rel="alternate" hreflang="ms" href="https://qeuapps.com/ms/about/">
+<link rel="alternate" hreflang="zh" href="https://qeuapps.com/zh/about/">
+<link rel="alternate" hreflang="pt" href="https://qeuapps.com/pt/about/">
+<link rel="alternate" hreflang="it" href="https://qeuapps.com/it/about/">
+<link rel="alternate" hreflang="ru" href="https://qeuapps.com/ru/about/">
+<link rel="alternate" hreflang="nl" href="https://qeuapps.com/nl/about/">
+<link rel="alternate" hreflang="ur" href="https://qeuapps.com/ur/about/">
+<link rel="alternate" hreflang="bn" href="https://qeuapps.com/bn/about/">
+<link rel="alternate" hreflang="hi" href="https://qeuapps.com/hi/about/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
@@ -30,7 +49,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500..700&family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Manrope:wght@400..800&display=swap">
-<link rel="stylesheet" href="/assets/css/styles.css?v=84c67d1bba">
+<link rel="stylesheet" href="/assets/css/styles.css?v=c5714c0bf7">
 <style>
 .qa-grid-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:18px}
 .qa-grid-head h1,.qa-grid-head h2{margin:0;font-size:clamp(26px,3vw,36px)}
@@ -96,7 +115,7 @@
   <a class="brand" href="/" aria-label="Q Apps"><svg class="qmark" viewBox="0 0 120 120" width="38" height="38" aria-hidden="true"><circle class="qm-ring" cx="56" cy="56" r="37" fill="none" stroke-width="19"/><rect class="qm-tile" x="72" y="72" width="40" height="40" rx="12" stroke-width="7" paint-order="stroke"/><circle class="qm-dot" cx="92" cy="92" r="5"/></svg><span data-en><b>Q</b> Apps</span><span data-ar><b>كيو</b> آبز</span></a>
   <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="Menu">☰</button>
   <div class="nav-links" id="nav-links"><a href="/apps/"><span data-en>Apps</span><span data-ar>التطبيقات</span></a><a href="/suggest/"><span data-en>Suggest</span><span data-ar>اقترح</span></a><a href="/support/"><span data-en>Support</span><span data-ar>الدعم</span></a><a href="/about/" aria-current="page"><span data-en>About</span><span data-ar>من نحن</span></a>
-    <button class="lang-btn" data-lang-toggle type="button" aria-label="التبديل إلى العربية">العربية</button>
+    <details class="lang-menu"><summary class="lang-sum">🌐 <span data-en>English</span><span data-ar>العربية</span></summary><div class="lang-list"><a href="/about/?lang=en" data-set-lang="en" lang="en">English</a><a href="/about/?lang=ar" data-set-lang="ar" lang="ar" dir="rtl">العربية</a><a href="/fr/about/" data-set-lang="fr" lang="fr">Français</a><a href="/de/about/" data-set-lang="de" lang="de">Deutsch</a><a href="/es/about/" data-set-lang="es" lang="es">Español</a><a href="/it/about/" data-set-lang="it" lang="it">Italiano</a><a href="/pt/about/" data-set-lang="pt" lang="pt">Português</a><a href="/nl/about/" data-set-lang="nl" lang="nl">Nederlands</a><a href="/ru/about/" data-set-lang="ru" lang="ru">Русский</a><a href="/tr/about/" data-set-lang="tr" lang="tr">Türkçe</a><a href="/ur/about/" data-set-lang="ur" lang="ur" dir="rtl">اردو</a><a href="/hi/about/" data-set-lang="hi" lang="hi">हिन्दी</a><a href="/bn/about/" data-set-lang="bn" lang="bn">বাংলা</a><a href="/id/about/" data-set-lang="id" lang="id">Bahasa Indonesia</a><a href="/ms/about/" data-set-lang="ms" lang="ms">Bahasa Melayu</a><a href="/zh/about/" data-set-lang="zh" lang="zh">简体中文</a><a href="/ja/about/" data-set-lang="ja" lang="ja">日本語</a><a href="/ko/about/" data-set-lang="ko" lang="ko">한국어</a></div></details>
   </div>
 </nav></div></header>
 <main id="main">
@@ -192,7 +211,7 @@
     <span>&copy; 2026 <span data-en>Q Apps. All rights reserved.</span><span data-ar>كيو آبز. جميع الحقوق محفوظة.</span></span>
   </div>
 </div></footer>
-<script src="/assets/js/site.js?v=65deaf200a" defer></script>
+<script src="/assets/js/site.js?v=a9f8460cbf" defer></script>
 <script>document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-lang-toggle]');if(!b)return;setTimeout(function(){var d=document.documentElement,l=d.getAttribute('data-lang');var m={en:d.getAttribute('data-title-en'),ar:d.getAttribute('data-title-ar')};if(m[l]){document.title=m[l];}},0);});</script>
 </body>
 </html>

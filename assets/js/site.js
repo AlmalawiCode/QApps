@@ -9,6 +9,8 @@
 
   function apply(lang) {
     var html = document.documentElement;
+    // /<lang>/… pages (French, Urdu, …) are written in one language only.
+    if (html.hasAttribute("data-fixed-lang")) return;
     html.setAttribute("data-lang", lang);
     html.setAttribute("lang", lang);
     html.setAttribute("dir", lang === "ar" ? "rtl" : "ltr");
@@ -80,7 +82,7 @@
   // The app whose page we are on (/apps/<slug>/, /tutorials/<slug>/, /vault/…),
   // so a YouTube tap — which has no store link — is counted for the right app.
   function pageApp() {
-    var m = location.pathname.match(/^\/(?:apps|tutorials|support|privacy)\/([a-z0-9-]+)\//);
+    var m = location.pathname.match(/^\/(?:[a-z]{2}\/)?(?:apps|tutorials|support|privacy)\/([a-z0-9-]+)\//);
     if (m) return m[1];
     if (/^\/vault(-new)?\//.test(location.pathname)) return "vault";
     return "";
@@ -125,6 +127,24 @@
     apply(current());
 
     document.addEventListener("click", function (e) {
+      // 🌐 language menu: English/Arabic switch in place on the en/ar pages;
+      // every other choice opens that language's pages. The choice is kept.
+      var pick = e.target.closest && e.target.closest("a[data-set-lang]");
+      if (pick) {
+        var L = pick.getAttribute("data-set-lang");
+        try { localStorage.setItem(STORAGE_KEY, L); } catch (err) {}
+        if ((L === "en" || L === "ar") && !document.documentElement.hasAttribute("data-fixed-lang")) {
+          e.preventDefault();
+          setLang(L);
+          var dm = pick.closest("details");
+          if (dm) dm.open = false;
+          var dt = document.documentElement.getAttribute("data-title-" + L);
+          if (dt) document.title = dt;
+        }
+        return;
+      }
+      var openMenu = document.querySelector("details.lang-menu[open]");
+      if (openMenu && !(e.target.closest && e.target.closest("details.lang-menu"))) openMenu.open = false;
       var toggle = e.target.closest && e.target.closest("[data-lang-toggle]");
       if (toggle) {
         e.preventDefault();

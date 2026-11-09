@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl" data-lang="ur" data-fixed-lang>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Vault — Warranty Manager | Q Apps</title>
+<meta name="description" content="Vault آپ کی رسیدیں، پروڈکٹس اور وارنٹیاں ایک جگہ رکھتی ہے، باقی دن گنتی ہے اور وارنٹی ختم ہونے سے پہلے یاد دلاتی ہے — 18 زبانوں میں 16 خصوصیات۔">
+<link rel="canonical" href="https://qeuapps.com/ur/apps/vault/">
+<meta name="theme-color" content="#0F1B2D">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Q Apps">
+<meta property="og:title" content="Vault — Warranty Manager | Q Apps">
+<meta property="og:description" content="Vault آپ کی رسیدیں، پروڈکٹس اور وارنٹیاں ایک جگہ رکھتی ہے، باقی دن گنتی ہے اور وارنٹی ختم ہونے سے پہلے یاد دلاتی ہے — 18 زبانوں میں 16 خصوصیات۔">
+<meta property="og:url" content="https://qeuapps.com/ur/apps/vault/">
+<meta property="og:image" content="https://qeuapps.com/assets/img/brand/og-default.png">
+<meta property="og:locale" content="ur_PK">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vault — Warranty Manager | Q Apps">
+<meta name="twitter:description" content="Vault آپ کی رسیدیں، پروڈکٹس اور وارنٹیاں ایک جگہ رکھتی ہے، باقی دن گنتی ہے اور وارنٹی ختم ہونے سے پہلے یاد دلاتی ہے — 18 زبانوں میں 16 خصوصیات۔">
+<meta name="twitter:image" content="https://qeuapps.com/assets/img/brand/og-default.png">
+<style>
+.dm-hero{padding:56px 0 40px;overflow:hidden}
+.dm-hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.dm-hero-copy{display:grid;gap:18px}
+.dm-hero h1{font-size:clamp(36px,5.2vw,64px)}
+.dm-hero h1 em{font-style:normal;color:var(--accent)}
+.dm-brand{display:flex;gap:14px;align-items:center}
+.dm-brand img{border-radius:16px;box-shadow:var(--shadow-md)}
+.dm-brand strong{display:block;font-family:var(--f-display);font-size:24px;color:var(--ink)}
+.dm-brand small{color:var(--muted);font-size:14px}
+.dm-dev{justify-self:start;font-size:13.5px;font-weight:700;color:var(--mint);background:var(--mint-soft);padding:6px 12px;border-radius:999px}
+.dm-hero-stage{position:relative;height:620px}
+.dm-phone{all:unset;cursor:zoom-in;display:block;border-radius:30px;border:7px solid #0F1B2D;background:#0F1B2D;overflow:hidden;box-shadow:var(--shadow-lg);transition:transform .25s}
+.dm-phone:hover{transform:translateY(-4px)}
+.dm-phone:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.dm-phone img{width:100%;height:auto;display:block}
+.dm-hero-stage .dm-phone{position:absolute;width:250px}
+.dm-p1{inset-inline-start:6%;top:0;transform:rotate(-4deg)}
+.dm-p2{inset-inline-end:4%;top:70px;transform:rotate(4deg)}
+.dm-p1:hover{transform:rotate(-4deg) translateY(-4px)}.dm-p2:hover{transform:rotate(4deg) translateY(-4px)}
+.dm-stats-wrap{padding:0 0 24px}
+.dm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.dm-stats div{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:18px;display:grid;gap:4px;text-align:center}
+.dm-stats b{font-family:var(--f-display);font-size:clamp(30px,4vw,44px);color:var(--accent);line-height:1}
+.dm-stats span{color:var(--muted);font-weight:600;font-size:14.5px}
+.dm-story-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:44px;align-items:start}
+.dm-story-text{display:grid;gap:18px}
+.dm-story-text p{font-size:18px;line-height:1.85;color:var(--ink)}
+.dm-story-text q{color:var(--accent);font-weight:700}
+html[dir="rtl"] .dm-story-text q{quotes:"«" "»"}
+.dm-timeline{list-style:none;margin:0;padding:0;display:grid;gap:14px;position:relative}
+.dm-timeline li{display:flex;gap:14px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 16px}
+.dm-timeline li>span{font-size:26px;line-height:1}
+.dm-timeline b{display:block;color:var(--ink)}
+.dm-timeline small{color:var(--muted);font-size:14.5px}
+.dm-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.dm-step{display:grid;gap:14px;align-content:start}
+.dm-step-txt{display:grid;gap:6px}
+.dm-step h3{font-size:19px}
+.dm-step p{font-size:15px}
+.dm-num{width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:800}
+.dm-swipe-hint{display:none;text-align:center;font-size:14px;margin-top:10px}
+.dm-spot{padding:72px 0}
+.dm-spot-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.dm-flip .dm-spot-copy{order:2}
+.dm-spot-copy{display:grid;gap:14px}
+.dm-spot h2{font-size:clamp(28px,3.6vw,44px)}
+.dm-ticks{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:10px}
+.dm-ticks li{position:relative;padding-inline-start:30px;color:var(--ink);font-weight:600}
+.dm-ticks li::before{content:"✓";position:absolute;inset-inline-start:0;top:0;width:22px;height:22px;border-radius:50%;background:var(--mint-soft);color:var(--mint);display:grid;place-items:center;font-size:13px;font-weight:800}
+.dm-spot-shots{display:flex;gap:18px;justify-content:center;align-items:flex-start}
+.dm-spot-shots .dm-phone{width:min(260px,46%)}
+.dm-n3 .dm-phone{width:min(210px,31%)}
+.dm-n2 .dm-phone:nth-child(2),.dm-n3 .dm-phone:nth-child(2){margin-top:44px}
+.dm-feats{columns:3;column-gap:14px}
+.dm-feat{break-inside:avoid;margin:0 0 14px;background:var(--bg);border:1px solid var(--line);border-radius:var(--radius-sm);padding:0;transition:box-shadow .2s}
+.dm-feat[open]{box-shadow:var(--shadow-md);background:var(--surface)}
+.dm-feat summary{list-style:none;cursor:pointer;display:flex;gap:12px;align-items:center;padding:16px 18px}
+.dm-feat summary::-webkit-details-marker{display:none}
+.dm-ico{font-size:24px;line-height:1}
+.dm-feat-t{flex:1;font-weight:750;color:var(--ink)}
+.dm-count{min-width:30px;height:30px;padding:0 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:800;font-size:14px}
+.dm-feat ul{margin:0;padding:0 20px 16px;padding-inline-start:44px;display:grid;gap:6px;color:var(--muted);font-size:15.5px}
+.dm-openall{margin-top:6px}
+.dm-suggest-wrap{padding:36px 0}
+.dm-suggest{display:flex;align-items:center;gap:18px;background:var(--accent-soft);border:1.5px dashed var(--accent);border-radius:var(--radius);padding:22px 26px;text-decoration:none;color:var(--ink);transition:transform .2s}
+.dm-suggest:hover{transform:translateY(-2px);color:var(--ink)}
+.dm-suggest-ic{font-size:34px;line-height:1}
+.dm-suggest-tx{flex:1;display:grid;gap:4px}
+.dm-suggest-tx b{font-family:var(--f-display);font-size:20px}
+html[dir="rtl"] .dm-suggest-tx b{font-family:var(--f-display-ar)}
+.dm-suggest-tx span{color:var(--muted)}
+.dm-suggest-go{background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:10px 18px;font-weight:750;white-space:nowrap}
+@media (max-width:620px){.dm-suggest{flex-wrap:wrap;padding:18px}.dm-suggest-go{width:100%;text-align:center}}
+.dm-price-card{display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:center;background:var(--night);border-radius:var(--radius);padding:44px;color:var(--on-night)}
+.dm-price-card h2{color:#fff;font-size:clamp(28px,3.6vw,44px);margin:8px 0 12px}
+.dm-price-card p{color:var(--on-night-muted);font-size:17px}
+.dm-price-card .dm-ticks li{color:#fff}
+.dm-gallery{display:grid;grid-template-columns:repeat(8,1fr);gap:16px}
+.dm-gallery figure{margin:0;display:grid;gap:8px}
+.dm-gallery .dm-phone{border-width:5px;border-radius:20px;box-shadow:var(--shadow-md)}
+.dm-gallery figcaption{text-align:center;font-size:13.5px;font-weight:650;color:var(--muted)}
+.dm-lb{position:fixed;inset:0;z-index:100;background:rgba(6,12,22,.92);display:flex;align-items:center;justify-content:center;padding:20px}
+.dm-lb[hidden]{display:none}
+.dm-lb img{max-height:92vh;max-width:min(94vw,520px);width:auto;border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.dm-lb-x{position:absolute;top:14px;inset-inline-end:14px;width:46px;height:46px;border-radius:50%;border:0;background:#fff;color:#0F1B2D;font-size:22px;cursor:pointer}
+.dm-lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;border:0;background:rgba(255,255,255,.15);color:#fff;font-size:34px;cursor:pointer}
+.dm-lb-prev{left:14px}.dm-lb-next{right:14px}
+@media (max-width:1100px){
+  .dm-gallery{grid-template-columns:repeat(4,1fr)}
+  .dm-feats{columns:2}
+}
+@media (max-width:900px){
+  .dm-hero-grid,.dm-story-grid,.dm-spot-grid,.dm-price-card{grid-template-columns:1fr}
+  .dm-hero{padding-top:28px}
+  .dm-hero-stage{height:470px;max-width:440px;width:100%;margin-inline:auto}
+  .dm-hero-stage .dm-phone{width:200px}
+  .dm-flip .dm-spot-copy{order:0}
+  .dm-spot{padding:52px 0}
+  .dm-stats{grid-template-columns:repeat(2,1fr)}
+  .dm-steps{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;padding-bottom:10px;margin-inline:-16px;padding-inline:16px;scrollbar-width:none}
+  .dm-steps::-webkit-scrollbar{display:none}
+  .dm-step{flex:0 0 68%;scroll-snap-align:center}
+  .dm-swipe-hint{display:block}
+  .dm-price-card{padding:30px 22px}
+}
+@media (max-width:620px){
+  .dm-feats{columns:1}
+  .dm-gallery{grid-template-columns:repeat(2,1fr)}
+  .dm-hero-stage{height:400px}
+  .dm-hero-stage .dm-phone{width:170px}
+  .dm-spot-shots .dm-phone{width:min(220px,47%)}
+  .dm-n3{justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-16px;padding:4px 16px 12px;scrollbar-width:none}
+  .dm-n3::-webkit-scrollbar{display:none}
+  .dm-n3 .dm-phone{flex:0 0 58%;width:auto;scroll-snap-align:center}
+  .dm-n3 .dm-phone:nth-child(2){margin-top:0}
+  .dm-story-text p{font-size:17px}
+}
+
+.pf-wrap[hidden],.pf-wrap [hidden],.pf-badge[hidden]{display:none!important}
+.pf-badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent-soft);color:var(--ink);border:1.5px dashed var(--accent);border-radius:999px;padding:6px 14px;font-weight:700;font-size:14.5px;text-decoration:none;width:max-content;max-width:100%}
+.pf-badge:hover{color:var(--ink);text-decoration:none;transform:translateY(-1px)}
+.pf-wrap{padding-top:0}
+.pf{background:var(--night);color:var(--on-night);border-radius:var(--radius);padding:36px;display:grid;gap:22px}
+.pf-head{display:flex;gap:16px;align-items:flex-start}
+.pf-gift{font-size:44px;line-height:1}
+.pf h2{color:#fff;font-size:clamp(26px,3.4vw,40px);margin:0 0 6px}
+.pf-head p{color:var(--on-night-muted);margin:0;font-size:17px}
+.pf-left{display:inline-block;margin-inline-start:8px;background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:0 10px;font-size:14px}
+.pf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.pf-card{background:var(--night-2);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius-sm);padding:20px;display:grid;gap:10px;align-content:start}
+.pf-card h3{color:#fff;font-size:19px;margin:0 0 4px}
+.pf-card [data-pf-state]{display:grid;gap:10px}
+.pf-card [data-pf-state][hidden]{display:none}
+.pf-btn{display:flex;align-items:center;justify-content:center;gap:10px;border-radius:14px;padding:13px 16px;font:inherit;font-weight:700;font-size:16px;text-decoration:none;cursor:pointer;border:1.5px solid transparent;transition:transform .2s;width:100%}
+.pf-btn:hover{transform:translateY(-1px);text-decoration:none}
+.pf-btn i{font-style:normal;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;font-size:13px;background:rgba(0,0,0,.18)}
+.pf-btn-1{background:var(--accent);color:var(--accent-ink)}
+.pf-btn-1:hover{color:var(--accent-ink)}
+.pf-btn-2{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.pf-btn-2:hover{color:#fff;border-color:#fff}
+.pf-btn[disabled]{opacity:.6;cursor:wait}
+.pf-note{color:var(--on-night-muted);font-size:14px;margin:0}
+.pf-msg{color:#fff;margin:0}
+.pf-code{border:2px dashed var(--accent);border-radius:14px;text-align:center;font-family:var(--f-mono);font-size:clamp(16px,4.6vw,22px);font-weight:700;letter-spacing:1px;padding:12px 8px;color:#fff;word-break:break-all;user-select:all}
+.pf-fine{color:var(--on-night-muted);font-size:14px;margin:0}
+.pf-fine a{color:var(--on-night);margin-inline-start:6px}
+.pf-ts:empty{display:none}
+@media (max-width:620px){.pf{padding:22px}.pf-gift{font-size:34px}}
+</style>
+<link rel="alternate" hreflang="en" href="https://qeuapps.com/apps/vault/">
+<link rel="alternate" hreflang="ar" href="https://qeuapps.com/apps/vault/">
+<link rel="alternate" hreflang="x-default" href="https://qeuapps.com/apps/vault/">
+<link rel="alternate" hreflang="fr" href="https://qeuapps.com/fr/apps/vault/">
+<link rel="alternate" hreflang="de" href="https://qeuapps.com/de/apps/vault/">
+<link rel="alternate" hreflang="es" href="https://qeuapps.com/es/apps/vault/">
+<link rel="alternate" hreflang="tr" href="https://qeuapps.com/tr/apps/vault/">
+<link rel="alternate" hreflang="ja" href="https://qeuapps.com/ja/apps/vault/">
+<link rel="alternate" hreflang="ko" href="https://qeuapps.com/ko/apps/vault/">
+<link rel="alternate" hreflang="id" href="https://qeuapps.com/id/apps/vault/">
+<link rel="alternate" hreflang="ms" href="https://qeuapps.com/ms/apps/vault/">
+<link rel="alternate" hreflang="zh" href="https://qeuapps.com/zh/apps/vault/">
+<link rel="alternate" hreflang="pt" href="https://qeuapps.com/pt/apps/vault/">
+<link rel="alternate" hreflang="it" href="https://qeuapps.com/it/apps/vault/">
+<link rel="alternate" hreflang="ru" href="https://qeuapps.com/ru/apps/vault/">
+<link rel="alternate" hreflang="nl" href="https://qeuapps.com/nl/apps/vault/">
+<link rel="alternate" hreflang="ur" href="https://qeuapps.com/ur/apps/vault/">
+<link rel="alternate" hreflang="bn" href="https://qeuapps.com/bn/apps/vault/">
+<link rel="alternate" hreflang="hi" href="https://qeuapps.com/hi/apps/vault/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500..700&family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Manrope:wght@400..800&display=swap">
+<link rel="stylesheet" href="/assets/css/styles.css?v=c5714c0bf7">
+<style>
+.qa-grid-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:18px}
+.qa-grid-head h1,.qa-grid-head h2{margin:0;font-size:clamp(26px,3vw,36px)}
+.qa-count{color:var(--muted);font-weight:700;font-size:15px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px 14px}
+.qa-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.qa-app{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;text-decoration:none;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px 12px 18px;transition:transform .15s,box-shadow .15s}
+.qa-app:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.qa-app img{width:96px;height:96px;border-radius:24px;box-shadow:var(--shadow-md);background:#fff;object-fit:cover;margin-bottom:6px}
+.qa-app b{font-size:17px;line-height:1.35}
+.qa-app small{color:var(--muted);font-size:13.5px;line-height:1.55}
+.qa-app .badge{margin-top:4px}
+.qa-next{border-style:dashed;background:transparent}
+.qa-plus{width:96px;height:96px;border-radius:24px;border:2px dashed var(--line);display:grid;place-items:center;font-size:44px;color:var(--muted);margin-bottom:6px}
+.qa-next b{color:var(--muted)}
+@media (max-width:760px){.qa-grid{grid-template-columns:repeat(2,1fr);gap:12px}}
+@media (max-width:560px){
+  .qa-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .qa-app{padding:16px 8px 14px;border-radius:18px;gap:4px}
+  .qa-app img,.qa-plus{width:76px;height:76px;border-radius:19px}
+  .qa-plus{font-size:34px}
+  .qa-app b{font-size:15px}
+  .qa-app small{font-size:12.5px}
+  .qa-app .badge{font-size:11.5px;padding:2px 9px}
+}
+/* home: short intro line above the grid */
+.qa-intro{padding:56px 0 18px}
+.qa-intro h1{font-size:clamp(32px,4.4vw,54px);line-height:1.15;margin:0 0 12px}
+.qa-intro h1 em{font-style:normal;color:var(--accent)}
+.qa-intro .lead{max-width:44em;margin:0}
+.qa-apps{padding:18px 0 40px}
+.qa-quote{padding:8px 0 40px}
+.qa-quote .inspire{margin:0;max-width:none}
+@media (max-width:720px){.qa-intro{padding:30px 0 8px}}
+/* app pages: the section bar */
+.qa-tabs{position:sticky;top:71px;z-index:40;background:color-mix(in srgb,var(--bg) 90%,transparent);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:0}
+.qa-tabs-row{display:flex;gap:6px;overflow-x:auto;padding:10px 0;scrollbar-width:none}
+.qa-tabs-row::-webkit-scrollbar{display:none}
+.qa-tabs-row a{flex:0 0 auto;text-decoration:none;color:var(--ink);font-weight:650;font-size:14.5px;background:var(--surface);
+  border:1px solid var(--line);border-radius:999px;padding:5px 14px}
+.qa-tabs-row a:hover{border-color:var(--accent);color:var(--accent)}
+.qa-tabs + section{padding-top:22px}
+[id="screens"],[id="features"],[id="story"],[id="video"],[id="questions"]{scroll-margin-top:140px}
+/* app pages: help cards */
+.qa-help{padding:40px 0}
+.qa-help-h{font-size:clamp(24px,3vw,32px);margin:0 0 16px}
+.qa-help-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:820px){.qa-help-grid{grid-template-columns:1fr}}
+.qa-help-card{display:flex;flex-direction:column;gap:2px;text-decoration:none;color:var(--ink);background:var(--surface);
+  border:1px solid var(--line);border-radius:18px;padding:16px 18px;transition:box-shadow .15s}
+.qa-help-card:hover{box-shadow:var(--shadow-md)}
+.qa-help-ic{font-size:24px;margin-bottom:4px}
+.qa-help-card small{color:var(--muted)}
+/* footer: copyright line only */
+.site-footer-min{padding:22px 0;margin-top:40px}
+.site-footer-min .footer-bottom{margin:0;padding:0;border:0;justify-content:center;text-align:center}
+</style>
+<script>window.QAPPS_T={"Please write a little more (at least 10 letters).": "براہ کرم تھوڑا اور لکھیں (کم از کم 10 حروف)۔", "Sending from the website is not ready yet — send it by WhatsApp or email below.": "ویب سائٹ سے بھیجنا ابھی تیار نہیں — نیچے WhatsApp یا ای میل سے بھیجیں۔", "One moment — we are checking you are not a robot…": "ایک لمحہ — ہم تصدیق کر رہے ہیں کہ آپ روبوٹ نہیں ہیں…", "Sending…": "بھیجا جا رہا ہے…", "You have sent several messages already — please try again later.": "آپ پہلے ہی کئی پیغامات بھیج چکے ہیں — براہ کرم کچھ دیر بعد دوبارہ کوشش کریں۔", "We could not confirm you are not a robot. Please try again.": "ہم تصدیق نہیں کر سکے کہ آپ روبوٹ نہیں ہیں۔ براہ کرم دوبارہ کوشش کریں۔", "Your message is too short or too long.": "آپ کا پیغام بہت چھوٹا یا بہت لمبا ہے۔", "We could not send it from the website right now — send it by WhatsApp or email below.": "ہم ابھی ویب سائٹ سے اسے نہیں بھیج سکے — نیچے WhatsApp یا ای میل سے بھیجیں۔", "No connection to the website right now — send it by WhatsApp or email below.": "ابھی ویب سائٹ سے کوئی کنکشن نہیں — نیچے WhatsApp یا ای میل سے بھیجیں۔", "Open all": "سب کھولیں", "Close all": "سب بند کریں"};</script>
+</head>
+<body>
+<a class="skip" href="#main"><span>مواد پر جائیں</span></a>
+<header class="site-header"><div class="container"><nav class="nav" aria-label="مرکزی">
+  <a class="brand" href="/ur/" aria-label="Q Apps"><svg class="qmark" viewBox="0 0 120 120" width="38" height="38" aria-hidden="true"><circle class="qm-ring" cx="56" cy="56" r="37" fill="none" stroke-width="19"/><rect class="qm-tile" x="72" y="72" width="40" height="40" rx="12" stroke-width="7" paint-order="stroke"/><circle class="qm-dot" cx="92" cy="92" r="5"/></svg><span><b>Q</b> Apps</span></a>
+  <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="مینو">☰</button>
+  <div class="nav-links" id="nav-links"><a href="/ur/apps/" aria-current="page"><span>ایپس</span></a><a href="/ur/suggest/"><span>تجویز دیں</span></a><a href="/ur/support/"><span>مدد</span></a><a href="/ur/about/"><span>ہمارے بارے میں</span></a>
+    <details class="lang-menu"><summary class="lang-sum">🌐 اردو</summary><div class="lang-list"><a href="/apps/vault/?lang=en" data-set-lang="en" lang="en">English</a><a href="/apps/vault/?lang=ar" data-set-lang="ar" lang="ar" dir="rtl">العربية</a><a href="/fr/apps/vault/" data-set-lang="fr" lang="fr">Français</a><a href="/de/apps/vault/" data-set-lang="de" lang="de">Deutsch</a><a href="/es/apps/vault/" data-set-lang="es" lang="es">Español</a><a href="/it/apps/vault/" data-set-lang="it" lang="it">Italiano</a><a href="/pt/apps/vault/" data-set-lang="pt" lang="pt">Português</a><a href="/nl/apps/vault/" data-set-lang="nl" lang="nl">Nederlands</a><a href="/ru/apps/vault/" data-set-lang="ru" lang="ru">Русский</a><a href="/tr/apps/vault/" data-set-lang="tr" lang="tr">Türkçe</a><a href="/ur/apps/vault/" data-set-lang="ur" lang="ur" dir="rtl" aria-current="true">اردو</a><a href="/hi/apps/vault/" data-set-lang="hi" lang="hi">हिन्दी</a><a href="/bn/apps/vault/" data-set-lang="bn" lang="bn">বাংলা</a><a href="/id/apps/vault/" data-set-lang="id" lang="id">Bahasa Indonesia</a><a href="/ms/apps/vault/" data-set-lang="ms" lang="ms">Bahasa Melayu</a><a href="/zh/apps/vault/" data-set-lang="zh" lang="zh">简体中文</a><a href="/ja/apps/vault/" data-set-lang="ja" lang="ja">日本語</a><a href="/ko/apps/vault/" data-set-lang="ko" lang="ko">한국어</a></div></details>
+  </div>
+</nav></div></header>
+<main id="main">
+<div class="container"><nav class="crumbs" aria-label="بریڈکرمب"><a href="/ur/"><span>ہوم</span></a><span aria-hidden="true">/</span><a href="/ur/apps/"><span>ایپس</span></a><span aria-hidden="true">/</span><span>Vault — Warranty Manager</span></nav></div><section class="dm-hero"><div class="container dm-hero-grid">
+  <div class="dm-hero-copy">
+    <div class="dm-brand"><img src="/assets/img/apps/vault/icon.png" alt="Vault کا آئیکن" width="64" height="64">
+      <div><strong>Vault</strong><small>وارنٹی اور رسید مینیجر</small></div></div>
+    <span class="dm-dev"><span>اب App Store اور Google Play پر دستیاب</span></span>
+    <h1>اب کبھی کوئی وارنٹی <em>نہ کھوئیں۔</em></h1>
+    <p class="lead">ہر رسید، ہر پروڈکٹ اور ہر وارنٹی ایک جگہ رکھیں، ٹھیک ٹھیک دیکھیں کہ کتنے دن باقی ہیں، اور ختم ہونے سے پہلے یاد دہانی پائیں — 16 اہم خصوصیات اور ان کے اندر 66 ٹولز۔</p>
+    <div class="stores"><a class="store-btn" href="https://apps.apple.com/app/id6773164894" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 1.6c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.9 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.9-1.4zM19 17.3c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.3-1.5 0-1.9-1-4-1-2 0-2.5 1-4 1-1.6 0-2.9-1.6-3.9-3.1-2.7-4.2-3-9.1-1.3-11.7 1.2-1.8 3-2.9 4.8-2.9 1.8 0 2.9 1 4.4 1 1.4 0 2.3-1 4.4-1 1.6 0 3.2.9 4.4 2.4-3.9 2.1-3.2 7.6.2 9.1z"/></svg><span><small>ڈاؤن لوڈ کریں</small><strong>App Store</strong></span></a><a class="store-btn" href="https://play.google.com/store/apps/details?id=com.vault.warranty" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.2c-.3.3-.5.7-.5 1.3v17c0 .6.2 1 .5 1.3l.1.1L13 12.6v-.2L3.7 2.1l-.1.1zm11.9 8.5L5.9 1.4l11.7 6.7-2.1 2.6zM5.9 22.6l9.6-9.3 2.1 2.6-11.7 6.7zM19.6 9.3l-2.5 1.4 2.4 3-2.4 3 2.5 1.4c.9-.5 1.5-1.3 1.5-2.4v-4c0-1.1-.6-1.9-1.5-2.4l-.5.6.5-.6z"/></svg><span><small>حاصل کریں</small><strong>Google Play</strong></span></a><a class="store-btn" style="background:#c4302b" href="https://www.youtube.com/playlist?list=PLVw-KHF4Mj74" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C16.6 4 12 4 12 4s-4.6 0-7.8.2c-.5.1-1.4.1-2.3 1C1.2 5.9 1 7.5 1 7.5S.8 9.4.8 11.3v1.4C.8 14.6 1 16.5 1 16.5s.2 1.6.9 2.3c.9.9 2 .9 2.6 1 1.9.2 7.5.2 7.5.2s4.6 0 7.8-.3c.5-.1 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.8v-1.4c0-1.9-.2-3.7-.2-3.7zM9.8 15.1V8.9l6 3.1-6 3.1z"/></svg><span><small>ٹیوٹوریلز</small><strong>YouTube</strong></span></a></div>
+    <a class="pf-badge" href="#free" data-pf-badge hidden><span>🎁 مکمل ورژن محدود وقت کے لیے مفت ↓</span></a>
+  </div>
+  <div class="dm-hero-stage">
+    <button type="button" class="dm-phone dm-p1" data-zoom="home" aria-label="Vault کا ہوم پیج"><img src="/assets/img/apps/vault/home_en.webp" alt="Vault کا ہوم پیج" loading="eager" width="620" height="1341"></button>
+    <button type="button" class="dm-phone dm-p2" data-zoom="status" aria-label="الٹی گنتی کے ساتھ وارنٹی کی حالت"><img src="/assets/img/apps/vault/status_en.webp" alt="الٹی گنتی کے ساتھ وارنٹی کی حالت" loading="eager" width="620" height="1341"></button>
+  </div>
+</div></section><nav class="qa-tabs" aria-label="Vault — Warranty Manager"><div class="container"><div class="qa-tabs-row"><a href="#screens"><span>اسکرینیں</span></a><a href="#features"><span>خصوصیات</span></a><a href="#story"><span>کہانی</span></a><a href="#video"><span>ویڈیو</span></a><a href="#questions"><span>سوالات</span></a><a href="/ur/tutorials/vault/"><span>ٹیوٹوریل</span></a><a href="/privacy/vault/en/"><span>پرائیویسی</span></a><a href="/ur/support/vault/"><span>مدد</span></a><a href="/ur/suggest/?app=vault"><span>تجویز دیں</span></a></div></div></nav><section class="dm-stats-wrap"><div class="container"><div class="dm-stats">
+  <div><b>16</b><span>اہم خصوصیات</span></div>
+  <div><b>66</b><span>ان کے اندر ٹولز</span></div>
+  <div><b>18</b><span>زبانیں</span></div>
+  <div><b dir="ltr">1×</b><span>ایک ادائیگی، ہمیشہ کے لیے آپ کی</span></div>
+</div></div></section><section id="screens" class="section-soft"><div class="container">
+  <div class="section-head center">
+    <span class="kicker">اسکرینیں</span>
+    <h2>ایپ کی حقیقی اسکرینیں۔</h2>
+    <p>بڑا دیکھنے کے لیے کسی بھی اسکرین پر ٹیپ کریں۔</p>
+  </div>
+  <div class="dm-gallery"><figure><button type="button" class="dm-phone " data-zoom="home" aria-label="ہوم"><img src="/assets/img/apps/vault/home_en.webp" alt="ہوم" loading="lazy" width="620" height="1341"></button><figcaption><span>ہوم</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="warranties" aria-label="میری وارنٹیاں"><img src="/assets/img/apps/vault/warranties_en.webp" alt="میری وارنٹیاں" loading="lazy" width="620" height="1341"></button><figcaption><span>میری وارنٹیاں</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="filter" aria-label="فلٹر"><img src="/assets/img/apps/vault/filter_en.webp" alt="فلٹر" loading="lazy" width="620" height="1341"></button><figcaption><span>فلٹر</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="detail" aria-label="وارنٹی کی تفصیلات"><img src="/assets/img/apps/vault/detail_en.webp" alt="وارنٹی کی تفصیلات" loading="lazy" width="620" height="1341"></button><figcaption><span>وارنٹی کی تفصیلات</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="status" aria-label="وارنٹی کی حالت"><img src="/assets/img/apps/vault/status_en.webp" alt="وارنٹی کی حالت" loading="lazy" width="620" height="1341"></button><figcaption><span>وارنٹی کی حالت</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="insights" aria-label="جائزے"><img src="/assets/img/apps/vault/insights_en.webp" alt="جائزے" loading="lazy" width="620" height="1341"></button><figcaption><span>جائزے</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="settings" aria-label="سیٹنگز"><img src="/assets/img/apps/vault/settings_en.webp" alt="سیٹنگز" loading="lazy" width="620" height="1341"></button><figcaption><span>سیٹنگز</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="cardstyle" aria-label="کارڈ کا انداز"><img src="/assets/img/apps/vault/cardstyle_en.webp" alt="کارڈ کا انداز" loading="lazy" width="620" height="1341"></button><figcaption><span>کارڈ کا انداز</span></figcaption></figure></div>
+</div></section><section id="features" class="section-soft"><div class="container">
+  <div class="section-head center">
+    <span class="kicker">اندر سب کچھ</span>
+    <h2>16 اہم خصوصیات۔ ان کے اندر 66 ٹولز۔</h2>
+    <p>کسی بھی خصوصیت پر ٹیپ کریں اور دیکھیں کہ اس میں کیا ہے۔</p>
+    <button type="button" class="btn btn-secondary dm-openall" aria-pressed="false"><span>سب کھولیں</span></button>
+  </div>
+  <div class="dm-feats"><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🧾</span>
+      <span class="dm-feat-t"><span>ہر رسید ایک جگہ</span></span><span class="dm-count">5</span></summary>
+      <ul><li>کاغذی اور ڈیجیٹل رسیدیں ایک ساتھ</li><li>گائیڈ فریم کے اندر کاغذی رسید کی تصویر لیں</li><li>WhatsApp، Files، Drive یا ای میل سے رسید شیئر کر کے لائیں</li><li>رسید نہیں ہے؟ ہاتھ سے درج کریں</li><li>اگر آپ چاہیں تو دکان کی تصویر</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔳</span>
+      <span class="dm-feat-t"><span>رسید کا QR</span></span><span class="dm-count">4</span></summary>
+      <ul><li>سعودی رسید پر QR کوڈ اسکین کریں</li><li>آپ کے لیے دکان کا نام اور خریداری کی تاریخ بھر دیتا ہے</li><li>دھندلی رسیدوں کے لیے ٹارچ</li><li>QR نہیں ہے؟ ہاتھ سے جاری رکھیں</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">📦</span>
+      <span class="dm-feat-t"><span>ہر رسید کے تحت پروڈکٹس</span></span><span class="dm-count">4</span></summary>
+      <ul><li>ایک رسید پر کئی پروڈکٹس</li><li>ہر پروڈکٹ کی اپنی وارنٹی</li><li>ہر پروڈکٹ کے لیے ایک تصویر</li><li>ہر پروڈکٹ کے لیے ایک زمرہ</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🛡️</span>
+      <span class="dm-feat-t"><span>وارنٹی کی نگرانی</span></span><span class="dm-count">6</span></summary>
+      <ul><li>مدت سالوں، مہینوں اور دنوں میں</li><li>تاحیات وارنٹی</li><li>یا صاف لکھ دیں: کوئی وارنٹی نہیں</li><li>باقی وقت کی لائیو الٹی گنتی</li><li>خریداری کے بعد گزرا ہوا وقت</li><li>ایک نظر میں حالت: فعال، ختم ہونے والی، ختم شدہ، تاحیات</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔔</span>
+      <span class="dm-feat-t"><span>یاد دہانیاں</span></span><span class="dm-count">3</span></summary>
+      <ul><li>وارنٹی ختم ہونے سے پہلے یاد دہانی</li><li>ختم ہونے کے دن، یا کچھ دن پہلے</li><li>سب سے قریبی اختتام سیدھا ہوم پیج پر</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🏠</span>
+      <span class="dm-feat-t"><span>ایک نظر میں ہوم</span></span><span class="dm-count">3</span></summary>
+      <ul><li>کل، جلد ختم ہونے والی اور ختم شدہ</li><li>اختتام کے سب سے قریب 10 وارنٹیاں</li><li>ایک بٹن سے نئی رسید شامل کریں</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔎</span>
+      <span class="dm-feat-t"><span>تلاش اور فلٹر</span></span><span class="dm-count">3</span></summary>
+      <ul><li>دکان، رسید یا پروڈکٹ سے تلاش کریں</li><li>حالت کے لحاظ سے فلٹر کریں</li><li>سال اور مہینے کے لحاظ سے فلٹر کریں</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🗂️</span>
+      <span class="dm-feat-t"><span>زمرے</span></span><span class="dm-count">3</span></summary>
+      <ul><li>تیار زمرے: الیکٹرانکس، گھر، ذاتی نگہداشت…</li><li>آپ کے اپنے زمرے</li><li>ہر ایک کے لیے ایک آئیکن اور ایک رنگ</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">📍</span>
+      <span class="dm-feat-t"><span>دکان کی تفصیلات</span></span><span class="dm-count">4</span></summary>
+      <ul><li>GPS یا آپ کی نقشہ ایپ سے دکان کا مقام</li><li>بعد میں اسے Maps میں کھولیں</li><li>دکان کا فون، ایک ٹیپ میں کال</li><li>برانچ کا نام</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">📤</span>
+      <span class="dm-feat-t"><span>شیئر اور پرنٹ</span></span><span class="dm-count">3</span></summary>
+      <ul><li>ضرورت پڑنے پر رسید شیئر کریں</li><li>اسے پرنٹ کریں</li><li>رسید کے صفحات کھولیں اور دیکھیں</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">📄</span>
+      <span class="dm-feat-t"><span>PDF میں وارنٹی رپورٹ</span></span><span class="dm-count">3</span></summary>
+      <ul><li>جو وارنٹیاں آپ نے فلٹر کیں انہیں ایکسپورٹ کریں</li><li>ایک سرورق اور رسید کا ہر صفحہ</li><li>بڑی رپورٹس حصوں میں تقسیم</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">📊</span>
+      <span class="dm-feat-t"><span>جائزے</span></span><span class="dm-count">4</span></summary>
+      <ul><li>کوریج: کتنی وارنٹیاں ابھی فعال ہیں</li><li>آپ کی خریداریوں کا انداز</li><li>پیش گوئیاں: آگے کیا ختم ہو رہا ہے</li><li>ایک نظر میں فعال بمقابلہ ختم شدہ</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🎨</span>
+      <span class="dm-feat-t"><span>کارڈ کے 12 انداز</span></span><span class="dm-count">12</span></summary>
+      <ul><li>کلاسک</li><li>ایک لائن</li><li>بڑے کاؤنٹر</li><li>صرف دن</li><li>دائرہ نما</li><li>پروگریس بار</li><li>بڑی تصویر</li><li>سادہ</li><li>ٹائم لائن</li><li>ڈیش بورڈ</li><li>جدید پریمیم</li><li>بڑا عدد</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔐</span>
+      <span class="dm-feat-t"><span>انکرپٹڈ بیک اپ</span></span><span class="dm-count">4</span></summary>
+      <ul><li>آپ کے اپنے پاس ورڈ کے ساتھ AES-256 انکرپشن</li><li>آپ چنتے ہیں کہ ہر بیک اپ کہاں رکھا جائے</li><li>نئے فون پر بحال کریں</li><li>جب آپ کا بیک اپ پرانا ہو جائے تو یاد دہانی</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔒</span>
+      <span class="dm-feat-t"><span>ایپ لاک</span></span><span class="dm-count">2</span></summary>
+      <ul><li>Face ID، فنگر پرنٹ یا ڈیوائس PIN</li><li>آپ کی رسیدیں آپ کے فون پر رہتی ہیں</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🌍</span>
+      <span class="dm-feat-t"><span>18 زبانیں اور دو کیلنڈر</span></span><span class="dm-count">3</span></summary>
+      <ul><li>18 زبانیں، عربی اور اردو دائیں سے بائیں</li><li>ہجری یا عیسوی تاریخیں</li><li>لائٹ اور ڈارک</li></ul></details></div>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker">وارنٹی کی نگرانی</span>
+    <h2>ہر وارنٹی، دن تک گنی ہوئی۔</h2>
+    <p class="lead">ہر پروڈکٹ کی اپنی وارنٹی ہوتی ہے: سال، مہینے اور دن، تاحیات، یا کوئی وارنٹی نہیں۔ Vault باقی وقت اور گزرا ہوا وقت لائیو دکھاتی ہے۔</p>
+    <ul class="dm-ticks"><li>ایک نظر میں فعال، ختم ہونے والی، ختم شدہ یا تاحیات</li><li>ختم ہونے سے پہلے یاد دہانی</li><li>سب سے قریبی اختتام ہوم پیج پر</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n2"><button type="button" class="dm-phone " data-zoom="status" aria-label="وارنٹی کی حالت اور الٹی گنتی"><img src="/assets/img/apps/vault/status_en.webp" alt="وارنٹی کی حالت اور الٹی گنتی" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="home" aria-label="ہوم: اختتام کے سب سے قریب وارنٹیاں"><img src="/assets/img/apps/vault/home_en.webp" alt="ہوم: اختتام کے سب سے قریب وارنٹیاں" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot dm-flip"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker">رسید کی تفصیلات</span>
+    <h2>رسید، دکان، پروڈکٹس۔</h2>
+    <p class="lead">کوئی وارنٹی کھولیں اور سب کچھ وہاں موجود ہے: رسید کے صفحات، دکان اپنے مقام اور فون کے ساتھ، اور اس کے ساتھ خریدی گئی ہر پروڈکٹ۔</p>
+    <ul class="dm-ticks"><li>رسید کا QR دکان کا نام اور خریداری کی تاریخ بھر دیتا ہے</li><li>دکان کو Maps میں کھولیں یا اسے کال کریں</li><li>رسید شیئر یا پرنٹ کریں</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n1"><button type="button" class="dm-phone " data-zoom="detail" aria-label="رسید کے ساتھ وارنٹی کی تفصیلات"><img src="/assets/img/apps/vault/detail_en.webp" alt="رسید کے ساتھ وارنٹی کی تفصیلات" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker">تلاش اور فلٹر</span>
+    <h2>کوئی بھی وارنٹی سیکنڈوں میں ڈھونڈیں۔</h2>
+    <p class="lead">دکان، رسید یا پروڈکٹ سے تلاش کریں، اور حالت، سال یا مہینے کے لحاظ سے فلٹر کریں۔</p>
+    <ul class="dm-ticks"><li>آپ کے اپنے آئیکنز اور رنگوں والے زمرے</li><li>جو آپ نے فلٹر کیا اسے PDF رپورٹ کی صورت میں ایکسپورٹ کریں</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n2"><button type="button" class="dm-phone " data-zoom="warranties" aria-label="میری وارنٹیاں"><img src="/assets/img/apps/vault/warranties_en.webp" alt="میری وارنٹیاں" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="filter" aria-label="وارنٹیاں فلٹر کریں"><img src="/assets/img/apps/vault/filter_en.webp" alt="وارنٹیاں فلٹر کریں" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot dm-flip"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker">جائزے</span>
+    <h2>آپ کی وارنٹیاں، اعداد میں۔</h2>
+    <p class="lead">کوریج، آپ کی خریداریوں کا انداز اور آگے ختم ہونے والی چیزوں کی پیش گوئیاں۔</p>
+    <ul class="dm-ticks"><li>کتنی وارنٹیاں ابھی فعال ہیں</li><li>آنے والے مہینوں میں کیا ختم ہو رہا ہے</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n1"><button type="button" class="dm-phone " data-zoom="insights" aria-label="جائزے: کوریج"><img src="/assets/img/apps/vault/insights_en.webp" alt="جائزے: کوریج" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker">آپ کا انداز</span>
+    <h2>نجی، محفوظ، اور آپ کی پسند کے مطابق۔</h2>
+    <p class="lead">چنیں کہ وارنٹی کارڈ کیسے نظر آئیں، ایپ کو اپنے چہرے یا فنگر پرنٹ سے لاک کریں، اور جہاں چاہیں ایک انکرپٹڈ بیک اپ رکھیں۔</p>
+    <ul class="dm-ticks"><li>چننے کے لیے کارڈ کے 12 انداز</li><li>آپ کے اپنے پاس ورڈ کے ساتھ AES-256 انکرپٹڈ بیک اپ</li><li>18 زبانیں، ہجری یا عیسوی تاریخیں</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n2"><button type="button" class="dm-phone " data-zoom="cardstyle" aria-label="کارڈ کا انداز چنیں"><img src="/assets/img/apps/vault/cardstyle_en.webp" alt="کارڈ کا انداز چنیں" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="settings" aria-label="سیٹنگز"><img src="/assets/img/apps/vault/settings_en.webp" alt="سیٹنگز" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section id="story" class="dm-story"><div class="container">
+  <div class="section-head">
+    <span class="kicker">Vault کیوں</span>
+    <h2>رسید کہاں گئی؟</h2>
+  </div>
+  <div class="dm-story-grid">
+    <div class="dm-story-text">
+      <p>آپ واشنگ مشین، فون یا ایئر کنڈیشنر خریدتے ہیں۔ رسید کاغذ پر یا WhatsApp پیغام میں آتی ہے — اور پھر غائب ہو جاتی ہے: کسی دراز میں، پرانی چیٹس کے نیچے، کسی ای میل میں جو آپ کو پھر کبھی نہیں ملے گی۔ جس دن آلہ خراب ہوتا ہے، وہی سوال پھر سامنے آتا ہے: <q>وارنٹی کہاں ہے؟</q></p>
+      <p>Vault اسی دن کے لیے بنائی گئی ہے۔ رسید کی تصویر لیں یا اسے WhatsApp سے شیئر کر کے لائیں، اس پر موجود پروڈکٹس شامل کریں، اور ہر ایک کو اس کی وارنٹی دیں۔ اس کے بعد ایپ آپ کے لیے دن گنتی ہے، دکھاتی ہے کہ کیا ختم ہونے والا ہے، اور ختم ہونے سے پہلے آپ کو یاد دلاتی ہے۔</p>
+      <p>پھر وہ تفصیلات جو فرق پیدا کرتی ہیں: دکان کا مقام اور فون، رسید کا QR جو آپ کے لیے دکان اور تاریخ بھر دیتا ہے، آپ کی تمام وارنٹیوں کی PDF رپورٹ، جائزے، انکرپٹڈ بیک اپ — 16 اہم خصوصیات اور ان کے اندر 66 ٹولز۔</p>
+    </div>
+    <ol class="dm-timeline">
+      <li><span>🧾</span><div><b>رسید</b><small>کاغذ، یا WhatsApp پر ایک پیغام۔</small></div></li>
+      <li><span>😟</span><div><b>گم ہو گئی</b><small>ایک دراز، پرانی چیٹس، ایک ای میل۔</small></div></li>
+      <li><span>🛡️</span><div><b>Vault میں محفوظ</b><small>رسید، پروڈکٹس اور وارنٹی ایک ساتھ۔</small></div></li>
+      <li><span>🔔</span><div><b>بروقت یاد دہانی</b><small>وارنٹی ختم ہونے سے پہلے۔</small></div></li>
+    </ol>
+  </div>
+</div></section><section class="section-soft dm-journey"><div class="container">
+  <div class="section-head center">
+    <span class="kicker">یہ کیسے کام کرتی ہے</span>
+    <h2>گم شدہ رسید سے لے کر ایسی وارنٹی تک جو آپ کبھی نہ چوکیں۔</h2>
+  </div>
+  <ol class="dm-steps"><li class="dm-step"><button type="button" class="dm-phone " data-zoom="home" aria-label="رسید شامل کریں"><img src="/assets/img/apps/vault/home_en.webp" alt="رسید شامل کریں" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">1</span>
+        <h3>رسید شامل کریں</h3><p>اس کی تصویر لیں، WhatsApp سے شیئر کر کے لائیں، یا اس کا QR کوڈ اسکین کریں۔</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="detail" aria-label="پروڈکٹس اور وارنٹی"><img src="/assets/img/apps/vault/detail_en.webp" alt="پروڈکٹس اور وارنٹی" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">2</span>
+        <h3>پروڈکٹس اور وارنٹی</h3><p>رسید پر موجود ہر پروڈکٹ کو اپنی وارنٹی، دکان اور مقام ملتا ہے۔</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="status" aria-label="الٹی گنتی دیکھیں"><img src="/assets/img/apps/vault/status_en.webp" alt="الٹی گنتی دیکھیں" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">3</span>
+        <h3>الٹی گنتی دیکھیں</h3><p>باقی سال، مہینے اور دن — اور جو وقت گزر چکا ہے۔</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="warranties" aria-label="سیکنڈوں میں ڈھونڈیں"><img src="/assets/img/apps/vault/warranties_en.webp" alt="سیکنڈوں میں ڈھونڈیں" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">4</span>
+        <h3>سیکنڈوں میں ڈھونڈیں</h3><p>اپنی تمام وارنٹیاں تلاش اور فلٹر کریں۔</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="insights" aria-label="پوری تصویر دیکھیں"><img src="/assets/img/apps/vault/insights_en.webp" alt="پوری تصویر دیکھیں" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">5</span>
+        <h3>پوری تصویر دیکھیں</h3><p>کیا فعال ہے، آگے کیا ختم ہو رہا ہے، کیا پہلے ہی ختم ہو چکا ہے۔</p></div></li></ol>
+  <p class="dm-swipe-hint">ہر مرحلہ دیکھنے کے لیے سوائپ کریں۔</p>
+</div></section><section class="dm-price"><div class="container"><div class="dm-price-card">
+  <div>
+    <span class="kicker">قیمت</span>
+    <h2>شروعات مفت۔ تاحیات کے لیے ایک ادائیگی۔</h2>
+    <p>3 رسیدوں تک مفت شروع کریں، ہر رسید پر ایک پروڈکٹ۔ ”تاحیات رسائی“ ایک ہی ادائیگی سے لامحدود رسیدیں اور پروڈکٹس کھول دیتی ہے — کبھی کوئی سبسکرپشن نہیں۔</p>
+    <div class="stores" style="margin-top:18px"><a class="store-btn" href="https://apps.apple.com/app/id6773164894" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 1.6c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.9 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.9-1.4zM19 17.3c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.3-1.5 0-1.9-1-4-1-2 0-2.5 1-4 1-1.6 0-2.9-1.6-3.9-3.1-2.7-4.2-3-9.1-1.3-11.7 1.2-1.8 3-2.9 4.8-2.9 1.8 0 2.9 1 4.4 1 1.4 0 2.3-1 4.4-1 1.6 0 3.2.9 4.4 2.4-3.9 2.1-3.2 7.6.2 9.1z"/></svg><span><small>ڈاؤن لوڈ کریں</small><strong>App Store</strong></span></a><a class="store-btn" href="https://play.google.com/store/apps/details?id=com.vault.warranty" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.2c-.3.3-.5.7-.5 1.3v17c0 .6.2 1 .5 1.3l.1.1L13 12.6v-.2L3.7 2.1l-.1.1zm11.9 8.5L5.9 1.4l11.7 6.7-2.1 2.6zM5.9 22.6l9.6-9.3 2.1 2.6-11.7 6.7zM19.6 9.3l-2.5 1.4 2.4 3-2.4 3 2.5 1.4c.9-.5 1.5-1.3 1.5-2.4v-4c0-1.1-.6-1.9-1.5-2.4l-.5.6.5-.6z"/></svg><span><small>حاصل کریں</small><strong>Google Play</strong></span></a><a class="store-btn" style="background:#c4302b" href="https://www.youtube.com/playlist?list=PLVw-KHF4Mj74" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C16.6 4 12 4 12 4s-4.6 0-7.8.2c-.5.1-1.4.1-2.3 1C1.2 5.9 1 7.5 1 7.5S.8 9.4.8 11.3v1.4C.8 14.6 1 16.5 1 16.5s.2 1.6.9 2.3c.9.9 2 .9 2.6 1 1.9.2 7.5.2 7.5.2s4.6 0 7.8-.3c.5-.1 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.8v-1.4c0-1.9-.2-3.7-.2-3.7zM9.8 15.1V8.9l6 3.1-6 3.1z"/></svg><span><small>ٹیوٹوریلز</small><strong>YouTube</strong></span></a></div>
+  </div>
+  <ul class="dm-ticks dm-ticks-big">
+    <li>مفت: شروع کرنے کے لیے 3 رسیدیں</li>
+    <li>تاحیات رسائی: ایک بار ادائیگی</li>
+    <li>نہ سبسکرپشن، نہ اشتہارات</li>
+    <li>آپ کی رسیدیں آپ کے فون پر رہتی ہیں</li>
+    <li>18 زبانیں</li>
+  </ul>
+</div></div></section><section id="video"><div class="container" style="max-width:860px">
+  <h2 class="center">ایپ کی وضاحت، قدم بہ قدم</h2>
+  <p class="center">ہمارے YouTube چینل پر مختصر اقساط: اپنی پہلی رسید شامل کرنا، وارنٹیاں، بیک اپ اور بہت کچھ۔</p>
+  <div class="video-wrap" style="margin-top:22px">
+    <iframe src="https://www.youtube.com/embed/videoseries?list=PLVw-KHF4Mj74" title="YouTube پر Vault — Warranty Manager کے ٹیوٹوریلز" loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <p style="text-align:center;margin-top:16px"><a class="btn btn-primary" href="https://www.youtube.com/playlist?list=PLVw-KHF4Mj74" target="_blank" rel="noopener"><span>YouTube پر پلے لسٹ کھولیں</span></a></p>
+</div></section><section id="questions"><div class="container" style="max-width:820px">
+  <h2 class="center">سوالات</h2>
+  <div class="faq" style="margin-top:28px"><details><summary><span>کیا Vault مفت ہے؟</span></summary><p>آپ 3 رسیدوں تک مفت شروع کر سکتے ہیں، ہر رسید پر ایک پروڈکٹ۔ ”تاحیات رسائی“ ایک ہی ادائیگی ہے جو سب کچھ کھول دیتی ہے — کوئی سبسکرپشن نہیں۔</p></details><details><summary><span>میری رسیدیں کہاں رکھی جاتی ہیں؟</span></summary><p>آپ کے فون پر۔ بیک اپ آپ کے اپنے پاس ورڈ سے انکرپٹ ہوتا ہے، اور آپ چنتے ہیں کہ اسے کہاں رکھنا ہے۔</p></details><details><summary><span>رسید کا QR کیا بھرتا ہے؟</span></summary><p>دکان کا نام اور خریداری کی تاریخ۔ پروڈکٹس اور ان کی وارنٹیاں آپ شامل کرتے ہیں۔</p></details><details><summary><span>اگر میں اپنا بیک اپ پاس ورڈ بھول جاؤں تو؟</span></summary><p>اسے بحال نہیں کیا جا سکتا — ہم بھی نہیں کر سکتے۔ حقیقی انکرپشن کا یہی مطلب ہے، اس لیے اسے کسی محفوظ جگہ رکھیں۔</p></details></div>
+</div></section><section class="qa-help"><div class="container">
+  <h2 class="qa-help-h"><span>مدد</span></h2>
+  <div class="qa-help-grid"><a class="qa-help-card" href="https://www.youtube.com/playlist?list=PLVw-KHF4Mj74" target=_blank rel=noopener><span class="qa-help-ic" aria-hidden="true">▶️</span><b>ویڈیو ٹیوٹوریلز</b><small>ہماری YouTube پلے لسٹ</small></a><a class="qa-help-card" href="/ur/tutorials/vault/"><span class="qa-help-ic" aria-hidden="true">📘</span><b>ٹیوٹوریل</b><small>قدم بہ قدم</small></a><a class="qa-help-card" href="/privacy/vault/en/"><span class="qa-help-ic" aria-hidden="true">🔒</span><b>پرائیویسی</b><small>آپ کے ڈیٹا کے ساتھ کیا ہوتا ہے</small></a><a class="qa-help-card" href="/ur/support/vault/"><span class="qa-help-ic" aria-hidden="true">🛟</span><b>مدد</b><small>جوابات اور رابطہ</small></a></div>
+</div></section><section class="dm-suggest-wrap"><div class="container">
+  <a class="dm-suggest" href="/ur/suggest/?app=vault">
+    <span class="dm-suggest-ic" aria-hidden="true">💡</span>
+    <span class="dm-suggest-tx">
+      <b>Vault میں کچھ کمی محسوس ہو رہی ہے؟</b>
+      <span>کوئی خصوصیت یا بہتری تجویز کریں، یا ہمیں کسی مسئلے کے بارے میں بتائیں — ہم ہر پیغام پڑھتے ہیں۔</span>
+      
+    </span>
+    <span class="dm-suggest-go"><span>کوئی خصوصیت تجویز کریں ←</span></span>
+  </a>
+</div></section><section id="free" class="pf-wrap" data-promo-app="vault" data-sitekey="" hidden><div class="container">
+<div class="pf">
+  <div class="pf-head">
+    <span class="pf-gift" aria-hidden="true">🎁</span>
+    <div>
+      <h2>مکمل ورژن مفت، ہمیشہ کے لیے</h2>
+      <p><span>محدود تعداد، محدود وقت کے لیے۔ پہلے ڈاؤن لوڈ کریں، پھر آفر فعال کریں۔</span>
+      <b class="pf-left" data-pf-left hidden></b></p>
+    </div>
+  </div>
+  <div class="pf-grid" data-pf-grid>
+    <div class="pf-card" data-pf-apple hidden>
+      <h3>🍎 iPhone اور iPad</h3>
+      <a class="pf-btn pf-btn-2" href="https://apps.apple.com/app/id6773164894" target="_blank" rel="noopener" data-pf-kind="download" data-pf-platform="ios">
+        <i>1</i><span>App Store سے ڈاؤن لوڈ کریں</span></a>
+      <a class="pf-btn pf-btn-1" href="#" target="_blank" rel="noopener" data-pf-kind="redeem" data-pf-platform="ios" data-pf-apple-redeem>
+        <i>2</i><span>مفت آفر فعال کریں</span></a>
+      <p class="pf-note"><span>دوسرا مرحلہ App Store کو آفر کوڈ پہلے سے بھرا ہوا کھولتا ہے۔</span></p>
+    </div>
+    <div class="pf-card" data-pf-android hidden>
+      <h3>🤖 Android</h3>
+      <div data-pf-state="intro">
+        <a class="pf-btn pf-btn-2" href="https://play.google.com/store/apps/details?id=com.vault.warranty" target="_blank" rel="noopener" data-pf-kind="download" data-pf-platform="android">
+          <i>1</i><span>Google Play سے ڈاؤن لوڈ کریں</span></a>
+        <button type="button" class="pf-btn pf-btn-1" data-pf-claim>
+          <i>2</i><span>اپنا آفر کوڈ حاصل کریں</span></button>
+        <p class="pf-note"><span>آپ کے لیے ایک کوڈ، ایک ہی بار استعمال کے لیے۔</span></p>
+      </div>
+      <div data-pf-state="code" hidden>
+        <p class="pf-note"><span>آپ کا آفر کوڈ:</span></p>
+        <div class="pf-code" data-pf-code dir="ltr"></div>
+        <a class="pf-btn pf-btn-1" href="#" target="_blank" rel="noopener" data-pf-kind="redeem" data-pf-platform="android" data-pf-play-redeem>
+          <span>Google Play میں کوڈ فعال کریں ‹</span></a>
+        <button type="button" class="pf-btn pf-btn-2" data-pf-copy><span>کوڈ کاپی کریں</span></button>
+        <p class="pf-note" data-pf-copied hidden><span>کاپی ہو گیا ✓</span></p>
+      </div>
+      <div data-pf-state="empty" hidden>
+        <p class="pf-msg">💛 <span>تمام مفت کوڈ لیے جا چکے ہیں۔</span></p>
+        <a class="pf-btn pf-btn-2" href="https://play.google.com/store/apps/details?id=com.vault.warranty" target="_blank" rel="noopener" data-pf-kind="download" data-pf-platform="android"><span>Google Play سے ڈاؤن لوڈ کریں</span></a>
+      </div>
+      <div data-pf-state="limit" hidden>
+        <p class="pf-msg"><span>اس کنکشن سے کوڈز آج کی حد تک پہنچ گئے ہیں۔ براہ کرم کل دوبارہ کوشش کریں۔</span></p>
+      </div>
+      <div data-pf-state="error" hidden>
+        <p class="pf-msg"><span>ہمیں کوڈ نہیں مل سکا۔ براہ کرم دوبارہ کوشش کریں۔</span></p>
+        <button type="button" class="pf-btn pf-btn-2" data-pf-retry><span>دوبارہ کوشش کریں</span></button>
+      </div>
+      <div class="pf-ts" data-pf-ts></div>
+    </div>
+  </div>
+  <p class="pf-fine"><span>آفر فعال کریں اور مکمل ورژن ہمیشہ کے لیے آپ کا — کوئی سبسکرپشن نہیں، بعد میں کچھ ادا نہیں کرنا۔ آفر کے بغیر ایپ 3 رسیدوں تک مفت ہے۔</span>
+    <a href="/ur/privacy/#free"><span>ہم کیا رکھتے ہیں</span></a></p>
+</div>
+</div></section>
+<script src="/assets/js/promo.js?v=2166568650" defer></script><section style="padding-top:0"><div class="container"><div class="cta-band">
+  <div>
+    <h2>اب کبھی کوئی وارنٹی نہ کھوئیں۔</h2>
+    <p>Vault ڈاؤن لوڈ کریں اور ہر رسید اور وارنٹی ایک جگہ رکھیں۔</p>
+  </div>
+  <div class="stores"><a class="store-btn" href="https://apps.apple.com/app/id6773164894" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 1.6c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.9 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.9-1.4zM19 17.3c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.3-1.5 0-1.9-1-4-1-2 0-2.5 1-4 1-1.6 0-2.9-1.6-3.9-3.1-2.7-4.2-3-9.1-1.3-11.7 1.2-1.8 3-2.9 4.8-2.9 1.8 0 2.9 1 4.4 1 1.4 0 2.3-1 4.4-1 1.6 0 3.2.9 4.4 2.4-3.9 2.1-3.2 7.6.2 9.1z"/></svg><span><small>ڈاؤن لوڈ کریں</small><strong>App Store</strong></span></a><a class="store-btn" href="https://play.google.com/store/apps/details?id=com.vault.warranty" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.2c-.3.3-.5.7-.5 1.3v17c0 .6.2 1 .5 1.3l.1.1L13 12.6v-.2L3.7 2.1l-.1.1zm11.9 8.5L5.9 1.4l11.7 6.7-2.1 2.6zM5.9 22.6l9.6-9.3 2.1 2.6-11.7 6.7zM19.6 9.3l-2.5 1.4 2.4 3-2.4 3 2.5 1.4c.9-.5 1.5-1.3 1.5-2.4v-4c0-1.1-.6-1.9-1.5-2.4l-.5.6.5-.6z"/></svg><span><small>حاصل کریں</small><strong>Google Play</strong></span></a><a class="store-btn" style="background:#c4302b" href="https://www.youtube.com/playlist?list=PLVw-KHF4Mj74" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C16.6 4 12 4 12 4s-4.6 0-7.8.2c-.5.1-1.4.1-2.3 1C1.2 5.9 1 7.5 1 7.5S.8 9.4.8 11.3v1.4C.8 14.6 1 16.5 1 16.5s.2 1.6.9 2.3c.9.9 2 .9 2.6 1 1.9.2 7.5.2 7.5.2s4.6 0 7.8-.3c.5-.1 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.8v-1.4c0-1.9-.2-3.7-.2-3.7zM9.8 15.1V8.9l6 3.1-6 3.1z"/></svg><span><small>ٹیوٹوریلز</small><strong>YouTube</strong></span></a></div>
+</div></div></section><div class="dm-lb" hidden><button type="button" class="dm-lb-x" aria-label="بند کریں">✕</button>
+  <button type="button" class="dm-lb-nav dm-lb-prev" aria-label="پچھلا">‹</button>
+  <img alt=""><button type="button" class="dm-lb-nav dm-lb-next" aria-label="اگلا">›</button></div><script>
+(function(){
+  var lb=document.querySelector('.dm-lb'),im=lb.querySelector('img'),list=[],i=0;
+  function lang(){return document.documentElement.getAttribute('data-lang')==='ar'?'ar':'en';}
+  function names(){var s=[];document.querySelectorAll('.dm-gallery [data-zoom]').forEach(function(b){s.push(b.dataset.zoom);});return s;}
+  function show(){im.src='/assets/img/apps/vault/'+list[i]+'_'+lang()+'.webp';}
+  function open(n){list=names();i=Math.max(0,list.indexOf(n));show();lb.hidden=false;document.body.style.overflow='hidden';}
+  function close(){lb.hidden=true;document.body.style.overflow='';}
+  function step(d){i=(i+d+list.length)%list.length;show();}
+  document.querySelectorAll('[data-zoom]').forEach(function(b){b.addEventListener('click',function(){open(b.dataset.zoom);});});
+  lb.querySelector('.dm-lb-x').addEventListener('click',close);
+  lb.querySelector('.dm-lb-prev').addEventListener('click',function(e){e.stopPropagation();step(-1);});
+  lb.querySelector('.dm-lb-next').addEventListener('click',function(e){e.stopPropagation();step(1);});
+  lb.addEventListener('click',function(e){if(e.target===lb)close();});
+  document.addEventListener('keydown',function(e){if(lb.hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1);});
+  var x0=null;lb.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+  lb.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)step(dx<0?1:-1);x0=null;});
+  var btn=document.querySelector('.dm-openall');
+  if(btn)btn.addEventListener('click',function(){var on=btn.getAttribute('aria-pressed')!=='true';
+    document.querySelectorAll('.dm-feat').forEach(function(d){d.open=on;});btn.setAttribute('aria-pressed',on);
+    btn.querySelectorAll('span').forEach(function(s){var Q=window.QAPPS_T||{};s.textContent=on?(s.hasAttribute('data-ar')?'أغلق الكل':(Q['Close all']||'Close all')):(s.hasAttribute('data-ar')?'افتح الكل':(Q['Open all']||'Open all'));});});
+  if(window.matchMedia('(min-width:901px)').matches&&btn)btn.click();
+})();
+</script>
+</main>
+<footer class="site-footer site-footer-min"><div class="container">
+  <div class="footer-bottom">
+    <span>&copy; 2026 <span>Q Apps۔ جملہ حقوق محفوظ ہیں۔</span></span>
+  </div>
+</div></footer>
+<script src="/assets/js/site.js?v=a9f8460cbf" defer></script>
+
+</body>
+</html>

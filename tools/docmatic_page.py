@@ -614,7 +614,7 @@ JS = """
   var btn=document.querySelector('.dm-openall');
   if(btn)btn.addEventListener('click',function(){var on=btn.getAttribute('aria-pressed')!=='true';
     document.querySelectorAll('.dm-feat').forEach(function(d){d.open=on;});btn.setAttribute('aria-pressed',on);
-    btn.querySelectorAll('span').forEach(function(s){s.textContent=on?(s.hasAttribute('data-ar')?'أغلق الكل':'Close all'):(s.hasAttribute('data-ar')?'افتح الكل':'Open all');});});
+    btn.querySelectorAll('span').forEach(function(s){var Q=window.QAPPS_T||{};s.textContent=on?(s.hasAttribute('data-ar')?'أغلق الكل':(Q['Close all']||'Close all')):(s.hasAttribute('data-ar')?'افتح الكل':(Q['Open all']||'Open all'));});});
   if(window.matchMedia('(min-width:901px)').matches&&btn)btn.click();
 })();
 """

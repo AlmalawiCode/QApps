@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="hi" dir="ltr" data-lang="hi" data-fixed-lang>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Countdown Keeper — कितना समय बीता, कितना बाकी है | Q Apps</title>
+<meta name="description" content="Countdown Keeper दिखाती है कि आपकी ज़रूरी तारीख़ों को कितना समय बीता और अगली तारीख़ों में कितना समय बाकी है — हिजरी और ग्रेगोरियन में लाइव काउंटर, रिमाइंडर और तारीख़ के टूल। 14 सुविधाएँ।">
+<link rel="canonical" href="https://qeuapps.com/hi/apps/countdown-keeper/">
+<meta name="theme-color" content="#0F1B2D">
+<meta name="color-scheme" content="light dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Q Apps">
+<meta property="og:title" content="Countdown Keeper — कितना समय बीता, कितना बाकी है | Q Apps">
+<meta property="og:description" content="Countdown Keeper दिखाती है कि आपकी ज़रूरी तारीख़ों को कितना समय बीता और अगली तारीख़ों में कितना समय बाकी है — हिजरी और ग्रेगोरियन में लाइव काउंटर, रिमाइंडर और तारीख़ के टूल। 14 सुविधाएँ।">
+<meta property="og:url" content="https://qeuapps.com/hi/apps/countdown-keeper/">
+<meta property="og:image" content="https://qeuapps.com/assets/img/brand/og-default.png">
+<meta property="og:locale" content="hi_IN">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Countdown Keeper — कितना समय बीता, कितना बाकी है | Q Apps">
+<meta name="twitter:description" content="Countdown Keeper दिखाती है कि आपकी ज़रूरी तारीख़ों को कितना समय बीता और अगली तारीख़ों में कितना समय बाकी है — हिजरी और ग्रेगोरियन में लाइव काउंटर, रिमाइंडर और तारीख़ के टूल। 14 सुविधाएँ।">
+<meta name="twitter:image" content="https://qeuapps.com/assets/img/brand/og-default.png">
+<style>
+.dm-hero{padding:56px 0 40px;overflow:hidden}
+.dm-hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.dm-hero-copy{display:grid;gap:18px}
+.dm-hero h1{font-size:clamp(36px,5.2vw,64px)}
+.dm-hero h1 em{font-style:normal;color:var(--accent)}
+.dm-brand{display:flex;gap:14px;align-items:center}
+.dm-brand img{border-radius:16px;box-shadow:var(--shadow-md)}
+.dm-brand strong{display:block;font-family:var(--f-display);font-size:24px;color:var(--ink)}
+.dm-brand small{color:var(--muted);font-size:14px}
+.dm-dev{justify-self:start;font-size:13.5px;font-weight:700;color:var(--mint);background:var(--mint-soft);padding:6px 12px;border-radius:999px}
+.dm-hero-stage{position:relative;height:620px}
+.dm-phone{all:unset;cursor:zoom-in;display:block;border-radius:30px;border:7px solid #0F1B2D;background:#0F1B2D;overflow:hidden;box-shadow:var(--shadow-lg);transition:transform .25s}
+.dm-phone:hover{transform:translateY(-4px)}
+.dm-phone:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.dm-phone img{width:100%;height:auto;display:block}
+.dm-hero-stage .dm-phone{position:absolute;width:250px}
+.dm-p1{inset-inline-start:6%;top:0;transform:rotate(-4deg)}
+.dm-p2{inset-inline-end:4%;top:70px;transform:rotate(4deg)}
+.dm-p1:hover{transform:rotate(-4deg) translateY(-4px)}.dm-p2:hover{transform:rotate(4deg) translateY(-4px)}
+.dm-stats-wrap{padding:0 0 24px}
+.dm-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.dm-stats div{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:18px;display:grid;gap:4px;text-align:center}
+.dm-stats b{font-family:var(--f-display);font-size:clamp(30px,4vw,44px);color:var(--accent);line-height:1}
+.dm-stats span{color:var(--muted);font-weight:600;font-size:14.5px}
+.dm-story-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:44px;align-items:start}
+.dm-story-text{display:grid;gap:18px}
+.dm-story-text p{font-size:18px;line-height:1.85;color:var(--ink)}
+.dm-story-text q{color:var(--accent);font-weight:700}
+html[dir="rtl"] .dm-story-text q{quotes:"«" "»"}
+.dm-timeline{list-style:none;margin:0;padding:0;display:grid;gap:14px;position:relative}
+.dm-timeline li{display:flex;gap:14px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius-sm);padding:14px 16px}
+.dm-timeline li>span{font-size:26px;line-height:1}
+.dm-timeline b{display:block;color:var(--ink)}
+.dm-timeline small{color:var(--muted);font-size:14.5px}
+.dm-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.dm-step{display:grid;gap:14px;align-content:start}
+.dm-step-txt{display:grid;gap:6px}
+.dm-step h3{font-size:19px}
+.dm-step p{font-size:15px}
+.dm-num{width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:800}
+.dm-swipe-hint{display:none;text-align:center;font-size:14px;margin-top:10px}
+.dm-spot{padding:72px 0}
+.dm-spot-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.dm-flip .dm-spot-copy{order:2}
+.dm-spot-copy{display:grid;gap:14px}
+.dm-spot h2{font-size:clamp(28px,3.6vw,44px)}
+.dm-ticks{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:10px}
+.dm-ticks li{position:relative;padding-inline-start:30px;color:var(--ink);font-weight:600}
+.dm-ticks li::before{content:"✓";position:absolute;inset-inline-start:0;top:0;width:22px;height:22px;border-radius:50%;background:var(--mint-soft);color:var(--mint);display:grid;place-items:center;font-size:13px;font-weight:800}
+.dm-spot-shots{display:flex;gap:18px;justify-content:center;align-items:flex-start}
+.dm-spot-shots .dm-phone{width:min(260px,46%)}
+.dm-n3 .dm-phone{width:min(210px,31%)}
+.dm-n2 .dm-phone:nth-child(2),.dm-n3 .dm-phone:nth-child(2){margin-top:44px}
+.dm-feats{columns:3;column-gap:14px}
+.dm-feat{break-inside:avoid;margin:0 0 14px;background:var(--bg);border:1px solid var(--line);border-radius:var(--radius-sm);padding:0;transition:box-shadow .2s}
+.dm-feat[open]{box-shadow:var(--shadow-md);background:var(--surface)}
+.dm-feat summary{list-style:none;cursor:pointer;display:flex;gap:12px;align-items:center;padding:16px 18px}
+.dm-feat summary::-webkit-details-marker{display:none}
+.dm-ico{font-size:24px;line-height:1}
+.dm-feat-t{flex:1;font-weight:750;color:var(--ink)}
+.dm-count{min-width:30px;height:30px;padding:0 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;font-weight:800;font-size:14px}
+.dm-feat ul{margin:0;padding:0 20px 16px;padding-inline-start:44px;display:grid;gap:6px;color:var(--muted);font-size:15.5px}
+.dm-openall{margin-top:6px}
+.dm-suggest-wrap{padding:36px 0}
+.dm-suggest{display:flex;align-items:center;gap:18px;background:var(--accent-soft);border:1.5px dashed var(--accent);border-radius:var(--radius);padding:22px 26px;text-decoration:none;color:var(--ink);transition:transform .2s}
+.dm-suggest:hover{transform:translateY(-2px);color:var(--ink)}
+.dm-suggest-ic{font-size:34px;line-height:1}
+.dm-suggest-tx{flex:1;display:grid;gap:4px}
+.dm-suggest-tx b{font-family:var(--f-display);font-size:20px}
+html[dir="rtl"] .dm-suggest-tx b{font-family:var(--f-display-ar)}
+.dm-suggest-tx span{color:var(--muted)}
+.dm-suggest-go{background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:10px 18px;font-weight:750;white-space:nowrap}
+@media (max-width:620px){.dm-suggest{flex-wrap:wrap;padding:18px}.dm-suggest-go{width:100%;text-align:center}}
+.dm-price-card{display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:center;background:var(--night);border-radius:var(--radius);padding:44px;color:var(--on-night)}
+.dm-price-card h2{color:#fff;font-size:clamp(28px,3.6vw,44px);margin:8px 0 12px}
+.dm-price-card p{color:var(--on-night-muted);font-size:17px}
+.dm-price-card .dm-ticks li{color:#fff}
+.dm-gallery{display:grid;grid-template-columns:repeat(8,1fr);gap:16px}
+.dm-gallery figure{margin:0;display:grid;gap:8px}
+.dm-gallery .dm-phone{border-width:5px;border-radius:20px;box-shadow:var(--shadow-md)}
+.dm-gallery figcaption{text-align:center;font-size:13.5px;font-weight:650;color:var(--muted)}
+.dm-lb{position:fixed;inset:0;z-index:100;background:rgba(6,12,22,.92);display:flex;align-items:center;justify-content:center;padding:20px}
+.dm-lb[hidden]{display:none}
+.dm-lb img{max-height:92vh;max-width:min(94vw,520px);width:auto;border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.dm-lb-x{position:absolute;top:14px;inset-inline-end:14px;width:46px;height:46px;border-radius:50%;border:0;background:#fff;color:#0F1B2D;font-size:22px;cursor:pointer}
+.dm-lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:52px;height:52px;border-radius:50%;border:0;background:rgba(255,255,255,.15);color:#fff;font-size:34px;cursor:pointer}
+.dm-lb-prev{left:14px}.dm-lb-next{right:14px}
+@media (max-width:1100px){
+  .dm-gallery{grid-template-columns:repeat(4,1fr)}
+  .dm-feats{columns:2}
+}
+@media (max-width:900px){
+  .dm-hero-grid,.dm-story-grid,.dm-spot-grid,.dm-price-card{grid-template-columns:1fr}
+  .dm-hero{padding-top:28px}
+  .dm-hero-stage{height:470px;max-width:440px;width:100%;margin-inline:auto}
+  .dm-hero-stage .dm-phone{width:200px}
+  .dm-flip .dm-spot-copy{order:0}
+  .dm-spot{padding:52px 0}
+  .dm-stats{grid-template-columns:repeat(2,1fr)}
+  .dm-steps{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;padding-bottom:10px;margin-inline:-16px;padding-inline:16px;scrollbar-width:none}
+  .dm-steps::-webkit-scrollbar{display:none}
+  .dm-step{flex:0 0 68%;scroll-snap-align:center}
+  .dm-swipe-hint{display:block}
+  .dm-price-card{padding:30px 22px}
+}
+@media (max-width:620px){
+  .dm-feats{columns:1}
+  .dm-gallery{grid-template-columns:repeat(2,1fr)}
+  .dm-hero-stage{height:400px}
+  .dm-hero-stage .dm-phone{width:170px}
+  .dm-spot-shots .dm-phone{width:min(220px,47%)}
+  .dm-n3{justify-content:flex-start;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-16px;padding:4px 16px 12px;scrollbar-width:none}
+  .dm-n3::-webkit-scrollbar{display:none}
+  .dm-n3 .dm-phone{flex:0 0 58%;width:auto;scroll-snap-align:center}
+  .dm-n3 .dm-phone:nth-child(2){margin-top:0}
+  .dm-story-text p{font-size:17px}
+}
+</style>
+<link rel="alternate" hreflang="en" href="https://qeuapps.com/apps/countdown-keeper/">
+<link rel="alternate" hreflang="ar" href="https://qeuapps.com/apps/countdown-keeper/">
+<link rel="alternate" hreflang="x-default" href="https://qeuapps.com/apps/countdown-keeper/">
+<link rel="alternate" hreflang="fr" href="https://qeuapps.com/fr/apps/countdown-keeper/">
+<link rel="alternate" hreflang="de" href="https://qeuapps.com/de/apps/countdown-keeper/">
+<link rel="alternate" hreflang="es" href="https://qeuapps.com/es/apps/countdown-keeper/">
+<link rel="alternate" hreflang="tr" href="https://qeuapps.com/tr/apps/countdown-keeper/">
+<link rel="alternate" hreflang="ja" href="https://qeuapps.com/ja/apps/countdown-keeper/">
+<link rel="alternate" hreflang="ko" href="https://qeuapps.com/ko/apps/countdown-keeper/">
+<link rel="alternate" hreflang="id" href="https://qeuapps.com/id/apps/countdown-keeper/">
+<link rel="alternate" hreflang="ms" href="https://qeuapps.com/ms/apps/countdown-keeper/">
+<link rel="alternate" hreflang="zh" href="https://qeuapps.com/zh/apps/countdown-keeper/">
+<link rel="alternate" hreflang="pt" href="https://qeuapps.com/pt/apps/countdown-keeper/">
+<link rel="alternate" hreflang="it" href="https://qeuapps.com/it/apps/countdown-keeper/">
+<link rel="alternate" hreflang="ru" href="https://qeuapps.com/ru/apps/countdown-keeper/">
+<link rel="alternate" hreflang="nl" href="https://qeuapps.com/nl/apps/countdown-keeper/">
+<link rel="alternate" hreflang="ur" href="https://qeuapps.com/ur/apps/countdown-keeper/">
+<link rel="alternate" hreflang="bn" href="https://qeuapps.com/bn/apps/countdown-keeper/">
+<link rel="alternate" hreflang="hi" href="https://qeuapps.com/hi/apps/countdown-keeper/">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/favicon-16.png" sizes="16x16" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500..700&family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Manrope:wght@400..800&display=swap">
+<link rel="stylesheet" href="/assets/css/styles.css?v=c5714c0bf7">
+<style>
+.qa-grid-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:18px}
+.qa-grid-head h1,.qa-grid-head h2{margin:0;font-size:clamp(26px,3vw,36px)}
+.qa-count{color:var(--muted);font-weight:700;font-size:15px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px 14px}
+.qa-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.qa-app{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;text-decoration:none;color:var(--ink);
+  background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:22px 12px 18px;transition:transform .15s,box-shadow .15s}
+.qa-app:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.qa-app img{width:96px;height:96px;border-radius:24px;box-shadow:var(--shadow-md);background:#fff;object-fit:cover;margin-bottom:6px}
+.qa-app b{font-size:17px;line-height:1.35}
+.qa-app small{color:var(--muted);font-size:13.5px;line-height:1.55}
+.qa-app .badge{margin-top:4px}
+.qa-next{border-style:dashed;background:transparent}
+.qa-plus{width:96px;height:96px;border-radius:24px;border:2px dashed var(--line);display:grid;place-items:center;font-size:44px;color:var(--muted);margin-bottom:6px}
+.qa-next b{color:var(--muted)}
+@media (max-width:760px){.qa-grid{grid-template-columns:repeat(2,1fr);gap:12px}}
+@media (max-width:560px){
+  .qa-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .qa-app{padding:16px 8px 14px;border-radius:18px;gap:4px}
+  .qa-app img,.qa-plus{width:76px;height:76px;border-radius:19px}
+  .qa-plus{font-size:34px}
+  .qa-app b{font-size:15px}
+  .qa-app small{font-size:12.5px}
+  .qa-app .badge{font-size:11.5px;padding:2px 9px}
+}
+/* home: short intro line above the grid */
+.qa-intro{padding:56px 0 18px}
+.qa-intro h1{font-size:clamp(32px,4.4vw,54px);line-height:1.15;margin:0 0 12px}
+.qa-intro h1 em{font-style:normal;color:var(--accent)}
+.qa-intro .lead{max-width:44em;margin:0}
+.qa-apps{padding:18px 0 40px}
+.qa-quote{padding:8px 0 40px}
+.qa-quote .inspire{margin:0;max-width:none}
+@media (max-width:720px){.qa-intro{padding:30px 0 8px}}
+/* app pages: the section bar */
+.qa-tabs{position:sticky;top:71px;z-index:40;background:color-mix(in srgb,var(--bg) 90%,transparent);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:0}
+.qa-tabs-row{display:flex;gap:6px;overflow-x:auto;padding:10px 0;scrollbar-width:none}
+.qa-tabs-row::-webkit-scrollbar{display:none}
+.qa-tabs-row a{flex:0 0 auto;text-decoration:none;color:var(--ink);font-weight:650;font-size:14.5px;background:var(--surface);
+  border:1px solid var(--line);border-radius:999px;padding:5px 14px}
+.qa-tabs-row a:hover{border-color:var(--accent);color:var(--accent)}
+.qa-tabs + section{padding-top:22px}
+[id="screens"],[id="features"],[id="story"],[id="video"],[id="questions"]{scroll-margin-top:140px}
+/* app pages: help cards */
+.qa-help{padding:40px 0}
+.qa-help-h{font-size:clamp(24px,3vw,32px);margin:0 0 16px}
+.qa-help-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:820px){.qa-help-grid{grid-template-columns:1fr}}
+.qa-help-card{display:flex;flex-direction:column;gap:2px;text-decoration:none;color:var(--ink);background:var(--surface);
+  border:1px solid var(--line);border-radius:18px;padding:16px 18px;transition:box-shadow .15s}
+.qa-help-card:hover{box-shadow:var(--shadow-md)}
+.qa-help-ic{font-size:24px;margin-bottom:4px}
+.qa-help-card small{color:var(--muted)}
+/* footer: copyright line only */
+.site-footer-min{padding:22px 0;margin-top:40px}
+.site-footer-min .footer-bottom{margin:0;padding:0;border:0;justify-content:center;text-align:center}
+</style>
+<script>window.QAPPS_T={"Please write a little more (at least 10 letters).": "कृपया थोड़ा और लिखें (कम से कम 10 अक्षर)।", "Sending from the website is not ready yet — send it by WhatsApp or email below.": "वेबसाइट से भेजना अभी तैयार नहीं है — नीचे WhatsApp या ईमेल से भेजें।", "One moment — we are checking you are not a robot…": "एक पल — हम जाँच रहे हैं कि आप रोबोट नहीं हैं…", "Sending…": "भेजा जा रहा है…", "You have sent several messages already — please try again later.": "आप पहले ही कई संदेश भेज चुके हैं — कृपया थोड़ी देर बाद फिर कोशिश करें।", "We could not confirm you are not a robot. Please try again.": "हम पुष्टि नहीं कर सके कि आप रोबोट नहीं हैं। कृपया फिर कोशिश करें।", "Your message is too short or too long.": "आपका संदेश बहुत छोटा या बहुत लंबा है।", "We could not send it from the website right now — send it by WhatsApp or email below.": "हम अभी इसे वेबसाइट से नहीं भेज सके — नीचे WhatsApp या ईमेल से भेजें।", "No connection to the website right now — send it by WhatsApp or email below.": "अभी वेबसाइट से कोई कनेक्शन नहीं है — नीचे WhatsApp या ईमेल से भेजें।", "Open all": "सब खोलें", "Close all": "सब बंद करें"};</script>
+</head>
+<body>
+<a class="skip" href="#main"><span>सामग्री पर जाएँ</span></a>
+<header class="site-header"><div class="container"><nav class="nav" aria-label="मुख्य">
+  <a class="brand" href="/hi/" aria-label="Q Apps"><svg class="qmark" viewBox="0 0 120 120" width="38" height="38" aria-hidden="true"><circle class="qm-ring" cx="56" cy="56" r="37" fill="none" stroke-width="19"/><rect class="qm-tile" x="72" y="72" width="40" height="40" rx="12" stroke-width="7" paint-order="stroke"/><circle class="qm-dot" cx="92" cy="92" r="5"/></svg><span><b>Q</b> Apps</span></a>
+  <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-links" aria-label="मेनू">☰</button>
+  <div class="nav-links" id="nav-links"><a href="/hi/apps/" aria-current="page"><span>ऐप्स</span></a><a href="/hi/suggest/"><span>सुझाव दें</span></a><a href="/hi/support/"><span>सहायता</span></a><a href="/hi/about/"><span>हमारे बारे में</span></a>
+    <details class="lang-menu"><summary class="lang-sum">🌐 हिन्दी</summary><div class="lang-list"><a href="/apps/countdown-keeper/?lang=en" data-set-lang="en" lang="en">English</a><a href="/apps/countdown-keeper/?lang=ar" data-set-lang="ar" lang="ar" dir="rtl">العربية</a><a href="/fr/apps/countdown-keeper/" data-set-lang="fr" lang="fr">Français</a><a href="/de/apps/countdown-keeper/" data-set-lang="de" lang="de">Deutsch</a><a href="/es/apps/countdown-keeper/" data-set-lang="es" lang="es">Español</a><a href="/it/apps/countdown-keeper/" data-set-lang="it" lang="it">Italiano</a><a href="/pt/apps/countdown-keeper/" data-set-lang="pt" lang="pt">Português</a><a href="/nl/apps/countdown-keeper/" data-set-lang="nl" lang="nl">Nederlands</a><a href="/ru/apps/countdown-keeper/" data-set-lang="ru" lang="ru">Русский</a><a href="/tr/apps/countdown-keeper/" data-set-lang="tr" lang="tr">Türkçe</a><a href="/ur/apps/countdown-keeper/" data-set-lang="ur" lang="ur" dir="rtl">اردو</a><a href="/hi/apps/countdown-keeper/" data-set-lang="hi" lang="hi" aria-current="true">हिन्दी</a><a href="/bn/apps/countdown-keeper/" data-set-lang="bn" lang="bn">বাংলা</a><a href="/id/apps/countdown-keeper/" data-set-lang="id" lang="id">Bahasa Indonesia</a><a href="/ms/apps/countdown-keeper/" data-set-lang="ms" lang="ms">Bahasa Melayu</a><a href="/zh/apps/countdown-keeper/" data-set-lang="zh" lang="zh">简体中文</a><a href="/ja/apps/countdown-keeper/" data-set-lang="ja" lang="ja">日本語</a><a href="/ko/apps/countdown-keeper/" data-set-lang="ko" lang="ko">한국어</a></div></details>
+  </div>
+</nav></div></header>
+<main id="main">
+<div class="container"><nav class="crumbs" aria-label="ब्रेडक्रंब"><a href="/hi/"><span>होम</span></a><span aria-hidden="true">/</span><a href="/hi/apps/"><span>ऐप्स</span></a><span aria-hidden="true">/</span><span>Countdown Keeper</span></nav></div><section class="dm-hero"><div class="container dm-hero-grid">
+  <div class="dm-hero-copy">
+    <div class="dm-brand"><img src="/assets/img/apps/countdown/icon.png" alt="Countdown Keeper का आइकन" width="64" height="64">
+      <div><strong>Countdown Keeper</strong><small>कितना समय बीता, कितना बाकी है</small></div></div>
+    <span class="dm-dev"><span>अभी App Store पर · Google Play पर जल्द</span></span>
+    <h1>कितना समय बीत गया? <em>कितना बाकी है?</em></h1>
+    <p class="lead">आपका ग्रेजुएशन, आपकी शादी, काम पर आपका पहला दिन, जिस दिन आप अपने घर में आए — और आगे आने वाला रिटायरमेंट या सफ़र। उन तारीख़ों के लिए लाइव काउंटर जिन्होंने आपकी कहानी बनाई, हिजरी और ग्रेगोरियन दोनों में — 14 मुख्य सुविधाएँ और उनके अंदर 53 टूल।</p>
+    <div class="stores" style="align-items:center"><a class="store-btn" href="https://apps.apple.com/app/id6806348941" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 1.6c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.9 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.9-1.4zM19 17.3c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.3-1.5 0-1.9-1-4-1-2 0-2.5 1-4 1-1.6 0-2.9-1.6-3.9-3.1-2.7-4.2-3-9.1-1.3-11.7 1.2-1.8 3-2.9 4.8-2.9 1.8 0 2.9 1 4.4 1 1.4 0 2.3-1 4.4-1 1.6 0 3.2.9 4.4 2.4-3.9 2.1-3.2 7.6.2 9.1z"/></svg><span><small>डाउनलोड करें</small><strong>App Store</strong></span></a><span class="chip"><span>Google Play — जल्द आ रहा है</span></span><a class="store-btn" style="background:#c4302b" href="https://www.youtube.com/playlist?list=PLcZVEfdjz66U" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C16.6 4 12 4 12 4s-4.6 0-7.8.2c-.5.1-1.4.1-2.3 1C1.2 5.9 1 7.5 1 7.5S.8 9.4.8 11.3v1.4C.8 14.6 1 16.5 1 16.5s.2 1.6.9 2.3c.9.9 2 .9 2.6 1 1.9.2 7.5.2 7.5.2s4.6 0 7.8-.3c.5-.1 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.8v-1.4c0-1.9-.2-3.7-.2-3.7zM9.8 15.1V8.9l6 3.1-6 3.1z"/></svg><span><small>ट्यूटोरियल</small><strong>YouTube</strong></span></a></div>
+  </div>
+  <div class="dm-hero-stage">
+    <button type="button" class="dm-phone dm-p1" data-zoom="home" aria-label="Countdown Keeper का होम पेज"><img src="/assets/img/apps/countdown/home_en.webp" alt="Countdown Keeper का होम पेज" loading="eager" width="620" height="1341"></button>
+    <button type="button" class="dm-phone dm-p2" data-zoom="detail" aria-label="अपने लाइव काउंटर के साथ एक तारीख़"><img src="/assets/img/apps/countdown/detail_en.webp" alt="अपने लाइव काउंटर के साथ एक तारीख़" loading="eager" width="620" height="1341"></button>
+  </div>
+</div></section><nav class="qa-tabs" aria-label="Countdown Keeper"><div class="container"><div class="qa-tabs-row"><a href="#screens"><span>स्क्रीन</span></a><a href="#features"><span>सुविधाएँ</span></a><a href="#story"><span>कहानी</span></a><a href="#video"><span>वीडियो</span></a><a href="#questions"><span>सवाल</span></a><a href="/hi/tutorials/countdown-keeper/"><span>ट्यूटोरियल</span></a><a href="/privacy/countdown-keeper/hi/"><span>प्राइवेसी</span></a><a href="/hi/support/countdown-keeper/"><span>सहायता</span></a><a href="/hi/suggest/?app=countdown-keeper"><span>सुझाव दें</span></a></div></div></nav><section class="dm-stats-wrap"><div class="container"><div class="dm-stats">
+  <div><b>14</b><span>मुख्य सुविधाएँ</span></div>
+  <div><b>53</b><span>उनके अंदर टूल</span></div>
+  <div><b>2</b><span>कैलेंडर: हिजरी और ग्रेगोरियन</span></div>
+  <div><b>18</b><span>भाषाएँ</span></div>
+</div></div></section><section id="screens" class="section-soft"><div class="container">
+  <div class="section-head center">
+    <span class="kicker">स्क्रीन</span>
+    <h2>ऐप की असली स्क्रीन।</h2>
+    <p>बड़ा देखने के लिए किसी भी स्क्रीन पर टैप करें।</p>
+  </div>
+  <div class="dm-gallery"><figure><button type="button" class="dm-phone " data-zoom="home" aria-label="होम"><img src="/assets/img/apps/countdown/home_en.webp" alt="होम" loading="lazy" width="620" height="1341"></button><figcaption><span>होम</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="story" aria-label="घटना की कहानी"><img src="/assets/img/apps/countdown/story_en.webp" alt="घटना की कहानी" loading="lazy" width="620" height="1341"></button><figcaption><span>घटना की कहानी</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="list" aria-label="घटनाएँ"><img src="/assets/img/apps/countdown/list_en.webp" alt="घटनाएँ" loading="lazy" width="620" height="1341"></button><figcaption><span>घटनाएँ</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="detail" aria-label="एक तारीख़"><img src="/assets/img/apps/countdown/detail_en.webp" alt="एक तारीख़" loading="lazy" width="620" height="1341"></button><figcaption><span>एक तारीख़</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="add" aria-label="नई तारीख़"><img src="/assets/img/apps/countdown/add_en.webp" alt="नई तारीख़" loading="lazy" width="620" height="1341"></button><figcaption><span>नई तारीख़</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="tools" aria-label="टूल"><img src="/assets/img/apps/countdown/tools_en.webp" alt="टूल" loading="lazy" width="620" height="1341"></button><figcaption><span>टूल</span></figcaption></figure><figure><button type="button" class="dm-phone " data-zoom="settings" aria-label="सेटिंग्स"><img src="/assets/img/apps/countdown/settings_en.webp" alt="सेटिंग्स" loading="lazy" width="620" height="1341"></button><figcaption><span>सेटिंग्स</span></figcaption></figure></div>
+</div></section><section id="features" class="section-soft"><div class="container">
+  <div class="section-head center">
+    <span class="kicker">अंदर सब कुछ</span>
+    <h2>14 मुख्य सुविधाएँ। उनके अंदर 53 टूल।</h2>
+    <p>किसी भी सुविधा पर टैप करें और देखें कि उसमें क्या है।</p>
+    <button type="button" class="btn btn-secondary dm-openall" aria-pressed="false"><span>सब खोलें</span></button>
+  </div>
+  <div class="dm-feats"><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">⏳</span>
+      <span class="dm-feat-t"><span>लाइव काउंटर</span></span><span class="dm-count">6</span></summary>
+      <ul><li>किसी तारीख़ को कितना समय बीता, या उसके आने में कितना समय बाकी है</li><li>हर सेकंड अपडेट</li><li>दिन आने पर अपने-आप “बाकी” से “बीता” में बदल जाता है</li><li>उसी दिन “आज” दिखाता है</li><li>इकाइयाँ चुनें: साल, महीने, दिन, घंटे, मिनट, सेकंड</li><li>चाहें तो दिन का समय भी</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🌙</span>
+      <span class="dm-feat-t"><span>हिजरी और ग्रेगोरियन</span></span><span class="dm-count">3</span></summary>
+      <ul><li>ग्रेगोरियन या हिजरी (उम्म अल-क़ुरा)</li><li>हर तारीख़ के लिए अलग कैलेंडर</li><li>तारीख़ दूसरे कैलेंडर में है? उसे बदलें और सेव करें</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">📖</span>
+      <span class="dm-feat-t"><span>घटना की कहानी</span></span><span class="dm-count">2</span></summary>
+      <ul><li>किसी भी तारीख़ की कहानी लिखें</li><li>एक टैप में उसे उसके कार्ड के नीचे दिखाएँ</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔁</span>
+      <span class="dm-feat-t"><span>मासिक तारीख़ें</span></span><span class="dm-count">2</span></summary>
+      <ul><li>वेतन, किराया, किस्तें</li><li>अपने-आप अगली तारीख़ पर चली जाती है</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔔</span>
+      <span class="dm-feat-t"><span>रिमाइंडर</span></span><span class="dm-count">3</span></summary>
+      <ul><li>ठीक समय पर, एक दिन पहले या एक हफ़्ता पहले</li><li>5 या 10 मिनट बाद फिर से</li><li>रिमाइंडर लॉग से “मुझे फिर याद दिलाएँ”</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🎨</span>
+      <span class="dm-feat-t"><span>इसे अपना बनाएँ</span></span><span class="dm-count">3</span></summary>
+      <ul><li>हर तारीख़ के लिए एक इमोजी या आपकी अपनी फ़ोटो</li><li>हर कार्ड के लिए एक रंग</li><li>अपनी सबसे ज़रूरी तारीख़ें पिन करें</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🃏</span>
+      <span class="dm-feat-t"><span>कार्ड की 9 शैलियाँ</span></span><span class="dm-count">9</span></summary>
+      <ul><li>क्लासिक</li><li>एक लाइन</li><li>बड़े काउंटर</li><li>सिर्फ़ दिन</li><li>बड़ा इमोजी</li><li>मिनिमल</li><li>डैशबोर्ड</li><li>मॉडर्न प्रीमियम</li><li>बड़ी संख्या</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔎</span>
+      <span class="dm-feat-t"><span>खोज और क्रम के 8 तरीके</span></span><span class="dm-count">6</span></summary>
+      <ul><li>अपनी तारीख़ें खोजें</li><li>मेरा क्रम: खींचकर सजाएँ</li><li>आने वाली पहले, या बीती हुई पहले</li><li>पिन की हुई पहले</li><li>तारीख़ या नाम के अनुसार</li><li>हाल में जोड़ी गई, या सबसे पहले जोड़ी गई</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🏠</span>
+      <span class="dm-feat-t"><span>एक नज़र में होम</span></span><span class="dm-count">3</span></summary>
+      <ul><li>कुल, आने वाली और बीती हुई</li><li>आपकी सबसे नज़दीकी तारीख़ें पहले</li><li>ऐप खोलें और तुरंत अपने काउंटर देखें</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🧮</span>
+      <span class="dm-feat-t"><span>तारीख़ के 5 टूल</span></span><span class="dm-count">5</span></summary>
+      <ul><li>हिजरी ⇄ ग्रेगोरियन कन्वर्टर</li><li>उम्र कैलकुलेटर</li><li>दो तारीख़ों के बीच का अंतर</li><li>दिन जोड़ें या घटाएँ</li><li>रिटायरमेंट का अनुमान</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">♻️</span>
+      <span class="dm-feat-t"><span>ट्रैश</span></span><span class="dm-count">3</span></summary>
+      <ul><li>हटाई गई तारीख़ें 30 दिन तक रखी जाती हैं</li><li>एक टैप में वापस लाएँ</li><li>एक साथ कई चुनें</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔐</span>
+      <span class="dm-feat-t"><span>बैकअप और आपका डेटा</span></span><span class="dm-count">3</span></summary>
+      <ul><li>आपके पूरे डेटा का एन्क्रिप्टेड बैकअप</li><li>ज़रूरत पड़ने पर रीस्टोर करें</li><li>अपनी तारीख़ें JSON फ़ाइल के रूप में एक्सपोर्ट और इम्पोर्ट करें</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🔒</span>
+      <span class="dm-feat-t"><span>निजी और लॉक</span></span><span class="dm-count">3</span></summary>
+      <ul><li>न अकाउंट, न साइन-इन</li><li>इंटरनेट के बिना चलती है; आपका डेटा आपके फ़ोन पर रहता है</li><li>वैकल्पिक फ़िंगरप्रिंट या फ़ेस लॉक</li></ul></details><details class="dm-feat"><summary><span class="dm-ico" aria-hidden="true">🌍</span>
+      <span class="dm-feat-t"><span>18 भाषाएँ</span></span><span class="dm-count">2</span></summary>
+      <ul><li>अरबी और उर्दू दाएँ से बाएँ</li><li>लाइट और डार्क</li></ul></details></div>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker">लाइव काउंटर</span>
+    <h2>हर तारीख़, सेकंड तक गिनी हुई।</h2>
+    <p class="lead">किसी तारीख़ से — या उस तक — साल, महीने और दिन, एक ऐसे काउंटर पर जो हर सेकंड चलता है, और अपने-आप “बाकी” से “बीता” में बदल जाता है।</p>
+    <ul class="dm-ticks"><li>चुनें कि काउंटर कौन-सी इकाइयाँ दिखाए</li><li>उसी दिन “आज”</li><li>मासिक तारीख़ें अपने-आप अगली पर चली जाती हैं</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n2"><button type="button" class="dm-phone " data-zoom="detail" aria-label="अपने लाइव काउंटर के साथ एक तारीख़"><img src="/assets/img/apps/countdown/detail_en.webp" alt="अपने लाइव काउंटर के साथ एक तारीख़" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="home" aria-label="होम: आपकी सबसे नज़दीकी तारीख़ें"><img src="/assets/img/apps/countdown/home_en.webp" alt="होम: आपकी सबसे नज़दीकी तारीख़ें" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot dm-flip"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker">घटना की कहानी</span>
+    <h2>हर तारीख़ की एक कहानी होती है।</h2>
+    <p class="lead">लिखें कि उस दिन क्या हुआ, और एक टैप में उसे उसके कार्ड के नीचे दिखाएँ।</p>
+    <ul class="dm-ticks"><li>हर तारीख़ के लिए एक इमोजी या आपकी अपनी फ़ोटो</li><li>एक रंग और कार्ड की 9 शैलियाँ</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n1"><button type="button" class="dm-phone " data-zoom="story" aria-label="अपनी कहानी के साथ एक तारीख़"><img src="/assets/img/apps/countdown/story_en.webp" alt="अपनी कहानी के साथ एक तारीख़" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker">हिजरी और ग्रेगोरियन</span>
+    <h2>दोनों कैलेंडर, हर तारीख़ के लिए अलग।</h2>
+    <p class="lead">हर तारीख़ के लिए अलग से ग्रेगोरियन या हिजरी (उम्म अल-क़ुरा) चुनें — और अगर आपके पास दूसरे कैलेंडर की तारीख़ है, तो उसे तुरंत बदलकर सेव कर लें।</p>
+    <ul class="dm-ticks"><li>ठीक समय पर, एक दिन या एक हफ़्ता पहले रिमाइंडर</li><li>5 या 10 मिनट बाद फिर से</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n1"><button type="button" class="dm-phone " data-zoom="add" aria-label="नई तारीख़ जोड़ना"><img src="/assets/img/apps/countdown/add_en.webp" alt="नई तारीख़ जोड़ना" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot dm-flip"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker">खोज और क्रम</span>
+    <h2>कोई भी तारीख़ ढूँढें, किसी भी क्रम में।</h2>
+    <p class="lead">अपनी तारीख़ें खोजें और उन्हें आठ तरीकों से क्रम में लगाएँ — या खींचकर अपना क्रम बनाएँ। सबसे ज़रूरी तारीख़ों को पिन करें।</p>
+    <ul class="dm-ticks"><li>आने वाली पहले, बीती हुई पहले, पिन की हुई पहले</li><li>हटाई गई तारीख़ें 30 दिन तक ट्रैश में रहती हैं</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n1"><button type="button" class="dm-phone " data-zoom="list" aria-label="अपनी तारीख़ों को क्रम में लगाना"><img src="/assets/img/apps/countdown/list_en.webp" alt="अपनी तारीख़ों को क्रम में लगाना" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section class="dm-spot"><div class="container dm-spot-grid">
+  <div class="dm-spot-copy">
+    <span class="kicker">तारीख़ के टूल</span>
+    <h2>तारीख़ के पाँच टूल, ऐप में ही।</h2>
+    <p class="lead">हिजरी और ग्रेगोरियन बदलें, सटीक उम्र निकालें, दो तारीख़ों का अंतर जानें, दिन जोड़ें या घटाएँ, और अपनी रिटायरमेंट की तारीख़ का अनुमान लगाएँ।</p>
+    <ul class="dm-ticks"><li>एन्क्रिप्टेड बैकअप और रीस्टोर</li><li>वैकल्पिक फ़िंगरप्रिंट या फ़ेस लॉक</li><li>18 भाषाएँ</li></ul>
+  </div>
+  <div class="dm-spot-shots dm-n2"><button type="button" class="dm-phone " data-zoom="tools" aria-label="तारीख़ के टूल"><img src="/assets/img/apps/countdown/tools_en.webp" alt="तारीख़ के टूल" loading="lazy" width="620" height="1341"></button><button type="button" class="dm-phone " data-zoom="settings" aria-label="सेटिंग्स"><img src="/assets/img/apps/countdown/settings_en.webp" alt="सेटिंग्स" loading="lazy" width="620" height="1341"></button></div>
+</div></section><section id="story" class="dm-story"><div class="container">
+  <div class="section-head">
+    <span class="kicker">कहानी</span>
+    <h2>हमारी ज़िंदगी घटनाओं से बनी है — और हर घटना की एक कहानी होती है।</h2>
+  </div>
+  <div class="dm-story-grid">
+    <div class="dm-story-text">
+      <p>एक दिन आप सोचते हैं: मेरे ग्रेजुएशन को कितना समय हो गया? आप बैठकर साल याद करने की कोशिश करते हैं, फिर उँगलियों पर गिनते हैं… और फिर भी पक्का नहीं होता। Countdown Keeper तुरंत जवाब देती है: <q>7 साल, 4 महीने और 12 दिन</q> — और काउंटर सेकंड-दर-सेकंड चलता रहता है।</p>
+      <p>और सबसे सुंदर बात: हर तारीख़ अपनी कहानी सँभालकर रख सकती है। आप देखते हैं कि आपके ग्रेजुएशन को पाँच साल बीत गए, फिर आप वह कहानी पढ़ते हैं जो आपने उस दिन लिखी थी — और वह आपकी ज़िंदगी की वे बातें याद दिला देती है जिन्हें आप लगभग भूल चुके थे। सिर्फ़ संख्याएँ हमें छूती नहीं; उनके पीछे की कहानियाँ छूती हैं।</p>
+      <p>आपको अपनी कार खरीदे कितना समय हुआ? अपने घर में आए? काम पर अपने पहले दिन से? जब आपको ठीक-ठीक पता हो कि कितना समय बीता है, तो आप चीज़ों की उतनी ही क़द्र करते हैं जितनी वे हक़दार हैं। कोई प्रोडक्ट खरीदें, उसकी तारीख़ सेव करें — और सालों बाद ऐप आपको बताती है: <q>5 साल और 3 महीने</q>। आप उससे सुकून महसूस करते हैं और उस पर भरोसा करते हैं। इसके बिना हम बस अंदाज़ा लगाते हैं: तीन साल, शायद चार…</p>
+      <p>और क्योंकि हम हर दिन दो कैलेंडरों, हिजरी और ग्रेगोरियन, के साथ जीते हैं, इसलिए ऐप दोनों से गिनती करती है — हर तारीख़ के लिए अलग। हिजरी साल ग्रेगोरियन साल से छोटा होता है, इसलिए हिजरी कैलेंडर के पाँच साल ग्रेगोरियन के पाँच साल से कम हो सकते हैं। ऐसी छोटी बातें हमारी ज़िंदगी में मायने रखती हैं — इसीलिए हमने 14 मुख्य सुविधाएँ और उनके अंदर 53 टूल बनाए, ताकि आप हमेशा एक नज़र में जान सकें कि कितना समय बीता और कितना बाकी है।</p>
+    </div>
+    <ol class="dm-timeline">
+      <li><span>🎓</span><div><b>मेरे ग्रेजुएशन को कितना समय हुआ?</b><small>अब उँगलियों पर गिनने की ज़रूरत नहीं।</small></div></li>
+      <li><span>📖</span><div><b>अपनी कहानी के साथ एक तारीख़</b><small>पहले संख्या, फिर उसके पीछे की याद।</small></div></li>
+      <li><span>🚗</span><div><b>5 साल और 3 महीने</b><small>आपकी कार, आपका घर, कोई प्रोडक्ट — कोई अंदाज़ा नहीं।</small></div></li>
+      <li><span>🌙</span><div><b>हिजरी और ग्रेगोरियन</b><small>हर कैलेंडर साल अपने तरीके से गिनता है।</small></div></li>
+    </ol>
+  </div>
+</div></section><section class="section-soft dm-journey"><div class="container">
+  <div class="section-head center">
+    <span class="kicker">यह कैसे काम करती है</span>
+    <h2>आपकी ज़रूरी तारीख़ें, आपके लिए गिनी हुई।</h2>
+  </div>
+  <ol class="dm-steps"><li class="dm-step"><button type="button" class="dm-phone " data-zoom="add" aria-label="तारीख़ जोड़ें"><img src="/assets/img/apps/countdown/add_en.webp" alt="तारीख़ जोड़ें" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">1</span>
+        <h3>तारीख़ जोड़ें</h3><p>उसे नाम दें, हिजरी या ग्रेगोरियन में तारीख़ चुनें, और तय करें कि काउंटर क्या दिखाए।</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="home" aria-label="अपने काउंटर देखें"><img src="/assets/img/apps/countdown/home_en.webp" alt="अपने काउंटर देखें" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">2</span>
+        <h3>अपने काउंटर देखें</h3><p>ऐप खोलें: कुल, आने वाली और बीती हुई, सबसे नज़दीकी पहले।</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="story" aria-label="उसकी कहानी लिखें"><img src="/assets/img/apps/countdown/story_en.webp" alt="उसकी कहानी लिखें" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">3</span>
+        <h3>उसकी कहानी लिखें</h3><p>हर तारीख़ अपने कार्ड के नीचे अपने पीछे की कहानी रख सकती है।</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="list" aria-label="खोजें और क्रम में लगाएँ"><img src="/assets/img/apps/countdown/list_en.webp" alt="खोजें और क्रम में लगाएँ" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">4</span>
+        <h3>खोजें और क्रम में लगाएँ</h3><p>क्रम के आठ तरीके, या खींचकर अपना क्रम।</p></div></li><li class="dm-step"><button type="button" class="dm-phone " data-zoom="tools" aria-label="तारीख़ के टूल इस्तेमाल करें"><img src="/assets/img/apps/countdown/tools_en.webp" alt="तारीख़ के टूल इस्तेमाल करें" loading="lazy" width="620" height="1341"></button><div class="dm-step-txt"><span class="dm-num">5</span>
+        <h3>तारीख़ के टूल इस्तेमाल करें</h3><p>कन्वर्टर, उम्र, अंतर, जोड़ना या घटाना, रिटायरमेंट।</p></div></li></ol>
+  <p class="dm-swipe-hint">हर चरण देखने के लिए स्वाइप करें।</p>
+</div></section><section class="dm-price"><div class="container"><div class="dm-price-card">
+  <div>
+    <span class="kicker">कीमत</span>
+    <h2>शुरुआत मुफ़्त। जीवनभर के लिए एक भुगतान।</h2>
+    <p>5 तारीख़ों तक मुफ़्त शुरू करें। जब आपको और चाहिए, तो “लाइफ़टाइम एक्सेस” एक ही भुगतान से सीमा हटा देता है — कोई सब्सक्रिप्शन नहीं।</p>
+    <div style="margin-top:18px"><div class="stores" style="align-items:center"><a class="store-btn" href="https://apps.apple.com/app/id6806348941" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 1.6c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.9 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.9-1.4zM19 17.3c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.3-1.5 0-1.9-1-4-1-2 0-2.5 1-4 1-1.6 0-2.9-1.6-3.9-3.1-2.7-4.2-3-9.1-1.3-11.7 1.2-1.8 3-2.9 4.8-2.9 1.8 0 2.9 1 4.4 1 1.4 0 2.3-1 4.4-1 1.6 0 3.2.9 4.4 2.4-3.9 2.1-3.2 7.6.2 9.1z"/></svg><span><small>डाउनलोड करें</small><strong>App Store</strong></span></a><span class="chip"><span>Google Play — जल्द आ रहा है</span></span><a class="store-btn" style="background:#c4302b" href="https://www.youtube.com/playlist?list=PLcZVEfdjz66U" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C16.6 4 12 4 12 4s-4.6 0-7.8.2c-.5.1-1.4.1-2.3 1C1.2 5.9 1 7.5 1 7.5S.8 9.4.8 11.3v1.4C.8 14.6 1 16.5 1 16.5s.2 1.6.9 2.3c.9.9 2 .9 2.6 1 1.9.2 7.5.2 7.5.2s4.6 0 7.8-.3c.5-.1 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.8v-1.4c0-1.9-.2-3.7-.2-3.7zM9.8 15.1V8.9l6 3.1-6 3.1z"/></svg><span><small>ट्यूटोरियल</small><strong>YouTube</strong></span></a></div></div>
+  </div>
+  <ul class="dm-ticks dm-ticks-big">
+    <li>मुफ़्त: 5 तारीख़ों तक</li>
+    <li>लाइफ़टाइम एक्सेस: एक बार भुगतान</li>
+    <li>न अकाउंट, इंटरनेट के बिना चलती है</li>
+    <li>आपका डेटा आपके फ़ोन पर रहता है</li>
+    <li>18 भाषाएँ</li>
+  </ul>
+</div></div></section><section id="video"><div class="container" style="max-width:860px">
+  <h2 class="center">ऐप की जानकारी, चरण-दर-चरण</h2>
+  <p class="center">हमारे YouTube चैनल पर छोटे एपिसोड: आपकी पहली घटना, काउंटर, रिमाइंडर, हिजरी कैलेंडर और बहुत कुछ।</p>
+  <div class="video-wrap" style="margin-top:22px">
+    <iframe src="https://www.youtube.com/embed/videoseries?list=PLcZVEfdjz66U" title="YouTube पर Countdown Keeper के ट्यूटोरियल" loading="lazy"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <p style="text-align:center;margin-top:16px"><a class="btn btn-primary" href="https://www.youtube.com/playlist?list=PLcZVEfdjz66U" target="_blank" rel="noopener"><span>YouTube पर प्लेलिस्ट खोलें</span></a></p>
+</div></section><section id="questions"><div class="container" style="max-width:820px">
+  <h2 class="center">सवाल</h2>
+  <div class="faq" style="margin-top:28px"><details><summary><span>क्या यह मुफ़्त है?</span></summary><p>आप 5 तारीख़ों तक मुफ़्त शुरू कर सकते हैं। “लाइफ़टाइम एक्सेस” एक ही भुगतान है जो सीमा हटा देता है — कोई सब्सक्रिप्शन नहीं।</p></details><details><summary><span>क्या यह हिजरी कैलेंडर को सपोर्ट करती है?</span></summary><p>हाँ — हिजरी (उम्म अल-क़ुरा) और ग्रेगोरियन, हर तारीख़ के लिए अलग से चुना जा सकता है।</p></details><details><summary><span>क्या मुझे अकाउंट या इंटरनेट चाहिए?</span></summary><p>दोनों में से कुछ नहीं। यह इंटरनेट के बिना चलती है और आपका डेटा आपके फ़ोन पर रहता है।</p></details><details><summary><span>क्या यह Google Play पर है?</span></summary><p>यह अभी App Store पर है, और जल्द ही Google Play पर आ रही है।</p></details></div>
+</div></section><section class="qa-help"><div class="container">
+  <h2 class="qa-help-h"><span>सहायता</span></h2>
+  <div class="qa-help-grid"><a class="qa-help-card" href="https://www.youtube.com/playlist?list=PLcZVEfdjz66U" target=_blank rel=noopener><span class="qa-help-ic" aria-hidden="true">▶️</span><b>वीडियो ट्यूटोरियल</b><small>हमारी YouTube प्लेलिस्ट</small></a><a class="qa-help-card" href="/hi/tutorials/countdown-keeper/"><span class="qa-help-ic" aria-hidden="true">📘</span><b>ट्यूटोरियल</b><small>चरण-दर-चरण</small></a><a class="qa-help-card" href="/privacy/countdown-keeper/hi/"><span class="qa-help-ic" aria-hidden="true">🔒</span><b>प्राइवेसी</b><small>आपके डेटा के साथ क्या होता है</small></a><a class="qa-help-card" href="/hi/support/countdown-keeper/"><span class="qa-help-ic" aria-hidden="true">🛟</span><b>सहायता</b><small>जवाब और संपर्क</small></a></div>
+</div></section><section class="dm-suggest-wrap"><div class="container">
+  <a class="dm-suggest" href="/hi/suggest/?app=countdown-keeper">
+    <span class="dm-suggest-ic" aria-hidden="true">💡</span>
+    <span class="dm-suggest-tx">
+      <b>Countdown Keeper में कुछ कमी लग रही है?</b>
+      <span>कोई सुविधा या सुधार सुझाएँ, या हमें किसी समस्या के बारे में बताएँ — हम हर संदेश पढ़ते हैं।</span>
+      
+    </span>
+    <span class="dm-suggest-go"><span>कोई सुविधा सुझाएँ →</span></span>
+  </a>
+</div></section><section style="padding-top:0"><div class="container"><div class="cta-band">
+  <div>
+    <h2>कितना समय बीत गया? कितना बाकी है?</h2>
+    <p>हर ज़रूरी तारीख़ एक जगह रखें, और हमेशा एक नज़र में जानें।</p>
+  </div>
+  <div class="stores" style="align-items:center"><a class="store-btn" href="https://apps.apple.com/app/id6806348941" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 1.6c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.9 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.9-1.4zM19 17.3c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.3-1.5 0-1.9-1-4-1-2 0-2.5 1-4 1-1.6 0-2.9-1.6-3.9-3.1-2.7-4.2-3-9.1-1.3-11.7 1.2-1.8 3-2.9 4.8-2.9 1.8 0 2.9 1 4.4 1 1.4 0 2.3-1 4.4-1 1.6 0 3.2.9 4.4 2.4-3.9 2.1-3.2 7.6.2 9.1z"/></svg><span><small>डाउनलोड करें</small><strong>App Store</strong></span></a><span class="chip"><span>Google Play — जल्द आ रहा है</span></span><a class="store-btn" style="background:#c4302b" href="https://www.youtube.com/playlist?list=PLcZVEfdjz66U" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C16.6 4 12 4 12 4s-4.6 0-7.8.2c-.5.1-1.4.1-2.3 1C1.2 5.9 1 7.5 1 7.5S.8 9.4.8 11.3v1.4C.8 14.6 1 16.5 1 16.5s.2 1.6.9 2.3c.9.9 2 .9 2.6 1 1.9.2 7.5.2 7.5.2s4.6 0 7.8-.3c.5-.1 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.8v-1.4c0-1.9-.2-3.7-.2-3.7zM9.8 15.1V8.9l6 3.1-6 3.1z"/></svg><span><small>ट्यूटोरियल</small><strong>YouTube</strong></span></a></div>
+</div></div></section><div class="dm-lb" hidden><button type="button" class="dm-lb-x" aria-label="बंद करें">✕</button>
+  <button type="button" class="dm-lb-nav dm-lb-prev" aria-label="पिछला">‹</button>
+  <img alt=""><button type="button" class="dm-lb-nav dm-lb-next" aria-label="अगला">›</button></div><script>
+(function(){
+  var lb=document.querySelector('.dm-lb'),im=lb.querySelector('img'),list=[],i=0;
+  function lang(){return document.documentElement.getAttribute('data-lang')==='ar'?'ar':'en';}
+  function names(){var s=[];document.querySelectorAll('.dm-gallery [data-zoom]').forEach(function(b){s.push(b.dataset.zoom);});return s;}
+  function show(){im.src='/assets/img/apps/countdown/'+list[i]+'_'+lang()+'.webp';}
+  function open(n){list=names();i=Math.max(0,list.indexOf(n));show();lb.hidden=false;document.body.style.overflow='hidden';}
+  function close(){lb.hidden=true;document.body.style.overflow='';}
+  function step(d){i=(i+d+list.length)%list.length;show();}
+  document.querySelectorAll('[data-zoom]').forEach(function(b){b.addEventListener('click',function(){open(b.dataset.zoom);});});
+  lb.querySelector('.dm-lb-x').addEventListener('click',close);
+  lb.querySelector('.dm-lb-prev').addEventListener('click',function(e){e.stopPropagation();step(-1);});
+  lb.querySelector('.dm-lb-next').addEventListener('click',function(e){e.stopPropagation();step(1);});
+  lb.addEventListener('click',function(e){if(e.target===lb)close();});
+  document.addEventListener('keydown',function(e){if(lb.hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1);});
+  var x0=null;lb.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;},{passive:true});
+  lb.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)step(dx<0?1:-1);x0=null;});
+  var btn=document.querySelector('.dm-openall');
+  if(btn)btn.addEventListener('click',function(){var on=btn.getAttribute('aria-pressed')!=='true';
+    document.querySelectorAll('.dm-feat').forEach(function(d){d.open=on;});btn.setAttribute('aria-pressed',on);
+    btn.querySelectorAll('span').forEach(function(s){var Q=window.QAPPS_T||{};s.textContent=on?(s.hasAttribute('data-ar')?'أغلق الكل':(Q['Close all']||'Close all')):(s.hasAttribute('data-ar')?'افتح الكل':(Q['Open all']||'Open all'));});});
+  if(window.matchMedia('(min-width:901px)').matches&&btn)btn.click();
+})();
+</script>
+</main>
+<footer class="site-footer site-footer-min"><div class="container">
+  <div class="footer-bottom">
+    <span>&copy; 2026 <span>Q Apps. सर्वाधिकार सुरक्षित।</span></span>
+  </div>
+</div></footer>
+<script src="/assets/js/site.js?v=a9f8460cbf" defer></script>
+
+</body>
+</html>
