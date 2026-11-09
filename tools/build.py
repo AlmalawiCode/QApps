@@ -215,8 +215,11 @@ APPS = {
         "status": "live",   # App Store (2026-11); Google Play not yet
         "appstore": "https://apps.apple.com/app/id6806348941",
         # The owner's Arabic playlist «شرح تطبيق كم مضى وكم بقي» on @qeuapps-ar (promo + 7 tutorials, 2026-11-06).
+        # Arabic playlist for Arabic visitors, English playlist for every other language.
         "youtube": "https://www.youtube.com/playlist?list=PLcZVEfdjz66U",
         "youtube_embed": "https://www.youtube.com/embed/videoseries?list=PLcZVEfdjz66U",
+        "youtube_en": "https://www.youtube.com/playlist?list=PLddSF_yBnl8A",
+        "youtube_embed_en": "https://www.youtube.com/embed/videoseries?list=PLddSF_yBnl8A",
         # Language availability is tracked per CONTENT TYPE — an app may ship
         # its privacy policy in more languages than its other content.
         "overview_langs": ["en", "ar"],
@@ -269,8 +272,11 @@ APPS = {
         "playstore": "https://play.google.com/store/apps/details?id=com.vault.warranty",
         # The owner's own Arabic tutorial playlist «شرح تطبيق خزنة الضمانات» on
         # the @qeuapps-ar channel (replaced a third-party review video, 2026-11-06).
+        # Arabic playlist for Arabic visitors, English playlist for every other language.
         "youtube": "https://www.youtube.com/playlist?list=PLVw-KHF4Mj74",
         "youtube_embed": "https://www.youtube.com/embed/videoseries?list=PLVw-KHF4Mj74",
+        "youtube_en": "https://www.youtube.com/playlist?list=PLfY8oG_HToi8",
+        "youtube_embed_en": "https://www.youtube.com/embed/videoseries?list=PLfY8oG_HToi8",
         # Vault ships its privacy policy in 8 languages (real, authoritative
         # translations preserved from the app project); other content is EN/AR.
         "overview_langs": ["en", "ar"],
@@ -622,8 +628,7 @@ def app_overview_body(app, features_list, intro_en, intro_ar, extra=""):
             stores.append(store_button("apple", app["appstore"]))
         if app.get("playstore"):
             stores.append(store_button("play", app["playstore"]))
-        if app.get("youtube"):
-            stores.append(store_button("youtube", app["youtube"]))
+        stores.append(site_layout.per_audience(app, "youtube", lambda url: store_button("youtube", url)))
         store_block = f'<div class="stores" style="margin-top:8px">{"".join(stores)}</div>'
     else:
         store_block = ('<div class="chips" style="margin-top:8px">'
@@ -735,13 +740,13 @@ def page_tutorials():
 
 
 def tutorial_page(slug, title_en, title_ar, desc_en, desc_ar, intro_en, intro_ar,
-                  steps_list, tips, faqs, video_embed=None):
+                  steps_list, tips, faqs, video_embed=False):
     a = APPS[slug]
     video = ""
     if video_embed:
-        video = f'''<div style="margin:28px 0">
-          <div class="video-wrap"><iframe src="{video_embed}" title="{esc(title_en)}" loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>'''
+        video = site_layout.per_audience(a, "youtube_embed", lambda u: f'''<div style="margin:28px 0">
+          <div class="video-wrap"><iframe src="{u}" title="{esc(title_en)}" loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>''')
     tips_html = ""
     if tips:
         tips_html = f'{h(2,"Tips","نصائح")}{ul(tips)}'
@@ -798,7 +803,7 @@ def page_tutorial_countdown():
                          "Learn how to add events, use reminders, recurring dates and the built-in date tools.",
                          "تعلّم كيف تضيف المناسبات، وتستخدم التذكيرات والتواريخ المتكرّرة وأدوات التاريخ المدمجة.",
                          steps_list, tips, faqs,
-                         video_embed=APPS["countdown-keeper"]["youtube_embed"])
+                         video_embed=True)
 
 
 def page_tutorial_vault():
@@ -839,7 +844,7 @@ def page_tutorial_vault():
                          "Learn how to scan receipts, track warranties, and back up your data securely.",
                          "تعلّم كيف تمسح الإيصالات، وتتبّع الضمانات، وتنسخ بياناتك احتياطيًا بأمان.",
                          steps_list, tips, faqs,
-                         video_embed=APPS["vault"]["youtube_embed"])
+                         video_embed=True)
 
 
 # ---------------------------- privacy --------------------------------------

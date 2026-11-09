@@ -31,7 +31,7 @@ VOID = {"br", "img", "input", "meta", "link", "hr", "source", "wbr", "area", "co
 
 def _attr_has(attrs, name):
     # a bare marker (data-en), not a value attribute (data-en="…" on <option>)
-    return re.search(r"(?:^|\s)" + name + r"(?=\s|/|$)", attrs) is not None
+    return re.search(r"(?:^|\s)" + re.escape(name) + r"(?=\s|/|$)", attrs) is not None
 
 
 def marked_elements(doc, attr):
@@ -237,6 +237,10 @@ def _tr(d, text, missing):
 def localize(doc, L, d, url, page_urls, missing):
     # 1) the language menu: current language named, links untouched
     doc = re.sub(r'<details class="lang-menu">.*?</details>', lambda m: lang_menu(url, L), doc, flags=re.S)
+    # 1b) audience-only elements (YouTube playlists): keep the English one
+    for a, b, c, e, tag, attrs in reversed(list(marked_elements(doc, 'data-only="ar"'))):
+        doc = doc[:a] + doc[e:]
+    doc = doc.replace(' data-only="en"', "")
     # 2) marked elements, outermost only, from the end so offsets stay valid
     spans = sorted([(a, b, c, e, t, at, "en") for a, b, c, e, t, at in marked_elements(doc, "data-en")] +
                    [(a, b, c, e, t, at, "ar") for a, b, c, e, t, at in marked_elements(doc, "data-ar")])
@@ -265,6 +269,11 @@ def localize(doc, L, d, url, page_urls, missing):
     js = {k: d[k] for k in js_strings() if d.get(k)}
     if js:
         doc = doc.replace("</head>", "<script>window.QAPPS_T=" + json.dumps(js, ensure_ascii=False).replace("</", "<\\/") + ";</script>\n</head>", 1)
+    # 2c) app screenshots in this language (tools/site_screenshots.py), if made
+    def shot(m):
+        local = f"{m.group(1)}_{L}.webp"
+        return local if os.path.exists(os.path.join(ROOT, local.lstrip("/"))) else m.group(0)
+    doc = re.sub(r"(/assets/img/apps/[a-z0-9-]+/[a-z0-9_]+?)_en\.webp", shot, doc)
     # 3) <html>, scripts that switch en/ar, titles and descriptions
     m = re.search(r'data-title-en="([^"]*)"', doc)
     title = _tr(d, _html.unescape(m.group(1)), missing) if m else "Q Apps"

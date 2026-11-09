@@ -52,4 +52,17 @@ python3 tools/site_i18n.py merge fr /tmp/fr_done.json     # put new translations
 - Search engines see `hreflang` links between all versions and every
   language page is in `sitemap.xml`.
 
-Code: `tools/site_i18n.py` (menu, hreflang, page copies, commands).
+## App screenshots and YouTube per language
+
+- **Screenshots**: `assets/img/apps/<app>/<screen>_<lang>.webp`, made from the
+  apps' store screenshots by `python3 tools/site_screenshots.py` (the map of
+  screen → store file is at the top of that script). A language page shows its
+  own screenshots when the file exists, English otherwise. After the store
+  screenshots change: `python3 tools/site_screenshots.py --force`, then `build.py`.
+- **YouTube**: Arabic visitors get the Arabic playlist (`youtube` in `APPS`,
+  `tools/build.py`); English and every other language get the English one
+  (`youtube_en`). Marked in the HTML with `data-only="ar"` / `data-only="en"`
+  (`site_layout.per_audience`).
+
+Code: `tools/site_i18n.py` (menu, hreflang, page copies, commands),
+`tools/site_screenshots.py` (screenshots).

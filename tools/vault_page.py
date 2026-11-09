@@ -136,7 +136,8 @@ def build_page(render, h, p, crumbs, app, store_button, promo=None):
         return f'<{tag}{c} data-en>{en}</{tag}><{tag}{c} data-ar>{ar}</{tag}>'
 
     # Store buttons + the YouTube tutorial playlist, side by side (owner, 2026-11-06).
-    stores = "".join(store_button(k, app[u]) for k, u in (("apple", "appstore"), ("play", "playstore"), ("youtube", "youtube")) if app.get(u))
+    stores = "".join(store_button(k, app[u]) for k, u in (("apple", "appstore"), ("play", "playstore")) if app.get(u))
+    stores += site_layout.per_audience(app, "youtube", lambda url: store_button("youtube", url))
 
     hero = f'''<section class="dm-hero"><div class="container dm-hero-grid">
   <div class="dm-hero-copy">
@@ -312,11 +313,11 @@ def build_page(render, h, p, crumbs, app, store_button, promo=None):
   {h(2, "The app explained, step by step", "شرح التطبيق خطوة بخطوة", "center")}
   {p("Short episodes on our YouTube channel: adding your first invoice, warranties, backups and more.",
      "حلقات قصيرة على قناتنا في YouTube: إضافة أول فاتورة، والضمانات، والنسخ الاحتياطي وغيرها.", "center")}
-  <div class="video-wrap" style="margin-top:22px">
-    <iframe src="{embed}" title="Vault — Warranty Manager tutorials on YouTube" loading="lazy"
+  {site_layout.per_audience(app, "youtube_embed", lambda u: f'''<div class="video-wrap" style="margin-top:22px">
+    <iframe src="{u}" title="Vault — Warranty Manager tutorials on YouTube" loading="lazy"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  </div>
-  <p style="text-align:center;margin-top:16px"><a class="btn btn-primary" href="{app['youtube']}" target="_blank" rel="noopener"><span data-en>Open the playlist on YouTube</span><span data-ar>افتح قائمة الشرح على YouTube</span></a></p>
+  </div>''')}
+  {site_layout.per_audience(app, "youtube", lambda u: f'''<p style="text-align:center;margin-top:16px"><a class="btn btn-primary" href="{u}" target="_blank" rel="noopener"><span data-en>Open the playlist on YouTube</span><span data-ar>افتح قائمة الشرح على YouTube</span></a></p>''')}
 </div></section>''' if embed else ""
 
     gal = [("home", "Home", "الرئيسية"), ("warranties", "My warranties", "ضماناتي"), ("filter", "Filter", "التصفية"),

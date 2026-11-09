@@ -121,7 +121,7 @@ def build_page(render, h, p, crumbs, app, store_button):
     play = (store_button("play", app["playstore"]) if app.get("playstore") else
             '<span class="chip"><span data-en>Google Play — coming soon</span><span data-ar>Google Play — قريبًا</span></span>')
     # + the YouTube playlist (promo + tutorials) beside the store buttons (owner, 2026-11-06).
-    tube = store_button("youtube", app["youtube"]) if app.get("youtube") else ""
+    tube = site_layout.per_audience(app, "youtube", lambda url: store_button("youtube", url))
     stores = f'<div class="stores" style="align-items:center">{apple}{play}{tube}</div>'
 
     hero = f'''<section class="dm-hero"><div class="container dm-hero-grid">
@@ -340,11 +340,11 @@ def build_page(render, h, p, crumbs, app, store_button):
   {h(2, "The app explained, step by step", "شرح التطبيق خطوة بخطوة", "center")}
   {p("Short episodes on our YouTube channel: your first event, counters, reminders, the Hijri calendar and more.",
      "حلقات قصيرة على قناتنا في YouTube: حدثك الأول، والعدّادات، والتذكيرات، والتاريخ الهجري وغيرها.", "center")}
-  <div class="video-wrap" style="margin-top:22px">
-    <iframe src="{embed}" title="Countdown Keeper tutorials on YouTube" loading="lazy"
+  {site_layout.per_audience(app, "youtube_embed", lambda u: f'''<div class="video-wrap" style="margin-top:22px">
+    <iframe src="{u}" title="Countdown Keeper tutorials on YouTube" loading="lazy"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  </div>
-  <p style="text-align:center;margin-top:16px"><a class="btn btn-primary" href="{app['youtube']}" target="_blank" rel="noopener"><span data-en>Open the playlist on YouTube</span><span data-ar>افتح قائمة الشرح على YouTube</span></a></p>
+  </div>''')}
+  {site_layout.per_audience(app, "youtube", lambda u: f'''<p style="text-align:center;margin-top:16px"><a class="btn btn-primary" href="{u}" target="_blank" rel="noopener"><span data-en>Open the playlist on YouTube</span><span data-ar>افتح قائمة الشرح على YouTube</span></a></p>''')}
 </div></section>''' if embed else ""
 
     lightbox = '''<div class="dm-lb" hidden><button type="button" class="dm-lb-x" aria-label="Close">✕</button>

@@ -79,6 +79,7 @@ section{padding:88px 0}
 /* language visibility (both languages ship in HTML; CSS shows the active one) */
 html[data-lang="en"] [data-ar]{display:none !important}
 html[data-lang="ar"] [data-en]{display:none !important}
+html[data-lang="en"] [data-only="ar"],html[data-lang="ar"] [data-only="en"]{display:none !important}
 
 /* skip link */
 .skip{position:absolute;inset-inline-start:-999px;top:0;background:var(--ink);color:var(--bg);padding:10px 16px;border-end-end-radius:10px;z-index:100;font-weight:700;text-decoration:none}

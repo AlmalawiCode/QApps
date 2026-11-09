@@ -7,6 +7,7 @@ are"). The home page and /apps/ now show the apps as one grid of large icons
 help block (decision د). Kept in its own module so build.py and the three app
 page modules only call into it.
 """
+import re
 
 # Order of the apps everywhere (home grid, /apps/, footer).
 APP_ORDER = ["docmatic", "vault", "countdown-keeper"]
@@ -90,6 +91,25 @@ def app_tabs(app, has_video=False):
             f'<div class="qa-tabs-row">{links}</div></div></nav>')
 
 
+def only(html, lang):
+    """Mark the first element of `html` as shown only to `lang` visitors
+    (data-only="en" / "ar"). On the en/ar pages CSS hides the other one; on the
+    /<lang>/ pages tools/site_i18n.py keeps the "en" one and drops the "ar" one."""
+    return re.sub(r"^(\s*<[a-zA-Z0-9]+)", rf'\1 data-only="{lang}"', html, count=1)
+
+
+def per_audience(app, key, make):
+    """YouTube playlists (owner, 2026-11-09): Arabic visitors get the Arabic
+    playlist (app[key]); everyone else, in every other language, the English
+    one (app[key + "_en"]). `make(url)` returns the HTML for one URL."""
+    ar, en = app.get(key), app.get(key + "_en")
+    if not ar:
+        return ""
+    if not en:
+        return make(ar)
+    return only(make(en), "en") + only(make(ar), "ar")
+
+
 def help_links(app):
     """«Help» cards on every app page: tutorial · privacy · support (only the
     pages the app has). «Suggest» has its own card right after (suggest_card)."""
@@ -97,16 +117,18 @@ def help_links(app):
     have = app.get("pages", ["app", "tutorial", "privacy", "support"])
     cards = []
     if app.get("youtube"):
-        cards.append((app["youtube"], "▶️", "Video tutorials", "شرح بالفيديو", "Our YouTube playlist", "قائمتنا على YouTube"))
+        cards.append(("youtube", "▶️", "Video tutorials", "شرح بالفيديو", "Our YouTube playlist", "قائمتنا على YouTube"))
     if "tutorial" in have:
         cards.append((f"/tutorials/{slug}/", "📘", "Tutorial", "الشرح", "Step by step", "خطوة بخطوة"))
     if "privacy" in have:
         cards.append((f"/privacy/{slug}/", "🔒", "Privacy", "الخصوصية", "What happens to your data", "ماذا يحدث لبياناتك"))
     if "support" in have:
         cards.append((f"/support/{slug}/", "🛟", "Support", "الدعم", "Answers and contact", "إجابات وتواصل"))
+    def card(u, ic, te, ta, de, da):
+        return (f'<a class="qa-help-card" href="{u}"{" target=_blank rel=noopener" if u.startswith("http") else ""}><span class="qa-help-ic" aria-hidden="true">{ic}</span>'
+                f'{_two(te, ta, "b")}{_two(de, da, "small")}</a>')
     html = "".join(
-        f'<a class="qa-help-card" href="{u}"{" target=_blank rel=noopener" if u.startswith("http") else ""}><span class="qa-help-ic" aria-hidden="true">{ic}</span>'
-        f'{_two(te, ta, "b")}{_two(de, da, "small")}</a>'
+        per_audience(app, "youtube", lambda url: card(url, ic, te, ta, de, da)) if u == "youtube" else card(u, ic, te, ta, de, da)
         for u, ic, te, ta, de, da in cards)
     return f'''<section class="qa-help"><div class="container">
   <h2 class="qa-help-h">{_two("Help", "مساعدة")}</h2>
