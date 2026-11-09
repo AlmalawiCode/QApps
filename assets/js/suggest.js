@@ -82,7 +82,8 @@
     fallback.hidden = false;
     show(reason, "warn");
   }
-  form.querySelector("[data-fb-wa]").addEventListener("click", function () {
+  var waBtn = form.querySelector("[data-fb-wa]");   // absent while WhatsApp is hidden
+  if (waBtn) waBtn.addEventListener("click", function () {
     window.open("https://wa.me/" + form.getAttribute("data-wa") + "?text=" + encodeURIComponent(composed()), "_blank", "noopener");
   });
   form.querySelector("[data-fb-mail]").addEventListener("click", function () {
@@ -116,8 +117,8 @@
       return;
     }
     if (!siteKey) {
-      openFallback(T("Sending from the website is not ready yet — send it by WhatsApp or email below.",
-                     "الإرسال من الموقع غير جاهز بعد — أرسلها عبر واتساب أو البريد بالأسفل."));
+      openFallback(T("Sending from the website is not ready yet — send it by email below.",
+                     "الإرسال من الموقع غير جاهز بعد — أرسلها بالبريد بالأسفل."));
       return;
     }
     var tokenField = form.querySelector('[name="cf-turnstile-response"]');
@@ -157,12 +158,12 @@
       if (err === "rate_limited") return show(T("You have sent several messages already — please try again later.", "أرسلت عدة رسائل بالفعل — حاول مرة أخرى لاحقًا."), "err");
       if (err === "bot_check") return show(T("We could not confirm you are not a robot. Please try again.", "تعذّر التأكد أنك لست روبوتًا. حاول مرة أخرى."), "err");
       if (err === "length") return show(T("Your message is too short or too long.", "رسالتك قصيرة جدًا أو طويلة جدًا."), "err");
-      openFallback(T("We could not send it from the website right now — send it by WhatsApp or email below.",
-                     "تعذّر الإرسال من الموقع الآن — أرسلها عبر واتساب أو البريد بالأسفل."));
+      openFallback(T("We could not send it from the website right now — send it by email below.",
+                     "تعذّر الإرسال من الموقع الآن — أرسلها بالبريد بالأسفل."));
     }).catch(function () {
       submit.disabled = false;
-      openFallback(T("No connection to the website right now — send it by WhatsApp or email below.",
-                     "لا اتصال بالموقع الآن — أرسلها عبر واتساب أو البريد بالأسفل."));
+      openFallback(T("No connection to the website right now — send it by email below.",
+                     "لا اتصال بالموقع الآن — أرسلها بالبريد بالأسفل."));
     });
   });
 })();

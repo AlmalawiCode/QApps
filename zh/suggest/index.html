@@ -43,7 +43,7 @@
 .fb-sent{text-align:center;display:grid;gap:12px;justify-items:center;padding:36px 24px}
 .fb-sent-icon{width:84px;height:84px;border-radius:50%;background:var(--mint-soft);display:grid;place-items:center;font-size:40px}
 </style>
-<script src="/assets/js/suggest.js?v=ef9b5349b0" defer></script>
+<script src="/assets/js/suggest.js?v=9d05161779" defer></script>
 <link rel="alternate" hreflang="en" href="https://qeuapps.com/suggest/">
 <link rel="alternate" hreflang="ar" href="https://qeuapps.com/suggest/">
 <link rel="alternate" hreflang="x-default" href="https://qeuapps.com/suggest/">
@@ -130,7 +130,7 @@
 .site-footer-min{padding:22px 0;margin-top:40px}
 .site-footer-min .footer-bottom{margin:0;padding:0;border:0;justify-content:center;text-align:center}
 </style>
-<script>window.QAPPS_T={"Please write a little more (at least 10 letters).": "请再多写一点（至少 10 个字）。", "Sending from the website is not ready yet — send it by WhatsApp or email below.": "网站发送功能尚未就绪——请通过下方的 WhatsApp 或电子邮件发送。", "One moment — we are checking you are not a robot…": "请稍候——我们正在确认您不是机器人……", "Sending…": "正在发送……", "You have sent several messages already — please try again later.": "您已经发送了多条消息——请稍后再试。", "We could not confirm you are not a robot. Please try again.": "我们无法确认您不是机器人。请重试。", "Your message is too short or too long.": "您的消息太短或太长。", "We could not send it from the website right now — send it by WhatsApp or email below.": "我们暂时无法通过网站发送——请通过下方的 WhatsApp 或电子邮件发送。", "No connection to the website right now — send it by WhatsApp or email below.": "目前无法连接到网站——请通过下方的 WhatsApp 或电子邮件发送。", "Open all": "全部展开", "Close all": "全部收起"};</script>
+<script>window.QAPPS_T={"Please write a little more (at least 10 letters).": "请再多写一点（至少 10 个字）。", "Sending from the website is not ready yet — send it by email below.": "网站发送功能尚未就绪——请通过下方的电子邮件发送。", "One moment — we are checking you are not a robot…": "请稍候——我们正在确认您不是机器人……", "Sending…": "正在发送……", "You have sent several messages already — please try again later.": "您已经发送了多条消息——请稍后再试。", "We could not confirm you are not a robot. Please try again.": "我们无法确认您不是机器人。请重试。", "Your message is too short or too long.": "您的消息太短或太长。", "We could not send it from the website right now — send it by email below.": "暂时无法通过网站发送——请通过下方的电子邮件发送。", "No connection to the website right now — send it by email below.": "暂时无法连接网站——请通过下方的电子邮件发送。", "Open all": "全部展开", "Close all": "全部收起"};</script>
 </head>
 <body>
 <a class="skip" href="#main"><span>跳到主要内容</span></a>
@@ -146,7 +146,7 @@
 <section class="section"><div class="container prose">
   <h1>联系与建议</h1>
   <p class="lead">给我们发送消息、改进意见、新功能的想法，或您遇到的问题。每条消息我们都会亲自阅读。当我们找到合适的机会实现您的想法时，就会为所有人加入——您无需额外付费。</p>
-  <form class="card suggest-form fb-form" data-fb-form data-sitekey="" data-email="qeuapps@gmail.com" data-wa="966554260804" novalidate>
+  <form class="card suggest-form fb-form" data-fb-form data-sitekey="" data-email="qeuapps@gmail.com" novalidate>
     <label><span class="lbl"><span>哪款应用？</span></span>
       <select name="app"><option value="vault" data-en="Vault — Warranty Manager">Vault — Warranty Manager</option><option value="countdown-keeper" data-en="Countdown Keeper">Countdown Keeper</option><option value="new-app" data-en="An idea for a new app">新应用的想法</option><option value="general" data-en="The website / in general">网站 / 一般问题</option></select></label>
     <fieldset class="fb-types"><legend class="lbl"><span>您想发送什么？</span></legend><label class="fb-type"><input type="radio" name="type" value="message" data-label-en="Message or question" data-q-en="写下您的消息" data-ph-en="您好，是否可以……"><span><i aria-hidden="true">💬</i><span>消息或问题</span></span></label><label class="fb-type"><input type="radio" name="type" value="improve" data-label-en="Improvement" data-q-en="哪里可以做得更好？怎么改进？" data-ph-en="如果……会更好"><span><i aria-hidden="true">💡</i><span>改进意见</span></span></label><label class="fb-type"><input type="radio" name="type" value="feature" checked data-label-en="New feature idea" data-q-en="您希望有什么功能？为什么需要它？" data-ph-en="我希望能够……因为……"><span><i aria-hidden="true">🚀</i><span>新功能想法</span></span></label><label class="fb-type"><input type="radio" name="type" value="problem" data-label-en="A problem I had" data-q-en="您做了什么？发生了什么？您原本期望什么？" data-ph-en="我点按了……然后……我原本期望……"><span><i aria-hidden="true">🐞</i><span>我遇到的问题</span></span></label></fieldset>
@@ -163,8 +163,7 @@
     <p class="fb-status" data-fb-status role="status" hidden></p>
     <div class="btn-row"><button class="btn btn-accent" type="submit" data-fb-submit><span>发送</span></button></div>
     <div class="fb-fallback" data-fb-fallback hidden>
-      <button class="btn btn-secondary" type="button" data-fb-wa><span>通过 WhatsApp 发送</span></button>
-      <button class="btn btn-secondary" type="button" data-fb-mail><span>通过电子邮件发送</span></button>
+            <button class="btn btn-secondary" type="button" data-fb-mail><span>通过电子邮件发送</span></button>
     </div>
     <p class="fineprint">不支持文件或图片。我们会保存您的消息，以及您填写的姓名和联系方式（仅在您填写时），用于阅读和回复——仅此而已。请参阅<a href="/zh/privacy/#messages">隐私</a>。</p>
     

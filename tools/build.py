@@ -44,7 +44,11 @@ SUPPORT_EMAIL = "qeuapps@gmail.com"
 # secret lives only in the Pages environment). Set it as a build environment
 # variable in Cloudflare Pages. Empty = the form offers WhatsApp/email only.
 TURNSTILE_SITE_KEY = os.environ.get("TURNSTILE_SITE_KEY", "")
-WHATSAPP_DISPLAY = "+966 55 426 0804"          # shown to visitors
+# Owner, 2026-11-09: hide the WhatsApp number — no WhatsApp contact on the site
+# (contact card, «Message on WhatsApp» buttons, suggest-form fallback).
+# Set True to bring all of it back.
+SHOW_WHATSAPP = False
+WHATSAPP_DISPLAY = "+966 55 426 0804"          # shown to visitors (only if SHOW_WHATSAPP)
 WHATSAPP_NUMBER = "966554260804"               # E.164 digits for wa.me
 WHATSAPP_LINK = f"https://wa.me/{WHATSAPP_NUMBER}"
 
@@ -91,6 +95,8 @@ WHATSAPP_SVG = ('<svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="
 
 
 def whatsapp_button():
+    if not SHOW_WHATSAPP:
+        return ""
     # Action button only — the number itself is shown as a tappable link on the
     # contact card and in the footer. Keeping the number out of the button avoids
     # mid-number wrapping and any LTR/RTL bidi issues.
@@ -595,8 +601,8 @@ def page_home():
     intro = f'''<section class="qa-intro"><div class="container">
   <h1 data-en>Useful apps at a tiny price. <em>Pay once, yours for life.</em></h1>
   <h1 data-ar>تطبيقات مفيدة بسعر زهيد. <em>تدفع مرّة، وتبقى لك.</em></h1>
-  {p("No monthly or yearly subscription. In Arabic and English, and your data stays on your phone.",
-     "بلا اشتراك شهري ولا سنوي. بالعربية والإنجليزية، وبياناتك تبقى على جوالك.", "lead")}
+  {p("No monthly or yearly subscription. In 18 languages, and your data stays on your phone.",
+     "بلا اشتراك شهري ولا سنوي. بـ18 لغة، وبياناتك تبقى على جوالك.", "lead")}
 </div></section>'''
     grid = f'''<section class="qa-apps" id="apps"><div class="container">
   {site_layout.icon_grid(APPS)}
@@ -615,8 +621,8 @@ def page_apps():
     return render("/apps/",
                   "Our Apps — Q Apps",
                   "تطبيقاتنا — كيو آبز",
-                  "Explore the mobile apps by Q Apps: Vault — Warranty Manager and Countdown Keeper. Private, offline-first, in Arabic and English.",
-                  "استعرض تطبيقات كيو آبز: خزنة الضمانات و«كم مضى وكم بقي». تطبيقات خاصة تعمل دون اتصال، بالعربية والإنجليزية.",
+                  "Explore the mobile apps by Q Apps: Vault — Warranty Manager and Countdown Keeper. Private, offline-first, in 18 languages.",
+                  "استعرض تطبيقات كيو آبز: خزنة الضمانات و«كم مضى وكم بقي». تطبيقات خاصة تعمل دون اتصال، بـ18 لغة.",
                   body, active="apps")
 
 
@@ -644,8 +650,8 @@ def app_overview_body(app, features_list, intro_en, intro_ar, extra=""):
     other_langs = " · ".join(LANG_META[L][0] for L in app["overview_langs"])
     availability = f'''<section class="section section-soft"><div class="container">
   {h(2, "Available languages", "اللغات المتوفّرة", "center")}
-  {p("Privacy Policy is available in every language below. App overview, tutorials, and support are available in English and Arabic.",
-     "سياسة الخصوصية متوفّرة بكل اللغات أدناه. أمّا نبذة التطبيق والشروحات والدعم فمتوفّرة بالعربية والإنجليزية.", "lead center")}
+  {p("The privacy policy is available in every language below, and the app's page, tutorials and support are available in all 18 languages of this website.",
+     "سياسة الخصوصية متوفّرة بكل اللغات أدناه، وصفحة التطبيق والشروحات والدعم متوفّرة بلغات هذا الموقع الـ18 كلها.", "lead center")}
   <div class="avail">
     <div class="avail-row">
       <span class="avail-label"><span data-en>Privacy Policy</span><span data-ar>سياسة الخصوصية</span></span>
@@ -1147,18 +1153,19 @@ def page_support_vault():
 # ---------------------------- contact & about ------------------------------
 
 def page_contact():
+    wa_card = (f'''<div class="card">
+      {h(3, "WhatsApp", "واتساب")}
+      <p style="font-size:1.15rem"><a href="{WHATSAPP_LINK}" target="_blank" rel="noopener" dir="ltr">{WHATSAPP_DISPLAY}</a></p>
+      {p("Message us on WhatsApp for the quickest reply.", "راسلنا على واتساب لأسرع ردّ.")}
+      <div style="margin-top:14px">{whatsapp_button()}</div>
+    </div>''' if SHOW_WHATSAPP else "")
     body = f'''{crumbs([("Home","الرئيسية","/"),("Contact","تواصل معنا",None)])}
 <section class="section"><div class="container prose">
   {h(1, "Contact us", "تواصل معنا")}
   {p("Questions, feedback, or need help with one of our apps? We'd love to hear from you.",
      "أسئلة أو ملاحظات أو تحتاج إلى مساعدة في أحد تطبيقاتنا؟ يسعدنا أن نسمع منك.", "lead")}
   <div class="grid grid-2" style="margin-top:24px">
-    <div class="card">
-      {h(3, "WhatsApp", "واتساب")}
-      <p style="font-size:1.15rem"><a href="{WHATSAPP_LINK}" target="_blank" rel="noopener" dir="ltr">{WHATSAPP_DISPLAY}</a></p>
-      {p("Message us on WhatsApp for the quickest reply.", "راسلنا على واتساب لأسرع ردّ.")}
-      <div style="margin-top:14px">{whatsapp_button()}</div>
-    </div>
+    {wa_card}
     <div class="card">
       {h(3, "Email", "البريد الإلكتروني")}
       <p style="font-size:1.15rem"><a href="mailto:{SUPPORT_EMAIL}">{SUPPORT_EMAIL}</a></p>
@@ -1210,7 +1217,7 @@ def page_about():
     {feature("🔒","Privacy by default","الخصوصية افتراضيًا","Your data belongs to you and stays on your device. No ads, no analytics, no tracking.","بياناتك مِلكك وتبقى على جهازك. بلا إعلانات ولا تحليلات ولا تتبّع.")}
     {feature("💬","Your voice counts","صوتك مسموع","We read every suggestion, and the good ones become features for everyone.","نقرأ كل اقتراح، والجيّد منها يصبح ميزة للجميع.")}
     {feature("✨","Simplicity","البساطة","We remove everything that gets in the way, so each app does its job quickly.","نزيل كل ما يعترض الطريق، ليؤدّي كل تطبيق مهمّته بسرعة.")}
-    {feature("🌍","Arabic &amp; English","العربية والإنجليزية","First-class Arabic with proper right-to-left layout, alongside English.","لغة عربية من الطراز الأول مع تخطيط سليم من اليمين إلى اليسار، إلى جانب الإنجليزية.")}
+    {feature("🌍","18 languages","18 لغة","Our apps and this website speak 18 languages, with first-class Arabic and a proper right-to-left layout.","تطبيقاتنا وهذا الموقع بـ18 لغة، مع عربية من الطراز الأول وتخطيط سليم من اليمين إلى اليسار.")}
     {feature("🛠️","Craftsmanship","الإتقان","Careful engineering and attention to the details that make apps reliable.","هندسة دقيقة واهتمام بالتفاصيل التي تجعل التطبيقات موثوقة.")}
   </div>
   {h(2, "Our apps", "تطبيقاتنا")}
@@ -1224,12 +1231,15 @@ def page_about():
     return render("/about/",
                   "About — Q Apps",
                   "من نحن — كيو آبز",
-                  "Q Apps makes valuable apps at tiny prices: pay once, yours for life — no subscriptions. In Arabic and English.",
-                  "كيو آبز تصنع تطبيقات قيّمة بأسعار زهيدة: ادفع مرّة ولك مدى الحياة — بلا اشتراكات. بالعربية والإنجليزية.",
+                  "Q Apps makes valuable apps at tiny prices: pay once, yours for life — no subscriptions. In 18 languages.",
+                  "كيو آبز تصنع تطبيقات قيّمة بأسعار زهيدة: ادفع مرّة ولك مدى الحياة — بلا اشتراكات. بـ18 لغة.",
                   body, active="about")
 
 
 def page_suggest():
+    wa_attr = f' data-wa="{WHATSAPP_NUMBER}"' if SHOW_WHATSAPP else ""
+    wa_fallback = ('<button class="btn btn-secondary" type="button" data-fb-wa><span data-en>Send on WhatsApp</span><span data-ar>أرسل عبر واتساب</span></button>\n'
+                   if SHOW_WHATSAPP else "")
     """/suggest/ — «Contact & suggest» (proposal proposals/qapps_feedback_proposal_ar.html,
     approved 2026-11-01): which app, four message types, and «Send» to the
     site's own database (functions/api/feedback.js) behind Turnstile and rate
@@ -1273,7 +1283,7 @@ def page_suggest():
   {h(1, "Contact &amp; suggest", "تواصل واقترح")}
   {p("Send us a message, an improvement, an idea for a new feature, or a problem you ran into. We read every message ourselves. When we find a good opportunity to build your idea, we add it for everyone — at no extra cost to you.",
      "أرسل لنا رسالة، أو اقتراح تحسين، أو فكرة ميزة جديدة، أو مشكلة واجهتك. نقرأ كل رسالة بأنفسنا، وإذا وجدنا فرصة مناسبة لتنفيذ فكرتك أضفناها للجميع — دون أي تكلفة إضافية عليك.", "lead")}
-  <form class="card suggest-form fb-form" data-fb-form data-sitekey="{TURNSTILE_SITE_KEY}" data-email="{SUPPORT_EMAIL}" data-wa="{WHATSAPP_NUMBER}" novalidate>
+  <form class="card suggest-form fb-form" data-fb-form data-sitekey="{TURNSTILE_SITE_KEY}" data-email="{SUPPORT_EMAIL}"{wa_attr} novalidate>
     <label><span class="lbl"><span data-en>Which app?</span><span data-ar>عن أي تطبيق؟</span></span>
       <select name="app">{options}</select></label>
     <fieldset class="fb-types"><legend class="lbl"><span data-en>What would you like to send?</span><span data-ar>ماذا تريد أن ترسل؟</span></legend>{type_html}</fieldset>
@@ -1290,8 +1300,7 @@ def page_suggest():
     <p class="fb-status" data-fb-status role="status" hidden></p>
     <div class="btn-row"><button class="btn btn-accent" type="submit" data-fb-submit><span data-en>Send</span><span data-ar>أرسل</span></button></div>
     <div class="fb-fallback" data-fb-fallback hidden>
-      <button class="btn btn-secondary" type="button" data-fb-wa><span data-en>Send on WhatsApp</span><span data-ar>أرسل عبر واتساب</span></button>
-      <button class="btn btn-secondary" type="button" data-fb-mail><span data-en>Send by email</span><span data-ar>أرسل بالبريد</span></button>
+      {wa_fallback}      <button class="btn btn-secondary" type="button" data-fb-mail><span data-en>Send by email</span><span data-ar>أرسل بالبريد</span></button>
     </div>
     <p class="fineprint" data-en>No files or pictures. We keep your message, and your name and contact only if you write them, to read and answer it — nothing else. See <a href="/privacy/#messages">Privacy</a>.</p>
     <p class="fineprint" data-ar>لا ملفات ولا صور. نحفظ رسالتك، واسمك وطريقة التواصل إن كتبتهما، لنقرأها ونرد عليها فقط. انظر <a href="/privacy/#messages">الخصوصية</a>.</p>
@@ -1480,8 +1489,8 @@ def render_home_and_collect():
     return render("/",
                   "Q Apps — Valuable apps at tiny prices, yours for life",
                   "كيو آبز — تطبيقات قيّمة بأسعار زهيدة، لك مدى الحياة",
-                  "Q Apps makes useful mobile apps you buy once at a small price and keep for life — no monthly or yearly subscriptions. In Arabic and English.",
-                  "كيو آبز تصنع تطبيقات جوّال مفيدة تشتريها مرّة واحدة بسعر زهيد وتبقى لك مدى الحياة — بلا اشتراكات شهرية أو سنوية. بالعربية والإنجليزية.",
+                  "Q Apps makes useful mobile apps you buy once at a small price and keep for life — no monthly or yearly subscriptions. In 18 languages.",
+                  "كيو آبز تصنع تطبيقات جوّال مفيدة تشتريها مرّة واحدة بسعر زهيد وتبقى لك مدى الحياة — بلا اشتراكات شهرية أو سنوية. بـ18 لغة.",
                   body, active="home")
 
 

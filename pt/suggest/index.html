@@ -43,7 +43,7 @@
 .fb-sent{text-align:center;display:grid;gap:12px;justify-items:center;padding:36px 24px}
 .fb-sent-icon{width:84px;height:84px;border-radius:50%;background:var(--mint-soft);display:grid;place-items:center;font-size:40px}
 </style>
-<script src="/assets/js/suggest.js?v=ef9b5349b0" defer></script>
+<script src="/assets/js/suggest.js?v=9d05161779" defer></script>
 <link rel="alternate" hreflang="en" href="https://qeuapps.com/suggest/">
 <link rel="alternate" hreflang="ar" href="https://qeuapps.com/suggest/">
 <link rel="alternate" hreflang="x-default" href="https://qeuapps.com/suggest/">
@@ -130,7 +130,7 @@
 .site-footer-min{padding:22px 0;margin-top:40px}
 .site-footer-min .footer-bottom{margin:0;padding:0;border:0;justify-content:center;text-align:center}
 </style>
-<script>window.QAPPS_T={"Please write a little more (at least 10 letters).": "Por favor, escreva um pouco mais (pelo menos 10 letras).", "Sending from the website is not ready yet — send it by WhatsApp or email below.": "O envio pelo site ainda não está pronto — envie pelo WhatsApp ou por e-mail abaixo.", "One moment — we are checking you are not a robot…": "Um momento — estamos verificando se você não é um robô…", "Sending…": "Enviando…", "You have sent several messages already — please try again later.": "Você já enviou várias mensagens — por favor, tente novamente mais tarde.", "We could not confirm you are not a robot. Please try again.": "Não conseguimos confirmar que você não é um robô. Por favor, tente novamente.", "Your message is too short or too long.": "Sua mensagem está curta demais ou longa demais.", "We could not send it from the website right now — send it by WhatsApp or email below.": "Não conseguimos enviar pelo site agora — envie pelo WhatsApp ou por e-mail abaixo.", "No connection to the website right now — send it by WhatsApp or email below.": "Sem conexão com o site agora — envie pelo WhatsApp ou por e-mail abaixo.", "Open all": "Abrir tudo", "Close all": "Fechar tudo"};</script>
+<script>window.QAPPS_T={"Please write a little more (at least 10 letters).": "Por favor, escreva um pouco mais (pelo menos 10 letras).", "Sending from the website is not ready yet — send it by email below.": "O envio pelo site ainda não está pronto — envie por e-mail abaixo.", "One moment — we are checking you are not a robot…": "Um momento — estamos verificando se você não é um robô…", "Sending…": "Enviando…", "You have sent several messages already — please try again later.": "Você já enviou várias mensagens — por favor, tente novamente mais tarde.", "We could not confirm you are not a robot. Please try again.": "Não conseguimos confirmar que você não é um robô. Por favor, tente novamente.", "Your message is too short or too long.": "Sua mensagem está curta demais ou longa demais.", "We could not send it from the website right now — send it by email below.": "Não conseguimos enviar pelo site agora — envie por e-mail abaixo.", "No connection to the website right now — send it by email below.": "Sem conexão com o site agora — envie por e-mail abaixo.", "Open all": "Abrir tudo", "Close all": "Fechar tudo"};</script>
 </head>
 <body>
 <a class="skip" href="#main"><span>Pular para o conteúdo</span></a>
@@ -146,7 +146,7 @@
 <section class="section"><div class="container prose">
   <h1>Contato &amp; sugestões</h1>
   <p class="lead">Envie uma mensagem, uma melhoria, uma ideia de novo recurso ou um problema que você encontrou. Nós mesmos lemos cada mensagem. Quando vemos uma boa oportunidade de criar a sua ideia, nós a adicionamos para todos — sem custo extra para você.</p>
-  <form class="card suggest-form fb-form" data-fb-form data-sitekey="" data-email="qeuapps@gmail.com" data-wa="966554260804" novalidate>
+  <form class="card suggest-form fb-form" data-fb-form data-sitekey="" data-email="qeuapps@gmail.com" novalidate>
     <label><span class="lbl"><span>Qual app?</span></span>
       <select name="app"><option value="vault" data-en="Vault — Warranty Manager">Vault — Warranty Manager</option><option value="countdown-keeper" data-en="Countdown Keeper">Countdown Keeper</option><option value="new-app" data-en="An idea for a new app">Uma ideia para um novo app</option><option value="general" data-en="The website / in general">O site / em geral</option></select></label>
     <fieldset class="fb-types"><legend class="lbl"><span>O que você gostaria de enviar?</span></legend><label class="fb-type"><input type="radio" name="type" value="message" data-label-en="Message or question" data-q-en="Escreva sua mensagem" data-ph-en="Olá, é possível…"><span><i aria-hidden="true">💬</i><span>Mensagem ou pergunta</span></span></label><label class="fb-type"><input type="radio" name="type" value="improve" data-label-en="Improvement" data-q-en="O que poderia ser melhor? E como?" data-ph-en="Seria melhor se…"><span><i aria-hidden="true">💡</i><span>Melhoria</span></span></label><label class="fb-type"><input type="radio" name="type" value="feature" checked data-label-en="New feature idea" data-q-en="Que recurso você gostaria de ter? E por que você precisa dele?" data-ph-en="Eu gostaria de poder… porque…"><span><i aria-hidden="true">🚀</i><span>Ideia de novo recurso</span></span></label><label class="fb-type"><input type="radio" name="type" value="problem" data-label-en="A problem I had" data-q-en="O que você fez? O que aconteceu? O que você esperava?" data-ph-en="Eu toquei em… depois… e esperava que…"><span><i aria-hidden="true">🐞</i><span>Um problema que tive</span></span></label></fieldset>
@@ -163,8 +163,7 @@
     <p class="fb-status" data-fb-status role="status" hidden></p>
     <div class="btn-row"><button class="btn btn-accent" type="submit" data-fb-submit><span>Enviar</span></button></div>
     <div class="fb-fallback" data-fb-fallback hidden>
-      <button class="btn btn-secondary" type="button" data-fb-wa><span>Enviar pelo WhatsApp</span></button>
-      <button class="btn btn-secondary" type="button" data-fb-mail><span>Enviar por e-mail</span></button>
+            <button class="btn btn-secondary" type="button" data-fb-mail><span>Enviar por e-mail</span></button>
     </div>
     <p class="fineprint">Sem arquivos nem fotos. Guardamos sua mensagem, e seu nome e contato apenas se você os escrever, para lê-la e respondê-la — nada mais. Veja <a href="/pt/privacy/#messages">Privacidade</a>.</p>
     

@@ -173,7 +173,7 @@ by the owner on **`/admin/`**.
 | `functions/api/admin/messages.js` | `GET`/`POST /api/admin/messages` — the dashboard's data (Access only) |
 | `lib/feedback/` | shared rules + the Cloudflare Access token check |
 | `migrations/0001_feedback.sql` | the tables (the API also creates them on first use) |
-| `assets/js/suggest.js` | the form; falls back to WhatsApp/email if the system is not ready |
+| `assets/js/suggest.js` | the form; falls back to email if the system is not ready (WhatsApp hidden since 9 Nov 2026: `SHOW_WHATSAPP = False` in tools/build.py) |
 | `admin/index.html` | the owner's dashboard (hand-written, not generated) |
 
 Protection: site-only origin, hidden honeypot field, minimum 2 s on the page,
@@ -181,7 +181,7 @@ field checks, **Turnstile**, 5 messages/hour and 10/day per visitor (salted
 daily fingerprint of the address, deleted after 24 h), 300/day for the whole
 site, and messages with more than 2 links are flagged. The admin API verifies
 the **Cloudflare Access** token itself (signature, audience, issuer, expiry) and
-fails closed. Until everything below is set, the form offers WhatsApp/email
+fails closed. Until everything below is set, the form offers email
 instead, so nothing breaks.
 
 ### One-time setup (Cloudflare dashboard)
