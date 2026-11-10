@@ -218,8 +218,9 @@ APPS = {
         "icon": "/assets/img/apps/countdown/icon.png",
         "tagline_en": "Count down to what matters — and count up from what already happened.",
         "tagline_ar": "عُدّ تنازليًا لما يهمّك، وتصاعديًا لما مضى من أحداثك.",
-        "status": "live",   # App Store (2026-11); Google Play not yet
+        "status": "live",   # App Store (2026-11); Google Play since 2026-11-10
         "appstore": "https://apps.apple.com/app/id6806348941",
+        "playstore": "https://play.google.com/store/apps/details?id=com.eventcounter.countdown",
         # The owner's Arabic playlist «شرح تطبيق كم مضى وكم بقي» on @qeuapps-ar (promo + 7 tutorials, 2026-11-06).
         # Arabic playlist for Arabic visitors, English playlist for every other language.
         "youtube": "https://www.youtube.com/playlist?list=PLcZVEfdjz66U",
@@ -1092,8 +1093,8 @@ def support_page(slug, title_en, title_ar, desc_en, desc_ar, faqs, trouble):
 def page_support_countdown():
     faqs = [
         ("Is Countdown Keeper free?", "هل تطبيق «كم مضى وكم بقي» مجاني؟",
-         "The app is in development and will be available on the App Store and Google Play soon.",
-         "التطبيق قيد التطوير وسيتوفّر قريبًا على App Store وGoogle Play."),
+         "You can start free with up to 5 dates. Lifetime Access is a single payment that removes the limit — no subscription.",
+         "تبدأ مجانًا بما يصل إلى 5 أحداث. و«الوصول مدى الحياة» دفعة واحدة ترفع الحدّ — بلا اشتراك."),
         ("Will my data sync between devices?", "هل تتزامن بياناتي بين الأجهزة؟",
          "No. Data is stored on each device. Use the JSON export/import to move events between devices.",
          "لا. تُخزَّن البيانات على كل جهاز. استخدم تصدير/استيراد JSON لنقل المناسبات بين الأجهزة."),

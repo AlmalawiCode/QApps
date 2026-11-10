@@ -11,7 +11,7 @@ celebrations (examples are graduation, first job, marriage, home, travel,
 last installment, retirement); free tier = 5 events (FreeTierLimits.maxEvents);
 the full version is a one-time Lifetime Access. 9 card styles (three were
 removed from EventCardLayout), 8 sort orders, 6 counter units, 5 date tools.
-Live on the App Store; Google Play not yet.
+Live on the App Store and on Google Play (since 2026-11-10).
 """
 
 import docmatic_page
@@ -128,7 +128,7 @@ def build_page(render, h, p, crumbs, app, store_button):
   <div class="dm-hero-copy">
     <div class="dm-brand"><img src="{app['icon']}" alt="Countdown Keeper icon" width="64" height="64">
       <div><strong data-en>Countdown Keeper</strong><strong data-ar>كم مضى وكم بقي</strong>{two("How long since, how long until", "عدّادات لتواريخك المهمة", "small")}</div></div>
-    <span class="dm-dev">{two("Now on the App Store · Google Play soon", "متاح الآن على App Store · وقريبًا على Google Play")}</span>
+    <span class="dm-dev">{two("Available now on the App Store &amp; Google Play", "متاح الآن على App Store وGoogle Play")}</span>
     {h(1, "How long has it been? <em>How long is left?</em>", "كم مضى؟ <em>وكم بقي؟</em>")}
     {p("Your graduation, your marriage, your first day at work, the day you moved into your home — and the retirement or trip still ahead. Live counters for the dates that made your story, in Hijri and Gregorian — "
        f"{N_MAIN} main features and {N_SUB} tools inside them.",
@@ -315,8 +315,8 @@ def build_page(render, h, p, crumbs, app, store_button):
          "Neither. It works offline and your data stays on your phone.",
          "لا هذا ولا ذاك. يعمل دون إنترنت، وتبقى بياناتك على جوالك."),
         ("Is it on Google Play?", "هل هو على Google Play؟",
-         "It is on the App Store now, and coming soon to Google Play.",
-         "هو على App Store الآن، وقريبًا على Google Play."),
+         "Yes. It is on Google Play and on the App Store.",
+         "نعم. هو متاح على Google Play وعلى App Store."),
     ]
     faq_html = "".join(
         f'<details><summary>{two(qe, qa)}</summary><p data-en>{ae}</p><p data-ar>{aa}</p></details>'

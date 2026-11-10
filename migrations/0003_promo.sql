@@ -72,5 +72,10 @@ INSERT OR IGNORE INTO apps (id, slug, name_ar, name_en, apple_store_url, play_st
     'https://play.google.com/store/apps/details?id=com.vault.warranty',
     'https://apps.apple.com/redeem?ctx=offercodes&id=6773164894&code=FREE500', 500, 1, 1),
    (2, 'countdown-keeper', 'كم مضى وكم بقي', 'Countdown Keeper',
-    'https://apps.apple.com/app/id6806348941', NULL, NULL, NULL, 1, 0),
+    'https://apps.apple.com/app/id6806348941',
+    'https://play.google.com/store/apps/details?id=com.eventcounter.countdown', NULL, NULL, 1, 0),
    (3, 'docmatic', 'DocMatic', 'DocMatic', NULL, NULL, NULL, NULL, 1, 0);
+
+-- Countdown Keeper reached Google Play on 2026-11-10 (for a database seeded before that).
+UPDATE apps SET play_store_url = 'https://play.google.com/store/apps/details?id=com.eventcounter.countdown'
+ WHERE slug = 'countdown-keeper' AND play_store_url IS NULL;
