@@ -54,6 +54,8 @@ HTML**: Cloudflare Pages re-runs the builder on every deploy, so hand edits to
 generated files are overwritten. The Vault campaign page (`/vault/`,
 `/vault-new/`) is the one hand-tuned page; edit it in
 `tools/templates/vault-campaign.html` and the builder copies it into place.
+Countdown Keeper has the same kind of page at `/countdown/`
+(`tools/templates/countdown-campaign.html`, since 2026-11-11).
 
 ### Bilingual content
 
@@ -244,6 +246,7 @@ behind `api.thiban1.com`):
 
 - **Where:** a «🎁 free full version» section at the bottom of `/apps/vault/`
   (plus a badge in the hero), and the campaign links `/vault/` and `/vault-new/`.
+  Countdown Keeper: the same section on `/apps/countdown-keeper/` and the campaign link `/countdown/`.
   The section stays hidden unless `/api/promo/status` says the offer is on.
 - **Android:** one Google Play promo code per device. **Apple:** one shared offer
   link (`FREE500`, limit 500 — Apple enforces it; we only count taps).

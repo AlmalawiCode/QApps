@@ -1459,6 +1459,19 @@ def page_vaultnew():
         f.write(html)
 
 
+def page_countdown_campaign():
+    """/countdown/ — Countdown Keeper campaign page (free full version), the
+    same idea as /vault/. Hand-tuned in tools/templates/countdown-campaign.html;
+    noindex and not in the sitemap. Works while the offer is on for
+    'countdown-keeper' in /admin/promo/."""
+    with open(os.path.join(HERE, "templates", "countdown-campaign.html"), encoding="utf-8") as f:
+        html = f.read().replace("__TURNSTILE_SITE_KEY__", TURNSTILE_SITE_KEY)
+    out_dir = os.path.join(ROOT, "countdown")
+    os.makedirs(out_dir, exist_ok=True)
+    with open(os.path.join(out_dir, "index.html"), "w", encoding="utf-8") as f:
+        f.write(html)
+
+
 def main():
     urls = []
     urls.append(render_home_and_collect())
@@ -1485,6 +1498,7 @@ def main():
         priv_count += len(localized)
     page_vault_redirect()  # branded /vault redirect, not in sitemap
     page_vaultnew()  # v2 campaign frontend (staging), not in sitemap
+    page_countdown_campaign()  # /countdown/ campaign page, not in sitemap
     page_404()  # not in sitemap
     # The other 16 languages: /<lang>/… copies of the pages above
     # (tools/site_i18n.py, texts in content/site/<lang>.json).
