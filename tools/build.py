@@ -695,7 +695,17 @@ def app_overview_body(app, features_list, intro_en, intro_ar, extra=""):
 def page_app_countdown():
     """/apps/countdown-keeper/ — long hand-tuned page kept in tools/countdown_page.py."""
     import countdown_page
-    return countdown_page.build_page(render, h, p, crumbs, APPS["countdown-keeper"], store_button)
+    import promo_section
+    a = APPS["countdown-keeper"]
+    # Same free offer as Vault (Google Play codes since 2026-11-11). Hidden until
+    # the offer is switched on for this app in /admin/promo/.
+    promo = (promo_section.badge(),
+             promo_section.section("countdown-keeper", a["appstore"], a["playstore"],
+                                   "Activate the offer and the full version is yours for life — no subscription, nothing to pay later. Without the offer, the app is free for up to 5 dates.",
+                                   "فعّل العرض وتصبح النسخة الكاملة لك مدى الحياة — بلا اشتراك وبلا رسوم لاحقًا. وبدون العرض، التطبيق مجاني حتى 5 أحداث.",
+                                   TURNSTILE_SITE_KEY, PROMO_JS_SRC),
+             promo_section.CSS)
+    return countdown_page.build_page(render, h, p, crumbs, a, store_button, promo)
 
 
 def page_app_docmatic():

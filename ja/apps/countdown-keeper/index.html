@@ -139,6 +139,37 @@ html[dir="rtl"] .dm-suggest-tx b{font-family:var(--f-display-ar)}
   .dm-n3 .dm-phone:nth-child(2){margin-top:0}
   .dm-story-text p{font-size:17px}
 }
+
+.pf-wrap[hidden],.pf-wrap [hidden],.pf-badge[hidden]{display:none!important}
+.pf-badge{display:inline-flex;align-items:center;gap:6px;background:var(--accent-soft);color:var(--ink);border:1.5px dashed var(--accent);border-radius:999px;padding:6px 14px;font-weight:700;font-size:14.5px;text-decoration:none;width:max-content;max-width:100%}
+.pf-badge:hover{color:var(--ink);text-decoration:none;transform:translateY(-1px)}
+.pf-wrap{padding-top:0}
+.pf{background:var(--night);color:var(--on-night);border-radius:var(--radius);padding:36px;display:grid;gap:22px}
+.pf-head{display:flex;gap:16px;align-items:flex-start}
+.pf-gift{font-size:44px;line-height:1}
+.pf h2{color:#fff;font-size:clamp(26px,3.4vw,40px);margin:0 0 6px}
+.pf-head p{color:var(--on-night-muted);margin:0;font-size:17px}
+.pf-left{display:inline-block;margin-inline-start:8px;background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:0 10px;font-size:14px}
+.pf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.pf-card{background:var(--night-2);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius-sm);padding:20px;display:grid;gap:10px;align-content:start}
+.pf-card h3{color:#fff;font-size:19px;margin:0 0 4px}
+.pf-card [data-pf-state]{display:grid;gap:10px}
+.pf-card [data-pf-state][hidden]{display:none}
+.pf-btn{display:flex;align-items:center;justify-content:center;gap:10px;border-radius:14px;padding:13px 16px;font:inherit;font-weight:700;font-size:16px;text-decoration:none;cursor:pointer;border:1.5px solid transparent;transition:transform .2s;width:100%}
+.pf-btn:hover{transform:translateY(-1px);text-decoration:none}
+.pf-btn i{font-style:normal;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;font-size:13px;background:rgba(0,0,0,.18)}
+.pf-btn-1{background:var(--accent);color:var(--accent-ink)}
+.pf-btn-1:hover{color:var(--accent-ink)}
+.pf-btn-2{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.pf-btn-2:hover{color:#fff;border-color:#fff}
+.pf-btn[disabled]{opacity:.6;cursor:wait}
+.pf-note{color:var(--on-night-muted);font-size:14px;margin:0}
+.pf-msg{color:#fff;margin:0}
+.pf-code{border:2px dashed var(--accent);border-radius:14px;text-align:center;font-family:var(--f-mono);font-size:clamp(16px,4.6vw,22px);font-weight:700;letter-spacing:1px;padding:12px 8px;color:#fff;word-break:break-all;user-select:all}
+.pf-fine{color:var(--on-night-muted);font-size:14px;margin:0}
+.pf-fine a{color:var(--on-night);margin-inline-start:6px}
+.pf-ts:empty{display:none}
+@media (max-width:620px){.pf{padding:22px}.pf-gift{font-size:34px}}
 </style>
 <link rel="alternate" hreflang="en" href="https://qeuapps.com/apps/countdown-keeper/">
 <link rel="alternate" hreflang="ar" href="https://qeuapps.com/apps/countdown-keeper/">
@@ -246,6 +277,7 @@ html[dir="rtl"] .dm-suggest-tx b{font-family:var(--f-display-ar)}
     <h1>あれからどれくらい？<em>あとどれくらい？</em></h1>
     <p class="lead">卒業、結婚、初出勤の日、新しい家に引っ越した日。そしてこれから迎える退職や旅行。あなたの物語をつくった日付を、ヒジュラ暦と西暦のライブカウンターで。14 の主な機能と、その中に 53 のツール。</p>
     <div class="stores" style="align-items:center"><a class="store-btn" href="https://apps.apple.com/app/id6806348941" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 1.6c.1 1-.3 2-1 2.8-.7.8-1.8 1.4-2.9 1.3-.1-1 .4-2 1-2.7.7-.8 1.9-1.4 2.9-1.4zM19 17.3c-.5 1.2-.8 1.7-1.5 2.8-1 1.5-2.3 3.3-4 3.3-1.5 0-1.9-1-4-1-2 0-2.5 1-4 1-1.6 0-2.9-1.6-3.9-3.1-2.7-4.2-3-9.1-1.3-11.7 1.2-1.8 3-2.9 4.8-2.9 1.8 0 2.9 1 4.4 1 1.4 0 2.3-1 4.4-1 1.6 0 3.2.9 4.4 2.4-3.9 2.1-3.2 7.6.2 9.1z"/></svg><span><small>ダウンロード</small><strong>App Store</strong></span></a><a class="store-btn" href="https://play.google.com/store/apps/details?id=com.eventcounter.countdown" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.6 2.2c-.3.3-.5.7-.5 1.3v17c0 .6.2 1 .5 1.3l.1.1L13 12.6v-.2L3.7 2.1l-.1.1zm11.9 8.5L5.9 1.4l11.7 6.7-2.1 2.6zM5.9 22.6l9.6-9.3 2.1 2.6-11.7 6.7zM19.6 9.3l-2.5 1.4 2.4 3-2.4 3 2.5 1.4c.9-.5 1.5-1.3 1.5-2.4v-4c0-1.1-.6-1.9-1.5-2.4l-.5.6.5-.6z"/></svg><span><small>入手する</small><strong>Google Play</strong></span></a><a class="store-btn" style="background:#c4302b" href="https://www.youtube.com/playlist?list=PLddSF_yBnl8A" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7.5s-.2-1.6-.9-2.3c-.9-.9-1.8-.9-2.3-1C16.6 4 12 4 12 4s-4.6 0-7.8.2c-.5.1-1.4.1-2.3 1C1.2 5.9 1 7.5 1 7.5S.8 9.4.8 11.3v1.4C.8 14.6 1 16.5 1 16.5s.2 1.6.9 2.3c.9.9 2 .9 2.6 1 1.9.2 7.5.2 7.5.2s4.6 0 7.8-.3c.5-.1 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.8v-1.4c0-1.9-.2-3.7-.2-3.7zM9.8 15.1V8.9l6 3.1-6 3.1z"/></svg><span><small>チュートリアル</small><strong>YouTube</strong></span></a></div>
+    <a class="pf-badge" href="#free" data-pf-badge hidden><span>🎁 期間限定でフルバージョンが無料 ↓</span></a>
   </div>
   <div class="dm-hero-stage">
     <button type="button" class="dm-phone dm-p1" data-zoom="home" aria-label="Countdown Keeper のホーム画面"><img src="/assets/img/apps/countdown/home_ja.webp" alt="Countdown Keeper のホーム画面" loading="eager" width="620" height="1341"></button>
@@ -408,7 +440,61 @@ html[dir="rtl"] .dm-suggest-tx b{font-family:var(--f-display-ar)}
     </span>
     <span class="dm-suggest-go"><span>機能を提案する →</span></span>
   </a>
-</div></section><section style="padding-top:0"><div class="container"><div class="cta-band">
+</div></section><section id="free" class="pf-wrap" data-promo-app="countdown-keeper" data-sitekey="" hidden><div class="container">
+<div class="pf">
+  <div class="pf-head">
+    <span class="pf-gift" aria-hidden="true">🎁</span>
+    <div>
+      <h2>フルバージョンが無料、しかもずっと</h2>
+      <p><span>数量限定・期間限定です。まずダウンロードしてから、特典を有効にしてください。</span>
+      <b class="pf-left" data-pf-left hidden></b></p>
+    </div>
+  </div>
+  <div class="pf-grid" data-pf-grid>
+    <div class="pf-card" data-pf-apple hidden>
+      <h3>🍎 iPhone と iPad</h3>
+      <a class="pf-btn pf-btn-2" href="https://apps.apple.com/app/id6806348941" target="_blank" rel="noopener" data-pf-kind="download" data-pf-platform="ios">
+        <i>1</i><span>App Store からダウンロード</span></a>
+      <a class="pf-btn pf-btn-1" href="#" target="_blank" rel="noopener" data-pf-kind="redeem" data-pf-platform="ios" data-pf-apple-redeem>
+        <i>2</i><span>無料特典を有効にする</span></a>
+      <p class="pf-note"><span>ステップ 2 では、オファーコードが入力済みの状態で App Store が開きます。</span></p>
+    </div>
+    <div class="pf-card" data-pf-android hidden>
+      <h3>🤖 Android</h3>
+      <div data-pf-state="intro">
+        <a class="pf-btn pf-btn-2" href="https://play.google.com/store/apps/details?id=com.eventcounter.countdown" target="_blank" rel="noopener" data-pf-kind="download" data-pf-platform="android">
+          <i>1</i><span>Google Play からダウンロード</span></a>
+        <button type="button" class="pf-btn pf-btn-1" data-pf-claim>
+          <i>2</i><span>オファーコードを受け取る</span></button>
+        <p class="pf-note"><span>あなた専用のコードで、1 回のみ使えます。</span></p>
+      </div>
+      <div data-pf-state="code" hidden>
+        <p class="pf-note"><span>あなたのオファーコード：</span></p>
+        <div class="pf-code" data-pf-code dir="ltr"></div>
+        <a class="pf-btn pf-btn-1" href="#" target="_blank" rel="noopener" data-pf-kind="redeem" data-pf-platform="android" data-pf-play-redeem>
+          <span>Google Play でコードを有効にする ›</span></a>
+        <button type="button" class="pf-btn pf-btn-2" data-pf-copy><span>コードをコピー</span></button>
+        <p class="pf-note" data-pf-copied hidden><span>コピーしました ✓</span></p>
+      </div>
+      <div data-pf-state="empty" hidden>
+        <p class="pf-msg">💛 <span>無料コードはすべて配布済みです。</span></p>
+        <a class="pf-btn pf-btn-2" href="https://play.google.com/store/apps/details?id=com.eventcounter.countdown" target="_blank" rel="noopener" data-pf-kind="download" data-pf-platform="android"><span>Google Play からダウンロード</span></a>
+      </div>
+      <div data-pf-state="limit" hidden>
+        <p class="pf-msg"><span>この接続からのコード取得は本日の上限に達しました。明日もう一度お試しください。</span></p>
+      </div>
+      <div data-pf-state="error" hidden>
+        <p class="pf-msg"><span>コードを取得できませんでした。もう一度お試しください。</span></p>
+        <button type="button" class="pf-btn pf-btn-2" data-pf-retry><span>もう一度試す</span></button>
+      </div>
+      <div class="pf-ts" data-pf-ts></div>
+    </div>
+  </div>
+  <p class="pf-fine"><span>特典を有効にすると、フルバージョンがずっとあなたのものに。サブスクリプションも、あとからの支払いもありません。特典がなくても、日付 5 件までは無料で使えます。</span>
+    <a href="/ja/privacy/#free"><span>保存する情報</span></a></p>
+</div>
+</div></section>
+<script src="/assets/js/promo.js?v=2166568650" defer></script><section style="padding-top:0"><div class="container"><div class="cta-band">
   <div>
     <h2>あれからどれくらい？あとどれくらい？</h2>
     <p>大切な日付をすべてひとつの場所に。いつでもひと目でわかります。</p>
