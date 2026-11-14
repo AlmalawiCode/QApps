@@ -249,7 +249,12 @@ behind `api.thiban1.com`):
   Countdown Keeper: the same section on `/apps/countdown-keeper/` and the campaign link `/countdown/`.
   The section stays hidden unless `/api/promo/status` says the offer is on.
 - **Android:** one Google Play promo code per device. **Apple:** one shared offer
-  link (`FREE500`, limit 500 — Apple enforces it; we only count taps).
+  link (`FREE500`, limit 500 — Apple enforces it; we only count taps), or, when
+  the app has App Store one-time offer codes in the database (platform `ios`),
+  one code per device exactly like Android; «activate» opens
+  `apps.apple.com/redeem?ctx=offercodes&id=<app id>&code=<code>`. Countdown
+  Keeper: 99 App Store codes loaded 2026-11-14 (add more on `/admin/promo/`,
+  store «App Store»).
 - **Tables** (same D1 database `qapps-feedback`, `migrations/0003_promo.sql`,
   also created on first use by `lib/promo/common.js`):
   `apps` (store links, App Store offer link, on/off, end date) ·

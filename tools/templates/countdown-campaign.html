@@ -8,9 +8,12 @@
      (POST /api/promo/claim, Cloudflare D1). No code list ever reaches the
      browser — only the single code for this device. Taps and visits go to the
      site's download statistic (/api/promo/e).
-     Apple: the «activate the offer» step shows only when an App Store offer
-     link is set for this app in /admin/promo/; until then the Apple card is a
-     plain download button with a note that the free offer is on Android.
+     Apple (since 2026-11-14): when the database has App Store one-time offer
+     codes for this app (platform ios), the Apple card hands out one code per
+     device exactly like Android, and «activate» opens the App Store redeem
+     sheet with that code filled in. Otherwise the «activate the offer» step
+     shows only when a shared App Store offer link is set in /admin/promo/;
+     with neither, the Apple card is a plain download button.
      ======================================================================= -->
 <html lang="ar" dir="rtl">
 <head>
@@ -487,6 +490,7 @@
         <svg class="ic title-mark-apple"><use href="#ic-apple"/></svg>
         <h2>أبل — آيفون وآيباد</h2>
       </div>
+      <div id="appleIntro">
       <div class="steps steps-compact" id="appleSteps" style="grid-template-columns:1fr">
         <div class="step">
           <button class="button button-badge" onclick="openAppleStore()">
@@ -509,11 +513,60 @@
             مجانًا حتى 5 أحداث.
           </p>
         </div>
+
+        <div class="step hidden" id="appleStep2Code">
+          <button class="button button-green" id="getBtnIos" onclick="requestCode('ios')">
+            <span class="btn-num-inline">2</span>
+            <span>احصل على كود العرض</span>
+            <span>›</span>
+          </button>
+          <p class="step-note">
+            العرض محدود بالعدد والمدة، وبعد انتهائه يمكنك استخدام التطبيق
+            مجانًا حتى 5 أحداث.
+          </p>
+        </div>
       </div>
       <p class="step-note" id="appleNoOffer">
         العرض المجاني متاح حاليًا لأجهزة أندرويد. على آيفون وآيباد يمكنك
         استخدام التطبيق مجانًا حتى 5 أحداث.
       </p>
+      </div>
+
+      <div id="tsBoxIos" style="margin-top:10px"></div>
+
+      <!-- state: success (one App Store code) -->
+      <div id="appleResult" class="hidden">
+        <p class="code-label">كود العرض الخاص بك:</p>
+        <div id="codeBoxIos" class="code-box"></div>
+        <button class="button button-green" onclick="redeemOnApple()">
+          <svg class="ic btn-logo"><use href="#ic-apple"/></svg>
+          <span>فعِّل الكود في App Store</span>
+          <span>›</span>
+        </button>
+        <button class="button button-outline" onclick="copyCode('ios')">
+          <span>نسخ الكود</span>
+        </button>
+      </div>
+
+      <!-- state: App Store codes exhausted -->
+      <div id="appleEmpty" class="hidden">
+        <p class="msg"><span class="big">💛</span>
+          عذرًا، نفدت الأكواد المجانية حاليًا لاكتمال العدد.</p>
+        <p class="msg">ما زال بإمكانك تحميل التطبيق والاستفادة من النسخة المجانية.</p>
+        <button class="button button-green" onclick="openAppleStore()">
+          <svg class="ic btn-logo"><use href="#ic-apple"/></svg>
+          <span>حمّل من App Store</span>
+          <span>›</span>
+        </button>
+      </div>
+
+      <!-- state: transient error -->
+      <div id="appleError" class="hidden">
+        <p class="msg">تعذّر الحصول على الكود. حاول مرة أخرى.</p>
+        <button class="button button-green" onclick="retry('ios')">
+          <span>إعادة المحاولة</span>
+        </button>
+      </div>
     </section>
 
     <!-- Android -->
@@ -537,7 +590,7 @@
           <div class="arrow">←</div>
 
           <div class="step">
-            <button class="button button-green" id="getBtn" onclick="requestCode()">
+            <button class="button button-green" id="getBtn" onclick="requestCode('android')">
               <span class="btn-num-inline">2</span>
               <span>احصل على كود العرض</span>
               <span>›</span>
@@ -561,7 +614,7 @@
           <span>فعِّل الكود في Google Play</span>
           <span>›</span>
         </button>
-        <button class="button button-outline" onclick="copyCode()">
+        <button class="button button-outline" onclick="copyCode('android')">
           <span>نسخ الكود</span>
         </button>
       </div>
@@ -581,7 +634,7 @@
       <!-- state: transient error -->
       <div id="androidError" class="hidden">
         <p class="msg">تعذّر الحصول على الكود. حاول مرة أخرى.</p>
-        <button class="button button-green" onclick="retry()">
+        <button class="button button-green" onclick="retry('android')">
           <span>إعادة المحاولة</span>
         </button>
       </div>
@@ -625,6 +678,9 @@
     // app-details listing (step 1) has no code-entry field, so redeeming
     // goes through this link or the manual path in the instructions.
     var PLAY_REDEEM_BASE = 'https://play.google.com/redeem?code=';
+    // App Store one-time offer codes: the redeem sheet with the code filled in
+    // (also sent by /api/promo/status as apple.redeem).
+    var APPLE_REDEEM_BASE = 'https://apps.apple.com/redeem?ctx=offercodes&id=6806348941&code=';
 
     // ---- Backend: the site's own API (same origin, Cloudflare D1) ----------
     var APP = 'countdown-keeper';
@@ -635,11 +691,24 @@
     // Testing: ?promo-reset forgets this device's code (the owner first puts
     // the code back with «↩ إرجاع» in /admin/promo/).
     if (/[?&]promo-reset\b/.test(location.search)) {
-      try { localStorage.removeItem('qapps_promo_rid_' + APP); localStorage.removeItem('qapps_promo_code_' + APP); } catch (e) {}
+      try {
+        localStorage.removeItem('qapps_promo_rid_' + APP);
+        localStorage.removeItem(codeKey('android'));
+        localStorage.removeItem(codeKey('ios'));
+      } catch (e) {}
     }
+    // Android keeps its original key (codes given before iOS codes existed).
+    function codeKey(p) { return 'qapps_promo_code_' + (p === 'ios' ? 'ios_' : '') + APP; }
     var REQUEST_ID = getRequestId();
-    var currentCode = '';
-    var inFlight = false;
+    var currentCode = { ios: '', android: '' };
+    var inFlight = { ios: false, android: false };
+    // Per platform: the card's element ids and button label.
+    var UI = {
+      android: { btn: 'getBtn', box: 'codeBox', ts: '#tsBox',
+                 states: ['androidIntro', 'androidResult', 'androidEmpty', 'androidError'] },
+      ios:     { btn: 'getBtnIos', box: 'codeBoxIos', ts: '#tsBoxIos',
+                 states: ['appleIntro', 'appleResult', 'appleEmpty', 'appleError'] }
+    };
 
     function getRequestId() {
       var k = 'qapps_promo_rid_' + APP;
@@ -694,7 +763,7 @@
     var EVENTS = {
       visit: ['visit', ''], apple_click: ['download', 'ios'], apple_redeem: ['redeem', 'ios'],
       play_click: ['download', 'android'], play_redeem: ['redeem', 'android'],
-      copy_click: ['copy', 'android']
+      copy_click: ['copy', 'android'], apple_copy: ['copy', 'ios']
     };
     function track(event) {
       var e = EVENTS[event];
@@ -709,22 +778,29 @@
     fetch('/api/promo/status?app=' + APP, { cache: 'no-store' })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (st) {
-        if (!(st && st.ok && st.apple && st.apple.url)) return;
+        if (!(st && st.ok && st.apple)) return;
+        if (st.apple.redeem) APPLE_REDEEM_BASE = st.apple.redeem;
+        var step2;
+        if (st.apple.codes) step2 = 'appleStep2Code';          // one code per device
+        else if (st.apple.url) { APPLE_REDEEM_URL = st.apple.url; step2 = 'appleStep2'; }   // shared link
+        else if (st.apple.total && st.active) { if (!currentCode.ios) show('ios', 'appleEmpty'); return; }   // codes all taken
+        else return;
         // An App Store offer exists: show step 2 beside the download button.
-        APPLE_REDEEM_URL = st.apple.url;
         document.getElementById('appleArrow').classList.remove('hidden');
-        document.getElementById('appleStep2').classList.remove('hidden');
+        document.getElementById(step2).classList.remove('hidden');
         document.getElementById('appleNoOffer').classList.add('hidden');
         document.getElementById('appleSteps').style.gridTemplateColumns = '';
       })
       .catch(function () {});
 
     // A code this device already got is shown again straight away.
-    (function showSavedCode() {
-      try {
-        var saved = localStorage.getItem('qapps_promo_code_' + APP);
-        if (saved) { currentCode = saved; document.getElementById('codeBox').textContent = saved; showAndroid('androidResult'); }
-      } catch (e) {}
+    (function showSavedCodes() {
+      ['android', 'ios'].forEach(function (p) {
+        try {
+          var saved = localStorage.getItem(codeKey(p));
+          if (saved) showCode(p, saved);
+        } catch (e) {}
+      });
     })();
 
     // ---- Platform-aware card order: reorder, never hide/redirect ----------
@@ -790,102 +866,110 @@
       window.open(PLAY_URL, '_blank');
     }
 
-    // ---- Android step 2: request one code ----------------------------------
-    function requestCode() {
-      if (inFlight) return;            // guard against rapid double-clicks
-      inFlight = true;
-      track('android_request');
-      var btn = document.getElementById('getBtn');
+    // ---- Step 2 (Android, and Apple with codes): request one code ----------
+    function requestCode(p) {
+      if (inFlight[p]) return;         // guard against rapid double-clicks
+      inFlight[p] = true;
+      var btn = document.getElementById(UI[p].btn);
       btn.disabled = true;
       btn.innerHTML = '<span class="spinner"></span> جارٍ الحصول على الكود...';
 
-      withTurnstile(function (token) {
+      withTurnstile(p, function (token) {
         fetch('/api/promo/claim', {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ app: APP, rid: REQUEST_ID, token: token, src: SOURCE, lang: 'ar', page: location.pathname }),
+          body: JSON.stringify({ app: APP, platform: p, rid: REQUEST_ID, token: token, src: SOURCE, lang: 'ar', page: location.pathname }),
           cache: 'no-store'
         })
           .then(function (r) { return r.json(); })
-          .then(onResult)
-          .catch(onFailure);
+          .then(function (res) { onResult(p, res); })
+          .catch(function () { onFailure(p); });
       });
     }
 
     // Cloudflare Turnstile ("not a robot"): invisible unless Cloudflare needs
     // the visitor to tap once. Without a site key the server does not ask.
-    var tsWidget = null;
-    function withTurnstile(go) {
+    var tsWidget = { ios: null, android: null };
+    function withTurnstile(p, go) {
       if (!TURNSTILE_KEY || !window.turnstile) return go('');
       try {
-        if (tsWidget === null) {
-          tsWidget = window.turnstile.render('#tsBox', {
+        if (tsWidget[p] === null) {
+          tsWidget[p] = window.turnstile.render(UI[p].ts, {
             sitekey: TURNSTILE_KEY, execution: 'execute', appearance: 'interaction-only', language: 'ar',
             callback: function (t) { go(t); },
-            'error-callback': function () { onFailure(); },
-            'expired-callback': function () { window.turnstile.reset(tsWidget); }
+            'error-callback': function () { onFailure(p); },
+            'expired-callback': function () { window.turnstile.reset(tsWidget[p]); }
           });
         } else {
-          window.turnstile.reset(tsWidget);
+          window.turnstile.reset(tsWidget[p]);
         }
-        window.turnstile.execute(tsWidget);
+        window.turnstile.execute(tsWidget[p]);
       } catch (e) { go(''); }
     }
 
-    function onResult(res) {
-      inFlight = false;
-      if (!res || res.status === 'busy' || res.status === 'limit' || res.status === 'bot') { return onFailure(); }
+    function showCode(p, c) {
+      currentCode[p] = c;
+      document.getElementById(UI[p].box).textContent = c;
+      show(p, UI[p].states[1]);
+    }
+
+    function onResult(p, res) {
+      inFlight[p] = false;
+      if (!res || res.status === 'busy' || res.status === 'limit' || res.status === 'bot') { return onFailure(p); }
 
       if (res.status === 'ok') {
-        currentCode = res.code;
-        try { localStorage.setItem('qapps_promo_code_' + APP, res.code); } catch (e) {}
-        document.getElementById('codeBox').textContent = res.code;
-        track('android_issued');
-        showAndroid('androidResult');
+        try { localStorage.setItem(codeKey(p), res.code); } catch (e) {}
+        showCode(p, res.code);
       } else if (res.status === 'empty' || res.status === 'ended') {
-        track('empty');
-        showAndroid('androidEmpty');
+        show(p, UI[p].states[2]);
       } else {
-        onFailure();
+        onFailure(p);
       }
     }
 
-    function onFailure() {
-      inFlight = false;
-      resetGetBtn();
-      showAndroid('androidError');
+    function onFailure(p) {
+      inFlight[p] = false;
+      resetGetBtn(p);
+      show(p, UI[p].states[3]);
     }
 
-    function retry() {
-      resetGetBtn();
-      showAndroid('androidIntro');
+    function retry(p) {
+      resetGetBtn(p);
+      show(p, UI[p].states[0]);
     }
 
-    function resetGetBtn() {
-      var btn = document.getElementById('getBtn');
+    function resetGetBtn(p) {
+      var btn = document.getElementById(UI[p].btn);
       btn.disabled = false;
       btn.innerHTML = '<span class="btn-num-inline">2</span><span>احصل على كود العرض</span><span>›</span>';
     }
 
-    function showAndroid(id) {
-      ['androidIntro', 'androidResult', 'androidEmpty', 'androidError']
-        .forEach(function (s) {
-          document.getElementById(s).classList.toggle('hidden', s !== id);
-        });
+    function show(p, id) {
+      UI[p].states.forEach(function (s) {
+        document.getElementById(s).classList.toggle('hidden', s !== id);
+      });
     }
 
     // ---- Redeem / Copy / Video ---------------------------------------------
     function redeemOnPlay() {
-      if (!currentCode) return;
+      if (!currentCode.android) return;
       track('play_redeem');
-      window.open(PLAY_REDEEM_BASE + encodeURIComponent(currentCode), '_blank');
+      window.open(PLAY_REDEEM_BASE + encodeURIComponent(currentCode.android), '_blank');
     }
 
-    function copyCode() {
-      if (!currentCode) return;
-      track('copy_click');
+    function redeemOnApple() {
+      if (!currentCode.ios) return;
+      track('apple_redeem');
+      window.open(APPLE_REDEEM_BASE + encodeURIComponent(currentCode.ios), '_blank');
+    }
+
+    var copying = '';
+    function copyCode(p) {
+      if (!currentCode[p]) return;
+      copying = currentCode[p];
+      track(p === 'ios' ? 'apple_copy' : 'copy_click');
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(currentCode).then(showToast, fallbackCopy);
+        navigator.clipboard.writeText(copying).then(showToast, fallbackCopy);
       } else {
         fallbackCopy();
       }
@@ -893,7 +977,7 @@
 
     function fallbackCopy() {
       var t = document.createElement('textarea');
-      t.value = currentCode;
+      t.value = copying;
       t.style.position = 'fixed'; t.style.opacity = '0';
       document.body.appendChild(t);
       t.focus(); t.select();

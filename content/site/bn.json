@@ -618,5 +618,6 @@
  "Your message is too short or too long.": "আপনার বার্তাটি খুব ছোট বা খুব বড়।",
  "We could not send it from the website right now — send it by email below.": "এখন ওয়েবসাইট থেকে পাঠানো গেল না — নিচে ইমেইলে পাঠান।",
  "No connection to the website right now — send it by email below.": "এখন ওয়েবসাইটের সাথে সংযোগ নেই — নিচে ইমেইলে পাঠান।",
- "Close all": "সব বন্ধ করুন"
+ "Close all": "সব বন্ধ করুন",
+ "Activate the code in the App Store ›": "App Store-এ কোডটি চালু করুন ›"
 }

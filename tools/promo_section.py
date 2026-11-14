@@ -3,8 +3,10 @@ badge in the hero that jumps to it (proposal qapps_free_codes, decision أ).
 
 The markup ships hidden; /assets/js/promo.js asks /api/promo/status?app=<slug>
 and shows it only while the offer is on (switched on in /admin/promo/, end
-date not passed). No code is ever in the page: a Google Play code is fetched
-from /api/promo/claim only when the visitor taps «Get your offer code».
+date not passed). No code is ever in the page: a Google Play code (or, since
+2026-11-14, an App Store one-time offer code when the app has iOS codes in the
+database) is fetched from /api/promo/claim only when the visitor taps «Get your
+offer code». Apple without codes falls back to the shared offer link.
 """
 
 
@@ -33,11 +35,40 @@ def section(slug, apple_store, play_store, after_en, after_ar, turnstile_key, js
   <div class="pf-grid" data-pf-grid>
     <div class="pf-card" data-pf-apple hidden>
       {two("🍎 iPhone &amp; iPad", "🍎 آيفون وآيباد", "h3")}
-      <a class="pf-btn pf-btn-2" href="{apple_store}" target="_blank" rel="noopener" data-pf-kind="download" data-pf-platform="ios">
-        <i>1</i>{two("Download from the App Store", "نزّل من App Store")}</a>
-      <a class="pf-btn pf-btn-1" href="#" target="_blank" rel="noopener" data-pf-kind="redeem" data-pf-platform="ios" data-pf-apple-redeem>
-        <i>2</i>{two("Activate the free offer", "فعّل العرض المجاني")}</a>
-      <p class="pf-note">{two("Step 2 opens the App Store with the offer code already filled in.", "الخطوة 2 تفتح App Store وكود العرض مكتوب فيه.")}</p>
+      <div data-pf-state="link" hidden>
+        <a class="pf-btn pf-btn-2" href="{apple_store}" target="_blank" rel="noopener" data-pf-kind="download" data-pf-platform="ios">
+          <i>1</i>{two("Download from the App Store", "نزّل من App Store")}</a>
+        <a class="pf-btn pf-btn-1" href="#" target="_blank" rel="noopener" data-pf-kind="redeem" data-pf-platform="ios" data-pf-apple-redeem>
+          <i>2</i>{two("Activate the free offer", "فعّل العرض المجاني")}</a>
+        <p class="pf-note">{two("Step 2 opens the App Store with the offer code already filled in.", "الخطوة 2 تفتح App Store وكود العرض مكتوب فيه.")}</p>
+      </div>
+      <div data-pf-state="intro" hidden>
+        <a class="pf-btn pf-btn-2" href="{apple_store}" target="_blank" rel="noopener" data-pf-kind="download" data-pf-platform="ios">
+          <i>1</i>{two("Download from the App Store", "نزّل من App Store")}</a>
+        <button type="button" class="pf-btn pf-btn-1" data-pf-claim>
+          <i>2</i>{two("Get your offer code", "احصل على كود العرض")}</button>
+        <p class="pf-note">{two("One code for you, used once.", "كود واحد لك، يُستخدم مرة واحدة.")}</p>
+      </div>
+      <div data-pf-state="code" hidden>
+        <p class="pf-note">{two("Your offer code:", "كود العرض الخاص بك:")}</p>
+        <div class="pf-code" data-pf-code dir="ltr"></div>
+        <a class="pf-btn pf-btn-1" href="#" target="_blank" rel="noopener" data-pf-kind="redeem" data-pf-platform="ios" data-pf-redeem>
+          {two("Activate the code in the App Store ›", "فعّل الكود في App Store ›")}</a>
+        <button type="button" class="pf-btn pf-btn-2" data-pf-copy>{two("Copy the code", "انسخ الكود")}</button>
+        <p class="pf-note" data-pf-copied hidden>{two("Copied ✓", "تم النسخ ✓")}</p>
+      </div>
+      <div data-pf-state="empty" hidden>
+        <p class="pf-msg">💛 {two("The free codes have all been taken.", "نفدت الأكواد المجانية لاكتمال العدد.")}</p>
+        <a class="pf-btn pf-btn-2" href="{apple_store}" target="_blank" rel="noopener" data-pf-kind="download" data-pf-platform="ios">{two("Download from the App Store", "نزّل من App Store")}</a>
+      </div>
+      <div data-pf-state="limit" hidden>
+        <p class="pf-msg">{two("Codes from this connection have reached today's limit. Please try again tomorrow.", "وصلت الأكواد من هذه الشبكة إلى حدّ اليوم. حاول مرة أخرى غدًا.")}</p>
+      </div>
+      <div data-pf-state="error" hidden>
+        <p class="pf-msg">{two("We could not get a code. Please try again.", "تعذّر الحصول على الكود. حاول مرة أخرى.")}</p>
+        <button type="button" class="pf-btn pf-btn-2" data-pf-retry>{two("Try again", "أعد المحاولة")}</button>
+      </div>
+      <div class="pf-ts" data-pf-ts></div>
     </div>
     <div class="pf-card" data-pf-android hidden>
       {two("🤖 Android", "🤖 أندرويد", "h3")}
@@ -51,7 +82,7 @@ def section(slug, apple_store, play_store, after_en, after_ar, turnstile_key, js
       <div data-pf-state="code" hidden>
         <p class="pf-note">{two("Your offer code:", "كود العرض الخاص بك:")}</p>
         <div class="pf-code" data-pf-code dir="ltr"></div>
-        <a class="pf-btn pf-btn-1" href="#" target="_blank" rel="noopener" data-pf-kind="redeem" data-pf-platform="android" data-pf-play-redeem>
+        <a class="pf-btn pf-btn-1" href="#" target="_blank" rel="noopener" data-pf-kind="redeem" data-pf-platform="android" data-pf-redeem>
           {two("Activate the code in Google Play ›", "فعّل الكود في Google Play ›")}</a>
         <button type="button" class="pf-btn pf-btn-2" data-pf-copy>{two("Copy the code", "انسخ الكود")}</button>
         <p class="pf-note" data-pf-copied hidden>{two("Copied ✓", "تم النسخ ✓")}</p>

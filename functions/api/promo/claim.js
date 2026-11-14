@@ -1,7 +1,8 @@
-// functions/api/promo/claim.js — POST /api/promo/claim: hand ONE Google Play
-// promo code to one visitor (proposal qapps_free_codes, decision د).
+// functions/api/promo/claim.js — POST /api/promo/claim: hand ONE promo code
+// to one visitor (proposal qapps_free_codes, decision د): a Google Play code,
+// or (platform "ios", since 2026-11-14) an App Store one-time offer code.
 //
-//   body: {app, rid, token, src, lang, page}
+//   body: {app, platform: "android"|"ios" (default android), rid, token, src, lang, page}
 //   →    {status: "ok", code} | "empty" | "ended" | "limit" | "bot" | "busy"
 //
 // · The code list never reaches the browser: only the one code given here.
@@ -19,8 +20,6 @@ import {
   deviceOf, browserOf, appBySlug, offerLive, verifyTurnstile, ensurePromoSchema, PROMO_LIMITS,
 } from "../../../lib/promo/common.js";
 
-const PLATFORM = "android";
-
 export async function onRequestPost({ request, env }) {
   if (!env.DB || !env.IP_SALT) return jsonOut({ status: "busy", error: "not_configured" }, 503);
   if (!fromOurSite(request, env)) return jsonOut({ status: "busy", error: "origin" }, 403);
@@ -32,6 +31,7 @@ export async function onRequestPost({ request, env }) {
   } catch {
     return jsonOut({ status: "busy", error: "bad_request" }, 400);
   }
+  const PLATFORM = data.platform === "ios" ? "ios" : "android";
   const rid = String(data.rid || "");
   if (!/^[A-Za-z0-9-]{8,64}$/.test(rid)) return jsonOut({ status: "busy", error: "bad_request" }, 400);
 

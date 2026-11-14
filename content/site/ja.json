@@ -618,5 +618,6 @@
  "Your message is too short or too long.": "メッセージが短すぎるか、長すぎます。",
  "We could not send it from the website right now — send it by email below.": "いまウェブサイトから送信できませんでした——下のメールで送ってください。",
  "No connection to the website right now — send it by email below.": "いまウェブサイトに接続できません——下のメールで送ってください。",
- "Close all": "すべて閉じる"
+ "Close all": "すべて閉じる",
+ "Activate the code in the App Store ›": "App Store でコードを有効にする ›"
 }

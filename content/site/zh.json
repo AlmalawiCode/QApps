@@ -618,5 +618,6 @@
  "Your message is too short or too long.": "您的消息太短或太长。",
  "We could not send it from the website right now — send it by email below.": "暂时无法通过网站发送——请通过下方的电子邮件发送。",
  "No connection to the website right now — send it by email below.": "暂时无法连接网站——请通过下方的电子邮件发送。",
- "Close all": "全部收起"
+ "Close all": "全部收起",
+ "Activate the code in the App Store ›": "在 App Store 中激活优惠码 ›"
 }

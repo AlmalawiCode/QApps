@@ -618,5 +618,6 @@
  "Your message is too short or too long.": "Ваше сообщение слишком короткое или слишком длинное.",
  "We could not send it from the website right now — send it by email below.": "Сейчас не удалось отправить с сайта — отправьте по электронной почте ниже.",
  "No connection to the website right now — send it by email below.": "Сейчас нет связи с сайтом — отправьте по электронной почте ниже.",
- "Close all": "Закрыть все"
+ "Close all": "Закрыть все",
+ "Activate the code in the App Store ›": "Активировать код в App Store ›"
 }

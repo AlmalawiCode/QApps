@@ -618,5 +618,6 @@
  "Your message is too short or too long.": "메시지가 너무 짧거나 너무 깁니다.",
  "We could not send it from the website right now — send it by email below.": "지금은 웹사이트에서 보내지 못했습니다 — 아래 이메일로 보내 주세요.",
  "No connection to the website right now — send it by email below.": "지금 웹사이트에 연결할 수 없습니다 — 아래 이메일로 보내 주세요.",
- "Close all": "모두 접기"
+ "Close all": "모두 접기",
+ "Activate the code in the App Store ›": "App Store에서 코드 활성화 ›"
 }

@@ -146,7 +146,14 @@ details.offer[open]>summary{color:var(--ink)}
     }).join("");
     if (!a) return;
     var c = {available: 0, issued: 0, void: 0};
-    d.codes.forEach(function (r) { if (r.app_id === a.id && r.platform === "android") c[r.status] = r.n; });
+    var ci = {available: 0, issued: 0, void: 0};   // App Store one-time offer codes (since 2026-11-14)
+    var cAll = {available: 0, issued: 0, void: 0};
+    d.codes.forEach(function (r) {
+      if (r.app_id !== a.id) return;
+      if (r.platform === "android") c[r.status] = r.n;
+      if (r.platform === "ios") ci[r.status] = r.n;
+      cAll[r.status] = (cAll[r.status] || 0) + r.n;
+    });
     var rec = (d.recent || []).filter(function (r) { return r.app_id === a.id; })[0] || {};
     var tot = function (platform, kind, key) {
       return (d.clicks.totals || []).filter(function (r) { return r.app_id === a.id && (!platform || r.platform === platform) && r.kind === kind; })
@@ -234,8 +241,12 @@ details.offer[open]>summary{color:var(--ink)}
       '<div class="stat"><b>' + total + '</b><span>أكواد أندرويد</span></div>' +
       '<div class="stat"><b>' + c.issued + '</b><span>أُعطيت ✗ (اليوم ' + (rec.d1 || 0) + ' · الأسبوع ' + (rec.d7 || 0) + ')</span></div>' +
       '<div class="stat ok"><b>' + c.available + '</b><span>باقية</span></div>' +
+      ((ci.available + ci.issued) ? '<div class="stat"><b>' + (ci.available + ci.issued) + '</b><span>أكواد آيفون</span></div>' +
+        '<div class="stat"><b>' + ci.issued + '</b><span>أُعطيت لآيفون ✗</span></div>' +
+        '<div class="stat ok"><b>' + ci.available + '</b><span>باقية لآيفون</span></div>' : "") +
       '<div class="stat"><b>' + appleRedeem + (a.apple_offer_limit ? " / " + a.apple_offer_limit : "") + '</b><span>ضغطات «فعّل» في أبل (العدد الحقيقي في App Store Connect)</span></div>' +
       "</div>";
+    if (a.offer_active && (ci.available + ci.issued) && ci.available < 20) html += '<div class="warn">بقي أقل من 20 كودًا لآيفون. أضف أكوادًا من App Store Connect.</div>';
     if (a.offer_active && total && c.available < 50) html += '<div class="warn">بقي أقل من 50 كودًا لأندرويد. أضف أكوادًا من Play Console أو أوقف العرض.</div>';
 
     html += '<div class="grid2" style="margin-top:12px"><div class="card"><h3 style="font-size:16px">الإعدادات</h3>' +
@@ -245,21 +256,22 @@ details.offer[open]>summary{color:var(--ink)}
       '<label>حدّ عرض أبل (للعرض في اللوحة فقط)</label><input type="number" id="o-limit" min="1" value="' + esc(a.apple_offer_limit || "") + '">' +
       '<label>ينتهي العرض في (اتركه فارغًا: بلا تاريخ)</label><input type="date" id="o-end" value="' + esc((a.offer_ends_at || "").slice(0, 10)) + '">' +
       '<button class="save" id="o-save">حفظ</button><span class="done" id="o-done" hidden>✓ حُفظ</span></div>' +
-      '<div class="card"><h3 style="font-size:16px">أضف أكواد Google Play</h3>' +
-      '<p class="note">الصق الأكواد كما نزّلتها من Play Console (سطر لكل كود، أو CSV). المكرر يُتجاهل.</p>' +
+      '<div class="card"><h3 style="font-size:16px">أضف أكوادًا</h3>' +
+      '<label>المتجر</label><select id="add-platform"><option value="android">🤖 Google Play</option><option value="ios">🍎 App Store (أكواد العرض لمرة واحدة)</option></select>' +
+      '<p class="note">الصق الأكواد كما نزّلتها من Play Console أو App Store Connect (سطر لكل كود، أو CSV). المكرر يُتجاهل. أكواد آيفون تجعل بطاقة أبل تعطي كل زائر كودًا خاصًا بدل الرابط المشترك.</p>' +
       '<textarea id="add-codes" placeholder="ABCD1234…"></textarea>' +
       '<button class="save" id="add-go">أضف</button><span class="done" id="add-done" hidden></span>' +
       '<p class="note" style="margin-top:10px"><a class="btnl" href="/api/admin/promo?view=csv&app=' + encodeURIComponent(a.slug) + '">⬇ تصدير كل الأكواد CSV</a></p></div></div>';
 
     html += '<h2>الأكواد</h2><div class="bar" id="code-st">' + Object.keys(ST).map(function (k) {
-      return '<button class="chip' + (s.codeStatus === k ? " on" : "") + '" data-cst="' + k + '">' + ST[k] + "<i>" + (c[k] || 0) + "</i></button>";
+      return '<button class="chip' + (s.codeStatus === k ? " on" : "") + '" data-cst="' + k + '">' + ST[k] + "<i>" + (cAll[k] || 0) + "</i></button>";
     }).join("") + '</div><div class="tbl-wrap"><table><thead><tr><th>الكود</th><th>الحالة</th><th>متى</th><th>الجهاز</th><th>المتصفح</th><th>المصدر</th><th>الصفحة</th><th></th></tr></thead><tbody id="codes"></tbody></table></div>' +
       '<button class="lnk more" id="more" hidden>المزيد</button>';
 
     // downloads
     html += '<h2>مجاميع ' + esc(a.name_ar || a.slug) + '</h2>';
     html += '<p class="note">مجاميع سريعة فقط؛ التفصيل بالتاريخ في الإحصائية اليومية أعلاه. التثبيت الحقيقي في Play Console وApp Store Connect.</p>';
-    var rows = [[null, "visit"], [null, "view"], ["ios", "download"], ["android", "download"], [null, "youtube"], ["ios", "redeem"], ["android", "redeem"], ["android", "code"], ["android", "copy"]];
+    var rows = [[null, "visit"], [null, "view"], ["ios", "download"], ["android", "download"], [null, "youtube"], ["ios", "redeem"], ["android", "redeem"], ["ios", "code"], ["android", "code"], ["ios", "copy"], ["android", "copy"]];
     html += '<div class="tbl-wrap"><table><thead><tr><th></th><th>آخر 24 ساعة</th><th>آخر 7 أيام</th><th>الكل</th></tr></thead><tbody>' +
       rows.map(function (r) {
         var lbl = (r[0] === "ios" ? "🍎 App Store · " : r[0] === "android" ? "🤖 Google Play · " : "") + KIND[r[1]];
@@ -283,7 +295,7 @@ details.offer[open]>summary{color:var(--ink)}
         var act = r.status === "available" ? '<button class="lnk" data-void="' + r.id + '">ألغِ</button>' :
           r.status === "void" && !r.issued_at ? '<button class="lnk" data-restore="' + r.id + '">أعِد</button>' :
           r.status === "issued" ? '<button class="lnk" data-release="' + r.id + '" title="لكود تجربة أو كود لم يُفعَّل في Google Play">↩ إرجاع</button>' : "";
-        return '<tr><td class="code">' + esc(r.code) + '</td><td class="st-' + r.status + '">' + ST[r.status] + "</td><td>" + when(r.issued_at) +
+        return '<tr><td class="code">' + (r.platform === "ios" ? "🍎 " : "🤖 ") + esc(r.code) + '</td><td class="st-' + r.status + '">' + ST[r.status] + "</td><td>" + when(r.issued_at) +
           "</td><td>" + esc(DEV[r.device] || r.device || "") + "</td><td>" + esc(BR[r.browser] || r.browser || "") + "</td><td>" + esc(r.issued_at ? src(r.source) : "") +
           "</td><td>" + esc(r.page || "") + "</td><td>" + act + "</td></tr>";
       }).join("") : '<tr><td colspan="8" class="note">لا أكواد هنا.</td></tr>';
@@ -341,7 +353,7 @@ details.offer[open]>summary{color:var(--ink)}
       var txt = $("add-codes").value;
       if (!txt.trim()) return;
       t.disabled = true;
-      api("/api/admin/promo", {action: "add", app: s.app, codes: txt}).then(function (d) {
+      api("/api/admin/promo", {action: "add", app: s.app, platform: $("add-platform").value, codes: txt}).then(function (d) {
         t.disabled = false;
         if (!d.ok) return alert(d.error === "no_codes" ? "لم أجد أكوادًا في النص." : "لم تُضف.");
         alert("وُجد " + d.found + " كودًا: أُضيف " + d.added + "، ومكرر " + d.duplicates + ".");

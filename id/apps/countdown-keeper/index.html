@@ -453,11 +453,40 @@ html[dir="rtl"] .dm-suggest-tx b{font-family:var(--f-display-ar)}
   <div class="pf-grid" data-pf-grid>
     <div class="pf-card" data-pf-apple hidden>
       <h3>🍎 iPhone &amp; iPad</h3>
-      <a class="pf-btn pf-btn-2" href="https://apps.apple.com/app/id6806348941" target="_blank" rel="noopener" data-pf-kind="download" data-pf-platform="ios">
-        <i>1</i><span>Download dari App Store</span></a>
-      <a class="pf-btn pf-btn-1" href="#" target="_blank" rel="noopener" data-pf-kind="redeem" data-pf-platform="ios" data-pf-apple-redeem>
-        <i>2</i><span>Aktifkan penawaran gratis</span></a>
-      <p class="pf-note"><span>Langkah 2 membuka App Store dengan kode penawaran yang sudah terisi.</span></p>
+      <div data-pf-state="link" hidden>
+        <a class="pf-btn pf-btn-2" href="https://apps.apple.com/app/id6806348941" target="_blank" rel="noopener" data-pf-kind="download" data-pf-platform="ios">
+          <i>1</i><span>Download dari App Store</span></a>
+        <a class="pf-btn pf-btn-1" href="#" target="_blank" rel="noopener" data-pf-kind="redeem" data-pf-platform="ios" data-pf-apple-redeem>
+          <i>2</i><span>Aktifkan penawaran gratis</span></a>
+        <p class="pf-note"><span>Langkah 2 membuka App Store dengan kode penawaran yang sudah terisi.</span></p>
+      </div>
+      <div data-pf-state="intro" hidden>
+        <a class="pf-btn pf-btn-2" href="https://apps.apple.com/app/id6806348941" target="_blank" rel="noopener" data-pf-kind="download" data-pf-platform="ios">
+          <i>1</i><span>Download dari App Store</span></a>
+        <button type="button" class="pf-btn pf-btn-1" data-pf-claim>
+          <i>2</i><span>Dapatkan kode penawaran Anda</span></button>
+        <p class="pf-note"><span>Satu kode untuk Anda, sekali pakai.</span></p>
+      </div>
+      <div data-pf-state="code" hidden>
+        <p class="pf-note"><span>Kode penawaran Anda:</span></p>
+        <div class="pf-code" data-pf-code dir="ltr"></div>
+        <a class="pf-btn pf-btn-1" href="#" target="_blank" rel="noopener" data-pf-kind="redeem" data-pf-platform="ios" data-pf-redeem>
+          <span>Aktifkan kode di App Store ›</span></a>
+        <button type="button" class="pf-btn pf-btn-2" data-pf-copy><span>Salin kode</span></button>
+        <p class="pf-note" data-pf-copied hidden><span>Tersalin ✓</span></p>
+      </div>
+      <div data-pf-state="empty" hidden>
+        <p class="pf-msg">💛 <span>Semua kode gratis sudah habis diambil.</span></p>
+        <a class="pf-btn pf-btn-2" href="https://apps.apple.com/app/id6806348941" target="_blank" rel="noopener" data-pf-kind="download" data-pf-platform="ios"><span>Download dari App Store</span></a>
+      </div>
+      <div data-pf-state="limit" hidden>
+        <p class="pf-msg"><span>Kode dari koneksi ini sudah mencapai batas hari ini. Silakan coba lagi besok.</span></p>
+      </div>
+      <div data-pf-state="error" hidden>
+        <p class="pf-msg"><span>Kami tidak dapat memperoleh kode. Silakan coba lagi.</span></p>
+        <button type="button" class="pf-btn pf-btn-2" data-pf-retry><span>Coba lagi</span></button>
+      </div>
+      <div class="pf-ts" data-pf-ts></div>
     </div>
     <div class="pf-card" data-pf-android hidden>
       <h3>🤖 Android</h3>
@@ -471,7 +500,7 @@ html[dir="rtl"] .dm-suggest-tx b{font-family:var(--f-display-ar)}
       <div data-pf-state="code" hidden>
         <p class="pf-note"><span>Kode penawaran Anda:</span></p>
         <div class="pf-code" data-pf-code dir="ltr"></div>
-        <a class="pf-btn pf-btn-1" href="#" target="_blank" rel="noopener" data-pf-kind="redeem" data-pf-platform="android" data-pf-play-redeem>
+        <a class="pf-btn pf-btn-1" href="#" target="_blank" rel="noopener" data-pf-kind="redeem" data-pf-platform="android" data-pf-redeem>
           <span>Aktifkan kode di Google Play ›</span></a>
         <button type="button" class="pf-btn pf-btn-2" data-pf-copy><span>Salin kode</span></button>
         <p class="pf-note" data-pf-copied hidden><span>Tersalin ✓</span></p>
@@ -494,7 +523,7 @@ html[dir="rtl"] .dm-suggest-tx b{font-family:var(--f-display-ar)}
     <a href="/id/privacy/#free"><span>Yang kami simpan</span></a></p>
 </div>
 </div></section>
-<script src="/assets/js/promo.js?v=2166568650" defer></script><section style="padding-top:0"><div class="container"><div class="cta-band">
+<script src="/assets/js/promo.js?v=75725384eb" defer></script><section style="padding-top:0"><div class="container"><div class="cta-band">
   <div>
     <h2>Sudah berapa lama? Berapa lama lagi?</h2>
     <p>Simpan setiap tanggal penting di satu tempat, dan selalu ketahui sekilas.</p>

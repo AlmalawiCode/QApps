@@ -130,7 +130,11 @@ export async function onRequestPost({ request, env }) {
     // Play promo codes are long upper-case letters and digits (23 today);
     // take every such token from whatever was pasted (one per line, CSV,
     // spaces…). A digit is required so CSV headers ("AssignedAt") never count.
-    const found = (String(data.codes || "").toUpperCase().match(/\b[A-Z0-9]{12,40}\b/g) || []).filter((c) => /\d/.test(c));
+    const text = String(data.codes || "").toUpperCase();
+    let found = (text.match(/\b[A-Z0-9]{12,40}\b/g) || []).filter((c) => /\d/.test(c));
+    // App Store one-time offer codes can be letters only (e.g. LKRAAYYPJAPM):
+    // also take every line that is just one code.
+    if (platform === "ios") found = found.concat(text.split(/\r?\n/).map((l) => l.trim()).filter((l) => /^[A-Z0-9]{8,40}$/.test(l)));
     const codes = [...new Set(found)].slice(0, 5000);
     if (!codes.length) return jsonOut({ ok: false, error: "no_codes" }, 400);
     const at = nowIso();
