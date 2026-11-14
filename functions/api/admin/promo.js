@@ -132,7 +132,7 @@ export async function onRequestPost({ request, env }) {
     // spaces…). A digit is required so CSV headers ("AssignedAt") never count.
     const text = String(data.codes || "").toUpperCase();
     let found = (text.match(/\b[A-Z0-9]{12,40}\b/g) || []).filter((c) => /\d/.test(c));
-    // App Store one-time offer codes can be letters only (e.g. LKRAAYYPJAPM):
+    // App Store one-time offer codes can be letters only, with no digit:
     // also take every line that is just one code.
     if (platform === "ios") found = found.concat(text.split(/\r?\n/).map((l) => l.trim()).filter((l) => /^[A-Z0-9]{8,40}$/.test(l)));
     const codes = [...new Set(found)].slice(0, 5000);
