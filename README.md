@@ -253,8 +253,13 @@ behind `api.thiban1.com`):
   the app has App Store one-time offer codes in the database (platform `ios`),
   one code per device exactly like Android; «activate» opens
   `apps.apple.com/redeem?ctx=offercodes&id=<app id>&code=<code>`. Countdown
-  Keeper: 99 App Store codes loaded 2026-11-14 (add more on `/admin/promo/`,
-  store «App Store»).
+  Keeper: the 12-character codes loaded 2026-11-14 were NOT App Store offer codes
+  (12 characters = app download promo codes: they "redeem" but unlock nothing) —
+  all voided 2026-11-15. Real batch: 500 one-time codes of the lifetime IAP offer
+  (18 characters, App Store Connect batch 5fb7e45c…, created 2026-11-14, expires
+  2026-12-31) loaded 2026-11-15; the 7 phones already given a wrong code were moved
+  to real codes (same request id). Check a new batch is 18 characters and appears
+  under In-App Purchases → Lifetime → Offer Codes before loading it.
 - **Tables** (same D1 database `qapps-feedback`, `migrations/0003_promo.sql`,
   also created on first use by `lib/promo/common.js`):
   `apps` (store links, App Store offer link, on/off, end date) ·
