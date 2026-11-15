@@ -906,6 +906,15 @@ def page_privacy_index():
      'وطريقة تعامل Cloudflare مع ذلك موصوفة في سياسة خصوصيتها: <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a>. ولا نستخدم Google Analytics ولا أي أداة تتبّع إعلانية.')}
   {p("The website itself also keeps a simple daily count of the pages opened: the page, the day, the kind of device and browser, the language, and which site or campaign link brought you. No address and no cookie are stored; a small flag in your browser tab only prevents one visit from being counted twice and disappears when you close the tab.",
      "ويحتفظ الموقع نفسه أيضًا بعدّ يومي بسيط للصفحات التي فُتحت: الصفحة، واليوم، ونوع الجهاز والمتصفح، واللغة، وأي موقع أو رابط حملة جاء بك. لا يُحفظ عنوان ولا كوكيز؛ وعلامة صغيرة في تبويب متصفحك تمنع فقط عدّ الزيارة الواحدة مرتين وتزول عند إغلاق التبويب.")}
+  {p('Our terms of use are on the <a href="/terms/">Terms</a> page.',
+     'وشروط الاستخدام في صفحة <a href="/terms/">الشروط</a>.', "fineprint")}
+</div>
+<div class="container prose" id="youtube" style="margin-top:44px">
+  {h(2, "Our YouTube channels and the YouTube API", "قنواتنا على YouTube وواجهة YouTube البرمجية")}
+  {p("We publish tutorial videos for our apps on our own YouTube channels. To upload them, our own private tool uses the YouTube API Services: it signs in only to our channels, and only uploads our videos, sets their titles, descriptions and captions, and places them in our playlists. It does not access your YouTube account, and it does not collect, store or share any information about the people who watch our videos.",
+     "ننشر فيديوهات شرح تطبيقاتنا على قنواتنا في YouTube. ولرفعها، تستخدم أداتنا الخاصة خدمات YouTube API: تدخل إلى قنواتنا فقط، ولا تفعل سوى رفع فيديوهاتنا، وكتابة عناوينها وأوصافها وترجماتها، ووضعها في قوائم التشغيل. لا تصل إلى حسابك في YouTube، ولا تجمع أي معلومات عمّن يشاهد فيديوهاتنا ولا تحفظها ولا تشاركها.")}
+  {p('Watching our videos on YouTube is governed by the <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener">YouTube Terms of Service</a> and the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>. Links in our video descriptions lead to the App Store, Google Play and this website; when one brings you here, the page counts the visit as described above.',
+     'ومشاهدة فيديوهاتنا على YouTube تخضع <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener">لشروط خدمة YouTube</a> و<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">سياسة خصوصية Google</a>. والروابط في أوصاف فيديوهاتنا تقود إلى App Store وGoogle Play وهذا الموقع؛ وحين يأتي بك أحدها إلى هنا، تُعدّ الزيارة كما وُصف أعلاه.')}
   {p("Our apps do not send anything themselves; everything above applies only to this website.",
      "تطبيقاتنا لا ترسل شيئًا بنفسها؛ كل ما سبق يخص هذا الموقع فقط.", "fineprint")}
 </div>
@@ -1247,6 +1256,53 @@ def page_about():
                   body, active="about")
 
 
+def page_terms():
+    """/terms/ — Terms of use (owner 2026-11-15): needed for the YouTube API
+    quota form and linked from /privacy/. Plain words, English + Arabic."""
+    S = [
+        ("About these terms", "عن هذه الشروط",
+         ["These terms cover the Q Apps website (qeuapps.com), our apps (Countdown Keeper, Vault — Warranty Manager and any app we add), the free-version codes we give out, and our YouTube channels. By using any of them you agree to these terms.",
+          "تشمل هذه الشروط موقع كيو آبز (qeuapps.com)، وتطبيقاتنا («كم مضى وكم بقي» و«خزنة الضمانات» وأي تطبيق نضيفه)، وأكواد النسخة المجانية التي نوزّعها، وقنواتنا على YouTube. باستخدامك أيًّا منها فإنك توافق على هذه الشروط."]),
+        ("Our apps and purchases", "تطبيقاتنا والمشتريات",
+         ["You download our apps from the App Store or Google Play, and those stores' own terms also apply. Paid features are a one-time purchase made through the store: you pay once and keep them, with no renewal fees, for as long as the app is offered in that store. Refunds are handled by Apple or Google under their refund rules.",
+          "تحمّل تطبيقاتنا من App Store أو Google Play، وتسري عليك أيضًا شروط ذلك المتجر. والميزات المدفوعة شراء لمرّة واحدة يتمّ عبر المتجر: تدفع مرّة وتبقى لك بلا رسوم تجديد، طالما كان التطبيق متاحًا في ذلك المتجر. والاسترداد تتولّاه Apple أو Google وفق قواعدهما."]),
+        ("Free-version codes", "أكواد النسخة المجانية",
+         ["When we run a free-version offer, each code works once, for the app named on the page, in the store it is meant for. Codes are limited in number and time, can end at any moment, have no cash value, and may not be sold. We may stop a code that was obtained by automated means or abuse.",
+          "حين نطلق عرض النسخة المجانية، يعمل كل كود مرّة واحدة، للتطبيق المذكور في الصفحة، وفي المتجر المخصّص له. والأكواد محدودة العدد والمدّة وقد ينتهي العرض في أي وقت، وليس لها قيمة نقدية ولا يجوز بيعها. ويحقّ لنا إيقاف أي كود حُصل عليه بوسائل آلية أو بإساءة استخدام."]),
+        ("Calculations are estimates", "الحسابات تقديرية",
+         ["Our apps count time and include date tools such as age, retirement, school entry and the Hijri ↔ Gregorian converter. Results depend on what you enter and on the calendar rules in the app; they are estimates, not official decisions. Always check important dates with the official source: your employer, school, authority or the official calendar.",
+          "تعدّ تطبيقاتنا الوقت وتضمّ أدوات للتواريخ مثل العمر والتقاعد ودخول المدرسة ومحوّل الهجري ↔ الميلادي. وتعتمد النتائج على ما تُدخله وعلى قواعد التقويم في التطبيق؛ فهي تقديرية وليست قرارات رسمية. تحقّق دائمًا من التواريخ المهمّة من المصدر الرسمي: جهة عملك أو المدرسة أو الجهة المختصّة أو التقويم الرسمي."]),
+        ("Your data", "بياناتك",
+         ['Our apps keep your data on your device; we have no copy of it, so keeping backups is your responsibility. What this website and our tools handle is described on the <a href="/privacy/">Privacy</a> page.',
+          'تحفظ تطبيقاتنا بياناتك على جهازك ولا نملك نسخة منها، لذا فالاحتفاظ بنسخ احتياطية مسؤوليتك. وما يتعامل معه هذا الموقع وأدواتنا موصوف في صفحة <a href="/privacy/">الخصوصية</a>.']),
+        ("YouTube", "YouTube",
+         ['Our tutorial videos are on our YouTube channels, and watching them is governed by the <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener">YouTube Terms of Service</a> and the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>. We publish them with our own tool, which uses the YouTube API Services only for our own channels.',
+          'فيديوهات الشرح على قنواتنا في YouTube، ومشاهدتها تخضع <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener">لشروط خدمة YouTube</a> و<a href="https://policies.google.com/privacy" target="_blank" rel="noopener">سياسة خصوصية Google</a>. وننشرها بأداتنا الخاصة التي تستخدم خدمات YouTube API لقنواتنا فقط.']),
+        ("Our content", "محتوانا",
+         ["The apps, this website, our videos, screenshots, names and logos belong to Q Apps. You may share links to them and short clips that point back to us; please do not copy or resell them as your own.",
+          "التطبيقات وهذا الموقع وفيديوهاتنا وصورها وأسماؤنا وشعاراتنا مِلك لكيو آبز. يمكنك مشاركة روابطها ومقاطع قصيرة منها تشير إلينا؛ ونرجو ألّا تنسخها أو تعيد بيعها على أنها لك."]),
+        ("No warranty", "دون ضمان",
+         ["We work hard to make our apps reliable, but they are provided as they are, without any promise that they will be free of errors or always available. As far as the law allows, Q Apps is not liable for any loss caused by using, or not being able to use, the apps, the website or the videos.",
+          "نجتهد لتكون تطبيقاتنا موثوقة، لكنها مقدَّمة كما هي، دون تعهّد بخلوّها من الأخطاء أو بتوفّرها دائمًا. وفي حدود ما يسمح به النظام، لا تتحمّل كيو آبز مسؤولية أي ضرر ينتج عن استخدام التطبيقات أو الموقع أو الفيديوهات، أو عن تعذّر استخدامها."]),
+        ("Changes and contact", "التعديلات والتواصل",
+         [f'We may update these terms; the date below shows the latest version. Questions: <a href="mailto:{SUPPORT_EMAIL}">{SUPPORT_EMAIL}</a>.',
+          f'قد نحدّث هذه الشروط؛ ويبيّن التاريخ أدناه آخر نسخة. للاستفسار: <a href="mailto:{SUPPORT_EMAIL}">{SUPPORT_EMAIL}</a>.']),
+    ]
+    secs = "".join(f'{h(2, en, ar)}{p(t[0], t[1])}' for en, ar, t in S)
+    body = f'''{crumbs([("Home","الرئيسية","/"),("Terms","الشروط",None)])}
+<section class="section"><div class="container prose">
+  {h(1, "Terms of use", "شروط الاستخدام")}
+  {secs}
+  {p("Last updated: 15 November 2026", "آخر تحديث: 15 نوفمبر 2026", "fineprint")}
+</div></section>'''
+    return render("/terms/",
+                  "Terms of use — Q Apps",
+                  "شروط الاستخدام — كيو آبز",
+                  "Terms of use for the Q Apps website, apps, free-version codes and YouTube channels.",
+                  "شروط استخدام موقع كيو آبز وتطبيقاته وأكواد النسخة المجانية وقنواته على YouTube.",
+                  body)
+
+
 def page_suggest():
     wa_attr = f' data-wa="{WHATSAPP_NUMBER}"' if SHOW_WHATSAPP else ""
     wa_fallback = ('<button class="btn btn-secondary" type="button" data-fb-wa><span data-en>Send on WhatsApp</span><span data-ar>أرسل عبر واتساب</span></button>\n'
@@ -1479,7 +1535,7 @@ def main():
              page_tutorials, page_tutorial_countdown, page_tutorial_vault,
              page_privacy_index,
              page_support_index, page_support_countdown, page_support_vault,
-             page_contact, page_about, page_suggest]
+             page_contact, page_about, page_terms, page_suggest]
     if APPS["docmatic"].get("hidden"):
         # No /apps/docmatic/ page at all while the app is hidden (and remove a
         # previously generated one so it does not stay on the site).
