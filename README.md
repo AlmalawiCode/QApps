@@ -260,6 +260,9 @@ behind `api.thiban1.com`):
   2026-12-31) loaded 2026-11-15; the 7 phones already given a wrong code were moved
   to real codes (same request id). Check a new batch is 18 characters and appears
   under In-App Purchases → Lifetime → Offer Codes before loading it.
+  Vault: 500 one-time offer codes (18 characters, App Store Connect batch
+  23d0bdac…) loaded 2026-11-16 as platform `ios`; from then on Vault gives one
+  code per device and the shared `FREE500` link is no longer shown.
 - **Tables** (same D1 database `qapps-feedback`, `migrations/0003_promo.sql`,
   also created on first use by `lib/promo/common.js`):
   `apps` (store links, App Store offer link, on/off, end date) ·
