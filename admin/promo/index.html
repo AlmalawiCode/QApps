@@ -100,7 +100,7 @@ details.offer[open]>summary{color:var(--ink)}
   var DEV = {iphone: "آيفون", ipad: "آيباد", samsung: "سامسونج", android: "أندرويد", android_tablet: "تابلت أندرويد", mac: "ماك", windows: "ويندوز", linux: "لينكس", other: "أخرى"};
   var BR = {safari: "Safari", chrome: "Chrome", samsung: "Samsung Internet", firefox: "Firefox", edge: "Edge", opera: "Opera", instagram: "داخل إنستغرام", snapchat: "داخل سناب", tiktok: "داخل تيك توك", facebook: "داخل فيسبوك", x: "داخل X", whatsapp: "داخل واتساب", other: "أخرى"};
   var KIND = {visit: "👥 زائر", view: "صفحة أخرى فُتحت", download: "تحميل", youtube: "▶️ YouTube", redeem: "تفعيل العرض", code: "كود أُعطي", copy: "نسخ الكود"};
-  var ST = {issued: "أُعطيت ✗", available: "متاحة", void: "ملغاة"};
+  var ST = {issued: "أُعطيت ✗", available: "متاحة", void: "ملغاة", expired: "منتهية"};
   // Date filter: Saudi dates, inclusive. Default = the last 7 days.
   var todayKsa = function () { return new Date(Date.now() + 3 * 3600000).toISOString().slice(0, 10); };
   var shift = function (day, n) { return new Date(new Date(day + "T12:00:00+03:00").getTime() + n * 86400000).toISOString().slice(0, 10); };
@@ -145,8 +145,8 @@ details.offer[open]>summary{color:var(--ink)}
       return '<button class="chip' + (x.slug === s.app ? " on" : "") + '" data-app="' + esc(x.slug) + '">' + esc(x.name_ar || x.slug) + (x.offer_active ? " · 🎁" : "") + "</button>";
     }).join("");
     if (!a) return;
-    var c = {available: 0, issued: 0, void: 0};
-    var ci = {available: 0, issued: 0, void: 0};   // App Store one-time offer codes (since 2026-11-14)
+    var c = {available: 0, issued: 0, void: 0, expired: 0};
+    var ci = {available: 0, issued: 0, void: 0, expired: 0};   // App Store one-time offer codes (since 2026-11-14)
     var cAll = {available: 0, issued: 0, void: 0};
     d.codes.forEach(function (r) {
       if (r.app_id !== a.id) return;
@@ -292,6 +292,8 @@ details.offer[open]>summary{color:var(--ink)}
       var body = $("codes");
       if (!body) return;
       body.innerHTML = s.rows.length ? s.rows.map(function (r) {
+        // past its store expiry (expires_at): shown as «منتهية», never given out
+        if (r.status === "available" && r.expires_at && r.expires_at <= new Date().toISOString()) r.status = "expired";
         var act = r.status === "available" ? '<button class="lnk" data-void="' + r.id + '">ألغِ</button>' :
           r.status === "void" && !r.issued_at ? '<button class="lnk" data-restore="' + r.id + '">أعِد</button>' :
           r.status === "issued" ? '<button class="lnk" data-release="' + r.id + '" title="لكود تجربة أو كود لم يُفعَّل في Google Play">↩ إرجاع</button>' : "";

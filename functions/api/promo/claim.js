@@ -17,7 +17,7 @@
 
 import {
   jsonOut, nowIso, sha256hex, fromOurSite, cleanSource, cleanPage, cleanLang,
-  deviceOf, browserOf, appBySlug, offerLive, verifyTurnstile, ensurePromoSchema, PROMO_LIMITS,
+  deviceOf, browserOf, appBySlug, offerLive, verifyTurnstile, ensurePromoSchema, PROMO_LIMITS, NOT_EXPIRED,
 } from "../../../lib/promo/common.js";
 
 export async function onRequestPost({ request, env }) {
@@ -43,8 +43,10 @@ export async function onRequestPost({ request, env }) {
   // Same device asking again → the same code (before any other check, so a
   // reload never costs a second code or a second robot check).
   const mine = await db
-    .prepare("SELECT code FROM promo_codes WHERE app_id = ? AND platform = ? AND request_id = ?")
+    .prepare("SELECT code, expires_at FROM promo_codes WHERE app_id = ? AND platform = ? AND request_id = ?")
     .bind(app.id, PLATFORM, rid).first();
+  // …unless the store has expired that code: then the offer has ended for it.
+  if (mine && mine.expires_at && mine.expires_at <= nowIso()) return jsonOut({ status: "ended" });
   if (mine) return jsonOut({ status: "ok", code: mine.code, again: true });
 
   if (!offerLive(app)) return jsonOut({ status: "ended" });
@@ -88,9 +90,9 @@ export async function onRequestPost({ request, env }) {
   try {
     row = await db.prepare(
       "UPDATE promo_codes SET status = 'issued', issued_at = ?, request_id = ?, device = ?, browser = ?, source = ?, lang = ?, page = ? " +
-      "WHERE id = (SELECT id FROM promo_codes WHERE app_id = ? AND platform = ? AND status = 'available' ORDER BY id LIMIT 1) " +
+      `WHERE id = (SELECT id FROM promo_codes WHERE app_id = ? AND platform = ? AND status = 'available' AND ${NOT_EXPIRED} ORDER BY id LIMIT 1) ` +
       "AND status = 'available' RETURNING code"
-    ).bind(at, rid, meta.device, meta.browser, meta.source, meta.lang, meta.page, app.id, PLATFORM).first();
+    ).bind(at, rid, meta.device, meta.browser, meta.source, meta.lang, meta.page, app.id, PLATFORM, at).first();
   } catch (e) {
     // The same rid won a code in a parallel request a moment ago (unique
     // index on app + platform + request id) → give that one.

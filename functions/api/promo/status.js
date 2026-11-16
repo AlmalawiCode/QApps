@@ -6,7 +6,7 @@
 // owner can switch the offer off (or change the App Store link) from the
 // dashboard without a rebuild. Public and harmless: no code, no visitor data.
 
-import { jsonOut, ensurePromoSchema, appBySlug, offerLive } from "../../../lib/promo/common.js";
+import { jsonOut, ensurePromoSchema, appBySlug, offerLive, nowIso, NOT_EXPIRED } from "../../../lib/promo/common.js";
 
 export async function onRequestGet({ request, env }) {
   if (!env.DB) return jsonOut({ ok: false, error: "not_configured" }, 503);
@@ -16,8 +16,8 @@ export async function onRequestGet({ request, env }) {
   if (!app) return jsonOut({ ok: false, error: "unknown_app" }, 404);
 
   const rows = await db.prepare(
-    "SELECT platform, COUNT(*) AS total, SUM(status = 'available') AS left FROM promo_codes WHERE app_id = ? AND status != 'void' GROUP BY platform"
-  ).bind(app.id).all();
+    `SELECT platform, COUNT(*) AS total, SUM(status = 'available' AND ${NOT_EXPIRED}) AS left, MAX(expires_at) AS ends FROM promo_codes WHERE app_id = ? AND status != 'void' GROUP BY platform`
+  ).bind(nowIso(), app.id).all();
   const by = (p) => rows.results.find((r) => r.platform === p) || {};
   const c = by("android"), ic = by("ios");
   const live = offerLive(app);
@@ -37,6 +37,8 @@ export async function onRequestGet({ request, env }) {
       codes: iosCodes,
       total: ic.total || 0,
       left: iosLeft,
+      // when the codes stop working (store expiry); the page then hides a saved code
+      codes_end: ic.ends || null,
       redeem: appleId ? `https://apps.apple.com/redeem?ctx=offercodes&id=${appleId}&code=` : null,
     },
     stores: { apple: app.apple_store_url, play: app.play_store_url },

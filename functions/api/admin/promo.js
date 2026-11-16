@@ -46,9 +46,9 @@ export async function onRequestGet({ request, env }) {
     if (!app) return jsonOut({ ok: false, error: "unknown_app" }, 404);
     if (view === "csv") {
       const all = await db.prepare(
-        "SELECT code, status, platform, added_at, issued_at, device, browser, source, lang, page, request_id, note FROM promo_codes WHERE app_id = ? ORDER BY id"
+        "SELECT code, status, platform, added_at, expires_at, issued_at, device, browser, source, lang, page, request_id, note FROM promo_codes WHERE app_id = ? ORDER BY id"
       ).bind(app.id).all();
-      const cols = ["code", "status", "platform", "added_at", "issued_at", "device", "browser", "source", "lang", "page", "request_id", "note"];
+      const cols = ["code", "status", "platform", "added_at", "expires_at", "issued_at", "device", "browser", "source", "lang", "page", "request_id", "note"];
       const text = "﻿" + [cols.join(",")].concat(all.results.map((r) => cols.map((c) => csvCell(r[c])).join(","))).join("\n") + "\n";
       return new Response(text, {
         headers: {
@@ -63,7 +63,7 @@ export async function onRequestGet({ request, env }) {
     const where = CODE_STATUSES.includes(status) ? "AND status = ?" : "";
     const args = CODE_STATUSES.includes(status) ? [app.id, status] : [app.id];
     const [rows, total] = await db.batch([
-      db.prepare(`SELECT id, code, status, platform, added_at, issued_at, device, browser, source, lang, page FROM promo_codes WHERE app_id = ? ${where} ORDER BY issued_at DESC, id ASC LIMIT ${PAGE} OFFSET ?`).bind(...args, offset),
+      db.prepare(`SELECT id, code, status, platform, added_at, expires_at, issued_at, device, browser, source, lang, page FROM promo_codes WHERE app_id = ? ${where} ORDER BY issued_at DESC, id ASC LIMIT ${PAGE} OFFSET ?`).bind(...args, offset),
       db.prepare(`SELECT COUNT(*) AS n FROM promo_codes WHERE app_id = ? ${where}`).bind(...args),
     ]);
     return jsonOut({ ok: true, codes: rows.results, total: total.results[0]?.n || 0, page: PAGE, offset });
@@ -92,7 +92,8 @@ export async function onRequestGet({ request, env }) {
   const day7 = new Date(Date.now() - 7 * 86_400_000).toISOString();
   const [apps, codes, recent, byDay, bySource, byDevice, byPage, totals] = await db.batch([
     db.prepare("SELECT * FROM apps ORDER BY id"),
-    db.prepare("SELECT app_id, platform, status, COUNT(*) AS n FROM promo_codes GROUP BY app_id, platform, status"),
+    // An available code past its store expiry counts as "expired" (not left).
+    db.prepare("SELECT app_id, platform, CASE WHEN status = 'available' AND expires_at IS NOT NULL AND expires_at <= ? THEN 'expired' ELSE status END AS status, COUNT(*) AS n FROM promo_codes GROUP BY 1, 2, 3").bind(nowIso()),
     db.prepare("SELECT app_id, SUM(issued_at >= ?) AS d1, SUM(issued_at >= ?) AS d7 FROM promo_codes WHERE status = 'issued' GROUP BY app_id").bind(day1, day7),
     db.prepare(`SELECT ${DAY} AS day, app_id, platform, kind, COUNT(*) AS n FROM store_clicks WHERE created_at >= ? AND created_at < ? GROUP BY day, app_id, platform, kind ORDER BY day`).bind(since, until),
     db.prepare(`SELECT ${DAY} AS day, app_id, source, kind, COUNT(*) AS n FROM store_clicks WHERE created_at >= ? AND created_at < ? GROUP BY day, app_id, source, kind`).bind(since, until),

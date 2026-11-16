@@ -265,7 +265,18 @@ behind `api.thiban1.com`):
   `ios`; from then on Vault gives one code per device. The shared `FREE500` link
   had expired, so it was removed from `apps.apple_offer_url` the same day (no
   dead-link fallback; the Apple card hides when the codes run out).
-  After 2026-12-31 both apps' unused iOS codes are dead: void them or load a new batch.
+- **Code expiry (automatic, since 2026-11-16):** `promo_codes.expires_at`
+  (`migrations/0004_promo_code_expiry.sql`; UTC, same text form as
+  `toISOString()`, e.g. `2026-12-30T21:00:00.000Z`; NULL = never). From that
+  moment a code is not given, not counted as left (the card hides when none are
+  left), a device asking again gets `ended`, the page stops showing a saved code
+  (`apple.codes_end` in `/api/promo/status`), and the dashboard shows it as
+  «منتهية». Both apps' iOS batches (Vault 23d0bdac…, Countdown 5fb7e45c…) are
+  set to stop at the start of 31 Dec 2026 Saudi time. **A new batch needs its
+  expiry set by hand** after loading (the dashboard does not ask for it):
+  `UPDATE promo_codes SET expires_at = '…' WHERE app_id = … AND platform = 'ios' AND expires_at IS NULL AND status != 'void'`.
+  A device that had an expired code cannot get one from a newer batch
+  (one row per device id) unless it opens the page with `?promo-reset`.
 - **Tables** (same D1 database `qapps-feedback`, `migrations/0003_promo.sql`,
   also created on first use by `lib/promo/common.js`):
   `apps` (store links, App Store offer link, on/off, end date) ·

@@ -151,8 +151,10 @@
   }
 
   // A card that hands out codes: the saved code, or the claim button.
-  function codeCard(p, on, left) {
+  function codeCard(p, on, left, end) {
     var saved = store(codeKey(p));
+    // A saved code past the store's expiry no longer works: do not show it.
+    if (saved && end && new Date(end) <= new Date()) saved = null;
     if (!on && !saved) return false;
     cards[p].hidden = false;
     if (saved) showCode(p, saved);
@@ -168,7 +170,7 @@
       var shown = false;
       if (s.apple && s.apple.redeem) REDEEM.ios = s.apple.redeem;
       if (s.apple && (s.apple.codes || s.apple.total)) {
-        shown = codeCard("ios", !!s.apple.codes, s.apple.left) || shown;
+        shown = codeCard("ios", !!s.apple.codes, s.apple.left, s.apple.codes_end) || shown;
       } else if (s.apple && s.apple.on && s.apple.url) {
         cards.ios.querySelector("[data-pf-apple-redeem]").href = s.apple.url;
         state("ios", "link");
