@@ -227,6 +227,11 @@ APPS = {
         "youtube_embed": "https://www.youtube.com/embed/videoseries?list=PLcZVEfdjz66U",
         "youtube_en": "https://www.youtube.com/playlist?list=PLddSF_yBnl8A",
         "youtube_embed_en": "https://www.youtube.com/embed/videoseries?list=PLddSF_yBnl8A",
+        # Tutorials page language list (owner 2026-11-25): one playlist per
+        # language. A language listed here shows as READY; every other site
+        # language shows «Available soon». The app opens this page with its
+        # own language (?lang=xx), so adding a playlist here needs NO app update.
+        "playlists": {"ar": "PLcZVEfdjz66U", "en": "PLddSF_yBnl8A"},
         # Language availability is tracked per CONTENT TYPE — an app may ship
         # its privacy policy in more languages than its other content.
         "overview_langs": ["en", "ar"],
@@ -284,6 +289,7 @@ APPS = {
         "youtube_embed": "https://www.youtube.com/embed/videoseries?list=PLVw-KHF4Mj74",
         "youtube_en": "https://www.youtube.com/playlist?list=PLfY8oG_HToi8",
         "youtube_embed_en": "https://www.youtube.com/embed/videoseries?list=PLfY8oG_HToi8",
+        "playlists": {"ar": "PLVw-KHF4Mj74", "en": "PLfY8oG_HToi8"},
         # Vault ships its privacy policy in 8 languages (real, authoritative
         # translations preserved from the app project); other content is EN/AR.
         "overview_langs": ["en", "ar"],
@@ -756,11 +762,42 @@ def page_tutorials():
                   body, active="tutorials")
 
 
+def playlist_langs(a):
+    """«Watch the tutorials»: every site language in menu order. Ready
+    languages open their YouTube playlist; the rest say «Available soon».
+    The visitor's own language is highlighted (small script below)."""
+    pl = a.get("playlists") or {}
+    if not pl:
+        return ""
+    items = []
+    for L in site_i18n.MENU_ORDER:
+        name = site_i18n.NATIVE[L]
+        if L in pl:
+            items.append(f'''<a class="tl-lang tl-ready" data-tl="{L}" lang="{L}" href="https://www.youtube.com/playlist?list={pl[L]}" target="_blank" rel="noopener">
+            <span class="tl-play" aria-hidden="true">▶</span><b>{name}</b></a>''')
+        else:
+            items.append(f'''<span class="tl-lang tl-soon" data-tl="{L}" lang="{L}" aria-disabled="true">
+            <b>{name}</b><small><span data-en>Available soon</span><span data-ar>قريبًا</span></small></span>''')
+    return f'''<div class="tl-box">
+  {h(2, "Watch the video tutorials", "شاهد الشروحات بالفيديو")}
+  {p("Choose your language — it opens the playlist on YouTube.", "اختر لغتك، فتُفتح قائمة الشروحات على YouTube.")}
+  <div class="tl-grid">{"".join(items)}</div>
+</div>
+<script>(function(){{try{{var d=document.documentElement,l=(d.getAttribute('data-lang')||d.lang||'en').slice(0,2);
+var q=new URLSearchParams(location.search).get('lang');if(q)l=q.slice(0,2);
+var e=document.querySelector('.tl-ready[data-tl="'+l+'"]')||document.querySelector('.tl-ready[data-tl="en"]');
+if(e){{e.classList.add('tl-mine');}}}}catch(e){{}}}})();</script>'''
+
+
 def tutorial_page(slug, title_en, title_ar, desc_en, desc_ar, intro_en, intro_ar,
                   steps_list, tips, faqs, video_embed=False):
     a = APPS[slug]
     video = ""
-    if video_embed:
+    if a.get("playlists"):
+        # The language list replaces the single embedded player (owner
+        # 2026-11-25): one fixed entry point from the app, the site decides.
+        video = playlist_langs(a)
+    elif video_embed:
         video = site_layout.per_audience(a, "youtube_embed", lambda u: f'''<div style="margin:28px 0">
           <div class="video-wrap"><iframe src="{u}" title="{esc(title_en)}" loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>''')

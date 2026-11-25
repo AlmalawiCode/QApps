@@ -49,7 +49,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500..700&family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Manrope:wght@400..800&display=swap">
-<link rel="stylesheet" href="/assets/css/styles.css?v=86ba9b978d">
+<link rel="stylesheet" href="/assets/css/styles.css?v=27122cec70">
 <style>
 .qa-grid-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:18px}
 .qa-grid-head h1,.qa-grid-head h2{margin:0;font-size:clamp(26px,3vw,36px)}
@@ -124,9 +124,33 @@
 <section class="section"><div class="container prose">
   <h1>Tutoriais do Countdown Keeper</h1>
   <p class="lead">Aprenda a adicionar eventos, usar lembretes, datas recorrentes e as ferramentas de datas incluídas.</p>
-  <div style="margin:28px 0">
-          <div class="video-wrap"><iframe src="https://www.youtube.com/embed/videoseries?list=PLddSF_yBnl8A" title="Tutoriais do Countdown Keeper" loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>
+  <div class="tl-box">
+  <h2>Assista aos tutoriais em vídeo</h2>
+  <p>Escolha seu idioma: a playlist abre no YouTube.</p>
+  <div class="tl-grid"><a class="tl-lang tl-ready" data-tl="en" lang="en" href="https://www.youtube.com/playlist?list=PLddSF_yBnl8A" target="_blank" rel="noopener">
+            <span class="tl-play" aria-hidden="true">▶</span><b>English</b></a><a class="tl-lang tl-ready" data-tl="ar" lang="ar" href="https://www.youtube.com/playlist?list=PLcZVEfdjz66U" target="_blank" rel="noopener">
+            <span class="tl-play" aria-hidden="true">▶</span><b>العربية</b></a><span class="tl-lang tl-soon" data-tl="fr" lang="fr" aria-disabled="true">
+            <b>Français</b><small><span>Em breve</span></small></span><span class="tl-lang tl-soon" data-tl="de" lang="de" aria-disabled="true">
+            <b>Deutsch</b><small><span>Em breve</span></small></span><span class="tl-lang tl-soon" data-tl="es" lang="es" aria-disabled="true">
+            <b>Español</b><small><span>Em breve</span></small></span><span class="tl-lang tl-soon" data-tl="it" lang="it" aria-disabled="true">
+            <b>Italiano</b><small><span>Em breve</span></small></span><span class="tl-lang tl-soon" data-tl="pt" lang="pt" aria-disabled="true">
+            <b>Português</b><small><span>Em breve</span></small></span><span class="tl-lang tl-soon" data-tl="nl" lang="nl" aria-disabled="true">
+            <b>Nederlands</b><small><span>Em breve</span></small></span><span class="tl-lang tl-soon" data-tl="ru" lang="ru" aria-disabled="true">
+            <b>Русский</b><small><span>Em breve</span></small></span><span class="tl-lang tl-soon" data-tl="tr" lang="tr" aria-disabled="true">
+            <b>Türkçe</b><small><span>Em breve</span></small></span><span class="tl-lang tl-soon" data-tl="ur" lang="ur" aria-disabled="true">
+            <b>اردو</b><small><span>Em breve</span></small></span><span class="tl-lang tl-soon" data-tl="hi" lang="hi" aria-disabled="true">
+            <b>हिन्दी</b><small><span>Em breve</span></small></span><span class="tl-lang tl-soon" data-tl="bn" lang="bn" aria-disabled="true">
+            <b>বাংলা</b><small><span>Em breve</span></small></span><span class="tl-lang tl-soon" data-tl="id" lang="id" aria-disabled="true">
+            <b>Bahasa Indonesia</b><small><span>Em breve</span></small></span><span class="tl-lang tl-soon" data-tl="ms" lang="ms" aria-disabled="true">
+            <b>Bahasa Melayu</b><small><span>Em breve</span></small></span><span class="tl-lang tl-soon" data-tl="zh" lang="zh" aria-disabled="true">
+            <b>简体中文</b><small><span>Em breve</span></small></span><span class="tl-lang tl-soon" data-tl="ja" lang="ja" aria-disabled="true">
+            <b>日本語</b><small><span>Em breve</span></small></span><span class="tl-lang tl-soon" data-tl="ko" lang="ko" aria-disabled="true">
+            <b>한국어</b><small><span>Em breve</span></small></span></div>
+</div>
+<script>(function(){try{var d=document.documentElement,l=(d.getAttribute('data-lang')||d.lang||'en').slice(0,2);
+var q=new URLSearchParams(location.search).get('lang');if(q)l=q.slice(0,2);
+var e=document.querySelector('.tl-ready[data-tl="'+l+'"]')||document.querySelector('.tl-ready[data-tl="en"]');
+if(e){e.classList.add('tl-mine');}}catch(e){}})();</script>
   <h2>Primeiros passos</h2>
   <ol class="steps"><li><h4>Adicione seu primeiro evento</h4><p>Toque no botão +, digite um título e escolha a data (e o horário, se for importante).</p></li><li><h4>Escolha um calendário</h4><p>Escolha gregoriano ou hegiriano para definir como a data é calculada e exibida.</p></li><li><h4>Deixe fácil de reconhecer</h4><p>Dê ao evento uma cor e um emoji, ou anexe uma foto sua, e adicione anotações.</p></li><li><h4>Ative um lembrete</h4><p>Se quiser, ative uma notificação na hora, um dia antes ou uma semana antes.</p></li><li><h4>Fixe o que importa</h4><p>Fixe os eventos importantes para mantê-los no topo da sua lista.</p></li></ol>
   <h2>Dicas</h2><ul><li>Repita um evento todo mês pelo editor de eventos para acompanhar datas recorrentes automaticamente.</li><li>Use a aba Ferramentas para a calculadora de idade, a diferença entre datas e a estimativa de aposentadoria.</li><li>Exporte seus eventos para um arquivo JSON como um backup pessoal sob o seu total controle.</li></ul>

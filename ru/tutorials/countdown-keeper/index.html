@@ -49,7 +49,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500..700&family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=JetBrains+Mono:wght@500&family=Manrope:wght@400..800&display=swap">
-<link rel="stylesheet" href="/assets/css/styles.css?v=86ba9b978d">
+<link rel="stylesheet" href="/assets/css/styles.css?v=27122cec70">
 <style>
 .qa-grid-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:18px}
 .qa-grid-head h1,.qa-grid-head h2{margin:0;font-size:clamp(26px,3vw,36px)}
@@ -124,9 +124,33 @@
 <section class="section"><div class="container prose">
   <h1>Уроки по Countdown Keeper</h1>
   <p class="lead">Узнайте, как добавлять события, пользоваться напоминаниями, повторяющимися датами и встроенными инструментами для дат.</p>
-  <div style="margin:28px 0">
-          <div class="video-wrap"><iframe src="https://www.youtube.com/embed/videoseries?list=PLddSF_yBnl8A" title="Уроки по Countdown Keeper" loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>
+  <div class="tl-box">
+  <h2>Смотреть видеоуроки</h2>
+  <p>Выберите язык — плейлист откроется на YouTube.</p>
+  <div class="tl-grid"><a class="tl-lang tl-ready" data-tl="en" lang="en" href="https://www.youtube.com/playlist?list=PLddSF_yBnl8A" target="_blank" rel="noopener">
+            <span class="tl-play" aria-hidden="true">▶</span><b>English</b></a><a class="tl-lang tl-ready" data-tl="ar" lang="ar" href="https://www.youtube.com/playlist?list=PLcZVEfdjz66U" target="_blank" rel="noopener">
+            <span class="tl-play" aria-hidden="true">▶</span><b>العربية</b></a><span class="tl-lang tl-soon" data-tl="fr" lang="fr" aria-disabled="true">
+            <b>Français</b><small><span>Скоро</span></small></span><span class="tl-lang tl-soon" data-tl="de" lang="de" aria-disabled="true">
+            <b>Deutsch</b><small><span>Скоро</span></small></span><span class="tl-lang tl-soon" data-tl="es" lang="es" aria-disabled="true">
+            <b>Español</b><small><span>Скоро</span></small></span><span class="tl-lang tl-soon" data-tl="it" lang="it" aria-disabled="true">
+            <b>Italiano</b><small><span>Скоро</span></small></span><span class="tl-lang tl-soon" data-tl="pt" lang="pt" aria-disabled="true">
+            <b>Português</b><small><span>Скоро</span></small></span><span class="tl-lang tl-soon" data-tl="nl" lang="nl" aria-disabled="true">
+            <b>Nederlands</b><small><span>Скоро</span></small></span><span class="tl-lang tl-soon" data-tl="ru" lang="ru" aria-disabled="true">
+            <b>Русский</b><small><span>Скоро</span></small></span><span class="tl-lang tl-soon" data-tl="tr" lang="tr" aria-disabled="true">
+            <b>Türkçe</b><small><span>Скоро</span></small></span><span class="tl-lang tl-soon" data-tl="ur" lang="ur" aria-disabled="true">
+            <b>اردو</b><small><span>Скоро</span></small></span><span class="tl-lang tl-soon" data-tl="hi" lang="hi" aria-disabled="true">
+            <b>हिन्दी</b><small><span>Скоро</span></small></span><span class="tl-lang tl-soon" data-tl="bn" lang="bn" aria-disabled="true">
+            <b>বাংলা</b><small><span>Скоро</span></small></span><span class="tl-lang tl-soon" data-tl="id" lang="id" aria-disabled="true">
+            <b>Bahasa Indonesia</b><small><span>Скоро</span></small></span><span class="tl-lang tl-soon" data-tl="ms" lang="ms" aria-disabled="true">
+            <b>Bahasa Melayu</b><small><span>Скоро</span></small></span><span class="tl-lang tl-soon" data-tl="zh" lang="zh" aria-disabled="true">
+            <b>简体中文</b><small><span>Скоро</span></small></span><span class="tl-lang tl-soon" data-tl="ja" lang="ja" aria-disabled="true">
+            <b>日本語</b><small><span>Скоро</span></small></span><span class="tl-lang tl-soon" data-tl="ko" lang="ko" aria-disabled="true">
+            <b>한국어</b><small><span>Скоро</span></small></span></div>
+</div>
+<script>(function(){try{var d=document.documentElement,l=(d.getAttribute('data-lang')||d.lang||'en').slice(0,2);
+var q=new URLSearchParams(location.search).get('lang');if(q)l=q.slice(0,2);
+var e=document.querySelector('.tl-ready[data-tl="'+l+'"]')||document.querySelector('.tl-ready[data-tl="en"]');
+if(e){e.classList.add('tl-mine');}}catch(e){}})();</script>
   <h2>С чего начать</h2>
   <ol class="steps"><li><h4>Добавьте первое событие</h4><p>Нажмите кнопку +, введите название и выберите дату (и время, если это важно).</p></li><li><h4>Выберите календарь</h4><p>Выберите григорианский календарь или хиджру — по нему дата будет рассчитываться и отображаться.</p></li><li><h4>Сделайте его узнаваемым</h4><p>Задайте событию цвет и эмодзи или прикрепите своё фото и добавьте заметки.</p></li><li><h4>Включите напоминание</h4><p>При желании включите уведомление в нужное время, за день или за неделю.</p></li><li><h4>Закрепите важное</h4><p>Закрепляйте важные события, чтобы они оставались вверху списка.</p></li></ol>
   <h2>Советы</h2><ul><li>Включите ежемесячный повтор в редакторе события, чтобы автоматически отслеживать повторяющиеся даты.</li><li>На вкладке «Инструменты» есть калькулятор возраста, разница между датами и расчёт даты выхода на пенсию.</li><li>Экспортируйте события в файл JSON — это личная резервная копия, полностью под вашим контролем.</li></ul>
