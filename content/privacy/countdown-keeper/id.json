@@ -1,101 +1,105 @@
 {
- "lang": "id",
- "lang_name": "Bahasa Indonesia",
- "dir": "ltr",
- "title": "Kebijakan Privasi Countdown Keeper",
- "effective": "Terakhir diperbarui: September 2026",
- "blocks": [
-  {
-   "t": "p",
-   "html": "Countdown Keeper (“aplikasi”) adalah aplikasi seluler yang diterbitkan oleh Thiban Tech Solutions. Kebijakan ini menjelaskan cara aplikasi menangani informasi Anda. Kami menghormati privasi Anda: aplikasi tidak memerlukan proses masuk (login), dan kami tidak mengumpulkan, menjual, atau membagikan informasi pribadi Anda."
-  },
-  {
-   "t": "h2",
-   "html": "Informasi yang ditangani aplikasi"
-  },
-  {
-   "t": "p",
-   "html": "Aplikasi menyimpan konten yang Anda buat: judul acara, tanggal dan waktu, catatan, warna, emoji atau foto opsional yang Anda lampirkan, serta pengaturan aplikasi Anda. Informasi ini disimpan di perangkat Anda dan hanya digunakan untuk menampilkan penghitung dan pengingat Anda."
-  },
-  {
-   "t": "h2",
-   "html": "Izin perangkat"
-  },
-  {
-   "t": "html",
-   "html": "<ul><li><strong>Notifikasi</strong> — hanya digunakan jika Anda mengaktifkan pengingat, untuk memberi tahu Anda sebelum suatu acara.</li><li><strong>Kamera</strong> — opsional, agar Anda dapat mengambil foto untuk dilampirkan pada acara.</li><li><strong>Foto</strong> — opsional, agar Anda dapat memilih foto untuk acara atau menyimpan gambar acara ke galeri Anda.</li><li><strong>Biometrik / Face ID</strong> — opsional, hanya untuk membuka aplikasi jika Anda mengaktifkan kunci aplikasi.</li><li><strong>Berjalan setelah mulai ulang (Android)</strong> — agar pengingat terjadwal tetap berlaku setelah perangkat dinyalakan ulang.</li></ul><p>Setiap izin hanya diminta saat Anda menggunakan fitur terkait.</p>"
-  },
-  {
-   "t": "h2",
-   "html": "Penyimpanan data"
-  },
-  {
-   "t": "p",
-   "html": "Semua acara dan pengaturan Anda disimpan secara lokal di perangkat Anda. Aplikasi dapat mengekspor acara Anda ke file JSON dan mengimpornya kembali; Anda yang menentukan di mana file tersebut disimpan dan dengan siapa, jika ada, Anda membagikannya."
-  },
-  {
-   "t": "h2",
-   "html": "Berbagi data"
-  },
-  {
-   "t": "p",
-   "html": "Kami tidak menjual atau membagikan data Anda. Aplikasi tidak memiliki akun pengguna dan tidak memiliki server Countdown Keeper; apa pun yang Anda ketik tidak dikirimkan kepada kami."
-  },
-  {
-   "t": "h2",
-   "html": "Layanan pihak ketiga"
-  },
-  {
-   "t": "p",
-   "html": "Aplikasi tidak menggunakan layanan analitik, iklan, atau pelaporan kerusakan (crash). Satu-satunya permintaan jaringan yang mungkin dilakukan aplikasi adalah ke Google Fonts untuk mengunduh jenis huruf tampilan saat pertama kali dibutuhkan; seperti permintaan web lainnya, permintaan ini mencakup alamat IP perangkat Anda, tetapi tidak ada data pribadi atau konten aplikasi yang dikirimkan. Selain itu, aplikasi berfungsi sepenuhnya secara offline."
-  },
-  {
-   "t": "h2",
-   "html": "Retensi data"
-  },
-  {
-   "t": "p",
-   "html": "Data Anda tetap berada di perangkat Anda sampai Anda menghapusnya. Menghapus acara akan memindahkannya ke tempat sampah, dan acara tersebut akan dihapus secara permanen dari sana di kemudian hari. Mencopot pemasangan aplikasi akan menghapus semua data lokalnya."
-  },
-  {
-   "t": "h2",
-   "html": "Privasi anak"
-  },
-  {
-   "t": "p",
-   "html": "Aplikasi ini tidak ditujukan untuk anak-anak dan tidak dengan sengaja mengumpulkan informasi dari anak-anak."
-  },
-  {
-   "t": "h2",
-   "html": "Keamanan"
-  },
-  {
-   "t": "p",
-   "html": "Data Anda dilindungi oleh sistem keamanan perangkat Anda sendiri dan sandbox aplikasi. Anda dapat menambahkan lapisan perlindungan ekstra dengan kunci aplikasi biometrik opsional."
-  },
-  {
-   "t": "h2",
-   "html": "Pilihan Anda"
-  },
-  {
-   "t": "p",
-   "html": "Anda mengendalikan izin aplikasi melalui pengaturan perangkat Anda, dan Anda dapat mengekspor atau menghapus data Anda kapan saja dari dalam aplikasi."
-  },
-  {
-   "t": "h2",
-   "html": "Perubahan atas kebijakan ini"
-  },
-  {
-   "t": "p",
-   "html": "Kami dapat memperbarui kebijakan ini dari waktu ke waktu. Setiap perubahan akan dipublikasikan di halaman ini dengan tanggal baru."
-  },
-  {
-   "t": "h2",
-   "html": "Kontak"
-  },
-  {
-   "t": "p",
-   "html": "Jika Anda memiliki pertanyaan tentang kebijakan ini, hubungi kami di <a href=\"mailto:qeuapps@gmail.com\">qeuapps@gmail.com</a>."
-  }
- ]
+  "lang": "id",
+  "lang_name": "Bahasa Indonesia",
+  "dir": "ltr",
+  "title": "Kebijakan Privasi Countdown Keeper",
+  "effective": "Terakhir diperbarui: 27 November 2026",
+  "blocks": [
+    {
+      "t": "p",
+      "html": "Countdown Keeper (“aplikasi”) adalah aplikasi seluler yang diterbitkan oleh Thiban Tech Solutions. Kebijakan ini menjelaskan cara aplikasi menangani informasi Anda. Sebagian besar aplikasi hanya berjalan di perangkat Anda, tanpa akun. Satu-satunya pengecualian adalah alat opsional <strong>Perencana Rapat</strong>: alat ini memerlukan server untuk mengumpulkan jawaban para peserta dan dijelaskan dalam bagiannya sendiri di bawah. Kami tidak menjual informasi Anda, tidak menampilkan iklan, dan tidak melacak Anda."
+    },
+    {
+      "t": "h2",
+      "html": "Yang tetap berada di perangkat Anda"
+    },
+    {
+      "t": "p",
+      "html": "Acara dan jadwal beserta tanggal dan waktunya, catatan, warna, gambar yang Anda lampirkan, tempat yang Anda tambahkan ke acara, pengingat dan alarm, serta pengaturan Anda hanya disimpan di perangkat Anda dan tidak pernah dikirim kepada kami. File ekspor, berbagi, dan cadangan terenkripsi hanya dibuat saat Anda memintanya, dan Anda yang memilih ke mana file tersebut dikirim dan siapa yang menerimanya."
+    },
+    {
+      "t": "h2",
+      "html": "Izin perangkat"
+    },
+    {
+      "t": "html",
+      "html": "<ul><li><strong>Notifikasi</strong>: untuk pengingat dan alarm, serta untuk pemberitahuan dari penyelenggara di Perencana Rapat.</li><li><strong>Alarm dan layar penuh (Android)</strong>: agar alarm berbunyi tepat waktu, bahkan saat ponsel terkunci.</li><li><strong>Kamera dan foto</strong>: opsional, untuk melampirkan gambar ke acara atau menyimpan gambar ke galeri Anda.</li><li><strong>Lokasi</strong>: opsional, hanya saat Anda mengetuk “Lokasi saya saat ini” untuk suatu acara. Lokasi tetap berada di perangkat Anda.</li><li><strong>Sidik jari / Face ID</strong>: opsional, untuk kunci aplikasi.</li><li><strong>Berjalan setelah dimulai ulang (Android)</strong>: agar pengingat terjadwal tetap terjaga.</li></ul><p>Setiap izin hanya diminta saat Anda menggunakan fitur yang membutuhkannya.</p>"
+    },
+    {
+      "t": "h2",
+      "html": "Perencana Rapat (server)"
+    },
+    {
+      "t": "p",
+      "html": "Saat Anda menggunakan alat ini, hal-hal berikut disimpan di server kami di Google Firebase (pusat data di Uni Eropa):"
+    },
+    {
+      "t": "html",
+      "html": "<ul><li><strong>Pengenal anonim otomatis</strong> untuk perangkat, tanpa nama atau nomor telepon.</li><li><strong>Isi rapat</strong>: judul, catatan, tempat, dan waktu yang diusulkan, sebagaimana ditulis oleh penyelenggara.</li><li><strong>Jawaban Anda</strong>: nama yang Anda ketik dan waktu yang Anda pilih atau tandai.</li><li><strong>Untuk pemberitahuan</strong>: saat Anda membuka rapat yang diselenggarakan orang lain, nama Anda dan push token perangkat Anda disimpan agar pemberitahuan dari penyelenggara dapat sampai kepada Anda. Teks pemberitahuan disimpan bersama rapat agar Anda dapat membacanya di aplikasi.</li></ul>"
+    },
+    {
+      "t": "p",
+      "html": "Penyelenggara dapat melihat siapa yang menjawab beserta pilihan mereka; peserta lain juga dapat melihatnya kecuali penyelenggara menyembunyikan nama. Kami tidak pernah meminta nomor telepon atau kontak Anda. <strong>Masa penyimpanan:</strong> rapat dan semua data yang terkait dengannya dihapus secara otomatis 30 hari setelah waktu terakhirnya, atau segera saat penyelenggara menghapusnya. Anda dapat menarik jawaban Anda kapan saja."
+    },
+    {
+      "t": "h2",
+      "html": "Akun penyelenggara dan poin"
+    },
+    {
+      "t": "p",
+      "html": "Untuk menyelenggarakan rapat, Anda masuk dengan Apple atau Google dan membeli paket poin dari App Store atau Google Play. Kami kemudian menyimpan:"
+    },
+    {
+      "t": "html",
+      "html": "<ul><li><strong>Pengenal akun dan email</strong> sebagaimana diberikan oleh Apple atau Google (Apple dapat memberikan email penerus yang tersembunyi). Hanya digunakan untuk menyimpan poin Anda, tidak pernah untuk pemasaran.</li><li><strong>Saldo Anda dan riwayatnya</strong>: pembelian, serta poin yang disisihkan untuk setiap rapat, yang digunakan, dan yang dikembalikan.</li><li><strong>Catatan pembelian</strong>: toko, nomor transaksi, paket, poin, dan tanggal, agar kami dapat memverifikasi pembelian dengan Apple atau Google dan tidak pernah menghitungnya dua kali.</li></ul><p>Pembayaran dilakukan di Apple atau Google; kami tidak pernah melihat detail kartu Anda. Jika toko mengembalikan dana suatu pembelian, poinnya akan dihapus.</p>"
+    },
+    {
+      "t": "h2",
+      "html": "Menghapus akun dan data Anda"
+    },
+    {
+      "t": "p",
+      "html": "Di aplikasi: Poin saya → ⋮ → Hapus akun. Tindakan ini menghapus akun, saldo, riwayat, dan rapat yang Anda selenggarakan. Hanya catatan transaksi pembelian yang disimpan, untuk mencegahnya dikreditkan lagi dan untuk keperluan akuntansi. Jawaban Anda di rapat orang lain dihapus bersama rapat tersebut. Anda juga dapat meminta penghapusan melalui email (lihat di bawah)."
+    },
+    {
+      "t": "h2",
+      "html": "Layanan pihak ketiga"
+    },
+    {
+      "t": "html",
+      "html": "<ul><li><strong>Google Firebase</strong>: server Perencana Rapat, proses masuk, notifikasi, dan pemeriksaan bahwa permintaan berasal dari aplikasi asli (App Check dengan Play Integrity / DeviceCheck).</li><li><strong>Apple dan Google</strong>: proses masuk dan pembelian dalam aplikasi.</li><li><strong>Google Fonts</strong>: mengunduh fon tampilan pada penggunaan pertama.</li></ul><p>Server mencatat berapa banyak operasi yang digunakan setiap permintaan, beserta pengenal akun dan rapat, untuk menghitung biaya dan mencegah penyalahgunaan. Log ini dihapus secara otomatis dalam 30 hari. Kami tidak menggunakan analitik iklan atau pelacakan.</p>"
+    },
+    {
+      "t": "h2",
+      "html": "Privasi anak-anak"
+    },
+    {
+      "t": "p",
+      "html": "Aplikasi ini tidak ditujukan untuk anak-anak di bawah 13 tahun dan tidak dengan sengaja mengumpulkan informasi dari mereka."
+    },
+    {
+      "t": "h2",
+      "html": "Keamanan"
+    },
+    {
+      "t": "p",
+      "html": "Koneksi ke server dienkripsi. Tidak ada ponsel yang dapat membaca basis data secara langsung: setiap pembacaan dan penulisan melewati server, yang memeriksa bahwa permintaan tersebut diizinkan. Di perangkat Anda, data dilindungi oleh keamanan perangkat itu sendiri dan kunci aplikasi opsional."
+    },
+    {
+      "t": "h2",
+      "html": "Perubahan pada kebijakan ini"
+    },
+    {
+      "t": "p",
+      "html": "Kami dapat memperbarui kebijakan ini. Perubahan dipublikasikan di sini dengan tanggal baru, dan perubahan penting diumumkan di aplikasi."
+    },
+    {
+      "t": "h2",
+      "html": "Kontak"
+    },
+    {
+      "t": "p",
+      "html": "Untuk pertanyaan apa pun atau permintaan penghapusan: <a href=\"mailto:qeuapps@gmail.com\">qeuapps@gmail.com</a>."
+    }
+  ]
 }

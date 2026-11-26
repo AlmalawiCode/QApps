@@ -1,101 +1,105 @@
 {
- "lang": "it",
- "lang_name": "Italiano",
- "dir": "ltr",
- "title": "Informativa sulla privacy di Countdown Keeper",
- "effective": "Ultimo aggiornamento: settembre 2026",
- "blocks": [
-  {
-   "t": "p",
-   "html": "Countdown Keeper («l'app») è un'app per dispositivi mobili pubblicata da Thiban Tech Solutions. La presente informativa spiega come l'app tratta le tue informazioni. Rispettiamo la tua privacy: l'app non richiede l'accesso con un account e non raccogliamo, vendiamo né condividiamo le tue informazioni personali."
-  },
-  {
-   "t": "h2",
-   "html": "Informazioni trattate dall'app"
-  },
-  {
-   "t": "p",
-   "html": "L'app memorizza i contenuti che crei: titoli, date e orari degli eventi, note, colori, un'emoji o una foto facoltativa che alleghi, nonché le impostazioni dell'app. Queste informazioni sono memorizzate sul tuo dispositivo e vengono utilizzate esclusivamente per mostrare i tuoi contatori e promemoria."
-  },
-  {
-   "t": "h2",
-   "html": "Autorizzazioni del dispositivo"
-  },
-  {
-   "t": "html",
-   "html": "<ul><li><strong>Notifiche</strong> — utilizzate solo se attivi i promemoria, per avvisarti prima di un evento.</li><li><strong>Fotocamera</strong> — facoltativa, per consentirti di scattare una foto da allegare a un evento.</li><li><strong>Foto</strong> — facoltativa, per consentirti di scegliere una foto per un evento o di salvare l'immagine di un evento nella tua galleria.</li><li><strong>Biometria / Face ID</strong> — facoltativa, solo per sbloccare l'app se attivi il blocco dell'app.</li><li><strong>Esecuzione dopo il riavvio (Android)</strong> — affinché i promemoria programmati restino attivi dopo il riavvio del dispositivo.</li></ul><p>Ogni autorizzazione viene richiesta solo quando utilizzi la funzione corrispondente.</p>"
-  },
-  {
-   "t": "h2",
-   "html": "Archiviazione dei dati"
-  },
-  {
-   "t": "p",
-   "html": "Tutti i tuoi eventi e le tue impostazioni sono memorizzati localmente sul tuo dispositivo. L'app può esportare i tuoi eventi in un file JSON e reimportarli; sei tu a scegliere dove salvare il file e con chi condividerlo, se con qualcuno."
-  },
-  {
-   "t": "h2",
-   "html": "Condivisione dei dati"
-  },
-  {
-   "t": "p",
-   "html": "Non vendiamo né condividiamo i tuoi dati. L'app non prevede account utente né un server di Countdown Keeper; nulla di ciò che digiti ci viene inviato."
-  },
-  {
-   "t": "h2",
-   "html": "Servizi di terze parti"
-  },
-  {
-   "t": "p",
-   "html": "L'app non utilizza servizi di analisi, pubblicità o segnalazione degli arresti anomali. L'unica richiesta di rete che può effettuare è verso Google Fonts, per scaricare il carattere tipografico di visualizzazione la prima volta che serve; come qualsiasi richiesta web, questa include l'indirizzo IP del tuo dispositivo, ma non vengono inviati dati personali né contenuti dell'app. Per il resto, l'app funziona completamente offline."
-  },
-  {
-   "t": "h2",
-   "html": "Conservazione dei dati"
-  },
-  {
-   "t": "p",
-   "html": "I tuoi dati restano sul tuo dispositivo finché non li elimini. L'eliminazione di un evento lo sposta nel cestino, da cui viene rimosso definitivamente in un secondo momento. La disinstallazione dell'app rimuove tutti i suoi dati locali."
-  },
-  {
-   "t": "h2",
-   "html": "Privacy dei minori"
-  },
-  {
-   "t": "p",
-   "html": "L'app non è destinata ai minori e non raccoglie consapevolmente informazioni da minori."
-  },
-  {
-   "t": "h2",
-   "html": "Sicurezza"
-  },
-  {
-   "t": "p",
-   "html": "I tuoi dati sono protetti dalla sicurezza del tuo dispositivo e dalla sandbox dell'app. Puoi aggiungere un ulteriore livello di protezione con il blocco biometrico facoltativo dell'app."
-  },
-  {
-   "t": "h2",
-   "html": "Le tue scelte"
-  },
-  {
-   "t": "p",
-   "html": "Puoi gestire le autorizzazioni dell'app dalle impostazioni del tuo dispositivo ed esportare o eliminare i tuoi dati in qualsiasi momento dall'interno dell'app."
-  },
-  {
-   "t": "h2",
-   "html": "Modifiche alla presente informativa"
-  },
-  {
-   "t": "p",
-   "html": "Potremmo aggiornare periodicamente la presente informativa. Eventuali modifiche saranno pubblicate in questa pagina con una nuova data."
-  },
-  {
-   "t": "h2",
-   "html": "Contatti"
-  },
-  {
-   "t": "p",
-   "html": "Per domande sulla presente informativa, contattaci all'indirizzo <a href=\"mailto:qeuapps@gmail.com\">qeuapps@gmail.com</a>."
-  }
- ]
+  "lang": "it",
+  "lang_name": "Italiano",
+  "dir": "ltr",
+  "title": "Informativa sulla privacy di Countdown Keeper",
+  "effective": "Ultimo aggiornamento: 27 novembre 2026",
+  "blocks": [
+    {
+      "t": "p",
+      "html": "Countdown Keeper («l'app») è un'app per dispositivi mobili pubblicata da Thiban Tech Solutions. La presente informativa spiega come l'app tratta le tue informazioni. La maggior parte dell'app funziona solo sul tuo dispositivo, senza account. L'unica eccezione è lo strumento facoltativo <strong>Pianificatore di riunioni</strong>: ha bisogno di un server per raccogliere le risposte dei partecipanti ed è descritto nella sua sezione qui sotto. Non vendiamo le tue informazioni, non mostriamo pubblicità e non ti tracciamo."
+    },
+    {
+      "t": "h2",
+      "html": "Cosa resta sul tuo dispositivo"
+    },
+    {
+      "t": "p",
+      "html": "Gli eventi e i programmi con le relative date e ore, le note, i colori, le immagini che alleghi, il luogo che aggiungi a un evento, i promemoria e le sveglie e le tue impostazioni sono memorizzati solo sul tuo dispositivo e non ci vengono mai inviati. I file di esportazione, di condivisione e di backup crittografato vengono creati solo quando lo chiedi tu, e sei tu a scegliere dove vanno e chi li riceve."
+    },
+    {
+      "t": "h2",
+      "html": "Autorizzazioni del dispositivo"
+    },
+    {
+      "t": "html",
+      "html": "<ul><li><strong>Notifiche</strong>: per promemoria e sveglie, e per gli avvisi degli organizzatori nel Pianificatore di riunioni.</li><li><strong>Sveglie e schermo intero (Android)</strong>: perché una sveglia suoni in orario, anche con il telefono bloccato.</li><li><strong>Fotocamera e foto</strong>: facoltativa, per allegare un'immagine a un evento o salvarne una nella tua galleria.</li><li><strong>Posizione</strong>: facoltativa, solo quando tocchi «La mia posizione attuale» per un evento. Resta sul tuo dispositivo.</li><li><strong>Impronta digitale / Face ID</strong>: facoltativa, per il blocco dell'app.</li><li><strong>Avvio dopo il riavvio (Android)</strong>: per mantenere i promemoria programmati.</li></ul><p>Ogni autorizzazione viene richiesta solo quando usi la funzione che ne ha bisogno.</p>"
+    },
+    {
+      "t": "h2",
+      "html": "Pianificatore di riunioni (server)"
+    },
+    {
+      "t": "p",
+      "html": "Quando usi questo strumento, sul nostro server in Google Firebase (data center nell'Unione europea) vengono memorizzati:"
+    },
+    {
+      "t": "html",
+      "html": "<ul><li><strong>Un identificatore anonimo automatico</strong> del dispositivo, senza nome né numero di telefono.</li><li><strong>Il contenuto della riunione</strong>: titolo, nota, luogo e orari proposti, così come li scrive l'organizzatore.</li><li><strong>La tua risposta</strong>: il nome che digiti e gli orari che hai scelto o segnato.</li><li><strong>Per gli avvisi</strong>: quando apri una riunione organizzata da un'altra persona, vengono memorizzati il tuo nome e il push token del tuo dispositivo, perché l'avviso dell'organizzatore possa raggiungerti. Il testo dell'avviso viene conservato con la riunione, così puoi leggerlo nell'app.</li></ul>"
+    },
+    {
+      "t": "p",
+      "html": "L'organizzatore vede chi ha risposto e le relative scelte; anche gli altri partecipanti le vedono, a meno che l'organizzatore non nasconda i nomi. Non ti chiediamo mai il numero di telefono né i contatti. <strong>Conservazione:</strong> una riunione e tutti i dati che la riguardano vengono eliminati automaticamente 30 giorni dopo il suo ultimo orario, oppure subito quando l'organizzatore la elimina. Puoi ritirare la tua risposta in qualsiasi momento."
+    },
+    {
+      "t": "h2",
+      "html": "Account organizzatore e punti"
+    },
+    {
+      "t": "p",
+      "html": "Per organizzare una riunione accedi con Apple o Google e acquisti un pacchetto di punti dall'App Store o da Google Play. Conserviamo quindi:"
+    },
+    {
+      "t": "html",
+      "html": "<ul><li><strong>L'identificatore dell'account e l'indirizzo email</strong> così come forniti da Apple o Google (Apple può fornire un indirizzo email di inoltro nascosto). Sono usati solo per conservare i tuoi punti, mai per il marketing.</li><li><strong>Il tuo saldo e la relativa cronologia</strong>: acquisti, punti riservati per ogni riunione, usati e restituiti.</li><li><strong>Dati di acquisto</strong>: store, numero di transazione, pacchetto, punti e data, per poter verificare l'acquisto con Apple o Google e non conteggiarlo mai due volte.</li></ul><p>Il pagamento avviene presso Apple o Google; non vediamo mai i dati della tua carta. Se lo store rimborsa un acquisto, i relativi punti vengono rimossi.</p>"
+    },
+    {
+      "t": "h2",
+      "html": "Eliminazione dell'account e dei dati"
+    },
+    {
+      "t": "p",
+      "html": "Nell'app: I miei punti → ⋮ → Elimina account. In questo modo vengono eliminati il tuo account, il saldo, la cronologia e le riunioni che organizzi. Viene conservato solo il record della transazione di acquisto, per evitare che venga accreditata di nuovo e a fini contabili. Le tue risposte nelle riunioni di altre persone vengono eliminate insieme a quelle riunioni. Puoi anche chiedere l'eliminazione via email (vedi sotto)."
+    },
+    {
+      "t": "h2",
+      "html": "Servizi di terze parti"
+    },
+    {
+      "t": "html",
+      "html": "<ul><li><strong>Google Firebase</strong>: il server del Pianificatore di riunioni, l'accesso, le notifiche e la verifica che le richieste provengano dall'app autentica (App Check con Play Integrity / DeviceCheck).</li><li><strong>Apple e Google</strong>: accesso e acquisti in-app.</li><li><strong>Google Fonts</strong>: download del carattere di visualizzazione al primo utilizzo.</li></ul><p>Il server registra quante operazioni ha usato ogni richiesta, con gli identificatori dell'account e della riunione, per calcolare i costi e prevenire gli abusi. Questi registri vengono eliminati automaticamente entro 30 giorni. Non usiamo strumenti di analisi pubblicitaria o di tracciamento.</p>"
+    },
+    {
+      "t": "h2",
+      "html": "Privacy dei minori"
+    },
+    {
+      "t": "p",
+      "html": "L'app non è rivolta a minori di 13 anni e non raccoglie consapevolmente informazioni che li riguardano."
+    },
+    {
+      "t": "h2",
+      "html": "Sicurezza"
+    },
+    {
+      "t": "p",
+      "html": "Le connessioni al server sono crittografate. Nessun telefono può leggere direttamente il database: ogni lettura e scrittura passa dal server, che verifica che la richiesta sia consentita. Sul tuo dispositivo, i dati sono protetti dalla sicurezza del dispositivo stesso e dal blocco facoltativo dell'app."
+    },
+    {
+      "t": "h2",
+      "html": "Modifiche alla presente informativa"
+    },
+    {
+      "t": "p",
+      "html": "Potremmo aggiornare la presente informativa. Le modifiche vengono pubblicate qui con una nuova data e quelle importanti vengono annunciate nell'app."
+    },
+    {
+      "t": "h2",
+      "html": "Contatti"
+    },
+    {
+      "t": "p",
+      "html": "Per qualsiasi domanda o richiesta di eliminazione: <a href=\"mailto:qeuapps@gmail.com\">qeuapps@gmail.com</a>."
+    }
+  ]
 }

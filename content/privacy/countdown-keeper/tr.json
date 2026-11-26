@@ -1,101 +1,105 @@
 {
- "lang": "tr",
- "lang_name": "Türkçe",
- "dir": "ltr",
- "title": "Countdown Keeper Gizlilik Politikası",
- "effective": "Son güncelleme: Eylül 2026",
- "blocks": [
-  {
-   "t": "p",
-   "html": "Countdown Keeper (“uygulama”), Thiban Tech Solutions tarafından yayımlanan bir mobil uygulamadır. Bu politika, uygulamanın bilgilerinizi nasıl işlediğini açıklar. Gizliliğinize saygı duyuyoruz: Uygulama oturum açmayı gerektirmez; kişisel bilgilerinizi toplamayız, satmayız veya paylaşmayız."
-  },
-  {
-   "t": "h2",
-   "html": "Uygulamanın İşlediği Bilgiler"
-  },
-  {
-   "t": "p",
-   "html": "Uygulama oluşturduğunuz içeriği saklar: etkinlik başlıkları, tarihleri ve saatleri, notlar, renkler, eklediğiniz bir emoji veya isteğe bağlı bir fotoğraf ve uygulama ayarlarınız. Bu bilgiler cihazınızda saklanır ve yalnızca sayaçlarınızı ve hatırlatıcılarınızı göstermek için kullanılır."
-  },
-  {
-   "t": "h2",
-   "html": "Cihaz İzinleri"
-  },
-  {
-   "t": "html",
-   "html": "<ul><li><strong>Bildirimler</strong> — yalnızca hatırlatıcıları etkinleştirirseniz, sizi bir etkinlikten önce uyarmak için kullanılır.</li><li><strong>Kamera</strong> — isteğe bağlıdır; bir etkinliğe eklemek üzere fotoğraf çekebilmeniz içindir.</li><li><strong>Fotoğraflar</strong> — isteğe bağlıdır; bir etkinlik için fotoğraf seçebilmeniz veya bir etkinlik görselini galerinize kaydedebilmeniz içindir.</li><li><strong>Biyometri / Face ID</strong> — isteğe bağlıdır; yalnızca uygulama kilidini açarsanız uygulamanın kilidini açmak için kullanılır.</li><li><strong>Yeniden başlatma sonrası çalışma (Android)</strong> — planlanmış hatırlatıcıların cihaz yeniden başlatıldıktan sonra da korunması içindir.</li></ul><p>Her izin yalnızca ilgili özelliği kullandığınızda istenir.</p>"
-  },
-  {
-   "t": "h2",
-   "html": "Veri Depolama"
-  },
-  {
-   "t": "p",
-   "html": "Tüm etkinlikleriniz ve ayarlarınız cihazınızda yerel olarak saklanır. Uygulama etkinliklerinizi bir JSON dosyasına aktarabilir ve yeniden içe aktarabilir; bu dosyanın nereye kaydedileceğini ve varsa kiminle paylaşılacağını siz seçersiniz."
-  },
-  {
-   "t": "h2",
-   "html": "Veri Paylaşımı"
-  },
-  {
-   "t": "p",
-   "html": "Verilerinizi satmayız veya paylaşmayız. Uygulamanın kullanıcı hesapları ve bir Countdown Keeper sunucusu yoktur; yazdığınız hiçbir şey bize gönderilmez."
-  },
-  {
-   "t": "h2",
-   "html": "Üçüncü Taraf Hizmetler"
-  },
-  {
-   "t": "p",
-   "html": "Uygulama analiz, reklam veya çökme raporlama hizmetleri kullanmaz. Uygulamanın yapabileceği tek ağ isteği, görüntüleme yazı tipini ilk kez gerektiğinde indirmek için Google Fonts'a yapılan istektir; her web isteği gibi bu istek de cihazınızın IP adresini içerir, ancak hiçbir kişisel veri veya uygulama içeriği gönderilmez. Bunun dışında uygulama tamamen çevrimdışı çalışır."
-  },
-  {
-   "t": "h2",
-   "html": "Veri Saklama"
-  },
-  {
-   "t": "p",
-   "html": "Verileriniz, siz silene kadar cihazınızda kalır. Bir etkinliği silmek onu geri dönüşüm kutusuna taşır ve daha sonra oradan kalıcı olarak kaldırılır. Uygulamayı kaldırmak, uygulamanın tüm yerel verilerini siler."
-  },
-  {
-   "t": "h2",
-   "html": "Çocukların Gizliliği"
-  },
-  {
-   "t": "p",
-   "html": "Uygulama çocuklara yönelik değildir ve çocuklardan bilerek bilgi toplamaz."
-  },
-  {
-   "t": "h2",
-   "html": "Güvenlik"
-  },
-  {
-   "t": "p",
-   "html": "Verileriniz cihazınızın kendi güvenlik önlemleri ve uygulamanın korumalı alanı (sandbox) ile korunur. İsteğe bağlı biyometrik uygulama kilidiyle ek bir koruma katmanı ekleyebilirsiniz."
-  },
-  {
-   "t": "h2",
-   "html": "Seçimleriniz"
-  },
-  {
-   "t": "p",
-   "html": "Uygulamanın izinlerini cihaz ayarlarınızdan kontrol edersiniz ve verilerinizi istediğiniz zaman uygulama içinden dışa aktarabilir veya silebilirsiniz."
-  },
-  {
-   "t": "h2",
-   "html": "Bu Gizlilik Politikasındaki Değişiklikler"
-  },
-  {
-   "t": "p",
-   "html": "Bu politikayı zaman zaman güncelleyebiliriz. Tüm değişiklikler yeni bir tarihle bu sayfada yayımlanacaktır."
-  },
-  {
-   "t": "h2",
-   "html": "İletişim"
-  },
-  {
-   "t": "p",
-   "html": "Bu politika hakkında sorularınız varsa bize şu adresten ulaşabilirsiniz: <a href=\"mailto:qeuapps@gmail.com\">qeuapps@gmail.com</a>."
-  }
- ]
+  "lang": "tr",
+  "lang_name": "Türkçe",
+  "dir": "ltr",
+  "title": "Countdown Keeper Gizlilik Politikası",
+  "effective": "Son güncelleme: 27 Kasım 2026",
+  "blocks": [
+    {
+      "t": "p",
+      "html": "Countdown Keeper (“uygulama”), Thiban Tech Solutions tarafından yayımlanan bir mobil uygulamadır. Bu politika, uygulamanın bilgilerinizi nasıl işlediğini açıklar. Uygulamanın büyük bölümü yalnızca cihazınızda ve hesap gerektirmeden çalışır. Tek istisna isteğe bağlı <strong>Toplantı Planlayıcı</strong> aracıdır: katılımcıların yanıtlarını toplamak için bir sunucuya ihtiyaç duyar ve aşağıda ayrı bir bölümde açıklanmıştır. Bilgilerinizi satmıyor, reklam göstermiyor ve sizi izlemiyoruz."
+    },
+    {
+      "t": "h2",
+      "html": "Cihazınızda kalanlar"
+    },
+    {
+      "t": "p",
+      "html": "Tarih ve saatleriyle birlikte etkinlikler ve programlar, notlar, renkler, eklediğiniz resimler, bir etkinliğe eklediğiniz konum, hatırlatıcılar ve alarmlar ile ayarlarınız yalnızca cihazınızda saklanır ve hiçbir zaman bize gönderilmez. Dışa aktarma, paylaşım ve şifreli yedek dosyaları yalnızca siz istediğinizde oluşturulur; nereye gideceklerini ve kimin alacağını siz seçersiniz."
+    },
+    {
+      "t": "h2",
+      "html": "Cihaz izinleri"
+    },
+    {
+      "t": "html",
+      "html": "<ul><li><strong>Bildirimler</strong>: hatırlatıcılar ve alarmlar ile Toplantı Planlayıcı’daki düzenleyici uyarıları için.</li><li><strong>Alarmlar ve tam ekran (Android)</strong>: telefon kilitliyken bile alarmın zamanında çalması için.</li><li><strong>Kamera ve fotoğraflar</strong>: isteğe bağlı; bir etkinliğe resim eklemek veya galerinize resim kaydetmek için.</li><li><strong>Konum</strong>: isteğe bağlı; yalnızca bir etkinlik için “Mevcut konumum”a dokunduğunuzda. Cihazınızda kalır.</li><li><strong>Parmak izi / Face ID</strong>: isteğe bağlı, uygulama kilidi için.</li><li><strong>Yeniden başlatmadan sonra çalışma (Android)</strong>: planlanmış hatırlatıcıları korumak için.</li></ul><p>Her izin yalnızca ona ihtiyaç duyan özelliği kullandığınızda istenir.</p>"
+    },
+    {
+      "t": "h2",
+      "html": "Toplantı Planlayıcı (sunucu)"
+    },
+    {
+      "t": "p",
+      "html": "Bu aracı kullandığınızda aşağıdakiler Google Firebase’teki sunucumuzda (Avrupa Birliği’ndeki veri merkezlerinde) saklanır:"
+    },
+    {
+      "t": "html",
+      "html": "<ul><li>Cihaz için ad veya telefon numarası içermeyen <strong>otomatik bir anonim tanımlayıcı</strong>.</li><li><strong>Toplantı içeriği</strong>: düzenleyicinin yazdığı şekliyle başlık, not, yer ve önerilen zamanlar.</li><li><strong>Yanıtınız</strong>: yazdığınız ad ile seçtiğiniz veya işaretlediğiniz zamanlar.</li><li><strong>Uyarılar için</strong>: başka birinin düzenlediği bir toplantıyı açtığınızda, düzenleyicinin uyarısının size ulaşabilmesi için adınız ve cihazınızın push token’ı saklanır. Uyarı metni, uygulamada okuyabilmeniz için toplantıyla birlikte tutulur.</li></ul>"
+    },
+    {
+      "t": "p",
+      "html": "Düzenleyici, kimin yanıt verdiğini ve seçimlerini görür; düzenleyici adları gizlemedikçe diğer katılımcılar da bunları görür. Telefon numaranızı veya kişilerinizi asla istemeyiz. <strong>Saklama süresi:</strong> bir toplantı ve onunla ilgili her şey, son zamanından 30 gün sonra veya düzenleyici sildiğinde hemen otomatik olarak silinir. Yanıtınızı istediğiniz zaman geri çekebilirsiniz."
+    },
+    {
+      "t": "h2",
+      "html": "Düzenleyici hesabı ve puanlar"
+    },
+    {
+      "t": "p",
+      "html": "Bir toplantı düzenlemek için Apple veya Google ile oturum açar ve App Store ya da Google Play’den bir puan paketi satın alırsınız. Ardından şunları saklarız:"
+    },
+    {
+      "t": "html",
+      "html": "<ul><li>Apple veya Google’ın sağladığı şekliyle <strong>hesap tanımlayıcısı ve e-posta adresi</strong> (Apple gizli bir yönlendirme e-postası sağlayabilir). Yalnızca puanlarınızı tutmak için kullanılır, asla pazarlama için kullanılmaz.</li><li><strong>Bakiyeniz ve geçmişi</strong>: satın almalar, her toplantı için ayrılan, kullanılan ve iade edilen puanlar.</li><li><strong>Satın alma kayıtları</strong>: mağaza, işlem numarası, paket, puanlar ve tarih; böylece satın almayı Apple veya Google ile doğrulayabilir ve asla iki kez saymayız.</li></ul><p>Ödeme Apple veya Google’da gerçekleşir; kart bilgilerinizi asla görmeyiz. Mağaza bir satın almayı iade ederse, o satın almanın puanları kaldırılır.</p>"
+    },
+    {
+      "t": "h2",
+      "html": "Hesabınızı ve verilerinizi silme"
+    },
+    {
+      "t": "p",
+      "html": "Uygulamada: Puanlarım → ⋮ → Hesabı sil. Bu işlem hesabınızı, bakiyenizi, geçmişinizi ve düzenlediğiniz toplantıları siler. Yalnızca satın alma işlemi kaydı, yeniden yüklenmesini önlemek ve muhasebe amacıyla saklanır. Başkalarının toplantılarındaki yanıtlarınız, o toplantılarla birlikte silinir. Silme talebini e-postayla da iletebilirsiniz (aşağıda)."
+    },
+    {
+      "t": "h2",
+      "html": "Üçüncü taraf hizmetler"
+    },
+    {
+      "t": "html",
+      "html": "<ul><li><strong>Google Firebase</strong>: Toplantı Planlayıcı sunucusu, oturum açma, bildirimler ve isteklerin gerçek uygulamadan geldiğinin doğrulanması (Play Integrity / DeviceCheck ile App Check).</li><li><strong>Apple ve Google</strong>: oturum açma ve uygulama içi satın almalar.</li><li><strong>Google Fonts</strong>: görüntüleme yazı tipinin ilk seferde indirilmesi.</li></ul><p>Sunucu, maliyeti hesaplamak ve kötüye kullanımı önlemek için her isteğin kaç işlem kullandığını hesap ve toplantı tanımlayıcılarıyla birlikte kaydeder. Bu kayıtlar 30 gün içinde otomatik olarak silinir. Reklam veya izleme amaçlı analiz kullanmıyoruz.</p>"
+    },
+    {
+      "t": "h2",
+      "html": "Çocukların gizliliği"
+    },
+    {
+      "t": "p",
+      "html": "Uygulama 13 yaşından küçük çocuklara yönelik değildir ve onlardan bilerek bilgi toplamaz."
+    },
+    {
+      "t": "h2",
+      "html": "Güvenlik"
+    },
+    {
+      "t": "p",
+      "html": "Sunucuyla bağlantılar şifrelidir. Hiçbir telefon veritabanını doğrudan okuyamaz: her okuma ve yazma, isteğin izinli olup olmadığını denetleyen sunucu üzerinden geçer. Cihazınızdaki veriler, cihazın kendi güvenliği ve isteğe bağlı uygulama kilidiyle korunur."
+    },
+    {
+      "t": "h2",
+      "html": "Bu politikadaki değişiklikler"
+    },
+    {
+      "t": "p",
+      "html": "Bu politikayı güncelleyebiliriz. Değişiklikler burada yeni bir tarihle yayımlanır ve önemli değişiklikler uygulamada duyurulur."
+    },
+    {
+      "t": "h2",
+      "html": "İletişim"
+    },
+    {
+      "t": "p",
+      "html": "Her türlü soru veya silme talebi için: <a href=\"mailto:qeuapps@gmail.com\">qeuapps@gmail.com</a>."
+    }
+  ]
 }
